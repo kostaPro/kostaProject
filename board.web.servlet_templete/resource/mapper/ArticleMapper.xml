@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board.web.servlet.store.mapper.ArticleMapper">
+
+	<select id="select" parameterType="string" resultType="Article">
+		SELECT id
+		AS articleId, title, authorName, regDate, contents, boardId
+		FROM
+		article_tb
+		WHERE id = #{articleId}
+	</select>
+
+	<select id="selectAll" parameterType="string" resultType="Article">
+		SELECT
+		id AS articleId, title, authorName, regDate, contents, boardId
+		FROM
+		article_tb
+		WHERE boardId = #{boardId}
+	</select>
+
+	<insert id="insert" parameterType="Article">
+		<selectKey keyProperty="articleId" resultType="string" order="BEFORE">
+			SELECT article_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO article_tb (id, title, authorName, regDate, contents, boardId)
+		VALUES (#{articleId}, #{title}, #{authorName}, #{regDate}, #{contents}, #{boardId})
+	</insert>
+	
+	 <update id="update" parameterType="Article">
+		UPDATE article_tb SET contents = #{contents} WHERE id = #{articleId}
+	</update>
+	
+	<delete id="delete" parameterType="string">
+	DELETE FROM article_tb WHERE id = #{articleId}
+	</delete>
+
+</mapper>
