@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="hr.store.mapper.DepartmentMapper">
+  
+  
+  	<resultMap type="Department" id="DepartmentMap">
+  		<id property="no" column="deptNo"/>
+  		<result property="name" column="deptName"/>
+  		<collection property="employees" column="deptNo" ofType="Employee" select="hr.store.mapper.EmployeeMapper.retrieveByDeptNo" javaType="ArrayList" jdbcType="VARCHAR"/>
+  	</resultMap>
+  
+  <sql id="selectDepartment">
+  	select deptNo,deptName
+  	from dept_tb
+  </sql>
+  
+  	<select id="retrieveAll" resultMap="DepartmentMap">
+  		  <include refid="selectDepartment"></include>
+  	</select>
+  	
+  	<insert id="create" parameterType="Department">
+  		insert into dept_tb(deptNo,deptName)
+  		values(#{no},#{name})
+  	</insert>
+  	
+  	<select id="retrieve" parameterType="String" resultMap="DepartmentMap">
+  		<include refid="selectDepartment"></include>
+  		where deptNo = #{deptNo}
+  	</select>
+  
+  	<delete id="delete" parameterType="String">
+  		delete from dept_tb
+  		where deptNo = #{deptNo}
+  	</delete>
+  </mapper>

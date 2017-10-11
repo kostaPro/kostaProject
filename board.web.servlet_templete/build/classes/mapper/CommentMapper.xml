@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="board.web.servlet.store.mapper.CommentMapper">
+  
+  <insert id="insert" parameterType="Comment">
+  	<selectKey keyProperty="commentId" resultType="string" order="BEFORE">
+  		SELECT comment_seq.nextval FROM dual
+  	</selectKey>
+  	INSERT INTO comment_tb
+  		(id, authorName, comments, regDate, articleId)
+  	VALUES
+  		(#{commentId}, #{authorName}, #{comments}, #{regDate}, #{articleId})
+  </insert>
+  
+  <select id="selectAll" parameterType="string" resultType="Comment">
+  	SELECT id AS commentId,
+  		   authorName,
+  		   regDate,
+  		   comments,
+  		   articleId
+  	FROM comment_tb
+  	WHERE articleId = #{articleId}
+  </select>
+  
+  <update id="update" parameterType="Comment">
+		UPDATE comment_tb SET comments = #{comments} WHERE id = #{commentId}
+	</update>
+	
+  <delete id="delete" parameterType="string">
+		DELETE FROM comment_tb WHERE id = #{commentId}
+	</delete>
+  
+  </mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hr.store.mapper.EmployeeMapper">
+
+
+	<resultMap type="Employee" id="EmployeeMap">
+		<id property="no" column="empNo" />
+	</resultMap>
+
+	<sql id="selectEmployee">
+		select empNo,name,deptNo
+		from employee_tb
+	</sql>
+
+	<select id="retrieve" resultMap="EmployeeMap" parameterType="String">
+		<include refid="selectEmployee" />
+		where empNo = #{empNo}
+	</select>
+
+	<select id="retrieveAll" resultMap="EmployeeMap">
+		<include refid="selectEmployee"></include>
+	</select>
+
+	<insert id="create" parameterType="Employee">
+		insert into employee_tb
+		<choose>
+			<when test="deptNo != null">
+				values(#{no},#{name},#{deptNo})
+			</when>
+			
+			<otherwise>
+				values(#{no},#{name},null)
+			</otherwise>
+		</choose>
+	</insert>
+
+	<select id="retrieveByDeptNo" resultMap="EmployeeMap"
+		parameterType="String">
+		<include refid="selectEmployee"></include>
+		where deptNo = #{deptNo}
+	</select>
+
+	<update id="update" parameterType="Employee">
+		update employee_tb set deptNo = #{deptNo}
+		where empNo = #{no}
+	</update>
+
+</mapper>

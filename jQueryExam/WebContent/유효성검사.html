@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Validation(유효성 검사)</title>
+
+<style>
+#container {
+	width: 600px;
+	margin: 0 auto;
+	padding: 20px;}
+
+h1 {font-size: large;}
+
+dl dt {
+	border-left: 5px solid #6699CC;
+	font-size: small;
+	padding: 5px;}
+
+dl dt span {
+	color: red;
+	font-weight: bold;}
+
+dl dd {
+	font-size: small;
+	margin: 0;
+	padding: 10px;}
+
+dl dd input {
+	position: relative;
+	z-index: 2;}
+
+dl dd label {
+	position: relative;
+	padding: 5px 5px 5px 25px;
+	margin: 0 5px 0 -25px;
+	margin-left: -25px;
+	position: relative;
+	z-index: 1;}
+/*	경고에 대한 style
+	jQuery에서 사용*/
+dl dd.error input,dl dd.error textarea,dl dd.error label {
+	background: #CCFFCC;
+}
+dl dd p.error {
+	margin: 0;
+	color: red;
+	font-weight: bold;
+	margin-bottom: 1em;}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<div id="container">
+		<h1>유효성 검증(Validation)</h1>
+		<form action="javascript:alert('전송완료');">
+			<dl>
+				<dt>
+					이름<span> (*) </span>
+				</dt>
+				<dd>
+					<input type="text" size="10" class="validate required">
+				</dd>
+				<dt>연락처</dt>
+				<dd>
+					<input type="text" size="20" class="validate number">
+				</dd>
+				<dt>이메일</dt>
+				<dd>
+					<input type="text" size="70" name="mail" class="validate mail">
+				</dd>
+				<dt>이메일(확인)</dt>
+				<dd>
+					<input type="text" size="70" name="mail_check" class="validate mail mail_check">
+				</dd>
+				<dt>
+					재학유무<span> (*) </span>
+				</dt>
+				<dd>
+
+					<input type="radio" name="school" id="yes" class="validate required">
+					<label for="yes">유</label>
+					<input type="radio" name="school" id="no"> <label for="no">무</label>
+				</dd>
+				<dt>
+					희망 수강 과목<span> (*) </span>
+				</dt>
+				<dd class="checkboxRequired">
+					<input type="checkbox" id="jquery"> <label for="jquery">제이쿼리</label>
+					<input type="checkbox" id="html"> <label for="html">HTML</label>
+					<input type="checkbox" id="css"> <label for="css">웹표준</label>
+					<input type="checkbox" id="java"> <label for="java">자바스크립트</label>
+				</dd>
+				<dt>
+					건의사항<span> (*) </span>
+				</dt>
+				<dd>
+					<textarea id="message" rows="10" cols="63" class="validate required"></textarea>
+				</dd>
+			</dl>
+			<p>
+				<input type="submit" value="제출">
+			</p>
+		</form>
+	</div>
+	
+	<script>
+		$("form").submit(function(){
+			$("p.error").remove();
+			$("dl dd").removeClass("error");
+			
+			$(":text, textarea").filter(".validate").each(function(){
+				$(this).filter(".required").each(function(){
+					if($(this).val() == ""){
+						$(this).before("<p class='error'>필수 항목 입니다.</p>");
+					}
+				});
+				
+				$(this).filter(".number").each(function(){
+					if(isNaN($(this).val())){
+						$(this).before("<p class='error'>숫자만 입력 가능합니다.</p>");						
+					}
+				});
+				
+				$(this).filter(".mail").each(function(){
+					if($(this).val() && !$(this).val().match(/.+@.+\..+/g)){
+						$(this).before("<p class='error'>메일 형식이 잘못 되었습니다.</p>");
+					}
+				});
+			});
+			
+			$(":radio").filter(".validate").each(function(){
+				$(this).filter(".required").each(function(){
+					if($(":radio[name="+$(this).attr("name")+"]:checked").length==0){
+						$(this).before("<p class='error'>필수 항목 입니다.</p>");
+					}
+				});
+			});
+			
+			$(".checkboxRequired").each(function(){
+				if($(":checkbox:checked", this).length == 0){
+					$(this).before("<p class='error'>필수 항목 입니다.</p>");					
+				}
+			});
+			
+			if($("p.error").length > 0){
+				$("html, body").animate({scrollTop : $("p.error:first").offset().top -40},"slow");
+				
+				$("p.error").parent().addClass("error");
+				return false;
+			}
+		});
+	
+	</script>
+</body>
+</html>
