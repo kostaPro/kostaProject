@@ -74,3 +74,88 @@ CREATE SEQUENCE review_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE reviewComment_seq START WITH 1 INCREMENT BY 1;
 
 
+
+
+CREATE SEQUENCE event_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE meeting_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE meetingImage_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE eventComment_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE meetingComment_seq START WITH 1 INCREMENT BY 1;
+
+
+CREATE TABEL event_tb (
+	eventId number PRIMARY KEY,
+	eventName varchar2(20),
+	eventSpotId number,
+	eventImage varchar2(150),
+	openDate Date,
+	closeDate Date,
+	eventInfo varchar2(500),
+	
+);
+
+CREATE TABLE joinEvent_tb (
+	guestId varchar2(20),
+	eventId varchar2(20),
+	joinDate date
+);
+
+
+CREATE TABLE meeting_tb (
+	meetingId number PRIMARY KEY,
+	meetingDate Date,
+	meetingTime number,
+	minPerson number,
+	meetingPurpose varchar2(500),
+	meetingSpotId number,
+	hostId varchar2(20)
+);
+
+CREATE TABLE meetingImage_tb (
+	meetingImageId number PRIMARY KEY,
+	meetingImage varchar2(150),
+	meetingId number
+);
+
+CREATE TABLE eventCommentReport_tb (
+	reporertId varchar2(20),
+	eventCommentId number,
+	reportContents varchar2(60) PRIMARY KEY,
+	status varchar2(1)
+);
+
+CREATE TABLE eventComment_tb (
+	eventCommentId number PRIMARY KEY,
+	writeId varchar2(20),
+	contents varchar2(60),
+	eventId number
+);
+
+CREATE TABLE joinMeeting_tb (
+	guestId varchar2(20),
+	meetingId number
+);
+
+CREATE TABLE meetingCommentReport_tb(
+	reportContents varchar2(60) PRIMARY KEY,
+	reportTargetId varchar2(20),
+	reporterId varchar2(20),
+	status varchar2(1)
+);
+
+CREATE TABLE meetingComment_tb (
+	meetingCommentId number PRIMARY KEY,
+	writeId varchar2(20),
+	Contents varchar2(60),
+	registDate Date,
+	meetingId number
+);
+
+CREATE TABLE meetingReport_tb (
+	reportContents varchar2(60) PRIMARY KEY,
+	reportTargetId varchar2(20),
+	reportId varchar2(20),
+	status varchar2(1)
+);
+
+
