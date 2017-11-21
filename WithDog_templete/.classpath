@@ -23,6 +23,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/NoBackSpace_main80/WebContent/WEB-INF/lib/mybatis-3.4.5.jar"/>
+	<classpathentry kind="lib" path="/MusicPlaySpring_templete_WithMobile2/mybatis-3.4.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
