@@ -27,6 +27,7 @@ public class SpotStoreLogic implements SpotStore{
 
 		try {
 			SpotMapper mapper = session.getMapper(SpotMapper.class);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
