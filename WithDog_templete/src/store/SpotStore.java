@@ -7,7 +7,6 @@ import domain.Spot;
 public interface SpotStore {
 	
 	boolean createSpot(Spot spot);
-	boolean createEventSpot(Spot spot);
 	List<Spot> retrieveAllSpots();
 	Spot retrieveEventSpot(int eventId);
 	List<Spot> retrieveSpotsByLocation(String location);

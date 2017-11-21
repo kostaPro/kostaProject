@@ -37,22 +37,6 @@ public class SpotStoreLogic implements SpotStore{
 	}
 
 	@Override
-	public boolean createEventSpot(Spot spot) {
-
-		SqlSession session = factory.openSession();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return false;
-	}
-
-	@Override
 	public List<Spot> retrieveAllSpots() {
 		
 		SqlSession session = factory.openSession();
