@@ -13,7 +13,7 @@ import store.UserStore;
 public class UserServiceLogic implements UserService{
 	
 	@Autowired
-	private UserStore store;
+	private UserStore userStore;
 
 	@Override
 	public boolean registUser(User user) {
