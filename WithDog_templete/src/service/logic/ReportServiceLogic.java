@@ -5,47 +5,65 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Report;
 import domain.Review;
-import service.ReviewService;
+import service.ReportService;
 import store.ReportStore;
 import store.UserStore;
 
 @Service
-public class ReportServiceLogic implements ReviewService{
+public class ReportServiceLogic implements ReportService{
 	
 	@Autowired
 	private ReportStore reportStore;
 	@Autowired
 	private UserStore userStore;
-
-	@Override
-	public boolean registReview(Review review) {
 	
+	@Override
+	public boolean registRepot(Report report) {
+		
 		return false;
 	}
-
 	@Override
-	public Review findReviewByReviewId(int reviewId) {
-	
-		return null;
-	}
-
-	@Override
-	public List<String> findReviewsByWriterId(String writerId) {
+	public List<Report> findReportsByReporterId(String reporterId) {
 		
 		return null;
 	}
-
 	@Override
-	public boolean modifyReview(Review review) {
+	public List<Report> findReportsBySuspectId(String suspectId) {
+		
+		return null;
+	}
+	@Override
+	public List<Report> findAllReports() {
+		
+		return null;
+	}
+	@Override
+	public List<Report> findReportsByReportType(String reportType) {
+	
+		return null;
+	}
+	@Override
+	public List<String> findBlackList() {
+		
+		return null;
+	}
+	@Override
+	public Report findReport(String reporterId, int targetId) {
+		
+		return null;
+	}
+	@Override
+	public boolean modifyReport(Report report) {
+		
+		return false;
+	}
+	@Override
+	public boolean removeReport(int reportId) {
 		
 		return false;
 	}
 
-	@Override
-	public boolean removeReview(int reviewId) {
-		
-		return false;
-	}
 
 }
