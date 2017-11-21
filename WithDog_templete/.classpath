@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+<<<<<<< HEAD
 	<classpathentry kind="src" output="target/classes" path="src">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -25,4 +26,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/MusicPlaySpring_templete_WithMobile2/mybatis-3.4.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
+=======
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="output" path="bin"/>
+>>>>>>> branch 'master' of https://github.com/kostaPro/kostaProject.git
 </classpath>
