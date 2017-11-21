@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import domain.Comment;
 import store.CommentStore;
 import store.factory.SqlSessionFactoryProvider;
+import store.mapper.CommentMapper;
 
 @Repository
 public class CommentStoreLogic implements CommentStore{
@@ -25,7 +26,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -41,7 +42,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -57,7 +58,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -73,7 +74,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -89,7 +90,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -105,7 +106,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -121,7 +122,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -137,7 +138,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -153,7 +154,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -169,7 +170,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -185,7 +186,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -201,7 +202,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -217,7 +218,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -233,7 +234,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -249,7 +250,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -265,7 +266,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -281,7 +282,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -297,7 +298,7 @@ public class CommentStoreLogic implements CommentStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			CommentMapper mapper = session.getMapper(CommentMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

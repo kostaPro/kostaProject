@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import domain.Event;
 import store.EventStore;
 import store.factory.SqlSessionFactoryProvider;
+import store.mapper.EventMapper;
 
 @Repository
 public class EventStoreLogic implements EventStore{
@@ -26,7 +27,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -42,7 +43,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -58,7 +59,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -74,7 +75,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -90,7 +91,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -106,7 +107,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -122,7 +123,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -138,7 +139,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -154,7 +155,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -170,7 +171,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -186,7 +187,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -202,7 +203,7 @@ public class EventStoreLogic implements EventStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			EventMapper mapper = session.getMapper(EventMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

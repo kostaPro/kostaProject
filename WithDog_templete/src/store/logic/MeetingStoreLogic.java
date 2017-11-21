@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import domain.Meeting;
 import store.MeetingStore;
 import store.factory.SqlSessionFactoryProvider;
+import store.mapper.MeetingMapper;
 
 @Repository
 public class MeetingStoreLogic implements MeetingStore{
@@ -26,7 +27,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -42,7 +43,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -58,7 +59,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -74,7 +75,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -90,7 +91,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -106,7 +107,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -122,7 +123,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -170,7 +171,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -186,7 +187,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -202,7 +203,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -218,7 +219,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -234,7 +235,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -250,7 +251,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

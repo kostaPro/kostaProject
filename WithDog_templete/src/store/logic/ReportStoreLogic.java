@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import domain.Report;
 import store.ReportStore;
 import store.factory.SqlSessionFactoryProvider;
+import store.mapper.ReportMapper;
 
 @Repository
 public class ReportStoreLogic implements ReportStore{
@@ -25,7 +26,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -41,7 +42,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -57,7 +58,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -73,7 +74,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -89,7 +90,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -105,7 +106,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -121,7 +122,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -137,7 +138,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -153,7 +154,7 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		try {
-
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
