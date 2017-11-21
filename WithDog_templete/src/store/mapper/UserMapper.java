@@ -1,5 +1,18 @@
 package store.mapper;
 
-public interface UserMapper {
+import java.util.List;
 
+import domain.User;
+
+public interface UserMapper {
+	
+	boolean createUser(User user);
+	
+	boolean updateUser(User user);
+	
+	boolean deleteUser(String userId);
+	
+	User retrieveUserByUserId(String userId);
+	
+	List<User> retrieveUserList(List<User> userIdList);
 }
