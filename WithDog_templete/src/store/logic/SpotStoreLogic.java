@@ -197,39 +197,7 @@ public class SpotStoreLogic implements SpotStore{
 	}
 
 	@Override
-	public boolean updateEventSpot(Spot spot) {
-		
-		SqlSession session = factory.openSession();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return false;
-	}
-
-	@Override
 	public boolean deleteSpot(int spotId) {
-		
-		SqlSession session = factory.openSession();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return false;
-	}
-
-	@Override
-	public boolean deleteEventSpot(int eventId) {
 		
 		SqlSession session = factory.openSession();
 

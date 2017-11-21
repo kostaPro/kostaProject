@@ -17,7 +17,6 @@ public interface SpotStore {
 	List<String> retrieveImageListBySpotId(int spotId);
 	List<Spot> retrieveSpotsByRegisterId(String registerId);
 	boolean updateSpot(Spot spot);
-	boolean updateEventSpot(Spot spot);
 	boolean deleteSpot(int spotId);
-	boolean deleteEventSpot(int eventId);
+	
 }
