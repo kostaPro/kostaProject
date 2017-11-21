@@ -28,7 +28,7 @@ create table spotImage_tb(
 spotImageId number primary Key,
 imageUrl varchar(150),
 spotId number
-);
+);;
 
 create table reviewImage_tb(
 reviewImageId number primary Key,
@@ -156,6 +156,6 @@ CREATE TABLE meetingReport_tb (
 	reportTargetId varchar2(20),
 	reportId varchar2(20),
 	status varchar2(1)
-)
+);
 
 
