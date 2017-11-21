@@ -156,6 +156,6 @@ CREATE TABLE meetingReport_tb (
 	reportTargetId varchar2(20),
 	reportId varchar2(20),
 	status varchar2(1)
-);;
+)
 
 
