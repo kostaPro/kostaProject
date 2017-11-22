@@ -20,26 +20,26 @@
 		#{thumNail},#{registerId})
 	</insert>
 
-	<select id="retrieveAllSpots" resultMap="Spot">
+	<select id="retrieveAllSpots" resultType="Spot">
 		<include refid="selectSpot"></include>
 	</select>
 
 	<select id="retrieveSpotsByLocation" parameterType="String"
-		resultMap="Spot">
+		resultType="Spot">
 		<include refid="selectSpot"></include>
 		where spotLocation LIKE #{location}
 	</select>
 
 
 	<select id="retrieveSpotsBySpotType" parameterType="String"
-		resultMap="Spot">
+		resultType="Spot">
 		<include refid="selectSpot"></include>
 		where spotType = #{spotType}
 	</select>
 
 
 	<select id="retrieveSpotsByLocationSpotType" parameterType="Map"
-		resultMap="Spot">
+		resultType="Spot">
 		<include refid="selectSpot"></include>
 		where spotType = #{spotType}
 		and spotLocation LIKE #{location}
@@ -47,21 +47,21 @@
 
 
 	<select id="retrieveSpotBySpotId" parameterType="Integer"
-		resultMap="Spot">
+		resultType="Spot">
 		<include refid="selectSpot"></include>
 		where spotId = #{spotId}
 	</select>
 
 
 	<select id="retrieveSpotsBySpotName" parameterType="String"
-		resultMap="Spot">
+		resultType="Spot">
 		<include refid="selectSpot"></include>
 		where spotName LIKE #{spotName}
 	</select>
 
 
 	<select id="retrieveImageListBySpotId" parameterType="Integer"
-		resultMap="String">
+		resultType="String">
 		select imageUrl
 		from spotImage_tb
 		where spotId = #{spotId}
@@ -69,7 +69,7 @@
 
 
 	<select id="retrieveSpotsByRegisterId" parameterType="String"
-		resultMap="Spot">
+		resultType="Spot">
 		<include refid="selectSpot"></include>
 		where registerId = #{regiserId}
 	</select>
