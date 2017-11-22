@@ -4,25 +4,44 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="store.mapper.ReviewMapper">
-	
-	<select id="retrieveReviewsBySpotId" parameterType="integer" resultType="Review">
-		SELECT reviewId, title, content, registDate, writerId, spotId FROM review_tb
+
+	<resultMap type="Review" id="ReviewMap">
+		<id property="reviewId" column="reviewId"/>
+		<collection property="reviewImageList" column="reviewId"
+			ofType="String" select="store.mapper.ReviewMapper.retrieveImageListByReviewId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+
+		<collection property="commentList" column="reviewId"
+			ofType="String" select="store.mapper.CommentMapper.retrieveCommentsByReviewId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<select id="retrieveReviewsBySpotId" parameterType="integer"
+		resultType="Review">
+		SELECT reviewId, title, content, registDate, writerId,
+		spotId FROM review_tb
 		WHERE spotId = #{spotId}
 	</select>
-	
-	<select id="retrieveReviewByReviewId" parameterType="integer" resultType="Review">
-		SELECT reviewId, title, content, registDate, writerId, spotId FROM review_tb
+
+	<select id="retrieveReviewByReviewId" parameterType="integer"
+		resultType="Review" resultMap="ReviewMap">
+		SELECT reviewId, title, content, registDate, writerId,
+		spotId FROM review_tb
 		WHERE reviewId = #{reviewId}
 	</select>
-	
-	<select id="retrieveReviewsByWriterId" parameterType="String" resultType="Review">
-		SELECT reviewId, title, content, registDate, writerId, spotId FROM review_tb
+
+	<select id="retrieveReviewsByWriterId" parameterType="String"
+		resultType="Review">
+		SELECT reviewId, title, content, registDate, writerId,
+		spotId FROM review_tb
 		WHERE writerId = #{writerId}
 	</select>
-	
-	<select id="retrieveImageListByReviewId" parameterType="integer" resultType="String">
+
+	<select id="retrieveImageListByReviewId" parameterType="integer"
+		resultType="String">
 		SELECT imageUrl FROM reviewImage_tb
-		WHERE reviewId = #{reviewId}
+		WHERE reviewId =
+		#{reviewId}
 	</select>
 
 	<insert id="createReview" parameterType="Review">
@@ -30,21 +49,27 @@
 			order="BEFORE">
 			SELECT review_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO review_tb (reviewId, title, content, registDate, writerId, spotId)
-		VALUES (#{reviewId}, #{title}, #{content}, SYSDATE, #{writerId}, #{spotId})
+		INSERT INTO review_tb (reviewId, title, content, registDate, writerId,
+		spotId)
+		VALUES (#{reviewId}, #{title}, #{content}, SYSDATE,
+		#{writerId}, #{spotId})
 	</insert>
-	
+
 	<insert id="createReviewImage" parameterType="map">
-		INSERT INTO reviewImage_tb (reviewImageId, imageUrl, reviewId)
-		VALUES (reviewImage_seq.nextval, #{imageUrl}, #{reviewId})
+		INSERT INTO
+		reviewImage_tb (reviewImageId, imageUrl, reviewId)
+		VALUES
+		(reviewImage_seq.nextval, #{imageUrl}, #{reviewId})
 	</insert>
 
 	<update id="updateReview" parameterType="Review">
-		UPDATE review_tb SET content = #{content} WHERE reviewId = #{reviewId}
+		UPDATE review_tb SET
+		content = #{content} WHERE reviewId = #{reviewId}
 	</update>
 
 	<delete id="deleteReview" parameterType="integer">
-		DELETE FROM review_tb WHERE reviewId = #{reviewId}
+		DELETE FROM review_tb
+		WHERE reviewId = #{reviewId}
 	</delete>
-	
+
 </mapper>

@@ -19,20 +19,20 @@ public class ReviewStoreLogicTest {
 		store = new ReviewStoreLogic();
 	}
 
-	@Test
-	public void testCreateReview() {	
-		
-		Date date = new Date(2017/11/11);
-		
-		Review review = new Review();
-		review.setTitle("test");
-		review.setContent("하이욤");
-		review.setRegistDate(date);
-		review.setWriterId("jakook");
-		review.setSpotId(1);
-		
-		store.createReview(review);
-	}
+//	@Test
+//	public void testCreateReview() {	
+//		
+//		Date date = new Date(2017/11/11);
+//		
+//		Review review = new Review();
+//		review.setTitle("test");
+//		review.setContent("하이욤");
+//		review.setRegistDate(date);
+//		review.setWriterId("jakook");
+//		review.setSpotId(1);
+//		
+//		store.createReview(review);
+//	}
 //
 //	@Test
 //	public void testRetrieveReviewsBySpotId() {
@@ -40,11 +40,13 @@ public class ReviewStoreLogicTest {
 //		assertEquals(1, list.get(1).getSpotId());
 //	}
 //
-//	@Test
-//	public void testRetrieveReviewByReviewId() {
-//		Review review = store.retrieveReviewByReviewId(2);
-//		assertEquals(2, review.getReviewId());
-//	}
+	@Test
+	public void testRetrieveReviewByReviewId() {
+		Review review = store.retrieveReviewByReviewId(3);
+		assertEquals(3, review.getReviewId());
+//		assertEquals(1, review.getReviewImageList().size());
+//		assertEquals(1, review.getCommentList().size());
+	}
 //
 //	@Test
 //	public void testRetrieveReviewsByWriterId() {

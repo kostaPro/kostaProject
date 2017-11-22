@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Comment;
 import domain.Review;
 import service.ReviewService;
 import store.CommentStore;
@@ -21,36 +22,42 @@ public class ReviewServiceLogic implements ReviewService{
 	@Override
 	public boolean registReview(Review review) {
 		
-		return false;
+		return reviewStore.createReview(review);
 	}
 	
 	@Override
 	public boolean registReviewImage(String imageUrl, int reviewId) {
 	
-		return false;
+		return reviewStore.createReviewImage(imageUrl, reviewId);
 	}
 
 	@Override
 	public Review findReviewByReviewId(int reviewId) {
 		
-		return null;
+		return reviewStore.retrieveReviewByReviewId(reviewId);
 	}
 
 	@Override
-	public List<String> findReviewsByWriterId(String writerId) {
+	public List<Review> findReviewsByWriterId(String writerId) {
 		
-		return null;
+		return reviewStore.retrieveReviewsByWriterId(writerId);
 	}
 
 	@Override
 	public boolean modifyReview(Review review) {
 		
-		return false;
+		return reviewStore.updateReview(review);
 	}
 
 	@Override
 	public boolean removeReview(int reviewId) {
+		boolean result = false;
 		
-		return false;
+		List<Comment> list = commentStore.retrieveCommentsByReviewId(reviewId);
+		for (int i = 0; i < list.size(); i++) {
+			int comment = list.get(i).getCommentId();
+			result = commentStore.deleteEventComment(comment);
+		}
+		return result;
 	}
 }
