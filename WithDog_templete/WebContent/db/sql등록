@@ -1,4 +1,10 @@
 drop table eventComment_tb;
+drop table eventCommentReport_tb;
+drop table spotReport_tb;
+drop table reviewReport_tb;
+drop table reviewCommentReport_tb;
+drop table meetingCommentReport_tb;
+drop table meetingReport_tb;
 
 create table spot_tb(
 spotId number primary Key,
@@ -14,7 +20,8 @@ create table spotReport_tb(
 reportTargetId number primary Key,
 reportContents varchar(20),
 status varchar(1),
-reporterId varchar(20)
+reporterId varchar(20),
+suspectId varchar(20)
 );
 
 create table user_tb(
@@ -51,7 +58,8 @@ create table reviewReport_tb(
 reportTargetId number primary Key,
 reportContents varchar(20),
 status varchar(1),
-reporterId varchar(20)
+reporterId varchar(20),
+suspectId varchar(20)
 );
 
 create table reviewComment_tb(
@@ -66,7 +74,8 @@ create table reviewCommentReport_tb(
 reportTargetId number primary Key,
 reportContents varchar(20),
 status varchar(1),
-reporterId varchar(20)
+reporterId varchar(20),
+suspectId varchar(20)
 );
 
 CREATE SEQUENCE spot_seq START WITH 1 INCREMENT BY 1;
@@ -123,13 +132,14 @@ CREATE TABLE eventCommentReport_tb (
 	reporterId varchar(20),
 	reportTargetId number primary Key,
 	reportContents varchar(20),
-	status varchar(1)
+	status varchar(1),
+	suspectId varchar(20)
 );
 
 CREATE TABLE eventComment_tb (
 	eventCommentId number PRIMARY KEY,
 	writerId varchar(20),
-	contents varchar(60),
+	content varchar(60),
     registDate date,
 	eventId number
 );
@@ -143,7 +153,8 @@ CREATE TABLE meetingCommentReport_tb(
 	reportContents varchar(60),
 	reportTargetId number Primary key,
 	reporterId varchar(20),
-	status varchar(1)
+	status varchar(1),
+	suspectId varchar(20)
 );
 
 CREATE TABLE meetingComment_tb (
@@ -158,7 +169,8 @@ CREATE TABLE meetingReport_tb (
 	reportContents varchar(60),
 	reportTargetId number primary Key,
 	reporterId varchar(20),
-	status varchar(1)
+	status varchar(1),
+	suspectId varchar(20)
 );
 
 commit;

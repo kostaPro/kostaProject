@@ -7,11 +7,14 @@
 
 	<sql id="selectSpot">
 		SELECT spotId, spotName, spotLocation, spotInfo, spotType,
-		thumnail,registerId
+		thumbnail,registerId
 		FROM spot_TB
 	</sql>
 
 	<insert id="createSpot" parameterType="Spot">
+		<selectKey keyProperty="spotId" resultType="integer" order="BEFORE">
+			SELECT spot_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO
 		spot_TB(spotId, spotName, spotLocation, spotInfo, spotType,
 		thumbnail,registerId)
@@ -19,7 +22,13 @@
 		#{spotInfo}, #{spotType},
 		#{thumbnail},#{registerId})
 	</insert>
-
+	
+	<insert id="createSpotImage" parameterType="Map">
+		INSERT INTO spotImage_TB(spotImageId, imageUrl, spotId)
+		VALUES (spotImage_seq.nextval,#{imageUrl},#{spotId}})
+	</insert>
+	
+	
 	<select id="retrieveAllSpots" resultType="Spot">
 		<include refid="selectSpot"></include>
 	</select>
@@ -75,13 +84,13 @@
 	</select>
 
 	<update id="updateSpot" parameterType="Spot">
-		update spot_tb set spotInfo = #{spotInfo} and spotType = #{spotType}
-		where spotId = #{spotId}
+		UPDATE spot_tb SET spotInfo = #{spotInfo}, spotType = #{spotType} WHERE spotId = #{spotId}
 	</update>
 
 	<delete id="deleteSpot" parameterType="Integer">
 		DELETE FROM spot_TB
-		where spotId = #{spotId}
+		where
+		spotId = #{spotId}
 	</delete>
 
 </mapper>

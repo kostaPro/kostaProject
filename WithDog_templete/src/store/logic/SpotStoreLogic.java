@@ -252,4 +252,31 @@ public class SpotStoreLogic implements SpotStore{
 		return result;
 	}
 
+	@Override
+	public boolean createSpotImage(int spotId, String imageUrl) {
+		SqlSession session = factory.openSession();
+		Map<String,Object> map = new HashMap<>();
+		boolean result = false;
+
+		try {
+			SpotMapper mapper = session.getMapper(SpotMapper.class);
+			map.put("imageUrl",imageUrl);
+			map.put("spotId", spotId);
+			
+			result = mapper.createSpotImage(map);
+			
+			if(result) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+		
+		return result;
+	}
+
 }

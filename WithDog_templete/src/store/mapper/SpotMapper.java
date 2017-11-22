@@ -18,7 +18,10 @@ public interface SpotMapper {
 	Spot retrieveSpotBySpotId(int spotId);
 	
 	List<Spot> retrieveSpotsBySpotName(String spotName);
+	
 	List<String> retrieveImageListBySpotId(int spotId);
+	boolean createSpotImage(Map<String,Object> map);
+	
 	List<Spot> retrieveSpotsByRegisterId(String registerId);
 	
 	boolean updateSpot(Spot spot);

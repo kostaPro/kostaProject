@@ -19,6 +19,7 @@ public interface SpotStore {
 	List<Spot> retrieveSpotsBySpotName(String spotName);
 	
 	List<String> retrieveImageListBySpotId(int spotId);
+	boolean createSpotImage(int spotId, String imageUrl);
 	
 	List<Spot> retrieveSpotsByRegisterId(String registerId);
 	

@@ -81,4 +81,10 @@ public class SpotServiceLogic implements SpotService{
 		return false;
 	}
 
+	@Override
+	public boolean registSpotImage(int spotId, String imageUrl) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

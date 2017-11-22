@@ -14,6 +14,9 @@ public interface SpotService {
 	Spot findSpotBySpotId(int spotId);
 	List<Spot> findSpotsByRegisterId(String registerId);
 	List<Spot> findSpotsBySpotName(String spotName);
+	
+	boolean registSpotImage(int spotId, String imageUrl);
+	
 	boolean modifySpot(Spot spot);
 	boolean removeSpot(int spotId);
 
