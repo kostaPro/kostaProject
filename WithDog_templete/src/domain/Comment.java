@@ -10,7 +10,14 @@ public class Comment {
 	private String content;
 	private Date registDate;
 	private List<Comment> replyList;
+	private int targetId;
 	
+	public int getTargetId() {
+		return targetId;
+	}
+	public void setTargetId(int targetId) {
+		this.targetId = targetId;
+	}
 	public int getCommentId() {
 		return commentId;
 	}

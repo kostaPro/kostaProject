@@ -4,5 +4,129 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="store.mapper.CommentMapper">
-	
+
+	<insert id="createEventComment" parameterType="Comment">
+		<selectKey keyProperty="commentId" resultType="integer"
+			order="BEFORE">
+			SELECT eventComment_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO eventComment_tb (eventCommentId, writerId, content,
+		registDate, eventId)
+		VALUES (#{commentId}, #{writerId}, #{content},
+		SYSDATE, #{targetId})
+	</insert>
+
+	<insert id="createReviewComment" parameterType="Comment">
+		<selectKey keyProperty="commentId" resultType="integer"
+			order="BEFORE">
+			SELECT reviewComment_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO reviewComment_tb (reviewCommentId, writerId, content,
+		registDate, reviewId)
+		VALUES (#{commentId}, #{writerId}, #{content},
+		SYSDATE, #{targetId})
+	</insert>
+
+	<insert id="createMeetingComment" parameterType="Comment">
+		<selectKey keyProperty="commentId" resultType="integer"
+			order="BEFORE">
+			SELECT meetingComment_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO meetingComment_tb (meetingCommentId, writerId, content,
+		registDate, meetingId)
+		VALUES (#{commentId}, #{writerId}, #{content},
+		SYSDATE, #{targetId})
+	</insert>
+
+	<select id="retrieveCommentsByReviewId" parameterType="integer"
+		resultType="Comment">
+		SELECT reviewCommentId, writerId, content, registDate,
+		reviewId FROM
+		reviewComment_tb
+		WHERE reviewId = #{targetId}
+	</select>
+
+	<select id="retrieveCommentsByMeetingId" parameterType="integer"
+		resultType="Comment">
+		SELECT meetingCommentId, writerId, content, registDate,
+		meetingId FROM
+		meetingComment_tb
+		WHERE meetingId = #{targetId}
+	</select>
+
+	<select id="retrieveCommentsByEventId" parameterType="integer"
+		resultType="Comment">
+		SELECT eventCommentId, writerId, content, registDate,
+		eventId FROM
+		eventComment_tb
+		WHERE eventId = #{targetId}
+	</select>
+
+	<select id="retrieveCommentByCommentId" parameterType="integer"
+		resultType="Comment">
+
+	</select>
+
+	<select id="retrieveReplyListByParentCommentId" parameterType="integer"
+		resultType="Comment">
+
+	</select>
+
+	<update id="updateEventComment" parameterType="Comment">
+		UPDATE
+		eventComment_tb SET content =
+		#{content} WHERE eventCommentId =
+		#{commentId}
+	</update>
+
+	<update id="updateReviewComment" parameterType="Comment">
+		UPDATE
+		reviewComment_tb SET content =
+		#{content} WHERE reviewCommentId =
+		#{commentId}
+	</update>
+
+	<update id="updateMeetingComment" parameterType="Comment">
+		UPDATE
+		meetingComment_tb SET content =
+		#{content} WHERE meetingCommentId =
+		#{commentId}
+	</update>
+
+	<delete id="deleteReviewComment" parameterType="integer">
+		DELETE FROM
+		reviewComment_tb WHERE
+		reviewCommentId = #{commentId}
+	</delete>
+
+	<delete id="deleteEventComment" parameterType="integer">
+		DELETE FROM
+		eventComment_tb WHERE
+		eventCommentId = #{commentId}
+	</delete>
+
+	<delete id="deleteMeetingComment" parameterType="integer">
+		DELETE FROM
+		meetingComment_tb WHERE
+		meetingCommentId = #{commentId}
+	</delete>
+
+	<delete id="deleteReviewCommentList" parameterType="integer">
+		DELETE FROM
+		reviewComment_tb WHERE
+		reviewId = #{targetId}
+	</delete>
+
+	<delete id="deleteEventCommentList" parameterType="integer">
+		DELETE FROM
+		eventComment_tb WHERE
+		eventId = #{targetId}
+	</delete>
+
+	<delete id="deleteMeetingCommentList" parameterType="integer">
+		DELETE FROM
+		meetingComment_tb WHERE
+		meetingId = #{targetId}
+	</delete>
+
 </mapper>

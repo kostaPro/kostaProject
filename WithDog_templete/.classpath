@@ -7,6 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="resouce"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -23,6 +24,21 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/kosta/Desktop/ksy/mybatis-3.4.5.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/kosta/.m2/repository/org/mybatis/mybatis/3.4.4/mybatis-3.4.4.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.archivename" value="mybatis-3.4.4.jar"/>
+			<attribute name="maven.groupId" value="org.mybatis"/>
+			<attribute name="maven.artifactId" value="mybatis"/>
+			<attribute name="maven.version" value="3.4.4"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc6.jar"/>
+>>>>>>> branch 'master' of https://github.com/kostaPro/kostaProject.git
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

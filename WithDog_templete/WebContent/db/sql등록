@@ -55,7 +55,7 @@ reporterId varchar(20)
 create table reviewComment_tb(
 reviewCommentId number primary Key,
 content varchar(60),
-registData date,
+registDate date,
 writerId  varchar(20),
 reviewId number
 );
@@ -112,7 +112,7 @@ CREATE TABLE meeting_tb (
 
 CREATE TABLE meetingImage_tb (
 	meetingImageId number PRIMARY KEY,
-	meetingImage varchar(150),
+	imageUrl varchar(150),
 	meetingId number
 );
 
@@ -126,7 +126,8 @@ CREATE TABLE eventCommentReport_tb (
 CREATE TABLE eventComment_tb (
 	eventCommentId number PRIMARY KEY,
 	writerId varchar(20),
-	contents varchar(60),
+	content varchar(60),
+    registDate Date,
 	eventId number
 );
 
@@ -145,7 +146,7 @@ CREATE TABLE meetingCommentReport_tb(
 CREATE TABLE meetingComment_tb (
 	meetingCommentId number PRIMARY KEY,
 	writerId varchar(20),
-	Contents varchar(60),
+	Content varchar(60),
 	registDate Date,
 	meetingId number
 );

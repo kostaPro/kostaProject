@@ -12,7 +12,14 @@ public class Review {
 	private String writerId;
 	private Date registDate;
 	private List<Comment> commentList;
+	private int spotId;
 	
+	public int getSpotId() {
+		return spotId;
+	}
+	public void setSpotId(int spotId) {
+		this.spotId = spotId;
+	}
 	public int getReviewId() {
 		return reviewId;
 	}
@@ -55,5 +62,4 @@ public class Review {
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
-
 }

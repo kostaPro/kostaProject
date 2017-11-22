@@ -1,15 +1,12 @@
 package service;
 
-import java.util.List;
-
 import domain.Comment;
 
 public interface CommentService {
 	
-	boolean registEventComment(Comment comment, int eventId, int parentReplyId);
-	boolean registMeetingComment(Comment comment, int meetingId);
-	boolean registReviewComment(Comment comment, int reviewId);
-	List<Comment> findCommentsByWriterId(String writerId);
+	boolean registEventComment(Comment comment, int parentReplyId);
+	boolean registMeetingComment(Comment comment);
+	boolean registReviewComment(Comment comment);
 	Comment findCommentByCommentId(int commentId);
 	boolean modifyEventComment(Comment comment);
 	boolean modifyMeetingComment(Comment comment);
