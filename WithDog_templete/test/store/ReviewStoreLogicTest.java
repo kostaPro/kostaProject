@@ -19,21 +19,20 @@ public class ReviewStoreLogicTest {
 		store = new ReviewStoreLogic();
 	}
 
-//	@Test
-//	public void testCreateReview() {	
-//		
-//		Date date = new Date(2017/11/11);
-//		
-//		Review review = new Review();
-//		review.setReviewId(1);
-//		review.setTitle("안녕");
-//		review.setContent("하이욤");
-//		review.setRegistDate(date);
-//		review.setWriterId("jakook");
-//		review.setSpotId(1);
-//		
-//		store.createReview(review);
-//	}
+	@Test
+	public void testCreateReview() {	
+		
+		Date date = new Date(2017/11/11);
+		
+		Review review = new Review();
+		review.setTitle("test");
+		review.setContent("하이욤");
+		review.setRegistDate(date);
+		review.setWriterId("jakook");
+		review.setSpotId(1);
+		
+		store.createReview(review);
+	}
 //
 //	@Test
 //	public void testRetrieveReviewsBySpotId() {

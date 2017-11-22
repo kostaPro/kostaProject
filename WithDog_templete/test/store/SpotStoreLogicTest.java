@@ -2,6 +2,9 @@ package store;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,35 +12,20 @@ import domain.Spot;
 import store.logic.SpotStoreLogic;
 
 public class SpotStoreLogicTest {
-
 	SpotStore store;
 	
 	@Before
 	public void setUp() {
 		store = new SpotStoreLogic();
 	}
-	
-//	@Test
-//	public void testCreateSpot() {
-//		Spot spot = new Spot();
-//		
-//		spot.setRegisterId("test");
-//		spot.setSpotType("cafe");
-//		spot.setSpotInfo("this place for All kinda of pet");
-//		spot.setSpotLocation("인천");
-//		spot.setSpotName("bowWow");
-//		spot.setThumbnail("url/dfsfds/dfsdf");
-//		
-//		store.createSpot(spot);
-//	}
 
 	@Test
-	public void testRetrieveAllSpots() {
+	public void testCreateSpot() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testRetrieveEventSpot() {
+	public void testRetrieveAllSpots() {
 		fail("Not yet implemented");
 	}
 
@@ -58,7 +46,10 @@ public class SpotStoreLogicTest {
 
 	@Test
 	public void testRetrieveSpotBySpotId() {
-		fail("Not yet implemented");
+		Spot spot = store.retrieveSpotBySpotId(1);
+		
+		assertEquals(2, spot.getReviewList().size());
+		assertEquals(2, spot.getSpotImageList().size());
 	}
 
 	@Test
@@ -68,7 +59,10 @@ public class SpotStoreLogicTest {
 
 	@Test
 	public void testRetrieveImageListBySpotId() {
-		fail("Not yet implemented");
+		List<String> imageList = new ArrayList<>();
+		imageList = store.retrieveImageListBySpotId(22);
+		
+		assertEquals(2, imageList.size());
 	}
 
 	@Test
@@ -84,6 +78,11 @@ public class SpotStoreLogicTest {
 	@Test
 	public void testDeleteSpot() {
 		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCreateSpotImage() {
+//		store.createSpotImage(22, "/test/tt.jpg");
 	}
 
 }

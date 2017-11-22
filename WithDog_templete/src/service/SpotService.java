@@ -7,6 +7,8 @@ import domain.Spot;
 public interface SpotService {
 	
 	boolean registSpot(Spot spot);
+	boolean registSpotImage(int spotId, String imageUrl);
+	
 	List<Spot> findAllSpots();
 	List<Spot> findSpotsByLocation(String location);
 	List<Spot> findSpotsBySpotType(String spotType);

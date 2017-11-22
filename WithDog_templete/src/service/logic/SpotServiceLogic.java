@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Review;
 import domain.Spot;
 import service.SpotService;
 import store.CommentStore;
@@ -24,61 +25,69 @@ public class SpotServiceLogic implements SpotService{
 	@Override
 	public boolean registSpot(Spot spot) {
 		
-		return false;
+		return spotStore.createSpot(spot);
 	}
 
 	@Override
 	public List<Spot> findAllSpots() {
 		
-		return null;
+		return spotStore.retrieveAllSpots();
 	}
 
 	@Override
 	public List<Spot> findSpotsByLocation(String location) {
 		
-		return null;
+		return spotStore.retrieveSpotsByLocation(location);
 	}
 
 	@Override
 	public List<Spot> findSpotsBySpotType(String spotType) {
 		
-		return null;
+		return spotStore.retrieveSpotsBySpotType(spotType);
 	}
 
 	@Override
 	public List<Spot> findSpotsByLocationSpotType(String location, String spotType) {
 	
-		return null;
+		return spotStore.retrieveSpotsByLocationSpotType(location, spotType);
 	}
 
 	@Override
 	public Spot findSpotBySpotId(int spotId) {
-		
-		return null;
+		return spotStore.retrieveSpotBySpotId(spotId);
 	}
 
 	@Override
 	public List<Spot> findSpotsByRegisterId(String registerId) {
 		
-		return null;
+		return spotStore.retrieveSpotsByRegisterId(registerId);
 	}
 
 	@Override
 	public List<Spot> findSpotsBySpotName(String spotName) {
 		
-		return null;
+		return spotStore.retrieveSpotsBySpotName(spotName);
 	}
 
 	@Override
 	public boolean modifySpot(Spot spot) {
 	
-		return false;
+		return spotStore.updateSpot(spot);
 	}
 
 	@Override
 	public boolean removeSpot(int spotId) {
+		boolean result = false;
 		
-		return false;
+		result = spotStore.deleteSpot(spotId);
+		
+		
+		return result;
+	}
+
+	@Override
+	public boolean registSpotImage(int spotId, String imageUrl) {
+		return spotStore.createSpotImage(spotId, imageUrl);
 	}
 
 }
