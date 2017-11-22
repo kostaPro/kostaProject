@@ -10,7 +10,7 @@ public class Spot {
 	private String thumbnail;
 	private String spotInfo;
 	private List<String> spotImageList;
-	private String spotCategory;
+	private String spotType;
 	private String registerId;
 	private List<Review> reviewList;
 	
@@ -50,11 +50,11 @@ public class Spot {
 	public void setSpotImageList(List<String> spotImageList) {
 		this.spotImageList = spotImageList;
 	}
-	public String getSpotCategory() {
-		return spotCategory;
+	public String getSpotType() {
+		return spotType;
 	}
-	public void setSpotCategory(String spotCategory) {
-		this.spotCategory = spotCategory;
+	public void setSpotType(String spotType) {
+		this.spotType = spotType;
 	}
 	public String getRegisterId() {
 		return registerId;

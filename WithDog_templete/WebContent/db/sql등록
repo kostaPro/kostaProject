@@ -1,3 +1,5 @@
+drop table eventComment_tb;
+
 create table spot_tb(
 spotId number primary Key,
 spotName varchar(20),
@@ -28,7 +30,7 @@ create table spotImage_tb(
 spotImageId number primary Key,
 imageUrl varchar(150),
 spotId number
-);;
+);
 
 create table reviewImage_tb(
 reviewImageId number primary Key,
@@ -83,14 +85,14 @@ CREATE SEQUENCE eventComment_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE meetingComment_seq START WITH 1 INCREMENT BY 1;
 
 
-CREATE TABEL event_tb (
+CREATE TABle event_tb (
 	eventId number PRIMARY KEY,
 	eventName varchar(20),
 	eventSpotId number,
 	eventImage varchar(150),
 	openDate Date,
 	closeDate Date,
-	eventInfo varchar(500),
+	eventInfo varchar(500)
 	
 );
 
@@ -128,6 +130,7 @@ CREATE TABLE eventComment_tb (
 	eventCommentId number PRIMARY KEY,
 	writerId varchar(20),
 	contents varchar(60),
+    registDate date,
 	eventId number
 );
 
@@ -158,4 +161,4 @@ CREATE TABLE meetingReport_tb (
 	status varchar(1)
 );
 
-
+commit;

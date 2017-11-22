@@ -11,8 +11,6 @@ public interface SpotMapper {
 	
 	List<Spot> retrieveAllSpots();
 	
-	Spot retrieveEventSpot(int eventId);
-	
 	List<Spot> retrieveSpotsByLocation(String location);
 	List<Spot> retrieveSpotsBySpotType(String spotType);
 	List<Spot> retrieveSpotsByLocationSpotType(Map<String, String> map);
