@@ -326,6 +326,11 @@ public class CommentStoreLogic implements CommentStore{
 		try {
 			CommentMapper mapper = session.getMapper(CommentMapper.class);
 			result = mapper.deleteEventCommentList(eventId);
+			if (result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
