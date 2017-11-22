@@ -13,7 +13,7 @@
 		INSERT INTO eventComment_tb (eventCommentId, writerId, content,
 		registDate, eventId)
 		VALUES (#{commentId}, #{writerId}, #{content},
-		#{registDate}, #{targetId})
+		SYSDATE, #{targetId})
 	</insert>
 
 	<insert id="createReviewComment" parameterType="Comment">
@@ -24,7 +24,7 @@
 		INSERT INTO reviewComment_tb (reviewCommentId, writerId, content,
 		registDate, reviewId)
 		VALUES (#{commentId}, #{writerId}, #{content},
-		#{registDate}, #{targetId})
+		SYSDATE, #{targetId})
 	</insert>
 
 	<insert id="createMeetingComment" parameterType="Comment">
@@ -35,7 +35,7 @@
 		INSERT INTO meetingComment_tb (meetingCommentId, writerId, content,
 		registDate, meetingId)
 		VALUES (#{commentId}, #{writerId}, #{content},
-		#{registDate}, #{targetId})
+		SYSDATE, #{targetId})
 	</insert>
 
 	<select id="retrieveCommentsByReviewId" parameterType="integer"

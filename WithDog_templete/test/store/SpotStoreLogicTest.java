@@ -17,19 +17,19 @@ public class SpotStoreLogicTest {
 		store = new SpotStoreLogic();
 	}
 	
-	@Test
-	public void testCreateSpot() {
-		Spot spot = new Spot();
-		
-		spot.setRegisterId("test");
-		spot.setSpotType("cafe");
-		spot.setSpotInfo("this place for All kinda of pet");
-		spot.setSpotLocation("인천");
-		spot.setSpotName("bowWow");
-		spot.setThumbnail("url/dfsfds/dfsdf");
-		
-		store.createSpot(spot);
-	}
+//	@Test
+//	public void testCreateSpot() {
+//		Spot spot = new Spot();
+//		
+//		spot.setRegisterId("test");
+//		spot.setSpotType("cafe");
+//		spot.setSpotInfo("this place for All kinda of pet");
+//		spot.setSpotLocation("인천");
+//		spot.setSpotName("bowWow");
+//		spot.setThumbnail("url/dfsfds/dfsdf");
+//		
+//		store.createSpot(spot);
+//	}
 
 	@Test
 	public void testRetrieveAllSpots() {
