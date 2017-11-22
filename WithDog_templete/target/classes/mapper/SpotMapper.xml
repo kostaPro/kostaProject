@@ -7,17 +7,17 @@
 
 	<sql id="selectSpot">
 		SELECT spotId, spotName, spotLocation, spotInfo, spotType,
-		thumNail,registerId
+		thumnail,registerId
 		FROM spot_TB
 	</sql>
 
 	<insert id="createSpot" parameterType="Spot">
 		INSERT INTO
 		spot_TB(spotId, spotName, spotLocation, spotInfo, spotType,
-		thumNail,registerId)
+		thumbnail,registerId)
 		VALUES (#{spotId}, #{spotName}, #{spotLocation},
 		#{spotInfo}, #{spotType},
-		#{thumNail},#{registerId})
+		#{thumbnail},#{registerId})
 	</insert>
 
 	<select id="retrieveAllSpots" resultType="Spot">
