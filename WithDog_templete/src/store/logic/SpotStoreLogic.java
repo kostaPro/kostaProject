@@ -10,14 +10,18 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Spot;
 import store.SpotStore;
 import store.factory.SqlSessionFactoryProvider;
 import store.mapper.SpotMapper;
 
-@RunWith( JUnit4.class )
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:WithDog_templete/WebContent/WEB-INF/dispatcher-servlet.xml"})
 @Repository
 public class SpotStoreLogic implements SpotStore{
 	
