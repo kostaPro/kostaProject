@@ -3,6 +3,7 @@ package store;
 import static org.junit.Assert.*;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,49 +19,56 @@ public class ReviewStoreLogicTest {
 		store = new ReviewStoreLogic();
 	}
 
-	@Test
-	public void testCreateReview() {	
-		
-		Date date = new Date(2017/11/11);
-		
-		Review review = new Review();
-		review.setTitle("안녕");
-		review.setContent("하이욤");
-		review.setRegistDate(date);
-		review.setWriterId("jakook");
-		review.setSpotId(1);
-		
-		store.createReview(review);
-	}
+//	@Test
+//	public void testCreateReview() {	
+//		
+//		Date date = new Date(2017/11/11);
+//		
+//		Review review = new Review();
+//		review.setReviewId(1);
+//		review.setTitle("안녕");
+//		review.setContent("하이욤");
+//		review.setRegistDate(date);
+//		review.setWriterId("jakook");
+//		review.setSpotId(1);
+//		
+//		store.createReview(review);
+//	}
 //
 //	@Test
 //	public void testRetrieveReviewsBySpotId() {
-//		fail("Not yet implemented");
+//		List<Review> list = store.retrieveReviewsBySpotId(1);
+//		assertEquals(1, list.get(1).getSpotId());
 //	}
 //
 //	@Test
 //	public void testRetrieveReviewByReviewId() {
-//		fail("Not yet implemented");
+//		Review review = store.retrieveReviewByReviewId(2);
+//		assertEquals(2, review.getReviewId());
 //	}
 //
 //	@Test
 //	public void testRetrieveReviewsByWriterId() {
-//		fail("Not yet implemented");
+//		List<Review> list = store.retrieveReviewsByWriterId("jakook");
+//		assertEquals("jakook", list.get(0).getWriterId());
 //	}
 //
 //	@Test
 //	public void testRetrieveImageListByReviewId() {
-//		fail("Not yet implemented");
+//		List<String> list = store.retrieveImageListByReviewId(3);
+//		assertEquals("c//withdog", list.get(0));
 //	}
-//
+
 //	@Test
 //	public void testUpdateReview() {
-//		fail("Not yet implemented");
+//	Review rev = store.retrieveReviewByReviewId(2);
+//	rev.setContent("호호호");
+//	store.updateReview(rev);
 //	}
 //
 //	@Test
 //	public void testDeleteReview() {
-//		fail("Not yet implemented");
+//		store.deleteReview(2);
 //	}
 
 }

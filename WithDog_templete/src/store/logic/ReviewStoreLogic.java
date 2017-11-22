@@ -81,10 +81,10 @@ public class ReviewStoreLogic implements ReviewStore {
 	}
 
 	@Override
-	public List<String> retrieveReviewsByWriterId(String writerId) {
+	public List<Review> retrieveReviewsByWriterId(String writerId) {
 
 		SqlSession session = factory.openSession();
-		List<String> list = null;
+		List<Review> list = null;
 
 		try {
 			ReviewMapper mapper = session.getMapper(ReviewMapper.class);

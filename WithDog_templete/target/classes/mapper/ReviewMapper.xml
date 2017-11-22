@@ -6,22 +6,22 @@
 <mapper namespace="store.mapper.ReviewMapper">
 	
 	<select id="retrieveReviewsBySpotId" parameterType="integer" resultType="Review">
-		SELECT reviewId, title, content, registDate, spotId FROM review_tb
+		SELECT reviewId, title, content, registDate, writerId, spotId FROM review_tb
 		WHERE spotId = #{spotId}
 	</select>
 	
 	<select id="retrieveReviewByReviewId" parameterType="integer" resultType="Review">
-		SELECT reviewId, title, content, registDate, spotId FROM review_tb
+		SELECT reviewId, title, content, registDate, writerId, spotId FROM review_tb
 		WHERE reviewId = #{reviewId}
 	</select>
 	
-	<select id="retrieveReviewsByWriterId" parameterType="String" resultType="String">
-		SELECT reviewId, title, content, registDate, spotId FROM review_tb
+	<select id="retrieveReviewsByWriterId" parameterType="String" resultType="Review">
+		SELECT reviewId, title, content, registDate, writerId, spotId FROM review_tb
 		WHERE writerId = #{writerId}
 	</select>
 	
 	<select id="retrieveImageListByReviewId" parameterType="integer" resultType="String">
-		SELECT reviewImageId, imageUrl, reviewId FROM reviewImage_tb
+		SELECT imageUrl FROM reviewImage_tb
 		WHERE reviewId = #{reviewId}
 	</select>
 
@@ -30,8 +30,8 @@
 			order="BEFORE">
 			SELECT review_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO review_tb (reviewId, title, content, registDate, spotId)
-		VALUES (#{reviewId}, #{title}, #{content}, SYSDATE, #{spotId})
+		INSERT INTO review_tb (reviewId, title, content, registDate, writerId, spotId)
+		VALUES (#{reviewId}, #{title}, #{content}, SYSDATE, #{writerId}, #{spotId})
 	</insert>
 
 	<update id="updateReview" parameterType="Review">

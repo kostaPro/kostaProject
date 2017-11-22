@@ -62,5 +62,4 @@ public class Review {
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
 	}
-
 }
