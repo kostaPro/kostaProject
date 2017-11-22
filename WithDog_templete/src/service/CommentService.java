@@ -6,9 +6,9 @@ import domain.Comment;
 
 public interface CommentService {
 	
-	boolean registEventComment(Comment comment, int eventId, int parentReplyId);
-	boolean registMeetingComment(Comment comment, int meetingId);
-	boolean registReviewComment(Comment comment, int reviewId);
+	boolean registEventComment(Comment comment, int parentReplyId);
+	boolean registMeetingComment(Comment comment);
+	boolean registReviewComment(Comment comment);
 	List<Comment> findCommentsByWriterId(String writerId);
 	Comment findCommentByCommentId(int commentId);
 	boolean modifyEventComment(Comment comment);
