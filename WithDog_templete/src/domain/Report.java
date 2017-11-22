@@ -6,6 +6,7 @@ public class Report {
 	private String reportType;
 	private int reportTargetId;
 	private String reporterId;
+	private String suspectId;
 	private String status;
 	
 	public String getReportContents() {
@@ -38,5 +39,12 @@ public class Report {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getSuspectId() {
+		return suspectId;
+	}
+	public void setSuspectId(String suspectId) {
+		this.suspectId = suspectId;
+	}
+	
 
 }
