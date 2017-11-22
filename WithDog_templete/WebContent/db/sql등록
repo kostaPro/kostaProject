@@ -97,7 +97,7 @@ CREATE TABEL event_tb (
 CREATE TABLE joinEvent_tb (
 	guestId varchar(20),
 	eventId varchar(20),
-	joinDate date
+	joinDate Date
 );
 
 
@@ -118,15 +118,15 @@ CREATE TABLE meetingImage_tb (
 );
 
 CREATE TABLE eventCommentReport_tb (
-	reporertId varchar(20),
-	eventCommentId number,
-	reportContents varchar(60) PRIMARY KEY,
+	reporterId varchar(20),
+	reportTargetId number primary Key,
+	reportContents varchar(20),
 	status varchar(1)
 );
 
 CREATE TABLE eventComment_tb (
 	eventCommentId number PRIMARY KEY,
-	writeId varchar(20),
+	writerId varchar(20),
 	contents varchar(60),
 	eventId number
 );
@@ -145,16 +145,16 @@ CREATE TABLE meetingCommentReport_tb(
 
 CREATE TABLE meetingComment_tb (
 	meetingCommentId number PRIMARY KEY,
-	writeId varchar(20),
+	writerId varchar(20),
 	Contents varchar(60),
 	registDate Date,
 	meetingId number
 );
 
 CREATE TABLE meetingReport_tb (
-	reportContents varchar(60) PRIMARY KEY,
-	reportTargetId varchar(20),
-	reportId varchar(20),
+	reportContents varchar(60),
+	reportTargetId varchar(20) primary Key,
+	reporterId varchar(20),
 	status varchar(1)
 );
 
