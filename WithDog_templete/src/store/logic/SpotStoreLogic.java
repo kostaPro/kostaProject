@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
 import domain.Spot;
@@ -14,6 +17,7 @@ import store.SpotStore;
 import store.factory.SqlSessionFactoryProvider;
 import store.mapper.SpotMapper;
 
+@RunWith( JUnit4.class )
 @Repository
 public class SpotStoreLogic implements SpotStore{
 	

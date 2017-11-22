@@ -112,7 +112,7 @@ CREATE TABLE meeting_tb (
 
 CREATE TABLE meetingImage_tb (
 	meetingImageId number PRIMARY KEY,
-	meetingImage varchar(150),
+	imageUrl varchar(150),
 	meetingId number
 );
 

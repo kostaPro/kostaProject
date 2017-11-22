@@ -2,6 +2,8 @@ package service.logic;
 
 import java.util.List;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,16 @@ import store.CommentStore;
 import store.ReviewStore;
 import store.SpotStore;
 
+@RunWith( JUnit4.class )
 @Service
 public class SpotServiceLogic implements SpotService{
 	
 	@Autowired
 	private SpotStore spotStore;
+	
 	@Autowired
 	private ReviewStore reviewStore;
+	
 	@Autowired
 	private CommentStore commentStore;
 
@@ -30,7 +35,10 @@ public class SpotServiceLogic implements SpotService{
 
 	@Override
 	public List<Spot> findAllSpots() {
-		
+		if(spotStore == null) {
+			System.out.println("missing store");
+			return null;
+		}
 		return spotStore.retrieveAllSpots();
 	}
 
@@ -80,7 +88,14 @@ public class SpotServiceLogic implements SpotService{
 		boolean result = false;
 		
 		result = spotStore.deleteSpot(spotId);
-		
+		if(result) {
+			List<Review> reviewList = reviewStore.retrieveReviewsBySpotId(spotId);
+			
+			for(Review review : reviewList) {
+				reviewStore.deleteReview(review.getReviewId());
+				commentStore.deleteReviewCommentList(review.getReviewId());
+			}
+		}
 		
 		return result;
 	}
