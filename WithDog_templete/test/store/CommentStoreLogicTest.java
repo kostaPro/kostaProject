@@ -51,22 +51,24 @@ public class CommentStoreLogicTest {
 //		
 //		store.createMeetingComment(com);
 //	}
-
+//
 //	@Test
 //	public void testRetrieveCommentsByReviewId() {
 //		List<Comment> list = store.retrieveCommentsByReviewId(1);
-//		assertEquals(1, list.get(0).getTargetId());
+//		assertEquals("22", list.get(1).getContent());
 //	}
-
-	@Test
-	public void testRetrieveCommentsByMeetingId() {
-	
-	}
-
-	@Test
-	public void testRetrieveCommentsByEventId() {
-		
-	}
+//
+//	@Test
+//	public void testRetrieveCommentsByMeetingId() {
+//		List<Comment> list = store.retrieveCommentsByMeetingId(1);
+//		assertEquals("2", list.get(1).getContent());
+//	}
+//
+//	@Test
+//	public void testRetrieveCommentsByEventId() {
+//		List<Comment> list = store.retrieveCommentsByEventId(1);
+//		assertEquals("1", list.get(0).getContent());
+//	}
 
 	@Test
 	public void testRetrieveCommentByCommentId() {
@@ -112,11 +114,11 @@ public class CommentStoreLogicTest {
 //	public void testDeleteEventCommentList() {
 //		store.deleteEventCommentList(1);
 //	}
-
-	@Test
-	public void testDeleteReviewCommentList() {
-		store.deleteMeetingCommentList(1);
-	}
+//
+//	@Test
+//	public void testDeleteReviewCommentList() {
+//		store.deleteReviewCommentList(1);
+//	}
 //
 //	@Test
 //	public void testDeleteMeetingCommentList() {
