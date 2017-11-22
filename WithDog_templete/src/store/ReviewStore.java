@@ -7,6 +7,7 @@ import domain.Review;
 public interface ReviewStore {
 	
 	boolean createReview(Review review);
+	boolean createReviewImage(String imageUrl, int reviewId);
 	List<Review> retrieveReviewsBySpotId(int spotId);
 	Review retrieveReviewByReviewId(int reviewId);
 	List<Review> retrieveReviewsByWriterId(String writerId);

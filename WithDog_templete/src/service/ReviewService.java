@@ -7,6 +7,7 @@ import domain.Review;
 public interface ReviewService {
 	
 	boolean registReview(Review review);
+	boolean registReviewImage(String imageUrl, int reviewId);
 	Review findReviewByReviewId(int reviewId);
 	List<String> findReviewsByWriterId(String writerId);
 	boolean modifyReview(Review review);

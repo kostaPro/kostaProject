@@ -1,12 +1,14 @@
 package store.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import domain.Review;
 
 public interface ReviewMapper {
 	
 	boolean createReview(Review review);
+	boolean createReviewImage(Map<String, Object> map);
 	
 	List<Review> retrieveReviewsBySpotId(int spotId);
 	

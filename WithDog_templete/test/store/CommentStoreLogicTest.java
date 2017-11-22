@@ -2,98 +2,125 @@ package store;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 
+import domain.Comment;
+import store.logic.CommentStoreLogic;
+
 public class CommentStoreLogicTest {
+	private CommentStore store;
 
-	@Test
-	public void testCreateEventComment() {
-		fail("Not yet implemented");
+	@Before
+	public void setUp() {
+		store = new CommentStoreLogic();
 	}
 
-	@Test
-	public void testCreateReviewComment() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateMeetingComment() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testCreateEventComment() {
+//		Date date = new Date(2017/11/11);
+//		
+//		Comment com = new Comment();
+//		com.setContent("하요");
+//		com.setRegistDate(date);
+//		com.setWriterId("jakook");
+//		com.setTargetId(1);
+//		
+//		store.createEventComment(com);
+//	}
+//
+//	@Test
+//	public void testCreateReviewComment() {
+//		Comment com = new Comment();
+//		com.setContent("하요");
+//		com.setWriterId("jakook");
+//		com.setTargetId(1);
+//		
+//		store.createReviewComment(com);
+//	}
+//
+//	@Test
+//	public void testCreateMeetingComment() {
+//		Comment com = new Comment();
+//		com.setContent("하요");
+//		com.setWriterId("jakook");
+//		com.setTargetId(1);
+//		
+//		store.createMeetingComment(com);
+//	}
 
 	@Test
 	public void testRetrieveCommentsByReviewId() {
-		fail("Not yet implemented");
+		List<Comment> list = store.retrieveCommentsByReviewId(1);
+		assertEquals(1, list.get(0).getTargetId());
 	}
 
 	@Test
 	public void testRetrieveCommentsByMeetingId() {
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
 	public void testRetrieveCommentsByEventId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRetrieveCommentsByWriterId() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testRetrieveCommentByCommentId() {
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
 	public void testRetrieveReplyListByParentCommentId() {
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
 	public void testUpdateEventComment() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testUpdateReviewComment() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testUpdateMeetingComment() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteEventComment() {
-		fail("Not yet implemented");
+	
 	}
 
 	@Test
 	public void testDeleteReviewComment() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteMeetingComment() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteEventCommentList() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteReviewCommentList() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteMeetingCommentList() {
-		fail("Not yet implemented");
+		
 	}
 
 }

@@ -23,6 +23,12 @@ public class ReviewServiceLogic implements ReviewService{
 		
 		return false;
 	}
+	
+	@Override
+	public boolean registReviewImage(String imageUrl, int reviewId) {
+	
+		return false;
+	}
 
 	@Override
 	public Review findReviewByReviewId(int reviewId) {
@@ -47,5 +53,4 @@ public class ReviewServiceLogic implements ReviewService{
 		
 		return false;
 	}
-
 }

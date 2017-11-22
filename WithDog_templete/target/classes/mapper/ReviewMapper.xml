@@ -33,6 +33,11 @@
 		INSERT INTO review_tb (reviewId, title, content, registDate, writerId, spotId)
 		VALUES (#{reviewId}, #{title}, #{content}, SYSDATE, #{writerId}, #{spotId})
 	</insert>
+	
+	<insert id="createReviewImage" parameterType="map">
+		INSERT INTO reviewImage_tb (reviewImageId, imageUrl, reviewId)
+		VALUES (reviewImage_seq.nextval, #{imageUrl}, #{reviewId})
+	</insert>
 
 	<update id="updateReview" parameterType="Review">
 		UPDATE review_tb SET content = #{content} WHERE reviewId = #{reviewId}

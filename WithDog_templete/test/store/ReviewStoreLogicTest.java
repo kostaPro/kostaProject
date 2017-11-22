@@ -70,5 +70,10 @@ public class ReviewStoreLogicTest {
 //	public void testDeleteReview() {
 //		store.deleteReview(2);
 //	}
+//	
+//	@Test
+//	public void testCreateReviewImage() {
+//		store.createReviewImage("string", 4);
+//	}
 
 }

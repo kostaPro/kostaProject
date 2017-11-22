@@ -1,6 +1,8 @@
 package store.logic;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,12 +26,39 @@ public class ReviewStoreLogic implements ReviewStore {
 	public boolean createReview(Review review) {
 
 		SqlSession session = factory.openSession();
-		
+
 		boolean result = false;
 
 		try {
 			ReviewMapper mapper = session.getMapper(ReviewMapper.class);
 			result = mapper.createReview(review);
+			if (result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createReviewImage(String imageUrl, int reviewId) {
+		SqlSession session = factory.openSession();
+
+		boolean result = false;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("imageUrl", imageUrl);
+		map.put("reviewId", reviewId);
+
+		try {
+			ReviewMapper mapper = session.getMapper(ReviewMapper.class);
+			result = mapper.createReviewImage(map);
 			if (result) {
 				session.commit();
 			} else {
