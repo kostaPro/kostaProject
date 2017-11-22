@@ -16,19 +16,19 @@ public class CommentServiceLogic implements CommentService{
 	private CommentStore commentStore;
 
 	@Override
-	public boolean registEventComment(Comment comment, int eventId, int parentReplyId) {
+	public boolean registEventComment(Comment comment, int parentReplyId) {
 		
 		return false;
 	}
 
 	@Override
-	public boolean registMeetingComment(Comment comment, int meetingId) {
+	public boolean registMeetingComment(Comment comment) {
 	
 		return false;
 	}
 
 	@Override
-	public boolean registReviewComment(Comment comment, int reviewId) {
+	public boolean registReviewComment(Comment comment) {
 	
 		return false;
 	}

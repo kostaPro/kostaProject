@@ -94,7 +94,11 @@ CREATE SEQUENCE eventComment_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE meetingComment_seq START WITH 1 INCREMENT BY 1;
 
 
+<<<<<<< HEAD
+CREATE table event_tb (
+=======
 CREATE TABle event_tb (
+>>>>>>> refs/remotes/origin/JunitTest
 	eventId number PRIMARY KEY,
 	eventName varchar(20),
 	eventSpotId number,
@@ -102,7 +106,10 @@ CREATE TABle event_tb (
 	openDate Date,
 	closeDate Date,
 	eventInfo varchar(500)
+<<<<<<< HEAD
+=======
 	
+>>>>>>> refs/remotes/origin/JunitTest
 );
 
 CREATE TABLE joinEvent_tb (
@@ -150,8 +157,8 @@ CREATE TABLE joinMeeting_tb (
 );
 
 CREATE TABLE meetingCommentReport_tb(
-	reportContents varchar(60),
-	reportTargetId number Primary key,
+	reportContents varchar(60) PRIMARY KEY,
+	reportTargetId number,
 	reporterId varchar(20),
 	status varchar(1),
 	suspectId varchar(20)
@@ -173,4 +180,8 @@ CREATE TABLE meetingReport_tb (
 	suspectId varchar(20)
 );
 
+<<<<<<< HEAD
 commit;
+=======
+commit;
+>>>>>>> refs/remotes/origin/JunitTest

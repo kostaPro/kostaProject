@@ -12,7 +12,7 @@ public interface ReviewMapper {
 	
 	Review retrieveReviewByReviewId(int reviewId);
 	
-	List<String> retrieveReviewsByWriterId(String writerId);
+	List<Review> retrieveReviewsByWriterId(String writerId);
 	List<String> retrieveImageListByReviewId(int reviewId);
 	
 	boolean updateReview(Review review);

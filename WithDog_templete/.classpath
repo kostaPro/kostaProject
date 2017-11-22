@@ -35,6 +35,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/kosta/git/teamProject/WithDog_templete/bin/WebContent/WEB-INF/lib/ojdbc6.jar"/>
+=======
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc6.jar"/>
+>>>>>>> refs/remotes/origin/master
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -13,7 +13,6 @@ public interface CommentMapper {
 	List<Comment> retrieveCommentsByReviewId(int reviewId);
 	List<Comment> retrieveCommentsByMeetingId(int meetingId);
 	List<Comment> retrieveCommentsByEventId(int eventId);
-	List<Comment> retrieveCommentsByWriterId(String writerId);
 	
 	Comment retrieveCommentByCommentId(int commentId);
 	List<Comment> retrieveReplyListByParentCommentId(int parentCommentId);
