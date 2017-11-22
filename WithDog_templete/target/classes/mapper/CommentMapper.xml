@@ -43,7 +43,7 @@
 		SELECT reviewCommentId, writerId, content, registDate,
 		reviewId FROM
 		reviewComment_tb
-		WHERE reviewId = #{reviewId}
+		WHERE reviewId = #{targetId}
 	</select>
 
 	<select id="retrieveCommentsByMeetingId" parameterType="integer"

@@ -52,11 +52,11 @@ public class CommentStoreLogicTest {
 //		store.createMeetingComment(com);
 //	}
 
-	@Test
-	public void testRetrieveCommentsByReviewId() {
-		List<Comment> list = store.retrieveCommentsByReviewId(1);
-
-	}
+//	@Test
+//	public void testRetrieveCommentsByReviewId() {
+//		List<Comment> list = store.retrieveCommentsByReviewId(1);
+//		assertEquals(1, list.get(0).getTargetId());
+//	}
 
 	@Test
 	public void testRetrieveCommentsByMeetingId() {
@@ -80,7 +80,7 @@ public class CommentStoreLogicTest {
 
 	@Test
 	public void testUpdateEventComment() {
-		
+
 	}
 
 	@Test
@@ -92,35 +92,35 @@ public class CommentStoreLogicTest {
 	public void testUpdateMeetingComment() {
 		
 	}
-
-	@Test
-	public void testDeleteEventComment() {
-	
-	}
-
-	@Test
-	public void testDeleteReviewComment() {
-		
-	}
-
-	@Test
-	public void testDeleteMeetingComment() {
-		
-	}
-
-	@Test
-	public void testDeleteEventCommentList() {
-		
-	}
+//
+//	@Test
+//	public void testDeleteEventComment() {
+//		store.deleteEventComment(2);
+//	}
+//
+//	@Test
+//	public void testDeleteReviewComment() {
+//		store.deleteReviewComment(2);
+//	}
+//
+//	@Test
+//	public void testDeleteMeetingComment() {
+//		store.deleteMeetingComment(2);
+//	}
+//
+//	@Test
+//	public void testDeleteEventCommentList() {
+//		store.deleteEventCommentList(1);
+//	}
 
 	@Test
 	public void testDeleteReviewCommentList() {
-		
+		store.deleteMeetingCommentList(1);
 	}
-
-	@Test
-	public void testDeleteMeetingCommentList() {
-		
-	}
+//
+//	@Test
+//	public void testDeleteMeetingCommentList() {
+//		store.deleteMeetingCommentList(1);
+//	}
 
 }
