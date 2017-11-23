@@ -4,5 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="store.mapper.UserMapper">
+		
+	<insert id="createUser" parameterType="User">
+		INSERT INTO user_tb(userId, password, contact, favoriteLocation, petInfo, petImage)
+		VALUES(#{userId}, #{password}, #{contact}, #{favoriteLocation}, #{petInfo}, #{petImage})
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE user_tb 
+		SET password=#{password}, contact=#{contact}, favoriteLocation=#{favoriteLocation}, petInfo=#{petInfo}, petImage=#{petImage}
+		WHERE userId = {userId}
+	</update>
+	
+	<delete id="deleteUser" parameterType="User">
+		DELETE FROM user_tb
+		WHERE userId=#{userId}
+	</delete>
+	
+	<select id="retrieveUserByUserId" parameterType="int" resultType="User">
+		SELECT userId, password, contact, favoriteLocation, petInfo, petImage
+		FROM user_tb
+		WHERE userId = #{userId}	
+	</select>
+	
+	<select id="retrieveUserList" parameterType="String" resultType="User">
+		SELECT userId, contact, favoriteLocation, petInfo, petImage
+		From user_tb
+		WHERE userId = #{userId}
+	
+	</select>
+	
 	
 </mapper>
