@@ -34,16 +34,16 @@ public class SpotServiceLogic implements SpotService{
 
 	@Test
 	public void test() {
-//		Spot spot = new Spot();
-//		spot.setSpotName("testetet");
-//		spot.setRegisterId("dd");
-//		spot.setSpotInfo("tt");
-//		spot.setSpotLocation("aa");
-//		spot.setSpotType("vv");
-//		spot.setThumbnail("sdfsdf");
-//		registSpot(spot);
+		Spot spot = new Spot();
+		spot.setSpotName("testetet");
+		spot.setRegisterId("dd");
+		spot.setSpotInfo("tt");
+		spot.setSpotLocation("aa");
+		spot.setSpotType("vv");
+		spot.setThumbnail("sdfsdf");
+		registSpot(spot);
 		
-		removeSpot(1);
+//		removeSpot(1);
 		
 	}
 	
