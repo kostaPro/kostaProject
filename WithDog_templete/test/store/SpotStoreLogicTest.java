@@ -7,18 +7,16 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import domain.Spot;
 import store.logic.SpotStoreLogic;
 
 public class SpotStoreLogicTest {
+	
+	@Autowired
 	SpotStore store;
 	
-	@Before
-	public void setUp() {
-		store = new SpotStoreLogic();
-	}
-
 	@Test
 	public void testCreateSpot() {
 		fail("Not yet implemented");
@@ -46,10 +44,11 @@ public class SpotStoreLogicTest {
 
 	@Test
 	public void testRetrieveSpotBySpotId() {
-		Spot spot = store.retrieveSpotBySpotId(1);
+		Spot spot = store.retrieveSpotBySpotId(21);
 		
-		assertEquals(2, spot.getReviewList().size());
-		assertEquals(2, spot.getSpotImageList().size());
+		assertEquals(0, spot.getReviewList().size());
+		assertEquals(2, spot.getSpotId());
+		assertEquals(0, spot.getSpotImageList().size());
 	}
 
 	@Test

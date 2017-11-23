@@ -6,6 +6,7 @@
 <mapper namespace="store.mapper.SpotMapper">
 
 	<resultMap type="Spot" id="SpotMap">
+<<<<<<< HEAD
 		<collection property="spotImageList" column="spotId"
 			ofType="String" select="store.mapper.SpotMapper.retrieveImageListBySpotId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
@@ -13,6 +14,16 @@
 		<collection property="reviewList" column="spotId"
 			ofType="Review" select="store.mapper.ReviewMapper.retrieveReviewsBySpotId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
+=======
+		<id property="spotId" column="spotId" />
+		<collection property="spotImageList" column="spotId"
+			ofType="String" select="store.mapper.SpotMapper.retrieveImageListBySpotId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+
+		<collection property="reviewList" column="spotId" ofType="Review"
+			select="store.mapper.ReviewMapper.retrieveReviewsBySpotId" javaType="ArrayList"
+			jdbcType="NUMERIC" />
+>>>>>>> branch 'backUp' of https://github.com/kostaPro/kostaProject.git
 	</resultMap>
 
 	<sql id="selectSpot">

@@ -26,6 +26,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc6.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/MusicPlaySpring_templete_WithMobile2/mybatis-3.4.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/kosta/.m2/repository/org/springframework/spring-test/4.3.11.RELEASE/spring-test-4.3.11.RELEASE.jar">
 		<attributes>
@@ -36,5 +37,8 @@
 			<attribute name="maven.scope" value="test"/>
 		</attributes>
 	</classpathentry>
+=======
+	<classpathentry kind="lib" path="C:/Users/sungmi/git/kostaProject/WithDog_templete/WebContent/WEB-INF/lib/mybatis-3.4.5.jar"/>
+>>>>>>> branch 'backUp' of https://github.com/kostaPro/kostaProject.git
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

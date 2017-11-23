@@ -112,7 +112,11 @@ CREATE TABLE meeting_tb (
 
 CREATE TABLE meetingImage_tb (
 	meetingImageId number PRIMARY KEY,
+<<<<<<< HEAD
 	meetingImage varchar(150),
+=======
+	imageUrl varchar(150),
+>>>>>>> branch 'backUp' of https://github.com/kostaPro/kostaProject.git
 	meetingId number
 );
 
