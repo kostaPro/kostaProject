@@ -32,15 +32,15 @@ public class CommentStoreLogicTest {
 //		store.createEventComment(com);
 //	}
 //
-//	@Test
-//	public void testCreateReviewComment() {
-//		Comment com = new Comment();
-//		com.setContent("하요");
-//		com.setWriterId("jakook");
-//		com.setTargetId(1);
-//		
-//		store.createReviewComment(com);
-//	}
+	@Test
+	public void testCreateReviewComment() {
+		Comment com = new Comment();
+		com.setContent("하요");
+		com.setWriterId("jakook");
+		com.setTargetId(1);
+		
+		store.createReviewComment(com);
+	}
 //
 //	@Test
 //	public void testCreateMeetingComment() {

@@ -34,10 +34,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/MusicPlaySpring_templete_WithMobile2/mybatis-3.4.5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/kosta/Desktop/WithDog/WebContent/WEB-INF/lib/mybatis-3.4.5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

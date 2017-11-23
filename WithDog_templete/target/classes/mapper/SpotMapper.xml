@@ -22,7 +22,7 @@
 	</sql>
 
 	<insert id="createSpot" parameterType="Spot">
-		<selectKey keyProperty="reviewId" resultType="integer"
+		<selectKey keyProperty="spotId" resultType="integer"
 			order="BEFORE">
 			SELECT spot_seq.nextval FROM dual
 		</selectKey>

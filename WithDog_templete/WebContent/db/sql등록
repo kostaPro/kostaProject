@@ -1,3 +1,24 @@
+drop table spot_tb;
+drop table spotReport_tb;
+drop table spotImage_tb;
+drop table user_tb;
+drop table review_tb;
+drop table reviewImage_tb;
+drop table reviewReport_tb;
+drop table reviewCommentReport_tb;
+drop table reviewComment_tb;
+drop table event_tb;
+drop table joinEvent_tb;
+drop table meeting_tb;
+drop TABLE meetingImage_tb;
+drop TABLE eventCommentReport_tb;
+drop TABLE eventComment_tb;
+drop TABLE joinMeeting_tb;
+drop TABLE meetingCommentReport_tb;
+drop TABLE meetingComment_tb;
+drop TABLE meetingReport_tb;
+
+
 create table spot_tb(
 spotId number primary Key,
 spotName varchar(20),
@@ -10,7 +31,7 @@ registerId varchar(20)
 
 create table spotReport_tb(
 reportTargetId number primary Key,
-reportContents varchar(20),
+reportContent varchar(20),
 status varchar(1),
 reporterId varchar(20)
 );
@@ -47,7 +68,7 @@ spotId number
 
 create table reviewReport_tb(
 reportTargetId number primary Key,
-reportContents varchar(20),
+reportContent varchar(20),
 status varchar(1),
 reporterId varchar(20)
 );
@@ -62,20 +83,28 @@ reviewId number
 
 create table reviewCommentReport_tb(
 reportTargetId number primary Key,
-reportContents varchar(20),
+reportContent varchar(20),
 status varchar(1),
 reporterId varchar(20)
 );
+
+
+drop SEQUENCE spot_seq;
+drop SEQUENCE spotImage_seq;
+drop SEQUENCE reviewImage_seq;
+drop SEQUENCE review_seq;
+drop SEQUENCE reviewComment_seq;
+drop SEQUENCE event_seq;
+drop SEQUENCE meeting_seq;
+drop SEQUENCE meetingImage_seq;
+drop SEQUENCE eventComment_seq;
+drop SEQUENCE meetingComment_seq;
 
 CREATE SEQUENCE spot_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE spotImage_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE reviewImage_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE review_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE reviewComment_seq START WITH 1 INCREMENT BY 1;
-
-
-
-
 CREATE SEQUENCE event_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE meeting_seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE meetingImage_seq START WITH 1 INCREMENT BY 1;
@@ -119,7 +148,7 @@ CREATE TABLE meetingImage_tb (
 CREATE TABLE eventCommentReport_tb (
 	reporterId varchar(20),
 	reportTargetId number primary Key,
-	reportContents varchar(20),
+	reportContent varchar(20),
 	status varchar(1)
 );
 
@@ -137,8 +166,8 @@ CREATE TABLE joinMeeting_tb (
 );
 
 CREATE TABLE meetingCommentReport_tb(
-	reportContents varchar(60) PRIMARY KEY,
-	reportTargetId number,
+	reportContent varchar(60),
+	reportTargetId number  PRIMARY KEY,
 	reporterId varchar(20),
 	status varchar(1)
 );
@@ -152,7 +181,7 @@ CREATE TABLE meetingComment_tb (
 );
 
 CREATE TABLE meetingReport_tb (
-	reportContents varchar(60),
+	reportContent varchar(60),
 	reportTargetId number primary Key,
 	reporterId varchar(20),
 	status varchar(1)

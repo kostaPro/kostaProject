@@ -1,9 +1,16 @@
 package service.logic;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import domain.Review;
 import domain.Spot;
@@ -12,6 +19,9 @@ import store.CommentStore;
 import store.ReviewStore;
 import store.SpotStore;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(locations = {"file:WebContent/WEB-INF/dispatcher-servlet.xml"})
 @Service
 public class SpotServiceLogic implements SpotService{
 	
@@ -22,6 +32,21 @@ public class SpotServiceLogic implements SpotService{
 	@Autowired
 	private CommentStore commentStore;
 
+	@Test
+	public void test() {
+//		Spot spot = new Spot();
+//		spot.setSpotName("testetet");
+//		spot.setRegisterId("dd");
+//		spot.setSpotInfo("tt");
+//		spot.setSpotLocation("aa");
+//		spot.setSpotType("vv");
+//		spot.setThumbnail("sdfsdf");
+//		registSpot(spot);
+		
+		removeSpot(1);
+		
+	}
+	
 	@Override
 	public boolean registSpot(Spot spot) {
 		
@@ -80,7 +105,14 @@ public class SpotServiceLogic implements SpotService{
 		boolean result = false;
 		
 		result = spotStore.deleteSpot(spotId);
-		
+		if(result) {
+			List<Review> reviewList = reviewStore.retrieveReviewsBySpotId(spotId);
+			
+			for(Review review : reviewList) {
+				reviewStore.deleteReview(review.getReviewId());
+				commentStore.deleteReviewCommentList(review.getReviewId());
+			}
+		}
 		
 		return result;
 	}
