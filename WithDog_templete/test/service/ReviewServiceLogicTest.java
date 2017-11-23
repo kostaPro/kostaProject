@@ -1,7 +1,5 @@
 package service;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +7,7 @@ import domain.Review;
 import service.logic.ReviewServiceLogic;
 
 public class ReviewServiceLogicTest {
+
 	private ReviewService service;
 
 	@Before
