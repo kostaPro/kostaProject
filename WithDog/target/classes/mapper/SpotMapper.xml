@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.SpotMapper">
+
+	<resultMap type="Spot" id="SpotMap">
+		<id property="spotId" column="spotId" />
+		<collection property="spotImageList" column="spotId"
+			ofType="String" select="store.mapper.SpotMapper.retrieveImageListBySpotId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+
+		<collection property="reviewList" column="spotId" ofType="Review"
+			select="store.mapper.ReviewMapper.retrieveReviewsBySpotId" javaType="ArrayList"
+			jdbcType="NUMERIC" />
+	</resultMap>
+
+	<sql id="selectSpot">
+		SELECT spotId, spotName, spotLocation, spotInfo, spotType,
+		thumbNail,registerId
+		FROM spot_TB
+	</sql>
+
+	<insert id="createSpot" parameterType="Spot">
+		<selectKey keyProperty="reviewId" resultType="integer"
+			order="BEFORE">
+			SELECT spot_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO
+		spot_TB(spotId, spotName, spotLocation, spotInfo, spotType,
+		thumbnail,registerId)
+		VALUES (#{spotId}, #{spotName}, #{spotLocation},
+		#{spotInfo}, #{spotType},
+		#{thumbnail},#{registerId})
+	</insert>
+
+	<insert id="createSpotImage" parameterType="Map">
+		INSERT INTO
+		spotImage_TB(spotImageId, imageUrl, spotId)
+		VALUES
+		(spotImage_seq.nextval,#{imageUrl},#{spotId})
+	</insert>
+
+	<select id="retrieveAllSpots" resultType="Spot">
+		<include refid="selectSpot"></include>
+	</select>
+
+	<select id="retrieveSpotsByLocation" parameterType="String"
+		resultType="Spot">
+		<include refid="selectSpot"></include>
+		where spotLocation LIKE #{location}
+	</select>
+
+
+	<select id="retrieveSpotsBySpotType" parameterType="String"
+		resultType="Spot">
+		<include refid="selectSpot"></include>
+		where spotType = #{spotType}
+	</select>
+
+
+	<select id="retrieveSpotsByLocationSpotType" parameterType="Map"
+		resultType="Spot">
+		<include refid="selectSpot"></include>
+		where spotType = #{spotType}
+		and spotLocation LIKE #{location}
+	</select>
+
+
+	<select id="retrieveSpotBySpotId" parameterType="Integer"
+		resultMap="SpotMap">
+		<include refid="selectSpot"></include>
+		where spotId = #{spotId}
+	</select>
+
+
+	<select id="retrieveSpotsBySpotName" parameterType="String"
+		resultType="Spot">
+		<include refid="selectSpot"></include>
+		where spotName LIKE #{spotName}
+	</select>
+
+
+	<select id="retrieveImageListBySpotId" parameterType="Integer"
+		resultType="String">
+		select imageUrl
+		from spotImage_tb
+		where spotId = #{spotId}
+	</select>
+
+
+	<select id="retrieveSpotsByRegisterId" parameterType="String"
+		resultType="Spot">
+		<include refid="selectSpot"></include>
+		where registerId = #{regiserId}
+	</select>
+
+	<update id="updateSpot" parameterType="Spot">
+		update spot_tb set
+		spotInfo = #{spotInfo} and spotType = #{spotType}
+		where spotId =
+		#{spotId}
+	</update>
+
+	<delete id="deleteSpot" parameterType="Integer">
+		DELETE FROM spot_TB
+		where
+		spotId = #{spotId}
+	</delete>
+
+</mapper>
