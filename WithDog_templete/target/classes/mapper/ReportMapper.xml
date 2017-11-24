@@ -4,5 +4,68 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="store.mapper.ReportMapper">
+
+
+	<sql id="selectAllReport">
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status
+		FROM eventCommnetReport_tb,
+		meetingCommentReport_tb, meetingReport_tb, reviewCommentReport_tb,
+		reviewReport_tb, spotReport_tb
+	</sql>
+
+	<insert id="createEventCommentReport" parameterType="Report">
+		INSERT into
+		eventCommentReport_tb (reportContent, reportType, reportTargetId,
+		reporterId, status)
+		VALUES (#{reportContent}, #{reportType},
+		#{reportTargetId}, #{reporterId}, #{status})
+	</insert>
+
+
+	<insert id="createMeetingCommentReport" parameterType="Report">
+		INSERT
+		into MeetingCommentReport_tb (reportContent, reportType,
+
+		reportTargetId, reporterId, status)
+		VALUES (#{reportContent},
+		#{reportType}, #{reportTargetId}, #{reporterId}, #{status})
+	</insert>
+
+	<insert id="createMeetingReport" parameterType="Report">
+		INSERT into
+		MeetingReport_tb (reportContent, reportType, reportTargetId, reporterId, status)
+		VALUES (#{reportContent}, #{reportType},
+		#{reportTargetId}, #{reporterId}, #{status})
+	</insert>
+
+	<insert id="createReviewCommentReport" parameterType="Report">
+		INSERT into
+		ReviewCommentReport_tb (reportContent, reportType, reportTargetId, reporterId, status)
+		VALUES (#{reportContent}, #{reportType},
+		#{reportTargetId}, #{reporterId}, #{status})
+	</insert>
+
+	<insert id="createReviewReport" parameterType="Report">
+		INSERT into
+		ReviewReport_tb (reportContent, reportType, reportTargetId,reporterId, status)
+		VALUES (#{reportContent}, #{reportType},
+		#{reportTargetId}, #{reporterId}, #{status})
+	</insert>
+
+	<insert id="createSpotReport" parameterType="Report">
+		INSERT into
+		spotReport_tb (reportContent, reportType, reportTargetId, reporterId, status)
+		VALUES (#{reportContent}, #{reportType}, #{reportTargetId},
+		#{reporterId}, #{status})
+	</insert>
 	
+	
+	<select id="retrieveReportsByReporterId" parameterType="String" resultType="Report">
+		<include refid="selectAllReport"></include>
+		WHERE reporterId = #{reporterId}
+	</select>
+
+
+
 </mapper>
