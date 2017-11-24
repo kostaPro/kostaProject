@@ -7,36 +7,11 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" href="resources/css/reviewStyle.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet prefetch'
-	href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-<link rel='stylesheet prefetch'
-	href='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css'>
 <link rel='stylesheet prefetch'
 	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="resources/js/skel.min.js"></script>
-<script src="resources/js/skel-panels.min.js"></script>
-<script src="resources/js/init.js"></script>
-<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script
-	src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
-<script
-	src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js'></script>
-<script
-	src='https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/fd8bd86dd78f789fb742798b7d49aba0a957af62/src/js/bootstrap-datetimepicker.js'></script>
-<script
-	src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.0/moment-timezone-with-data-2010-2020.min.js'></script>
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
-
 </head>
 <body class="homepage">
 
@@ -47,7 +22,7 @@
 			<!-- Logo -->
 			<div id="logo">
 				<h1>
-					<a href="#">Elemental</a>
+					<a href="#">WITH DOG</a>
 				</h1>
 			</div>
 		</div>
@@ -74,59 +49,22 @@
 
 	<!-- Main -->
 	<div id="main">
-
 		<div class="container">
 			<section>
 				<header>
-					<h2 align="left">장소명</h2>
+					<h2 align="left">선유도 공원</h2>
 					<h2 align="right">
 						<button class="btn btn-primary" type="button">장소 신고</button>
 					</h2>
 				</header>
-
 				<section>
+					<h3 align="left">작성자 | jakook</h3>
+					<h3 align="left">작성일 | 2017/11/22</h3>
+					<br>
 					<div class="row">
-						<section>
-							<h1>작성자 :</h1>
-						</section>
-						<section>
-							<h1>jakook</h1>
-						</section>
+						<h3 align="left">제목 | 선유도 공원 평가글입니다.</h3>
 					</div>
 				</section>
-
-				<section>
-					<div class="row">
-						<section>
-							<h1>작성일 :</h1>
-						</section>
-						<section>
-							<input type='text' class="form-control" id='datetimepicker' />
-							<script src="resources/js/date.js"></script>
-						</section>
-					</div>
-				</section>
-				<section>
-					<div class="row">
-						<section>
-							<h1>제목 :</h1>
-						</section>
-						<section>
-							<h1>선유도 공원</h1>
-						</section>
-					</div>
-				</section>
-				<section>
-					<div class="row">
-						<section>
-							<h1>내용 :</h1>
-						</section>
-						<section>
-							<h1>좋아요.</h1>
-						</section>
-					</div>
-				</section>
-
 				<div class="row">
 					<div class="4u">
 						<section>
@@ -147,26 +85,48 @@
 						</section>
 					</div>
 				</div>
-
-				<div class="section">
-
-					<div class="reviews">
-						<h3 align="left" id="name">작성자</h3>
-						<br>
-						<textarea class="form-control" id="review" type="text" rows="4"
-							cols="40" placeholder="댓글을 작성해 주세요."></textarea>
-						<button class="btn btn-primary" type="button"
-							onclick="getComments()">댓글 등록</button>
+				<section>
+					<div class="row">
+						<section>
+							<h3 align="left">[내용]</h3>
+							<h3 align="left">Consectetuer adipiscing elit. Nam pede
+								erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque.
+								Vivamus consequat lorem at nisl. Nullam non wisi a sem semper
+								eleifend. Donec mattis libero eget urna. Duis pretium velit ac
+								mauris.Consectetuer adipiscing elit. Nam pede erat, porta eu,
+								lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat
+								lorem at nisl. Nullam non wisi a sem semper eleifend. Donec
+								mattis libero eget urna. Duis pretium velit ac mauris.</h3>
+						</section>
 					</div>
-				</div>
-				<div class="append"></div>
-				<script
-					src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-				<script
-					src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+				</section>
+				<!-- foreach ======================================================================================= -->
+				<table class="table" style="font-size: 14px; padding: 20px;">
+					<tr>
+						<td class="text-left"><strong>jakook4013</strong></td>
+						<td class="text-left">eleifend. Donec mattis libero eget
+							urna. Duis pretium velit ac mauris.Consectetuer adipiscing elit.
+							Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam
+							neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem
+							semper eleifend. Donec mattis libero eget urna. Duis pretium
+							velit ac mauris.</td>
+						<td>2017/11/22<a href=""> 수정 </a> <a href="">삭제</a></td>
 
-				<script src="resources/js/index.js"></script>
+					</tr>
+					<tr>
+					</tr>
+				</table>
 			</section>
+		</div>
+		<div class="section">
+			<div class="reviews">
+				<form action="${ctx }/comment/regist.do">
+					<input type="hidden" name="articleId" value="${article.articleId }">
+					<textarea class="form-control" id="review" rows="4" cols="40"
+						placeholder="댓글을 작성해 주세요." name="comments"></textarea>
+					<input type="submit" class="btn btn-primary" value="댓글 등록">
+				</form>
+			</div>
 		</div>
 	</div>
 	<!-- /Main -->
@@ -174,12 +134,9 @@
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
+			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
+				href="">CC0</a>)
 		</div>
 	</div>
-
-
 </body>
 </html>
