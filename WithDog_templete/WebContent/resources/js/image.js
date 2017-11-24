@@ -35,6 +35,7 @@ function handleImgFileSelect(e) {
 			.forEach(function(f) {
 				if (!f.type.match("image.*")) {
 					alert("확장자는 이미지 확장자만 가능합니다.");
+					document.getElementById("input_imgs").value = "";
 					return;
 				}
 
@@ -64,7 +65,7 @@ function deleteImageAction(index) {
 
 	var img_id = "#img_id_" + index;
 	$(img_id).remove();
-	document.getElementById("input_imgs").value = "";
+	document.getElementById("input_imgs").value ="";
 	
 	console.log(sel_files);
 }
