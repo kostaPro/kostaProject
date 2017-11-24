@@ -1,5 +1,6 @@
 package store.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -88,16 +89,19 @@ public class ReportStoreLogic implements ReportStore{
 	public List<Report> retrieveReportsByReportType(String reportType) {
 
 		SqlSession session = factory.openSession();
+		List<Report> reportList = new ArrayList<>();
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			reportList = mapper.retrieveReportsByReportType(reportType);
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return null;
+		return reportList;
 	}
 
 	@Override
