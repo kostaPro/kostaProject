@@ -8,7 +8,7 @@ public class Report {
 	private String reporterId;
 	private String status;
 	
-	public String getReportContents() {
+	public String getReportContent() {
 		return reportContent;
 	}
 	public void setReportContents(String reportContent) {
