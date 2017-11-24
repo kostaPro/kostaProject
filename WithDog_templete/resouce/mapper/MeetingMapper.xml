@@ -16,8 +16,8 @@
 			order="BEFORE">
 			SELECT meeting_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO meeting_tb(meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId,)
-		VALUES (#{meetingId}, #{meetingDate}, #{meetingTime}, #{meetingSpotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
+		INSERT INTO meeting_tb(meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId)
+		VALUES (#{meetingId}, #{meetingDate}, #{meetingTime}, #{spotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
 	</insert>
 	
 	

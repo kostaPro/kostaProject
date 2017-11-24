@@ -10,7 +10,7 @@ public interface MeetingMapper {
 	
 	boolean createMeeting(Meeting meeting);
 	
-	boolean retrieveAllMeetings();
+	List<Meeting> retrieveAllMeetings();
 	
 	List<Meeting> retrieveMeetingsByLocation(String loaction);
 	List<Meeting> retrieveMeetingsByDate(Date date);

@@ -1,5 +1,6 @@
 package store.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,31 +26,51 @@ public class UserStoreLogic implements UserStore {
 
 		SqlSession session = factory.openSession();
 
+		boolean result = false;
+		
 		try {
 			UserMapper mapper = session.getMapper(UserMapper.class);
+			result = mapper.createUser(user);
+			
+			if(result) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return false;
+		return result;
 	}
 
 	@Override
 	public boolean updateUser(User user) {
 
 		SqlSession session = factory.openSession();
-
+		
+		boolean result = false;
+		
 		try {
 			UserMapper mapper = session.getMapper(UserMapper.class);
+			result = mapper.updateUser(user);
+			
+			if(result) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return false;
+		return result;
 	}
 
 	@Override
@@ -57,47 +78,60 @@ public class UserStoreLogic implements UserStore {
 
 		SqlSession session = factory.openSession();
 
+		boolean result = false;
+		
 		try {
 			UserMapper mapper = session.getMapper(UserMapper.class);
+			result = mapper.deleteUser(userId);
+		
+			if(result) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return false;
+		return result;
 	}
 
 	@Override
 	public User retrieveUserByUserId(String userId) {
 
 		SqlSession session = factory.openSession();
-
+		User user = new User();
 		try {
 			UserMapper mapper = session.getMapper(UserMapper.class);
+			user = mapper.retrieveUserByUserId(userId);
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return null;
+		return user;
 	}
 
 	@Override
-	public List<User> retrieveUserList(List<User> userIdList) {
+	public List<User> retrieveUserList(List<String> userIdList) {
 
 		SqlSession session = factory.openSession();
-
+		List<User> userList = new ArrayList<>();
 		try {
 			UserMapper mapper = session.getMapper(UserMapper.class);
+			userList = mapper.retrieveUserList(userIdList);
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return null;
+		return userList;
 	}
 
 }

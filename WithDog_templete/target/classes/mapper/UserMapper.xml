@@ -13,7 +13,7 @@
 	<update id="updateUser" parameterType="User">
 		UPDATE user_tb 
 		SET password=#{password}, contact=#{contact}, favoriteLocation=#{favoriteLocation}, petInfo=#{petInfo}, petImage=#{petImage}
-		WHERE userId = {userId}
+		WHERE userId = #{userId}
 	</update>
 	
 	<delete id="deleteUser" parameterType="User">
@@ -21,7 +21,7 @@
 		WHERE userId=#{userId}
 	</delete>
 	
-	<select id="retrieveUserByUserId" parameterType="int" resultType="User">
+	<select id="retrieveUserByUserId" parameterType="String" resultType="User">
 		SELECT userId, password, contact, favoriteLocation, petInfo, petImage
 		FROM user_tb
 		WHERE userId = #{userId}	
@@ -30,7 +30,10 @@
 	<select id="retrieveUserList" parameterType="String" resultType="User">
 		SELECT userId, contact, favoriteLocation, petInfo, petImage
 		From user_tb
-		WHERE userId = #{userId}
+		WHERE userId IN
+		<foreach collection="list" open = "(" close=")" item="userId" separator=","> 
+		#{userId}
+	</foreach>
 	
 	</select>
 	

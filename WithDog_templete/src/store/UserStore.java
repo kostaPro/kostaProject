@@ -10,6 +10,6 @@ public interface UserStore {
 	boolean updateUser(User user);
 	boolean deleteUser(String userId);
 	User retrieveUserByUserId(String userId);
-	List<User> retrieveUserList(List<User> userIdList);
+	List<User> retrieveUserList(List<String> userIdList);
 
 }

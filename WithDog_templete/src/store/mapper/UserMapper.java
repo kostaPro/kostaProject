@@ -14,5 +14,5 @@ public interface UserMapper {
 	
 	User retrieveUserByUserId(String userId);
 	
-	List<User> retrieveUserList(List<User> userIdList);
+	List<User> retrieveUserList(List<String> userIdList);
 }
