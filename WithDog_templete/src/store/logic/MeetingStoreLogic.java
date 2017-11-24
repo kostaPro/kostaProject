@@ -38,7 +38,7 @@ public class MeetingStoreLogic implements MeetingStore{
 	}
 
 	@Override
-	public boolean retrieveAllMeetings() {
+	public List<Meeting> retrieveAllMeetings() {
 
 		SqlSession session = factory.openSession();
 
@@ -50,7 +50,7 @@ public class MeetingStoreLogic implements MeetingStore{
 			session.close();
 		}
 
-		return false;
+		return null;
 	}
 
 	@Override

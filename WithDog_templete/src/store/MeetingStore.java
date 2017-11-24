@@ -8,7 +8,7 @@ import domain.Meeting;
 public interface MeetingStore {
 	
 	boolean createMeeting(Meeting meeting);
-	boolean retrieveAllMeetings();
+	List<Meeting> retrieveAllMeetings();
 	List<Meeting> retrieveMeetingsByLocation(String loaction);
 	List<Meeting> retrieveMeetingsByDate(Date date);
 	List<Meeting> retrieveMeetingsByLocationDate(String location, Date date);
