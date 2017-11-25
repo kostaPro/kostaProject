@@ -51,9 +51,9 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.POST)
-	public String registReview(Review review, String spotId, HttpServletRequest req) {
+	public String registReview(Review review, @RequestParam("spotId")String spotId, HttpServletRequest req) {
 		
-		review.setSpotId(Integer.parseInt(req.getParameter("spotId")));
+		review.setSpotId(Integer.parseInt(spotId));
 		reviewService.registReview(review);
 		
 		return "reviewDetail.jsp";
