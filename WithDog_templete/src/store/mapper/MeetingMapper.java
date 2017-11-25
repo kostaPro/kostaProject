@@ -1,6 +1,6 @@
 package store.mapper;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +19,8 @@ public interface MeetingMapper {
 	List<Meeting> retrieveMeetingsByHost(String hostId);
 	
 	Meeting retrieveMeetingByMeetingId(int meetingId);
+	
+	boolean createMeetingImage(Map<String, Object> map);
 	
 	List<String> retrieveJoinListByMeetingId(int meetingId);
 	

@@ -37,19 +37,19 @@
 	<select id="retrieveMeetingsByDate" parameterType="Date" resultType="Meeting">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb
-		WHERE meetingDate = #{meetingDate} 
+		WHERE meetingDate = #{meetingDate}
 	</select>
 	
-	<select id="retrieveMeetingsByLocationDate" parameterType="Map">
+	<select id="retrieveMeetingsByLocationDate" parameterType="Map" resultType="Meeting">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb INNER JOIN spot_tb
-		ON meeting_tb.meeingSpot = spot_tb.spotLocation
+		ON meeting_tb.meetingSpotId = spot_tb.spotId
 		WHERE spot_tb.spotLocation Like #{location}
 		AND meeting_tb.meetingDate = #{meetingDate}
 	</select>
 	
 	<select id="retrieveMeetingsByGuest" parameterType="String" resultType="Meeting">
-		<include refid="selectMeeting"/>
+		SELECT meeting_tb.meetingId as meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
 		FROM meeting_tb INNER JOIN joinMeeting_tb
 		ON meeting_tb.meetingId = joinMeeting_tb.meetingId
 		WHERE joinMeeting_tb.guestId = #{guestId}
@@ -91,7 +91,7 @@
 	
 	<insert id="joinMeeting" parameterType="Map">
 		INSERT INTO joinMeeting_tb(meetingId, guestId)
-		VALUES(#{meetingId}, {guestId})
+		VALUES(#{meetingId}, #{guestId})
 	</insert>
 	
 	
@@ -104,11 +104,11 @@
 		DELETE FROM joinMeeting_tb
 		WHERE meetingId = #{meetingId}
 	</delete>
-	
+		
 	<update id="updateMeeting" parameterType="Meeting">
 		UPDATE meeting_tb
-		SET meetingDate=#{meetingDate}, meetingTime=#{meetingTime}, meetingSpotId=#{meetingSpotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPerpose}
-		WHERE meetingId
+		SET meetingDate=#{meetingDate}, meetingTime=#{meetingTime}, meetingSpotId=#{spotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPurpose}
+		WHERE meetingId = #{meetingId}
 	</update>
 	
 	<delete id="deleteMeeting" parameterType="Meeting">

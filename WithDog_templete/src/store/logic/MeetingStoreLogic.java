@@ -1,7 +1,7 @@
 package store.logic;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,7 +112,7 @@ public class MeetingStoreLogic implements MeetingStore{
 		try {
 			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
 			map.put("location", location);
-			map.put("date", date);
+			map.put("meetingDate", date);
 			
 			meetingList = mapper.retrieveMeetingsByLocationDate(map);
 			
@@ -228,6 +228,13 @@ public class MeetingStoreLogic implements MeetingStore{
 			map.put("guestId", guestId);
 			
 			result = mapper.joinMeeting(map);
+			
+			if(result) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -325,6 +332,34 @@ public class MeetingStoreLogic implements MeetingStore{
 	
 			result = mapper.deleteMeeting(meetingId);
 		
+			if(result) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createMeetingImage(String imageUrl, int meetingId) {
+		SqlSession session = factory.openSession();
+		
+		boolean result = false;
+		Map<String, Object> map = new HashMap<>();
+		map.put("imageUrl", imageUrl);
+		map.put("meetingId", meetingId);
+		
+		try {
+			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
+			
+			
+			result = mapper.createMeetingImage(map);
 			if(result) {
 				session.commit();
 			}else {
