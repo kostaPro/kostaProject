@@ -10,7 +10,7 @@
 -->
 <html>
 <head>
-<title>WithDog_spotDetail</title>
+<title>WithDog_spotList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -137,22 +137,7 @@
 
 
 
-				<section>
-					<header>
-						<h2 align="left">${spotDetail.spotName }</h2>
-					</header>
-					<div class="row">
-						<section>
-							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
-							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
-							<hr>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
-
-						</section>
-					</div>
-
-				</section>
+				
 
 				<section>
 					<div class="4u">
@@ -163,50 +148,20 @@
 
 			</div>
 
-			<section>
-				<div style="border: 2px solid; padding: 10px;">
-
-					<h2>장소 소개</h2>
-					<h3>${spotDetail.spotInfo }</h3>
-				</div>
-			</section>
-
-			<hr>
-			<section>
-				<div class="row">
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics02.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics03.jpg" alt=""></a>
-						</section>
-					</div>
-				</div>
-			</section>
+			
 		</div>
 	</div>
 	<!-- /Main -->
 
 	<!-- Footer -->
-	<div id="footer">
+		<div id="footer">
 		<div class="container">
 			<div class="row half">
 				<div class="3u">
 					<section>
 						<header>
-							<h2>Review List</h2>
-						<hr>
+							<h2>Spot List</h2>
+							<hr>
 						</header>
 
 					</section>
@@ -219,36 +174,31 @@
 
 					<table class="table table-striped table-bordered table-hover">
 						<colgroup>
-							<col width="80" />
-							<col width="500" />
+							<col width="400" />
+							<col width="800" />
 							<col width="300" />
-							<col width="300" />
-							<col width="80" />
 						</colgroup>
 						<thead>
 							<tr>
-								<th class="text-center">번호</th>
-								<th class="text-center">제목</th>
-								<th class="text-center">작성일</th>
-								<th class="text-center">작성자</th>
+								<th class="text-center">장소 명</th>
+								<th class="text-center">장소 위치</th>
+								<th class="text-center">장소 분류</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:choose>
-								<c:when test="${empty spotDetail.reviewList }">
+								<c:when test="${empty spotList }">
 									<tr>
-										<th colspan="4" class="text-center">평가글 존재하지 않습니다.</th>
+										<th colspan="3 " class="text-center">장소가 존재하지 않습니다.</th>
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="review" items="${spotDetail.reviewList }">
+									<c:forEach var="spot" items="${spotList }">
 										<tr>
-											<td class="text-center">${review.reviewId }</td>
 											<td class="text-center"><a
-												href="reviewDetail.do?reviewId=${review.reviewId }">${review.title }</a></td>
-											<td class="text-center"><fmt:formatDate
-													value="${review.registDate }" pattern="yyyy-MM-dd" /></td>
-											<td class="text-center">${review.writerId }</td>
+												href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
+											<td class="text-center">${spot.spotLocation }</td>
+											<td class="text-center">${spot.spotType }</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
@@ -259,8 +209,10 @@
 
 				</div>
 			</div>
-				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit send_listing_place"><strong style="color:white">평가글 등록</strong></a>	
-			
+			<a href="registSpot.do"
+				class="btn_comm btn_submit send_listing_place"><strong
+				style="color: white">장소 등록</strong></a>
+
 		</div>
 	</div>
 	<!-- /Footer -->
@@ -276,4 +228,4 @@
 
 
 </body>
-</html>
+</html>  
