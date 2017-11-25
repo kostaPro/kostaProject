@@ -58,7 +58,7 @@
 					enctype="multipart/form-data">
 					<header>
 						<input type="hidden" name="spotId" value="${spot.spotId }">
-						<h2 align="left">${spot.spotName } ${spot.spotId }</h2>
+						<h2 align="left">${spot.spotName }</h2>
 						<h2 align="right">
 							<input class="btn btn-primary" type="submit" value="평가글 등록" />
 						</h2>
