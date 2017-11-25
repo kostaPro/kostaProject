@@ -35,7 +35,7 @@
 			<!-- Logo -->
 			<div id="logo">
 				<h1>
-					<a href="#">Elemental</a>
+					<a href="spotDetail.do?spotId=2">Elemental</a>
 				</h1>
 			</div>
 		</div>

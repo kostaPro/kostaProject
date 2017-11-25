@@ -2,17 +2,17 @@ package domain;
 
 public class Report {
 	
-	private String reportContents;
+	private String reportContent;
 	private String reportType;
 	private int reportTargetId;
 	private String reporterId;
 	private String status;
 	
 	public String getReportContents() {
-		return reportContents;
+		return reportContent;
 	}
-	public void setReportContents(String reportContents) {
-		this.reportContents = reportContents;
+	public void setReportContents(String reportContent) {
+		this.reportContent = reportContent;
 	}
 	public String getReportType() {
 		return reportType;
