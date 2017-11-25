@@ -3,6 +3,8 @@ package store.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import domain.Report;
 
 public interface ReportMapper {
@@ -16,14 +18,14 @@ public interface ReportMapper {
 	
 	boolean updateEventCommentReport(Report report);
 	boolean updateMeetingCommentReport(Report report);
-	boolean updateMeeingReport(Report report);
+	boolean updateMeetingReport(Report report);
 	boolean updateReviewCommentReport(Report report);
 	boolean updateReviewReport(Report report);
 	boolean updateSpotReport(Report report);
 	
 	boolean deleteEventCommentReport(int reportId);
 	boolean deleteMeetingCommentReport(int reportId);
-	boolean deleteMeeingReport(int reportId);
+	boolean deleteMeetingReport(int reportId);
 	boolean deleteReviewCommentReport(int reportId);
 	boolean deleteReviewReport(int reportId);
 	boolean deleteSpotReport(int reportId);
@@ -31,8 +33,8 @@ public interface ReportMapper {
 	List<Report> retrieveReportsByReporterId(String reporterId);
 	List<Report> retrieveReportsBySuspectId(String suspectId);
 	List<Report> retrieveAllReports();
-	List<Report> retrieveReportsByReportType(String reportType);
+	List<Report> retrieveReportsByReportType(Map<String, String> map);
 	List<String> retrieveBlackList();
-	Report retrieveReport(String reporterId, int reportTargetId);
+	Report retrieveReport(@Param("reportType") String reportType, @Param("reportTargetId") int reportTargetId );
 	
 }

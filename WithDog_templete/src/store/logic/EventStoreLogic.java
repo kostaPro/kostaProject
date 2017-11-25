@@ -1,6 +1,7 @@
 package store.logic;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class EventStoreLogic implements EventStore{
 		try {
 			EventMapper mapper = session.getMapper(EventMapper.class);
 			result = mapper.createEvent(event);
-			
+						
 			if(result) {
 				session.commit();
 			} else {
@@ -138,6 +139,8 @@ public class EventStoreLogic implements EventStore{
 			EventMapper mapper = session.getMapper(EventMapper.class);
 			event = mapper.retrieveEventByEventId(eventId);
 			
+			System.out.println(event);
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -161,6 +164,8 @@ public class EventStoreLogic implements EventStore{
 			map.put("eventDate", eventDate);
 			
 			joinList = mapper.retrieveJoinListByEventDate(map);
+			
+		
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -187,6 +192,12 @@ public class EventStoreLogic implements EventStore{
 			
 			result = mapper.joinEventMeeting(map);
 			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+				
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -211,7 +222,12 @@ public class EventStoreLogic implements EventStore{
 			map.put("date", date);
 			
 			result = mapper.cancelEventMeeting(map);
-			
+		
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -222,7 +238,7 @@ public class EventStoreLogic implements EventStore{
 	}
 
 	@Override
-	public boolean cancelAllEventMeeting(int eventId) { //event 강제 취소시
+	public boolean cancelAllEventMeeting(int eventId) { //event 취소해서 eventMeeting 모두 취소
 
 		SqlSession session = factory.openSession();
 		boolean result;
@@ -230,6 +246,13 @@ public class EventStoreLogic implements EventStore{
 		try {
 			EventMapper mapper = session.getMapper(EventMapper.class);
 			result = mapper.cancelAllEventMeeting(eventId);
+			
+			if(result) {
+				session.commit();
+			}
+			else {
+				session.rollback();
+			}
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);

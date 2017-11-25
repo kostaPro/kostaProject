@@ -7,31 +7,36 @@
 
 
 	<sql id="selectAllReport">
-		SELECT reportContent, reportType, reportTargetId,
+		SELECT reportContent, reportTargetId,
 		reporterId, status
 		FROM eventCommnetReport_tb,
 		meetingCommentReport_tb,
-		meetingReport_tb, reviewCommentReport_tb,
+		meetingReport_tb,
+		reviewCommentReport_tb,
 		reviewReport_tb,
 		spotReport_tb
 	</sql>
 
 	<insert id="createEventCommentReport" parameterType="Report">
 		INSERT into
-		eventCommentReport_tb (reportContent, reportType, reportTargetId,
-		reporterId, status)
+		eventCommentReport_tb (reportContent, reportTargetId,
+		reporterId,
+		status)
 		VALUES (#{reportContent}, #{reportType},
-		#{reportTargetId}, #{reporterId}, #{status})
+		#{reportTargetId},
+		#{reporterId}, #{status})
 	</insert>
 
 
 	<insert id="createMeetingCommentReport" parameterType="Report">
 		INSERT
-		into MeetingCommentReport_tb (reportContent, reportType,
+		into MeetingCommentReport_tb (reportContent,
 
-		reportTargetId, reporterId, status)
+		reportTargetId,
+		reporterId, status)
 		VALUES (#{reportContent},
-		#{reportType}, #{reportTargetId}, #{reporterId}, #{status})
+		#{reportType},
+		#{reportTargetId}, #{reporterId}, #{status})
 	</insert>
 
 	<insert id="createMeetingReport" parameterType="Report">
@@ -126,48 +131,101 @@
 		spotReport_tb
 	</select>
 
-	
-	
-	<select id="retrieveReport" parameterType="Map" resultType="Report">
-		SELECT reportContent,
-		reportType, reportTargetId,
-		reporterId, status FROM
-		eventCommentReport_tb
-		WHERE reporterId = #{reporterId} and reportTargetId = #{reportTargetId}
-		UNION
-		SELECT reportContent, reportType,
-		reportTargetId, reporterId, status FROM
-		meetingCommentReport_tb
-		WHERE reporterId = #{reporterId}} and reportTargetId = #{reportTargetId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId, reporterId, status
-		FROM
-		meetingReport_tb
-		WHERE reporterId = #{reporterId} and reportTargetId = #{reportTargetId}
-		UNION
-		SELECT reportContent, reportType,
-		reportTargetId, reporterId, status FROM
-		reviewCommentReport_tb
-		WHERE reporterId = #{reporterId} and reportTargetId = #{reportTargetId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId, reporterId, status
-		FROM
-		reviewReport_tb
-		WHERE reporterId = #{reporterId} and reportTargetId = #{reportTargetId}
-		UNION
-		SELECT reportContent, reportType,
-		reportTargetId, reporterId, status FROM
-		spotReport_tb
-		WHERE reporterId = #{reporterId} and reportTargetId = #{reportTargetId}
+
+	<select id="retrieveReportsByReportType" parameterType="Map" resultType="Report">
+		SELECT reportContent, reportTargetId,reporterId, status
+		<if test="reportType == 'spot'">
+			 From spotReport_tb
+		</if>
+		<if test="reportType == 'meeting'">
+			 From meetingReport_tb
+		</if>
+		<if test="reportType == 'review'">
+			 From reviewReport_tb
+		</if>
+		<if test="reportType == 'comment'">
+			 From reviewCommentReport_tb
+			 
+			 UNION
+			 
+			 SELECT reportContent, reportTargetId,reporterId, status
+			 From EventCommentReport_tb
+			
+			 UNION
+			 
+			 SELECT reportContent, reportTargetId,reporterId, status
+			 From meetingCommentReport_tb
+		</if>
 	</select>
 	
-
-
-
-
-
-
-
-
+	
+	<update id="updateEventCommentReport" parameterType="Report">
+		UPDATE eventCommentReport_tb
+		SET status = #{status}
+	</update>
+	
+	<update id="updateMeetingCommentReport" parameterType="Report">
+		UPDATE meetingCommentReport_tb
+		SET status = #{status}
+	</update>
+	
+	<update id="updateMeetingReport" parameterType="Report">
+		UPDATE meetingReport_tb
+		SET status = #{status}
+	</update>
+	
+	<update id="updateReviewCommentReport" parameterType="Report">
+		UPDATE reviewCommentReport_tb
+		SET status = #{status}
+	</update>
+	
+	<update id="updateReviewReport" parameterType="Report">
+		UPDATE ReviewReport_tb
+		SET status = #{status}
+	</update>
+	
+	<update id="updateSpotReport" parameterType="Report">
+		UPDATE spotReport_tb
+		SET status = #{status}
+	</update>
+	
+	
+	
+	
+	<delete id="deleteEventCommentReport" parameterType="integer">
+		DELETE from eventCommentReport_tb
+		WHERE REPORTTARGETID = #{reportTargetId}
+	</delete>
+	
+	<delete id="deleteMeetingCommentReport" parameterType="integer">
+		DELETE from meetingCommentReport_tb
+		WHERE REPORTTARGETID = #{reportTargetId}
+	</delete>
+	
+	<delete id="deleteMeetingReport" parameterType="integer">
+		DELETE from meetingReport_tb
+		WHERE REPORTTARGETID = #{reportTargetId}
+	</delete>
+		
+	<delete id="deleteReviewCommentReport" parameterType="integer">
+		DELETE from reviewCommentReport_tb
+		WHERE REPORTTARGETID = #{reportTargetId}
+	</delete>
+	
+	<delete id="deleteReviewReport" parameterType="integer">
+		DELETE from reviewReport_tb
+		WHERE REPORTTARGETID = #{reportTargetId}
+	</delete>
+	
+	<delete id="deleteSpotReport" parameterType="integer">
+		DELETE from spotReport_tb
+		WHERE REPORTTARGETID = #{reportTargetId}
+	</delete>
+	
+	
+	<select id="retrieveReportsBySuspectId" parameterType="String" resultType="Report">
+		<include refid="selectAllReport"></include>
+		WHERE suspectId = #{suspectId}
+	</select>
 
 </mapper>

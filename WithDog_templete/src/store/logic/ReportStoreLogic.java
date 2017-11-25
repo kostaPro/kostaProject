@@ -84,10 +84,14 @@ public class ReportStoreLogic implements ReportStore{
 
 		SqlSession session = factory.openSession();
 		List<Report> list = null;
+		Map<String, String> map = new HashMap<>(); 
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			list = mapper.retrieveReportsByReportType(reportType);
+			
+			map.put("reportType", reportType);
+			
+			list = mapper.retrieveReportsByReportType(map);
 		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -118,7 +122,7 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public Report retrieveReport(String reporterId, int reportTargetId) { 
+	public Report retrieveReport(String reportType, int reportTargetId) { 
 
 		SqlSession session = factory.openSession();
 		Report report = null;
@@ -127,10 +131,10 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 		
-			map.put("reporterId", reporterId);
+			map.put("reportType", reportType);
 			map.put("reportTargetId", reportTargetId);
 			
-			report = mapper.retrieveReport(reporterId, reportTargetId);//
+			report = mapper.retrieveReport(reportType, reportTargetId);
 		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -339,13 +343,13 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean updateMeeingReport(Report report) {
+	public boolean updateMeetingReport(Report report) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.updateMeeingReport(report);
+			result = mapper.updateMeetingReport(report);
 			
 			if(result) {
 				session.commit();
@@ -439,13 +443,13 @@ public class ReportStoreLogic implements ReportStore{
 	
 	
 	@Override
-	public boolean deleteEventCommentReport(int reportId) {
+	public boolean deleteEventCommentReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.deleteEventCommentReport(reportId);
+			result = mapper.deleteEventCommentReport(reportTargetId);
 
 			if(result) {
 				session.commit();
@@ -463,13 +467,13 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean deleteMeetingCommentReport(int reportId) {
+	public boolean deleteMeetingCommentReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.deleteMeetingCommentReport(reportId);
+			result = mapper.deleteMeetingCommentReport(reportTargetId);
 
 			if(result) {
 				session.commit();
@@ -488,13 +492,13 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean deleteMeeingReport(int reportId) {
+	public boolean deleteMeetingReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.deleteMeeingReport(reportId);
+			result = mapper.deleteMeetingReport(reportTargetId);
 
 			if(result) {
 				session.commit();
@@ -513,13 +517,13 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean deleteReviewCommentReport(int reportId) {
+	public boolean deleteReviewCommentReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.deleteReviewCommentReport(reportId);
+			result = mapper.deleteReviewCommentReport(reportTargetId);
 
 			if(result) {
 				session.commit();
@@ -538,13 +542,13 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean deleteReviewReport(int reportId) {
+	public boolean deleteReviewReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.deleteReviewReport(reportId);
+			result = mapper.deleteReviewReport(reportTargetId);
 
 			if(result) {
 				session.commit();
@@ -563,13 +567,13 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean deleteSpotReport(int reportId) {
+	public boolean deleteSpotReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
 		boolean result = false;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			result = mapper.deleteSpotReport(reportId);
+			result = mapper.deleteSpotReport(reportTargetId);
 
 			if(result) {
 				session.commit();

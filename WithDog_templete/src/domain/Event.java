@@ -1,6 +1,7 @@
 package domain;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ public class Event {
 	private String eventImage;
 	private Date openDate;
 	private Date closeDate;
-	private String evnetInfo;
+	private String eventInfo;
 	private Map<String, List<User>> eventJoinLists;
 	private List<Comment> commentList;
 	
@@ -52,11 +53,11 @@ public class Event {
 	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
-	public String getEvnetInfo() {
-		return evnetInfo;
+	public String getEventInfo() {
+		return eventInfo;
 	}
-	public void setEvnetInfo(String evnetInfo) {
-		this.evnetInfo = evnetInfo;
+	public void setEventInfo(String eventInfo) {
+		this.eventInfo = eventInfo;
 	}
 	public Map<String, List<User>> getEventJoinLists() {
 		return eventJoinLists;

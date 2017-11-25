@@ -1,6 +1,7 @@
 package store;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 import domain.Event;
@@ -15,7 +16,7 @@ public interface EventStore {
 	Event retrieveEventByEventId(int eventId);
 	List<String> retrieveJoinListByEventDate(int eventId, Date eventDate);
 	boolean joinEventMeeting(int eventId, String guestId, Date date);
-	boolean cancelEventMeeting(int evnetId, String guestId, Date date);
+	boolean cancelEventMeeting(int eventId, String guestId, Date date);
 	boolean cancelAllEventMeeting(int eventId);
 	boolean updateEvent(Event event);
 	boolean deleteEvent(int eventId);
