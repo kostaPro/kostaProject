@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -54,26 +53,21 @@
 	<div id="main">
 		<div class="container">
 			<section>
-				<form action="registReview.do" method="POST"
+				<form action="${ctx }/article/regist.do" method="POST"
 					enctype="multipart/form-data">
 					<header>
-						<input type="hidden" name="spotId" value="${spot.spotId }">
-						<h2 align="left">${spot.spotName } ${spot.spotId }</h2>
+						<h2 align="left">선유도 공원</h2>
 						<h2 align="right">
-							<input class="btn btn-primary" type="submit" value="평가글 등록" />
+							<input class="btn btn-primary" type="submit" value="평가글 수정" />
 						</h2>
 					</header>
 					<section>
-						<input type="hidden" name="writerId" value="${user.userId }">
-						<h3 align="left">작성자 | ${user.userId }</h3>
-						<h3 align="left">작성일 | ${date }</h3>
+						<h3 align="left">작성자 | jakook</h3>
+						<h3 align="left">작성일 | 2017/11/22</h3>
 						<br>
 						<div class="reviews">
-							<input class="form-control" id="title" type="text"
-								placeholder="제목을 입력해 주세요." name="title" required="required" /><br>
-							<textarea class="form-control" id="content" name="content"
-								rows="10" cols="40" placeholder="내용을 입력해 주세요."
-								required="required"></textarea>
+							<input class="form-control" id="title" type="text" name="title" /><br>
+							<textarea class="form-control" id="content" rows="10" cols="40"></textarea>
 							<br>
 							<div class="row" align="left">
 								<section>

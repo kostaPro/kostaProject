@@ -53,8 +53,10 @@
 			<section>
 				<header>
 					<h2 align="left">선유도 공원</h2>
+
 					<h2 align="right">
-						<button class="btn btn-primary" type="button">장소 신고</button>
+						<button class="btn btn-primary" type="button">평가글 삭제</button>
+						<button class="btn btn-primary" type="button">평가글 신고</button>
 					</h2>
 				</header>
 				<section>

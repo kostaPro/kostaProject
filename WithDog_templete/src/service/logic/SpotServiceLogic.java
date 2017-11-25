@@ -79,7 +79,10 @@ public class SpotServiceLogic implements SpotService{
 
 	@Override
 	public Spot findSpotBySpotId(int spotId) {
-		return spotStore.retrieveSpotBySpotId(spotId);
+		Spot spot = spotStore.retrieveSpotBySpotId(spotId);
+		spot.setReviewList(reviewStore.retrieveReviewsBySpotId(spotId));
+		
+		return spot;
 	}
 
 	@Override
