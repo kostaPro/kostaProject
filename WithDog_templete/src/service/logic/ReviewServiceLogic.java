@@ -45,8 +45,11 @@ public class ReviewServiceLogic implements ReviewService{
 
 	@Override
 	public Review findReviewByReviewId(int reviewId) {
+		Review review = reviewStore.retrieveReviewByReviewId(reviewId);
+		review.setCommentList(commentStore.retrieveCommentsByReviewId(reviewId));
+		review.setReviewImageList(reviewStore.retrieveImageListByReviewId(reviewId));
 		
-		return reviewStore.retrieveReviewByReviewId(reviewId);
+		return review;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <!--
 	Elemental by TEMPLATED
@@ -164,18 +166,28 @@
 								<th class="text-center">제목</th>
 								<th class="text-center">작성일</th>
 								<th class="text-center">작성자</th>
-								<th class="text-center">조회</th>
 							</tr>
 						</thead>
 						<tbody>
-
-							<tr>
-								<td class="text-center">1</td>
-								<td class="text-center">봄봄이랑 출사</td>
-								<td class="text-center">2017-11-23</td>
-								<td class="text-center">WithDogManager</td>
-								<td class="text-center">110</td>
-							</tr>
+							<c:choose>
+								<c:when test="${empty spotDetail.reviewList }">
+									<tr>
+										<th colspan="5" class="text-center">평가글 존재하지 않습니다.</th>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="review" items="${spotDetail.reviewList }">
+										<tr>
+											<td class="text-center">${review.reviewId }</td>
+											<td class="text-center"><a
+												href="registReview.do?spotId=${review.spotId }">${review.title }</a></td>
+											<td class="text-center"><fmt:formatDate
+													value="${review.registDate }" pattern="yyyy-MM-dd" /></td>
+											<td class="text-center">${review.writerId }</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 					</table>
 

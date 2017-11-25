@@ -38,7 +38,7 @@ function handleImgFileSelect(e) {
 					document.getElementById("input_imgs").value = "";
 					return;
 				}
-
+			
 				sel_files.push(f);
 
 				var reader = new FileReader();
@@ -65,7 +65,12 @@ function deleteImageAction(index) {
 
 	var img_id = "#img_id_" + index;
 	$(img_id).remove();
-	document.getElementById("input_imgs").value ="";
-	
+
+	document.getElementById("input_imgs").value = "";
+
+
 	console.log(sel_files);
 }
+
+$("[name=title]").attr("required", true);
+$("[name=content]").attr("required", true);
