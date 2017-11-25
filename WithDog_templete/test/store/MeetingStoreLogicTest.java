@@ -24,27 +24,29 @@ public class MeetingStoreLogicTest {
 	}
 	
 	
-//	@Test
-//	public void testCreateMeeting() {
-//		Meeting meeting = new Meeting();
-//
-//		String d = "2017-01-01";
-//		Date date = null;
-//		try {
-//			date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		meeting.setMeetingDate(date);
-//		meeting.setMeetingTime(7);
-//		meeting.setSpotId(7);
-//		meeting.setMinPerson(7);
-//		meeting.setHostId("Hoon");
-//		meeting.setMeetingPurpose("안녕~~~~~~~~!");
-//		
-//		store.createMeeting(meeting);
-//	}
+	@Test
+	public void testCreateMeeting() {
+		Meeting meeting = new Meeting();
+		Spot spot = new Spot();
+		spot.setSpotId(2);
+		
+		String d = "2017-01-01";
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		meeting.setMeetingDate(date);
+		meeting.setMeetingTime(7);
+		meeting.setMeetingSpot(spot);
+		meeting.setMinPerson(7);
+		meeting.setHostId("Hoon");
+		meeting.setMeetingPurpose("안녕~~~~~~~~!");
+		
+		store.createMeeting(meeting);
+	}
 
 //	@Test
 //	public void testRetrieveAllMeetings() {
@@ -108,12 +110,15 @@ public class MeetingStoreLogicTest {
 //		assertEquals(33, list.size());
 //	}
 
-//	@Test
-//	public void testRetrieveMeetingByMeetingId() {
-//		Meeting meeting = store.retrieveMeetingByMeetingId(14);
-//		
-//		assertEquals(5, meeting.getMeetingTime());
-//	}
+	@Test
+	public void testRetrieveMeetingByMeetingId() {
+		Meeting meeting = store.retrieveMeetingByMeetingId(10);
+		
+		
+		assertEquals("Hoon",meeting.getHostId());
+		assertEquals(2, meeting.getMeetingImageList().size());
+		assertEquals(3, meeting.getCommentList().size());
+	}
 //
 //	@Test
 //	public void testRetrieveJoinListByMeetingId() {

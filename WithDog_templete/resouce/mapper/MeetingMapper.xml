@@ -9,7 +9,29 @@
 		SELECT meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
 	</sql>
 	
-	
+	<resultMap type="Meeting" id="MeetingMap">
+		
+		<id property="meetingId" column="meetingId"/>
+		<result property="meetingDate" column="meetingDate"/>
+		<result property="meetingTime" column="meetingTime"/>
+		<result property="minPerson" column="minPerson"/>
+		<result property="meetingPurpose" column="meetingPurpose"/>
+		<result property="hostId" column="hostId"/>
+		
+		<association property="meetingSpot" column="spotId"
+			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
+			jdbcType="NUMERIC" />
+			
+		<collection property="meetingImageList" column="meetingId"
+			ofType="String" select="store.mapper.MeetingMapper.retrieveImageListByMeetingId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+			
+		<collection property="commentList" column="meetingId"
+			ofType="Comment" select="store.mapper.CommentMapper.retrieveCommentsByMeetingId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+			
+			
+	</resultMap>
 	
 	<insert id="createMeeting" parameterType="Meeting">
 		<selectKey keyProperty="meetingId" resultType="integer"
@@ -17,7 +39,7 @@
 			SELECT meeting_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO meeting_tb(meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId)
-		VALUES (#{meetingId}, #{meetingDate}, #{meetingTime}, #{spotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
+		VALUES (#{meetingId}, #{meetingDate}, #{meetingTime}, #{meetingSpot.spotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
 	</insert>
 	
 	
@@ -61,7 +83,7 @@
 		WHERE hostId = #{hostId}
 	</select>
 
-	<select id="retrieveMeetingByMeetingId" parameterType="Integer" resultType="Meeting">
+	<select id="retrieveMeetingByMeetingId" parameterType="Integer" resultMap="MeetingMap">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb
 		WHERE meetingId = #{meetingId}
@@ -107,7 +129,7 @@
 		
 	<update id="updateMeeting" parameterType="Meeting">
 		UPDATE meeting_tb
-		SET meetingDate=#{meetingDate}, meetingTime=#{meetingTime}, meetingSpotId=#{spotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPurpose}
+		SET meetingDate=#{meetingDate}, meetingTime=#{meetingTime}, meetingSpotId=#{meetingSpot.spotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPurpose}
 		WHERE meetingId = #{meetingId}
 	</update>
 	

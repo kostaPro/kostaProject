@@ -8,7 +8,7 @@ public class Meeting {
 	private int meetingId;
 	private Date meetingDate;
 	private int meetingTime;
-	private int spotId;
+	private Spot meetingSpot;
 	private int minPerson;
 	private String meetingPurpose;
 	private List<String> meetingImageList;
@@ -34,11 +34,11 @@ public class Meeting {
 	public void setMeetingTime(int meetingTime) {
 		this.meetingTime = meetingTime;
 	}
-	public int getSpotId() {
-		return spotId;
+	public Spot getMeetingSpot() {
+		return meetingSpot;
 	}
-	public void setSpotId(int spotId) {
-		this.spotId = spotId;
+	public void setMeetingSpot(Spot spot) {
+		this.meetingSpot = spot;
 	}
 	public int getMinPerson() {
 		return minPerson;
