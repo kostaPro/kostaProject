@@ -14,6 +14,73 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
+
+
+
+<link rel='stylesheet' id='jquery-ui-css'
+	href='http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css?ver=1.0'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='acf-global-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-global.css?ver=5.2.6'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='select2-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/inc/select2/select2.css?ver=5.2.6'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='acf-input-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-input.css?ver=5.2.6'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='acf-pro-input-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/pro/assets/css/acf-pro-input.css?ver=5.2.6'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.2.1'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='plugin-member-wa-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/member-wa/common/css/member-wa-style.css?ver=1.0'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='plugin-member-wa-templates-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/member-wa/common/css/member-wa-template.css?ver=1.0'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='thcu-styles-css'
+	href='http://www.sweetspot.co.kr/wp-content/plugins/theme-customization/css/renewal.css?ver=4.8.1'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-css'
+	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'
+	href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='google-font-css'
+	href='//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='chosen-select-css'
+	href='http://www.sweetspot.co.kr/wp-content/themes/realty/assets/chosen/chosen.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'
+	href='http://www.sweetspot.co.kr/wp-content/themes/realty-child/style.css'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='print-css'
+	href='http://www.sweetspot.co.kr/wp-content/themes/realty/print.css'
+	type='text/css' media='print' />
+<link rel='stylesheet' id='buttons-css'
+	href='http://www.sweetspot.co.kr/wp-includes/css/buttons.min.css?ver=4.8.1'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'
+	href='http://www.sweetspot.co.kr/wp-includes/css/dashicons.min.css?ver=4.8.1'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='mediaelement-css'
+	href='http://www.sweetspot.co.kr/wp-includes/js/mediaelement/mediaelementplayer.min.css?ver=2.22.0'
+	type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css'
+	href='http://www.sweetspot.co.kr/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=4.8.1'
+	type='text/css' media='all' />
+
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+
+
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
@@ -72,12 +139,12 @@
 
 				<section>
 					<header>
-						<h2 align="left">선유도 공원</h2>
+						<h2 align="left">${spotDetail.spotName }</h2>
 					</header>
 					<div class="row">
 						<section>
-							<h3 align="left">분류 | 공원</h3>
-							<h3 align="left">주소 | 서울 특별시 영등포구 선유로343</h3>
+							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
+							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
 							<hr>
 							<a href="#" class="image full"><img
 								src="resources/img/pics01.jpg" alt=""></a>
@@ -100,9 +167,7 @@
 				<div style="border: 2px solid; padding: 10px;">
 
 					<h2>장소 소개</h2>
-					<h3>Pellentesque tristique ante ut risus. Quisque dictum.
-						Integer sagittis convallis, rutrum elementum congue, nibh.
-						Suspendisse dictum porta lectus.</h3>
+					<h3>${spotDetail.spotInfo }</h3>
 				</div>
 			</section>
 
@@ -141,8 +206,8 @@
 					<section>
 						<header>
 							<h2>Review List</h2>
-						</header>
 						<hr>
+						</header>
 
 					</section>
 				</div>
@@ -180,7 +245,7 @@
 										<tr>
 											<td class="text-center">${review.reviewId }</td>
 											<td class="text-center"><a
-												href="registReview.do?spotId=${review.spotId }">${review.title }</a></td>
+												href="reviewDetail.do?reviewId=${review.reviewId }">${review.title }</a></td>
 											<td class="text-center"><fmt:formatDate
 													value="${review.registDate }" pattern="yyyy-MM-dd" /></td>
 											<td class="text-center">${review.writerId }</td>
@@ -193,8 +258,9 @@
 
 
 				</div>
-
 			</div>
+				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit send_listing_place"><strong style="color:white">평가글 등록</strong></a>	
+			
 		</div>
 	</div>
 	<!-- /Footer -->

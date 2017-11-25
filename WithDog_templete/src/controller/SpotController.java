@@ -20,10 +20,8 @@ public class SpotController {
 	@RequestMapping("/spotDetail.do")
 	public ModelAndView showSpotDetail(String spotId) {
 		Spot spot = spotService.findSpotBySpotId(Integer.parseInt(spotId));
-		List<Review> review = spot.getReviewList();
 		ModelAndView modelAndView = new ModelAndView("spotDetail.jsp");
 		modelAndView.addObject("spotDetail", spot);
-		modelAndView.addObject("review", review);
 		
 		return modelAndView;
 	}
