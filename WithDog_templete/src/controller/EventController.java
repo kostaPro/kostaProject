@@ -56,30 +56,30 @@ public class EventController {
 		return "redirect:eventdetail.jsp";
 	}
 
-	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
 	public ModelAndView showEventList() {
 
 		return null;
 	}
 
-	@RequestMapping(value = "/")
+//	@RequestMapping(value = "/")
 	public ModelAndView searchEvent(Date date, String location) {
 
 		
 		return null;
 	}
 
-	@RequestMapping("")
+//	@RequestMapping("")
 	public ModelAndView showEventDetail(String eventId) {
 		return null;
 	}
 
-	@RequestMapping("")
+//	@RequestMapping("")
 	public String joinEventMeeting(String eventId, Date date, HttpSession session) {
 		return null;
 	}
 
-	@RequestMapping("")
+//	@RequestMapping("")
 	public String cancelEventMeeting(String eventId, Date date, HttpSession session) {
 		return null;
 	}
@@ -100,7 +100,7 @@ public class EventController {
 		return "redirect:/eventDetail.do?eventId="+ event.getEventId();
 	}
 	
-	@RequestMapping(value = "modifyEvent.do", method=RequestMethod.POST)
+//	@RequestMapping(value = "modifyEvent.do", method=RequestMethod.POST)
 	public String removeEvent(String eventId) {
 		
 		//eventService.removeEvent(eventId);
@@ -108,17 +108,17 @@ public class EventController {
 		return "eventList.jsp";
 	}
 
-	@RequestMapping("")
+//	@RequestMapping("")
 	public String registEventComment(String content, HttpSession session, String eventId, String parentId) {
 		return null;
 	}
 
-	@RequestMapping("")
+//	@RequestMapping("")
 	public String modifyEventComment(Comment comment) {
 		return null;
 	}
 
-	@RequestMapping("")
+//	@RequestMapping("")
 	public String deleteEventComment(String commentId) {
 		return null;
 	}

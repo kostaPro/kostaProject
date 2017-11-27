@@ -191,4 +191,27 @@ public class ReviewStoreLogic implements ReviewStore {
 		return result;
 	}
 
+	@Override
+	public boolean deleteReviewImage(int reviewId) {
+		
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReviewMapper mapper = session.getMapper(ReviewMapper.class);
+			result = mapper.deleteReviewImage(reviewId);
+			if (result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
 }

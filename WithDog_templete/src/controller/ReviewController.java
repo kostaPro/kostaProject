@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Comment;
 import domain.Review;
 import domain.User;
 import service.CommentService;
@@ -58,8 +59,8 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.POST)
-	public ModelAndView registReview(Review review, @RequestParam("spotId") String spotId, HttpServletRequest req,
-			MultipartHttpServletRequest mhsq) throws IllegalStateException, IOException {
+	public ModelAndView registReview(Review review, String spotId, MultipartHttpServletRequest file)
+			throws IllegalStateException, IOException {
 
 		review.setSpotId(Integer.parseInt(spotId));
 		reviewService.registReview(review);
@@ -71,7 +72,7 @@ public class ReviewController {
 		}
 
 		// 넘어온 파일을 리스트로 저장
-		List<MultipartFile> mf = mhsq.getFiles("file");
+		List<MultipartFile> mf = file.getFiles("file");
 		if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("")) {
 
 		} else {
@@ -94,19 +95,83 @@ public class ReviewController {
 				reviewService.registReviewImage(saveFileName, review.getReviewId());
 			}
 		}
-		return new ModelAndView("redirect:result.jsp");
+		return new ModelAndView("reviewDetail.do?reviewId=" + review.getReviewId());
 	}
 
 	@RequestMapping("/reviewDetail.do")
-	public ModelAndView content(String reviewId, HttpSession session) {
+	public ModelAndView showReviewDetail(String reviewId, String spotId, HttpSession session) {
 
-		Review uploadFileList = reviewService.findReviewByReviewId(Integer.parseInt(reviewId));
+		Review review = reviewService.findReviewByReviewId(Integer.parseInt(reviewId));
 
-		List<String> list = uploadFileList.getReviewImageList();
+		List<String> list = review.getReviewImageList();
+		List<Comment> comment = review.getCommentList();
 
-		ModelAndView mav = new ModelAndView("reviewDetail.jsp");
-		mav.addObject("uploadFileList", list);
-		return mav;
+		ModelAndView modelAndView = new ModelAndView("reviewDetail.jsp");
+		modelAndView.addObject("review", review);
+		modelAndView.addObject("spot", spotService.findSpotBySpotId(Integer.parseInt(spotId)));
+		modelAndView.addObject("comment", comment);
+		modelAndView.addObject("uploadFileList", list);
+		return modelAndView;
 	}
 
+	@RequestMapping("/deleteReview.do")
+	public String deleteReview(String reviewId) {
+
+		reviewService.removeReview(Integer.parseInt(reviewId));
+
+		return "spotDetail.do";
+	}
+
+	@RequestMapping("/modifyReview.do")
+	public ModelAndView showModifyReview(String reviewId, String spotId) {
+
+		Review review = reviewService.findReviewByReviewId(Integer.parseInt(reviewId));
+
+		ModelAndView modelAndView = new ModelAndView("modifyReview.jsp");
+		modelAndView.addObject("review", review);
+		modelAndView.addObject("spot", spotService.findSpotBySpotId(Integer.parseInt(spotId)));
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/modifyReview.do", method = RequestMethod.POST)
+	public ModelAndView modifyReview(Review review, String spotId) {
+
+		reviewService.modifyReview(review);
+
+		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		return modelAndView;
+	}
+
+//	@RequestMapping("/myReview.do")
+//	public ModelAndView showMyReview(String writerId, HttpServletRequest req) {
+//
+//		ModelAndView modelAndView = new ModelAndView("myPage.do");
+//		modelAndView.addObject("myReview", reviewService.findReviewsByWriterId(writerId));
+//		return modelAndView;
+//	}
+	
+	@RequestMapping(value = "/registReviewComment.do", method = RequestMethod.POST)
+	public ModelAndView registReviewComment(Comment comment, String reviewId, String spotId, HttpServletRequest req) {
+		User user = new User();
+		user.setUserId("jakook");
+
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);
+		
+		comment.setTargetId(Integer.parseInt(reviewId));
+		commentService.registReviewComment(comment);
+		
+		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/modifyReviewComment.do", method = RequestMethod.POST)
+	public ModelAndView modifyReviewComment(Comment comment, String reviewId, String spotId) {
+		
+		commentService.modifyReviewComment(comment);
+		
+		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		return modelAndView;
+	}
+	
 }

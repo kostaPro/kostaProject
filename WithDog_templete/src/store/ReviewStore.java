@@ -14,5 +14,6 @@ public interface ReviewStore {
 	List<String> retrieveImageListByReviewId(int reviewId);
 	boolean updateReview(Review review);
 	boolean deleteReview(int reviewId);
+	boolean deleteReviewImage(int reviewId);
 
 }

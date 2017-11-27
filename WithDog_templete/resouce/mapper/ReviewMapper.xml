@@ -6,7 +6,7 @@
 <mapper namespace="store.mapper.ReviewMapper">
 
 	<resultMap type="Review" id="ReviewMap">
-		<id property="reviewId" column="reviewId"/>
+		<id property="reviewId" column="reviewId" />
 		<collection property="reviewImageList" column="reviewId"
 			ofType="String" select="store.mapper.ReviewMapper.retrieveImageListByReviewId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
@@ -25,7 +25,8 @@
 
 	<select id="retrieveReviewByReviewId" parameterType="integer"
 		resultType="Review" resultMap="ReviewMap">
-		SELECT reviewId, title, content, registDate, writerId,
+		SELECT reviewId, title, content,
+		registDate, writerId,
 		spotId FROM review_tb
 		WHERE reviewId = #{reviewId}
 	</select>
@@ -63,12 +64,17 @@
 	</insert>
 
 	<update id="updateReview" parameterType="Review">
-		UPDATE review_tb SET
-		content = #{content} WHERE reviewId = #{reviewId}
+		UPDATE review_tb SET content = #{content}, title = #{title} WHERE reviewId = #{reviewId}
 	</update>
 
 	<delete id="deleteReview" parameterType="integer">
 		DELETE FROM review_tb
+		WHERE reviewId = #{reviewId}
+	</delete>
+
+	<delete id="deleteReviewImage" parameterType="integer">
+		DELETE FROM
+		reviewImage_tb
 		WHERE reviewId = #{reviewId}
 	</delete>
 

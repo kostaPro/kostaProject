@@ -106,16 +106,6 @@
 	float: left;
 }
 
-#thumb_wrap {
-	width: 1500px;
-	display: block;
-}
-
-#spot_thumb{
-	margin: 20px;
-	max-width: 900px;
-	float: left;
-}
 
 
 </style>
@@ -188,26 +178,23 @@
 											class="tit_form"><i class="fa fa-check"></i>장소명</strong></label> <input
 											type="text" id="inpName" name="spotName" class="inp_comm">
 
-										<section>
+										<section >
 											<strong class="tit_form">장소의 대표 사진을 첨부해주세요.<i
 												class="txt_check"> (선택)</i></strong>
 											<div class="file_area">
 												<div class="file_comm">
 													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
 														<input type="file" id="input_thumbnail" name="spotThumbnail"
-														class="inp_file file_attach"> </span> <br>
+														class="inp_file file_attach"> </span> <br><br>
 														
-														<div class="thumb_wrap">
-															<img src="#" id="spot_thumb">
-														</div>
+															<img src="#" id="spot_thumb" style="width:600px; display: absolute; float:center">
 
 												</div>
 											</div>
 										</section>
-<br><br><br><br><br><br>
 
-										<section>
-											<br> <br> <strong class="tit_form"><i
+										<section style="display: inline-block; width:650px">
+											<strong class="tit_form"><i
 												class="fa fa-check"></i>장소 분류를 선택해주세요.</strong>
 											<ul class="list_type2">
 												<li><input type="checkbox" id="etc" name="etc"
