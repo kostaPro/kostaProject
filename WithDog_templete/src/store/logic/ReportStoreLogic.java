@@ -1,7 +1,10 @@
 package store.logic;
 
-import java.util.ArrayList;
+
+import java.util.HashMap;
+
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,78 +25,34 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public boolean createRepot(Report report) {
-
-		SqlSession session = factory.openSession();
-
-		try {
-			ReportMapper mapper = session.getMapper(ReportMapper.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-
-		return false;
-	}
-
-	@Override
 	public List<Report> retrieveReportsByReporterId(String reporterId) {
 
 		SqlSession session = factory.openSession();
+		List<Report> list = null;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			list = mapper.retrieveReportsByReporterId(reporterId);
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return null;
+		return list;
 	}
 
 	@Override
 	public List<Report> retrieveReportsBySuspectId(String suspectId) {
 
 		SqlSession session = factory.openSession();
+		List<Report> list = null;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-
-		return null;
-	}
-
-	@Override
-	public List<Report> retrieveAllReports() {
-
-		SqlSession session = factory.openSession();
-
-		try {
-			ReportMapper mapper = session.getMapper(ReportMapper.class);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-
-		return null;
-	}
-
-	@Override
-	public List<Report> retrieveReportsByReportType(String reportType) {
-
-		SqlSession session = factory.openSession();
-		List<Report> reportList = new ArrayList<>();
-
-		try {
-			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			reportList = mapper.retrieveReportsByReportType(reportType);
+			list = mapper.retrieveReportsBySuspectId(suspectId);
+			
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -101,71 +60,543 @@ public class ReportStoreLogic implements ReportStore{
 			session.close();
 		}
 
-		return reportList;
+		return list;
 	}
 
 	@Override
-	public List<String> retrieveBlackList() {
+	public List<Report> retrieveAllReports() {
 
 		SqlSession session = factory.openSession();
+		List<Report> list = null;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			list= mapper.retrieveAllReports();
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return null;
+		return list;
 	}
 
 	@Override
-	public Report retrieveReport(String reporterId, int targetId) {
+	public List<Report> retrieveReportsByReportType(String reportType) {
 
 		SqlSession session = factory.openSession();
 
+		List<Report> list = null;
+		Map<String, String> map = new HashMap<>(); 
+
+
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
+
+			
+			map.put("reportType", reportType);
+			
+			list = mapper.retrieveReportsByReportType(map);
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return null;
+
+		return list;
+
 	}
 
 	@Override
-	public boolean updateReport(Report report) {
+	public List<String> retrieveBlackList(String status) { 
 
 		SqlSession session = factory.openSession();
+		List<String> list = null;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			list = mapper.retrieveBlackList(status);
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return false;
+		return list;
 	}
 
 	@Override
-	public boolean deleteReport(int reportId) {
+	public Report retrieveReport(String reportType, int reportTargetId) { 
 
 		SqlSession session = factory.openSession();
+		Report report = null;
+		Map<String, Object> map = new HashMap<>();
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
+		
+			map.put("reportType", reportType);
+			map.put("reportTargetId", reportTargetId);
+			
+			report = mapper.retrieveReport(reportType, reportTargetId);
+		
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-		return false;
+		return report;
+	}
+
+
+
+	@Override
+	public boolean createEventCommentReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.createEventCommentReport(report);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createMeetingCommentReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.createMeetingCommentReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createMeetingReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.createMeetingReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createReviewCommentReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.createReviewCommentReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createReviewReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.createReviewReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean createSpotReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.createSpotReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	
+	
+	@Override
+	public boolean updateEventCommentReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.updateEventCommentReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean updateMeetingCommentReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.updateMeetingCommentReport(report);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean updateMeetingReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.updateMeetingReport(report);
+			
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean updateReviewCommentReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.updateReviewCommentReport(report);
+			
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean updateReviewReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.updateReviewReport(report);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean updateSpotReport(Report report) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.updateSpotReport(report);
+		
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	
+	
+	@Override
+	public boolean deleteEventCommentReport(int reportTargetId) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.deleteEventCommentReport(reportTargetId);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+	
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean deleteMeetingCommentReport(int reportTargetId) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.deleteMeetingCommentReport(reportTargetId);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean deleteMeetingReport(int reportTargetId) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.deleteMeetingReport(reportTargetId);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean deleteReviewCommentReport(int reportTargetId) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.deleteReviewCommentReport(reportTargetId);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean deleteReviewReport(int reportTargetId) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.deleteReviewReport(reportTargetId);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean deleteSpotReport(int reportTargetId) {
+		SqlSession session = factory.openSession();
+		boolean result = false;
+
+		try {
+			ReportMapper mapper = session.getMapper(ReportMapper.class);
+			result = mapper.deleteSpotReport(reportTargetId);
+
+			if(result) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+			
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+
+		return result;
 	}
 
 }
