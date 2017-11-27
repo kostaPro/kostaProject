@@ -37,7 +37,7 @@ public class ReviewController {
 	@Autowired
 	private SpotService spotService;
 
-	@RequestMapping("/registReview.do")
+	@RequestMapping(value = "/registReview.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReview(String spotId, HttpServletRequest req) {
 		User user = new User();
 		user.setUserId("jakook");

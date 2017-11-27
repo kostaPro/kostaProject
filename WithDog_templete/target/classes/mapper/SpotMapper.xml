@@ -100,8 +100,7 @@
 	<update id="updateSpot" parameterType="Spot">
 		update spot_tb set
 		spotInfo = #{spotInfo} and spotType = #{spotType}
-		where spotId =
-		#{spotId}
+		where spotId = #{spotId}
 	</update>
 
 	<delete id="deleteSpot" parameterType="Integer">

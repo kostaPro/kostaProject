@@ -259,7 +259,9 @@
 
 				</div>
 			</div>
-				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit send_listing_place"><strong style="color:white">평가글 등록</strong></a>	
+			<div class="3u">
+				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit form-control" style="text-align: center"><strong style="color:white">평가글 등록</strong></a>	
+			</div>
 			
 		</div>
 	</div>

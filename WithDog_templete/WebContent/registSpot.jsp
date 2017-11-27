@@ -85,9 +85,40 @@
 <script src="resources/js/skel.min.js"></script>
 <script src="resources/js/skel-panels.min.js"></script>
 <script src="resources/js/init.js"></script>
+
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="resources/js/spotImage.js"></script>
+
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
+
+<style type="text/css">
+.spot_imgs {
+	width: 1100px;
+	display: inline-block;
+}
+
+.spot_imgs img {
+	margin: 20px;
+	max-width: 300px;
+	float: left;
+}
+
+#thumb_wrap {
+	width: 1500px;
+	display: block;
+}
+
+#spot_thumb{
+	margin: 20px;
+	max-width: 900px;
+	float: left;
+}
+
+
+</style>
 
 </head>
 <body class="homepage">
@@ -146,7 +177,8 @@
 							</ol>
 						</div>
 						<div class="wrap_listing">
-							<form action="#">
+							<form action="registSpot.do" method="POST"
+								enctype="multipart/form-data">
 								<fieldset>
 									<legend class="screen_out">장소 등록하기 폼</legend>
 									<div class="form_details">
@@ -161,76 +193,86 @@
 												class="txt_check"> (선택)</i></strong>
 											<div class="file_area">
 												<div class="file_comm">
-													<span class="file_name"></span> <span class="btn_file"><label>파일첨부</label>
-														<input type="file" name="file_attach1"
+													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
+														<input type="file" id="input_thumbnail" name="spotThumbnail"
 														class="inp_file file_attach"> </span> <br>
+														
+														<div class="thumb_wrap">
+															<img src="#" id="spot_thumb">
+														</div>
+
 												</div>
 											</div>
 										</section>
-
+<br><br><br><br><br><br>
 
 										<section>
 											<br> <br> <strong class="tit_form"><i
 												class="fa fa-check"></i>장소 분류를 선택해주세요.</strong>
 											<ul class="list_type2">
-												<li><input type="checkbox" id="etc" name="event_type"
-													value="etc" disabled="disabled"> <label for="etc"
+												<li><input type="checkbox" id="etc" name="etc"
+													disabled="disabled"> <label for="etc"
 													class="link_cont"></label></li>
 
-												<li><input type="radio" id="inpStore" name="event_type"
-													value="store"> <label for="inpStore"
+												<li><input type="radio" id="inpStore" name="spotType"
+													value="hospital"> <label for="inpStore"
 													class="link_cont"><span class="ico_comm ico_shop"></span><span
 														class="txt_name">동물 병원</span></label></li>
-												<li><input type="radio" id="inpEvent" name="event_type"
-													value="event"> <label for="inpEvent"
+												<li><input type="radio" id="inpEvent" name="spotType"
+													value="shop"> <label for="inpEvent"
 													class="link_cont"><span class="ico_comm ico_event"></span><span
 														class="txt_name">애견 샵</span></label></li>
-												<li><input type="radio" id="inpFnb" name="event_type"
-													value="fnb"> <label for="inpFnb" class="link_cont"><span
+												<li><input type="radio" id="inpFnb" name="spotType"
+													value="cafe"> <label for="inpFnb" class="link_cont"><span
 														class="ico_comm ico_fnb"></span><span class="txt_name">애견
 															카페</span></label></li>
 
-												<li><input type="checkbox" id="etc" name="event_type"
-													value="etc" disabled="disabled"> <label for="etc"
+												<li><input type="checkbox" id="etc" name="etc"
+													disabled="disabled"> <label for="etc"
 													class="link_cont"></label></li>
 											</ul>
 
 											<ul class="list_type2">
 												<li><input type="checkbox" id="etc" name="event_type"
-													value="etc" disabled="disabled"> <label for="etc"
+													disabled="disabled"> <label for="etc"
 													class="link_cont"></label></li>
 
-												<li><input type="radio" id="inpExhibit"
-													name="event_type" value="exhibit"> <label
-													for="inpExhibit" class="link_cont"><span
-														class="ico_comm ico_exhibit"></span><span class="txt_name">공원</span></label>
-												</li>
-												<li><input type="radio" id="inpUnique"
-													name="event_type" value="unique"> <label
-													for="inpUnique" class="link_cont"><span
-														class="ico_comm ico_unique"></span><span class="txt_name">숙박
+												<li><input type="radio" id="inpExhibit" name="spotType"
+													value="park"> <label for="inpExhibit"
+													class="link_cont"> <span
+														class="ico_comm ico_exhibit"></span> <span
+														class="txt_name">공원</span></label></li>
+
+												<li><input type="radio" id="inpUnique" name="spotType"
+													value="accomodation"> <label for="inpUnique"
+													class="link_cont"> <span
+														class="ico_comm ico_unique"></span> <span class="txt_name">숙박
 															시설</span></label></li>
-												<li><input type="radio" id="inpExtra" name="event_type"
-													value="unique"> <label for="inpExtra"
-													class="link_cont"><span class="ico_comm ico_unique"></span><span
-														class="txt_name">기타</span></label></li>
+
+												<li><input type="radio" id="inpExtra" name="spotType"
+													value="etc"> <label for="inpExtra"
+													class="link_cont"><span class="ico_comm ico_unique"></span>
+														<span class="txt_name">기타</span></label></li>
 
 												<li><input type="checkbox" id="etc" name="event_type"
-													value="etc" disabled="disabled"> <label for="etc"
+													disabled="disabled"> <label for="etc"
 													class="link_cont"></label></li>
 											</ul>
 
 										</section>
 
 
-										<strong class="tit_form"><i class="fa fa-check"></i>공간의 주소를 입력해주세요.</strong> 
-										
+										<strong class="tit_form"><i class="fa fa-check"></i>공간의
+											주소를 입력해주세요.</strong>
+
 										<section>
-										
-										<input type="text" class="inp_comm" name="spotAddress" >
-										<a href="#" class="btn btn-primary btn-block form-control btn_comm"><strong style="color:white ">검색하기</strong></a>	
+
+											<input type="text" class="inp_comm" name="spotAddress">
+											<a href="#"
+												class="btn btn-primary btn-block form-control btn_comm"><strong
+												style="color: white">검색하기</strong></a>
 										</section>
-										
+
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form">소개글<i class="txt_check"> (선택)</i></strong>
 										</label>
@@ -241,17 +283,21 @@
 										<div class="file_area">
 											<div class="file_comm">
 												<span class="file_name"></span> <span class="btn_file">
-													<label>파일첨부</label> <input type="file" name="spotImage"
-													class="inp_file file_attach">
+													<label>파일첨부</label> 
+													<input type="file" id="input_imgs" name="spotImage" class="inp_file file_attach"
+													multiple="multiple">
 												</span>
 											</div>
 											<button type="button" class="btn_add">
 												<span class="screen_out">추가</span>
 											</button>
 										</div>
-										<span class="file_notice">최대 3개까지 첨부 가능</span> <input
-											type="submit" class="btn_comm btn_submit send_listing_place"
-											value="등록신청"></input>
+										<span class="file_notice">최대 3개까지 첨부 가능</span>
+										<section>
+											<div class="spot_imgs"></div>
+										</section>
+										<input type="submit"
+											class="btn_comm btn_submit send_listing_place" value="등록신청"></input>
 									</div>
 								</fieldset>
 							</form>
