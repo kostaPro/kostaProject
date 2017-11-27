@@ -53,59 +53,57 @@
 		<div class="container">
 			<section>
 				<header>
-					<h2 align="left">선유도 공원</h2>
+					<h2 align="left">${spot.spotName }</h2>
 
 					<h2 align="right">
-						<button class="btn btn-primary" type="button">평가글 삭제</button>
+						<a
+							href="modifyReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}"><button
+								class="btn btn-primary" type="button">평가글 수정</button></a> <a
+							href="deleteReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}"><button
+								class="btn btn-primary" type="button">평가글 삭제</button></a>
 						<button class="btn btn-primary" type="button">평가글 신고</button>
 					</h2>
 				</header>
 				<section>
-					<h3 align="left">작성자 | jakook</h3>
-					<h3 align="left">작성일 | 2017/11/22</h3>
+					<h3 align="left">작성자 | ${review.writerId }</h3>
+					<h3 align="left">작성일 | ${review.registDate }</h3>
 					<br>
 					<div class="row">
-						<h3 align="left">제목 | 선유도 공원 평가글입니다.</h3>
+						<h3 align="left">제목 | ${review.title }</h3>
 					</div>
 				</section>
 				<div class="row">
 					<c:forEach var="uploadFile" items="${uploadFileList}">
 						<div class="4u">
 							<section>
-								<a href="#" class="image full"><img
-									src="/images/${uploadFile}" /></a>
+								<img class="imgs" src="/images/${uploadFile}" />
 							</section>
 						</div>
 					</c:forEach>
 				</div>
+				<br>
 				<section>
 					<div class="row">
 						<section>
 							<h3 align="left">[내용]</h3>
-							<h3 align="left">Consectetuer adipiscing elit. Nam pede
-								erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque.
-								Vivamus consequat lorem at nisl. Nullam non wisi a sem semper
-								eleifend. Donec mattis libero eget urna. Duis pretium velit ac
-								mauris.Consectetuer adipiscing elit. Nam pede erat, porta eu,
-								lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat
-								lorem at nisl. Nullam non wisi a sem semper eleifend. Donec
-								mattis libero eget urna. Duis pretium velit ac mauris.</h3>
+							<h3 align="left">${review.content }</h3>
 						</section>
 					</div>
 				</section>
-				<!-- foreach ======================================================================================= -->
 				<table class="table" style="font-size: 14px; padding: 20px;">
-					<tr>
-						<td class="text-left"><strong>jakook4013</strong></td>
-						<td class="text-left">eleifend. Donec mattis libero eget
-							urna. Duis pretium velit ac mauris.Consectetuer adipiscing elit.
-							Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam
-							neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem
-							semper eleifend. Donec mattis libero eget urna. Duis pretium
-							velit ac mauris.</td>
-						<td>2017/11/22<a href=""> 수정 </a> <a href="">삭제</a></td>
-
-					</tr>
+					<colgroup>
+						<col width="100" />
+						<col width="800" />
+						<col width="150" />
+					</colgroup>
+					<c:forEach var="comments" items="${comment}">
+						<tr>
+							<td class="text-left"><strong>${comments.writerId }</strong></td>
+							<td class="text-left">${comments.content }</td>
+							<td class="text-right">${comments.registDate }<a href="">수정</a>
+								<a href="">삭제</a></td>
+						</tr>
+					</c:forEach>
 					<tr>
 					</tr>
 				</table>
@@ -113,14 +111,49 @@
 		</div>
 		<div class="section">
 			<div class="reviews">
-				<form action="${ctx }/comment/regist.do">
-					<input type="hidden" name="articleId" value="${article.articleId }">
+				<form action="registReviewComment.do" method="Post">
+					<input type="hidden" name="reviewId" value="${review.reviewId }">
+					<input type="hidden" name="spotId" value="${spot.spotId }">
+					<input type="hidden" name="writerId" value="${user.userId }">
 					<textarea class="form-control" id="review" rows="4" cols="40"
-						placeholder="댓글을 작성해 주세요." name="comments"></textarea>
+						placeholder="댓글을 작성해 주세요." name="content"></textarea>
 					<input type="submit" class="btn btn-primary" value="댓글 등록">
 				</form>
 			</div>
 		</div>
+
+
+
+
+
+		<div class="section">
+			<div class="reviews">
+				<form name="commentInsertForm">
+					<div class="input-group">
+						<input type="hidden" name="reviewId" value="${review.reviewId}" /> 
+						<input type="hidden" name="spotId" value="${spot.spotId }">
+					<input type="hidden" name="writerId" value="${user.userId }">
+						<input
+							type="text" class="form-control" id="content" name="content"
+							placeholder="내용을 입력하세요."> <span class="input-group-btn">
+							<button class="btn btn-primary" type="button"
+								name="commentInsertBtn">댓글 등록</button>
+						</span>
+					</div>
+				</form>
+			</div>
+
+			<div class="container">
+				<div class="commentList"></div>
+			</div>
+		</div>
+		<%@ include file="comments.jsp"%>
+
+
+
+
+
+
 	</div>
 	<!-- /Main -->
 

@@ -72,6 +72,7 @@ public class ReviewServiceLogic implements ReviewService{
 		
 		if(result) {
 		commentStore.deleteReviewCommentList(reviewId);
+		reviewStore.deleteReviewImage(reviewId);
 		}
 		return result;
 	}

@@ -20,4 +20,6 @@ public interface ReviewMapper {
 	boolean updateReview(Review review);
 	
 	boolean deleteReview(int reviewId);
+	
+	boolean deleteReviewImage(int reviewId);
 }

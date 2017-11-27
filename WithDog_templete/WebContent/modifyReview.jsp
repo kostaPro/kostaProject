@@ -47,39 +47,29 @@
 		</div>
 	</div>
 	<!-- Header -->
-
-
+	
 	<!-- Main -->
 	<div id="main">
 		<div class="container">
 			<section>
-				<form action="${ctx }/article/regist.do" method="POST"
-					enctype="multipart/form-data">
-					<header>
-						<h2 align="left">선유도 공원</h2>
-						<h2 align="right">
-							<input class="btn btn-primary" type="submit" value="평가글 수정" />
-						</h2>
-					</header>
-					<section>
-						<h3 align="left">작성자 | jakook</h3>
-						<h3 align="left">작성일 | 2017/11/22</h3>
-						<br>
+			<form action="modifyReview.do" method="POST">
+			<input type="hidden" name="reviewId" value="${review.reviewId }">
+			<input type="hidden" name="spotId" value="${spot.spotId }">
+				<header>
+					<h2 align="left">${spot.spotName }</h2>
+					<h2 align="right">
+						<input class="btn btn-primary" type="submit" value="평가글 수정" />
+					</h2>
+				</header>
+				<section>
+					<h3 align="left">작성자 | ${review.writerId }</h3>
+					<h3 align="left">작성일 | ${review.registDate }</h3>
+					<br>
 						<div class="reviews">
-							<input class="form-control" id="title" type="text" name="title" /><br>
-							<textarea class="form-control" id="content" rows="10" cols="40"></textarea>
-							<br>
-							<div class="row" align="left">
-								<section>
-									<label class="btn btn-info upload-button">이미지 첨부<input
-										style="display: none" type="file" id="input_imgs"
-										multiple="multiple" />
-									</label>
-									<div class="imgs_wrap"></div>
-								</section>
-							</div>
+							<textarea required="required" class="form-control" id="title" name="title">${review.title }</textarea><br>
+							<textarea required="required" class="form-control" id="content" name="content" rows="10" cols="40">${review.content }</textarea>
 						</div>
-					</section>
+				</section>
 				</form>
 			</section>
 		</div>

@@ -7,7 +7,15 @@
 /*********************************************************************************/
 /* Basic                                                                         */
 /*********************************************************************************/
-.imgs_wrap img {
+.imgs_wrap img{
+	margin: 25px;
+	max-width: 340px;
+	min-width: 340px;
+	max-height: 254px;
+	min-height: 254px;
+}
+
+.imgs{
 	margin: 25px;
 	max-width: 340px;
 	min-width: 340px;

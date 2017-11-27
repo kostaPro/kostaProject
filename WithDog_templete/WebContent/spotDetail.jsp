@@ -245,7 +245,7 @@
 										<tr>
 											<td class="text-center">${review.reviewId }</td>
 											<td class="text-center"><a
-												href="reviewDetail.do?reviewId=${review.reviewId }">${review.title }</a></td>
+												href="reviewDetail.do?reviewId=${review.reviewId }&spotId=${spotDetail.spotId}">${review.title }</a></td>
 											<td class="text-center"><fmt:formatDate
 													value="${review.registDate }" pattern="yyyy-MM-dd" /></td>
 											<td class="text-center">${review.writerId }</td>
