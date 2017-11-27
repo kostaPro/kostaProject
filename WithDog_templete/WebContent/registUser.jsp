@@ -6,6 +6,8 @@
   <meta charset="UTF-8">
   <title>With Dog</title>
   
+ 
+  
   
   
       <link rel="stylesheet" href="resources/css/loginStyle.css">
@@ -46,13 +48,24 @@
 							<option value="제주">제주</option>
 						</select>
 		<input type="text" id="petInfo" class="fadeIn second" name="petInfo" placeholder="ex) Poodle/3Y/Male dog">				
+		
+		
 		<section>
-			<label class="fadeIn fourth" >이미지 첨부<input
-				style="display: none" type="file" id="input_imgs"
-				multiple="multiple" />
-			</label>
-			<div class="imgs_wrap"></div>
-		</section>
+									<label class="upload-button">애견 이미지 첨부<input
+										style="display: none" type="file" name="file" id="input_imgs"
+										multiple="multiple" />
+									</label>
+									<div class="imgs_wrap"></div>
+								</section>
+						
+
+				
+			
+
+
+		
+		
+											
       <input type="submit" class="fadeIn fourth" value="Regist">
     </form>
 
