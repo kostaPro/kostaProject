@@ -26,12 +26,12 @@ public class CommentStoreLogicTest {
 //		Comment com = new Comment();
 //		com.setContent("하요");
 //		com.setRegistDate(date);
-//		com.setWriterId("jakook");
+//		com.setWriterId("hi");
 //		com.setTargetId(1);
 //		
 //		store.createEventComment(com);
 //	}
-//
+
 	@Test
 	public void testCreateReviewComment() {
 		Comment com = new Comment();

@@ -8,7 +8,7 @@ import domain.Meeting;
 public interface MeetingService {
 	
 	boolean registMeeting(Meeting meeting);
-	boolean findAllMeetings();
+	List<Meeting> findAllMeetings();
 	List<Meeting> findMeetingsByLocation(String loaction);
 	List<Meeting> findMeetingsByDate(Date date);
 	List<Meeting> findMeetingsByLocationDate(String location, Date date);

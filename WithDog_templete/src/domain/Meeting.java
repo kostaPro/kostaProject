@@ -13,7 +13,7 @@ public class Meeting {
 	private String meetingPurpose;
 	private List<String> meetingImageList;
 	private String hostId;
-	private List<User> meetingJoinList;
+	private List<String> meetingJoinList;
 	private List<Comment> commentList;
 	
 	public int getMeetingId() {
@@ -64,10 +64,10 @@ public class Meeting {
 	public void setHostId(String hostId) {
 		this.hostId = hostId;
 	}
-	public List<User> getMeetingJoinList() {
+	public List<String> getMeetingJoinList() {
 		return meetingJoinList;
 	}
-	public void setMeetingJoinList(List<User> meetingJoinList) {
+	public void setMeetingJoinList(List<String> meetingJoinList) {
 		this.meetingJoinList = meetingJoinList;
 	}
 	public List<Comment> getCommentList() {
