@@ -73,36 +73,6 @@
 	</insert>
 
 
-	<select id="retrieveReportsByReporterId" parameterType="String"
-		resultType="Report">
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM eventCommentReport_tb WHERE reporterId =
-		#{reporterId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
-		meetingCommentReport_tb WHERE reporterId =
-		#{reporterId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
-		meetingReport_tb WHERE reporterId =
-		#{reporterId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
-		reviewCommentReport_tb WHERE reporterId =
-		#{reporterId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
-		reviewReport_tb WHERE reporterId =
-		#{reporterId}
-		UNION
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
-		spotReport_tb WHERE reporterId = #{reporterId}
-	</select>
 
 	<select id="retrieveAllReports" resultType="Report">
 		SELECT reportContent,
@@ -131,101 +101,282 @@
 		spotReport_tb
 	</select>
 
+	<select id="retrieveReportsByReporterId" parameterType="String"
+		resultType="Report">
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status FROM eventCommentReport_tb WHERE reporterId =
+		#{reporterId}
 
-	<select id="retrieveReportsByReportType" parameterType="Map" resultType="Report">
+		UNION
+
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status FROM
+		meetingCommentReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status FROM
+		meetingReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status FROM
+		reviewCommentReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status FROM
+		reviewReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT reportContent, reportType, reportTargetId,
+		reporterId, status FROM
+		spotReport_tb WHERE reporterId = #{reporterId}
+	</select>
+
+
+	<select id="retrieveReportsByReportType" parameterType="Map"
+		resultType="Report">
 		SELECT reportContent, reportTargetId,reporterId, status
 		<if test="reportType == 'spot'">
-			 From spotReport_tb
+			From spotReport_tb
 		</if>
 		<if test="reportType == 'meeting'">
-			 From meetingReport_tb
+			From meetingReport_tb
 		</if>
 		<if test="reportType == 'review'">
-			 From reviewReport_tb
+			From reviewReport_tb
 		</if>
 		<if test="reportType == 'comment'">
-			 From reviewCommentReport_tb
-			 
-			 UNION
-			 
-			 SELECT reportContent, reportTargetId,reporterId, status
-			 From EventCommentReport_tb
-			
-			 UNION
-			 
-			 SELECT reportContent, reportTargetId,reporterId, status
-			 From meetingCommentReport_tb
+			From reviewCommentReport_tb
+
+			UNION
+
+			SELECT reportContent,
+			reportTargetId,reporterId, status
+			From EventCommentReport_tb
+
+			UNION
+
+			SELECT reportContent, reportTargetId,reporterId, status
+			From
+			meetingCommentReport_tb
 		</if>
 	</select>
-	
-	
+
+
 	<update id="updateEventCommentReport" parameterType="Report">
-		UPDATE eventCommentReport_tb
-		SET status = #{status}
+		UPDATE
+		eventCommentReport_tb
+		SET status = #{status} 
 	</update>
-	
+
 	<update id="updateMeetingCommentReport" parameterType="Report">
-		UPDATE meetingCommentReport_tb
+		UPDATE
+		meetingCommentReport_tb
 		SET status = #{status}
 	</update>
-	
+
 	<update id="updateMeetingReport" parameterType="Report">
-		UPDATE meetingReport_tb
+		UPDATE
+		meetingReport_tb
 		SET status = #{status}
 	</update>
-	
+
 	<update id="updateReviewCommentReport" parameterType="Report">
-		UPDATE reviewCommentReport_tb
+		UPDATE
+		reviewCommentReport_tb
 		SET status = #{status}
 	</update>
-	
+
 	<update id="updateReviewReport" parameterType="Report">
-		UPDATE ReviewReport_tb
+		UPDATE
+		ReviewReport_tb
 		SET status = #{status}
 	</update>
-	
+
 	<update id="updateSpotReport" parameterType="Report">
 		UPDATE spotReport_tb
 		SET status = #{status}
 	</update>
-	
-	
-	
-	
+
+
+
+
 	<delete id="deleteEventCommentReport" parameterType="integer">
-		DELETE from eventCommentReport_tb
+		DELETE from
+		eventCommentReport_tb
 		WHERE REPORTTARGETID = #{reportTargetId}
 	</delete>
-	
+
 	<delete id="deleteMeetingCommentReport" parameterType="integer">
-		DELETE from meetingCommentReport_tb
+		DELETE
+		from meetingCommentReport_tb
 		WHERE REPORTTARGETID = #{reportTargetId}
 	</delete>
-	
+
 	<delete id="deleteMeetingReport" parameterType="integer">
-		DELETE from meetingReport_tb
+		DELETE from
+		meetingReport_tb
 		WHERE REPORTTARGETID = #{reportTargetId}
 	</delete>
-		
+
 	<delete id="deleteReviewCommentReport" parameterType="integer">
-		DELETE from reviewCommentReport_tb
+		DELETE from
+		reviewCommentReport_tb
 		WHERE REPORTTARGETID = #{reportTargetId}
 	</delete>
-	
+
 	<delete id="deleteReviewReport" parameterType="integer">
-		DELETE from reviewReport_tb
+		DELETE from
+		reviewReport_tb
 		WHERE REPORTTARGETID = #{reportTargetId}
 	</delete>
-	
+
 	<delete id="deleteSpotReport" parameterType="integer">
-		DELETE from spotReport_tb
+		DELETE from
+		spotReport_tb
 		WHERE REPORTTARGETID = #{reportTargetId}
 	</delete>
-	
-	
-	<select id="retrieveReportsBySuspectId" parameterType="String" resultType="Report">
-		<include refid="selectAllReport"></include>
-		WHERE suspectId = #{suspectId}
+
+
+	<select id="retrieveReportsBySuspectId" parameterType="String"
+		resultType="Report">
+		SELECT reportContent, reportTargetId, status, suspectId
+		FROM eventCommentReport_tb
+		WHERE SUSPECTID IN
+		(SELECT writerId as suspectId
+		FROM eventComment_tb
+		WHERE
+		EVENTCOMMENTID IN
+		(SELECT reportTargetId
+		FROM eventCommentReport_tb
+		WHERE writerId=#{suspectId}))
+
+		UNION
+
+		SELECT reportContent, reportTargetId, status, suspectId
+		FROM meetingCommentReport_tb
+		WHERE SUSPECTID IN
+		(SELECT writerId as suspectId
+		FROM meetingComment_tb
+		WHERE
+		MEETINGCOMMENTID IN
+		(SELECT reportTargetId
+		FROM meetingCommentReport_tb
+		WHERE writerId=#{suspectId}))
+
+		UNION
+
+		SELECT reportContent, reportTargetId, status, suspectId
+		FROM
+		reviewCommentReport_tb
+		WHERE SUSPECTID IN
+		(SELECT writerId as suspectId
+		FROM reviewComment_tb
+		WHERE REVIEWCOMMENTID IN
+		(SELECT reportTargetId
+		FROM reviewCommentReport_tb
+		WHERE writerId=#{suspectId}))
+
+		UNION
+
+		SELECT reportContent, reportTargetId, status, suspectId
+		FROM
+		meetingReport_tb
+		WHERE SUSPECTID IN
+		(SELECT hostId as suspectId
+		FROM meeting_tb
+		WHERE
+		MEETINGID IN
+		(SELECT reportTargetId
+		FROM meetingReport_tb
+		WHERE
+		hostId=#{suspectId}))
+
+		UNION
+
+		SELECT reportContent, reportTargetId, status, suspectId
+		FROM
+		reviewReport_tb
+		WHERE SUSPECTID IN
+		(SELECT writerId as suspectId
+		FROM review_tb
+		WHERE
+		REVIEWID IN
+		(SELECT reportTargetId
+		FROM reviewReport_tb
+		WHERE
+		writerId=#{suspectId}))
+		UNION
+
+		SELECT reportContent, reportTargetId, status, suspectId
+		FROM
+		spotReport_tb
+		WHERE SUSPECTID IN
+		(SELECT registerId as suspectId
+		FROM spot_tb
+		WHERE
+		SPOTID IN
+		(SELECT reportTargetId
+		FROM spotReport_tb
+		WHERE
+		registerId=#{suspectId}))
+
 	</select>
+
+	<select id="retrieveBlackList" parameterType="String"
+		resultType="Report">
+		SELECT suspectId, status, count(*) 신고횟수
+		FROM eventCommentReport_tb
+		GROUP BY suspectId, status
+		HAVING status = '0'
+
+		UNION
+
+		SELECT suspectId, status, count(*) 신고횟수
+		FROM meetingCommentReport_tb
+		GROUP BY suspectId, status
+		HAVING status = #{status}
+
+		UNION
+
+		SELECT suspectId, status, count(*) 신고횟수
+		FROM meetingReport_tb
+		GROUP BY suspectId, status
+		HAVING status = #{status}
+
+		UNION
+
+		SELECT suspectId, status, count(*) 신고횟수
+		FROM reviewCommentReport_tb
+		GROUP BY suspectId, status
+		HAVING status = #{status}
+
+		UNION
+
+		SELECT suspectId, status, count(*) 신고횟수
+		FROM reviewCommentReport_tb
+		GROUP BY suspectId, status
+		HAVING status = #{status}
+
+		UNION
+
+		SELECT suspectId, status, count(*) 신고횟수
+		FROM spotReport_tb
+		GROUP BY suspectId, status
+		HAVING status = #{status}
+	</select>
+
+
+
 
 </mapper>

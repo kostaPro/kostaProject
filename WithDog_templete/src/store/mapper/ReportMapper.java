@@ -34,7 +34,7 @@ public interface ReportMapper {
 	List<Report> retrieveReportsBySuspectId(String suspectId);
 	List<Report> retrieveAllReports();
 	List<Report> retrieveReportsByReportType(Map<String, String> map);
-	List<String> retrieveBlackList();
+	List<String> retrieveBlackList(String status);
 	Report retrieveReport(@Param("reportType") String reportType, @Param("reportTargetId") int reportTargetId );
 	
 }

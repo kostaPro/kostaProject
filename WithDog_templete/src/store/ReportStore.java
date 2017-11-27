@@ -31,7 +31,7 @@ public interface ReportStore {
 	List<Report> retrieveReportsBySuspectId(String suspectId);
 	List<Report> retrieveAllReports();
 	List<Report> retrieveReportsByReportType(String reportType);
-	List<String> retrieveBlackList();
+	List<String> retrieveBlackList(String status);
 	Report retrieveReport(String reportType, int reportTargetId);
 
 }

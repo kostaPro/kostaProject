@@ -51,6 +51,7 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			list = mapper.retrieveReportsBySuspectId(suspectId);
 			
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -103,14 +104,14 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public List<String> retrieveBlackList() { //
+	public List<String> retrieveBlackList(String status) { 
 
 		SqlSession session = factory.openSession();
 		List<String> list = null;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			list = mapper.retrieveBlackList();
+			list = mapper.retrieveBlackList(status);
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);

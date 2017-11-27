@@ -16,7 +16,12 @@
 		<association property="eventSpot" column="SPOTID"
 			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
 			jdbcType="NUMERIC" />
-	</resultMap>
+			
+		<collection property="commentList" column="eventId" ofType="Comment" 
+     		select="store.mapper.CommentMapper.retrieveCommentsByEventId" javaType="ArrayList" 
+     		jdbcType="NUMERIC" />
+     		
+     	</resultMap>
 
 	<sql id="selectEvent">
 		select eventId, eventName, eventSpotId, eventImage,
