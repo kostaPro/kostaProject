@@ -254,7 +254,7 @@
 
 										<section>
 
-											<input type="text" class="inp_comm" name="spotAddress">
+											<input type="text" class="inp_comm" name="spotLocation">
 											<a href="#"
 												class="btn btn-primary btn-block form-control btn_comm"><strong
 												style="color: white">검색하기</strong></a>
@@ -263,7 +263,7 @@
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form">소개글<i class="txt_check"> (선택)</i></strong>
 										</label>
-										<textarea class="inp_comm" name="spotInto" placeholder=""></textarea>
+										<textarea class="inp_comm" name="spotInfo" placeholder=""></textarea>
 
 										<strong class="tit_form">장소의 사진(이미지 파일)을 첨부해주세요.<i
 											class="txt_check"> (선택)</i></strong>
