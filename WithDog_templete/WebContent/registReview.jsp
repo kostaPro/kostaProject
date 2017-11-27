@@ -78,7 +78,7 @@
 							<div class="row" align="left">
 								<section>
 									<label class="btn btn-info upload-button">이미지 첨부<input
-										style="display: none" type="file" id="input_imgs"
+										style="display: none" type="file" name="file" id="input_imgs"
 										multiple="multiple" />
 									</label>
 									<div class="imgs_wrap"></div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -68,24 +69,14 @@
 					</div>
 				</section>
 				<div class="row">
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics02.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics03.jpg" alt=""></a>
-						</section>
-					</div>
+					<c:forEach var="uploadFile" items="${uploadFileList}">
+						<div class="4u">
+							<section>
+								<a href="#" class="image full"><img
+									src="/images/${uploadFile}" /></a>
+							</section>
+						</div>
+					</c:forEach>
 				</div>
 				<section>
 					<div class="row">

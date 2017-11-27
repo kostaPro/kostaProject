@@ -10,7 +10,7 @@
 -->
 <html>
 <head>
-<title>WithDog_spotDetail</title>
+<title>WithDog_spotList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -85,8 +85,7 @@
 	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
 <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 <script src="resources/js/skel.min.js"></script>
 <script src="resources/js/skel-panels.min.js"></script>
 <script src="resources/js/init.js"></script>
@@ -133,67 +132,117 @@
 	<div id="main">
 
 		<div class="container">
-			<div class="row">
-
-
-
-				<section>
-					<header>
-						<h2 align="left">${spotDetail.spotName }</h2>
-					</header>
+			<form class="property-search-form"
+				action="http://www.sweetspot.co.kr/search-results/">
 					<div class="row">
-						<section>
-							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
-							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
-							<hr>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
 
-						</section>
+						<div class="3u">
+							<select name="location" id="location" class="form-control">
+								<option value="all">지역을 선택해주세요.</option>
+								<option
+									value="%ed%96%89%eb%8b%b4%eb%8f%84%ed%9c%b4%ea%b2%8c%ec%86%8c">
+				            행담도휴게소					        </option>
+								<option value="apgujeong-chungdamdong">
+				            압구정 / 청담동					        </option>
+								<option value="asansi">
+				            아산시					        </option>
+								<option value="bojung-cafe-street">
+				            보정동카페거리					        </option>
+								<option value="bundanggu">
+				            분당구					        </option>
+								<option value="deokpyeon-eco-service-area">
+				            덕평자연휴게소					        </option>
+								<option value="dongdaemoon">
+				            동대문구					        </option>
+								<option value="galosugil">
+				            가로수길					        </option>
+								<option value="gangnam-bus-terminal">
+				            강남고속버스터미널					        </option>
+								<option value="gwanak">
+				            관악구					        </option>
+								<option value="gwangjin">
+				            광진구					        </option>
+								<option value="habjeongdong">
+				            홍대 / 합정/ 공덕					        </option>
+								<option value="ilsan-newtown">
+				            일산/고양					        </option>
+								<option value="itaewon">
+				            이태원					        </option>
+								<option value="jamsil">
+				            잠실/송파					        </option>
+								<option value="jungnang">
+				            중랑구(상봉역/망우역)					        </option>
+								<option value="kwanghwamoon">
+				            광화문 / 을지로					        </option>
+								<option value="pajoo-unjung">
+				            파주운정신도시					        </option>
+								<option value="sangam-dong">
+				            상암동					        </option>
+								<option value="seoulstation">
+				            서울역 / 명동					        </option>
+								<option value="songdo">
+				            인천/송도					        </option>
+								<option value="sudaemoon">
+				            서대문/충정로					        </option>
+								<option value="sungdonggu">
+				            성동구(성수동)					        </option>
+								<option value="teheran">
+				            테헤란로 / 강남					        </option>
+								<option value="yangcheon-gu">
+				            양천구					        </option>
+								<option value="yangjae-dong">
+				            양재동					        </option>
+								<option value="yeouido">
+				            여의도 / 영등포					        </option>
+							</select>
+						</div>
+
+
+						<div class="3u">
+							<select name="spotType" id="spotType" class="form-control">
+								<option value="all">분류를 선택해주세요.</option>
+								<option value="hospital">
+				            동물병원					        </option>
+								<option value="shop">
+				            애견 샵				        </option>
+								<option value="cafe">
+				            애견 카페					        </option>
+								<option value="park">
+				            공원					        </option>
+								<option value="event">
+				            이벤트					        </option>
+								<option value="accomodation">
+				            숙박 시설					        </option>
+								<option value="etc">
+				            기타					        </option>
+
+							</select>
+						</div>
+
+						<div class="3u">
+							<input type="text" placeholder="장소명을 입력해주세요" name="spotName" class="form-control" />
+						</div>
+
+						<div class="3u">
+							<input type="submit" value="search" class="btn btn-primary btn-block form-control" id="search_btn" style="color:#fff !important; background:#43becc; border:1px solid #43becc !important;">
+						</div>
+
 					</div>
 
-				</section>
+				<!-- Default Order: Newest Properties First -->
+				<input type="hidden" name="order-by" value="date-new" /> <input
+					type="hidden" name="pageid" value="841" />
 
+			</form>
+
+			<div class="row">
 				<section>
 					<div class="4u">
-						<iframe width="760" height="500"
+						<iframe width="1180" height="600"
 							src="http://withdog.dothome.co.kr/"></iframe>
 					</div>
 				</section>
-
 			</div>
-
-			<section>
-				<div style="border: 2px solid; padding: 10px;">
-
-					<h2>장소 소개</h2>
-					<h3>${spotDetail.spotInfo }</h3>
-				</div>
-			</section>
-
-			<hr>
-			<section>
-				<div class="row">
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics02.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics03.jpg" alt=""></a>
-						</section>
-					</div>
-				</div>
-			</section>
 		</div>
 	</div>
 	<!-- /Main -->
@@ -205,8 +254,8 @@
 				<div class="3u">
 					<section>
 						<header>
-							<h2>Review List</h2>
-						<hr>
+							<h2>Spot List</h2>
+							<hr>
 						</header>
 
 					</section>
@@ -219,36 +268,31 @@
 
 					<table class="table table-striped table-bordered table-hover">
 						<colgroup>
-							<col width="80" />
-							<col width="500" />
+							<col width="400" />
+							<col width="800" />
 							<col width="300" />
-							<col width="300" />
-							<col width="80" />
 						</colgroup>
 						<thead>
 							<tr>
-								<th class="text-center">번호</th>
-								<th class="text-center">제목</th>
-								<th class="text-center">작성일</th>
-								<th class="text-center">작성자</th>
+								<th class="text-center">장소 명</th>
+								<th class="text-center">장소 위치</th>
+								<th class="text-center">장소 분류</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:choose>
-								<c:when test="${empty spotDetail.reviewList }">
+								<c:when test="${empty spotList }">
 									<tr>
-										<th colspan="4" class="text-center">평가글 존재하지 않습니다.</th>
+										<th colspan="3 " class="text-center">장소가 존재하지 않습니다.</th>
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="review" items="${spotDetail.reviewList }">
+									<c:forEach var="spot" items="${spotList }">
 										<tr>
-											<td class="text-center">${review.reviewId }</td>
 											<td class="text-center"><a
-												href="reviewDetail.do?reviewId=${review.reviewId }">${review.title }</a></td>
-											<td class="text-center"><fmt:formatDate
-													value="${review.registDate }" pattern="yyyy-MM-dd" /></td>
-											<td class="text-center">${review.writerId }</td>
+												href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
+											<td class="text-center">${spot.spotLocation }</td>
+											<td class="text-center">${spot.spotType }</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
@@ -260,9 +304,11 @@
 				</div>
 			</div>
 			<div class="3u">
-				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit form-control" style="text-align: center"><strong style="color:white">평가글 등록</strong></a>	
+				<a href="registSpot.do" class="btn_comm btn_submit form-control"
+					style="text-align: center"><strong style="color: white">장소
+						등록</strong></a>
 			</div>
-			
+
 		</div>
 	</div>
 	<!-- /Footer -->
@@ -275,7 +321,5 @@
 				href="http://unsplash.com/cc0">CC0</a>)
 		</div>
 	</div>
-
-
 </body>
 </html>
