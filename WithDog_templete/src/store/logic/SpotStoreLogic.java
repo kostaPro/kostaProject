@@ -69,67 +69,6 @@ public class SpotStoreLogic implements SpotStore{
 	}
 
 	@Override
-	public List<Spot> retrieveSpotsByLocation(String location) {
-		
-		SqlSession session = factory.openSession();
-		List<Spot> spotList = new ArrayList<>();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-			spotList = mapper.retrieveSpotsByLocation(location);
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return spotList;
-	}
-
-	@Override
-	public List<Spot> retrieveSpotsBySpotType(String spotType) {
-		
-		SqlSession session = factory.openSession();
-		List<Spot> spotList = new ArrayList<>();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-			spotList = mapper.retrieveSpotsBySpotType(spotType);
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return spotList;
-	}
-
-	@Override
-	public List<Spot> retrieveSpotsByLocationSpotType(String location, String spotType) {
-		
-		SqlSession session = factory.openSession();
-		Map<String, String> map = new HashMap<>();
-		List<Spot> spotList = new ArrayList<>();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-			
-			map.put("location", location);
-			map.put("spotType", spotType);
-			
-			spotList = mapper.retrieveSpotsByLocationSpotType(map);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return spotList;
-	}
-
-	@Override
 	public Spot retrieveSpotBySpotId(int spotId) {
 		
 		SqlSession session = factory.openSession();
@@ -145,26 +84,6 @@ public class SpotStoreLogic implements SpotStore{
 		}
 		
 		return spot;
-	}
-
-	@Override
-	public List<Spot> retrieveSpotsBySpotName(String spotName) {
-		
-		SqlSession session = factory.openSession();
-		List<Spot> spotList = new ArrayList<>();
-
-		try {
-			SpotMapper mapper = session.getMapper(SpotMapper.class);
-			spotName = "%" + spotName + "%" ; 
-			spotList = mapper.retrieveSpotsBySpotName(spotName);
-			
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			session.close();
-		}
-		
-		return spotList;
 	}
 
 	@Override
@@ -276,6 +195,38 @@ public class SpotStoreLogic implements SpotStore{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<Spot> retriveSpotsByCondition(String spotLocation, String spotType, String spotName) {
+		
+		SqlSession session = factory.openSession();
+		Map<String, String> map = new HashMap<>();
+		List<Spot> spotList = new ArrayList<>();
+		
+		if(!spotName.equals("")) {
+			spotName = "%" + spotName.toLowerCase() + "%" ;  
+		}
+		
+		if(!spotLocation.equals("")) {
+			spotLocation = "%" + spotLocation + "%";
+		}
+		
+		try {
+			SpotMapper mapper = session.getMapper(SpotMapper.class);
+			
+			map.put("spotLocation", spotLocation);
+			map.put("spotType", spotType);
+			map.put("spotName", spotName);
+			
+			spotList = mapper.retrieveSpotsByCondition(map);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			session.close();
+		}
+		
+		return spotList;
 	}
 
 }

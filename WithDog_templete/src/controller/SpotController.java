@@ -120,8 +120,8 @@ public class SpotController {
 	}
 	
 	@RequestMapping(value="/spotList.do", method = RequestMethod.POST)
-	public ModelAndView searchSpotList(String location, String spotType, String spotName) {
-		List<Spot> spotList = spotService.findSpotsBySpotName(spotName);
+	public ModelAndView searchSpotList(String spotLocation, String spotType, String spotName) {
+		List<Spot> spotList = spotService.findSpotsByCondition(spotLocation, spotType, spotName);
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
 		return modelAndView;

@@ -10,14 +10,10 @@ public interface SpotStore {
 	boolean createSpot(Spot spot);
 
 	List<Spot> retrieveAllSpots();
-	
-	List<Spot> retrieveSpotsByLocation(String location);
-	List<Spot> retrieveSpotsBySpotType(String spotType);
-	List<Spot> retrieveSpotsByLocationSpotType(String location, String spotType);
+
+	List<Spot> retriveSpotsByCondition(String spotLocation, String spotType, String spotName);
 	
 	Spot retrieveSpotBySpotId(int spotId);
-	
-	List<Spot> retrieveSpotsBySpotName(String spotName);
 	
 	List<String> retrieveImageListBySpotId(int spotId);
 	boolean createSpotImage(int spotId, String imageUrl);

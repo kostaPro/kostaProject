@@ -60,24 +60,6 @@ public class SpotServiceLogic implements SpotService{
 	}
 
 	@Override
-	public List<Spot> findSpotsByLocation(String location) {
-		
-		return spotStore.retrieveSpotsByLocation(location);
-	}
-
-	@Override
-	public List<Spot> findSpotsBySpotType(String spotType) {
-		
-		return spotStore.retrieveSpotsBySpotType(spotType);
-	}
-
-	@Override
-	public List<Spot> findSpotsByLocationSpotType(String location, String spotType) {
-	
-		return spotStore.retrieveSpotsByLocationSpotType(location, spotType);
-	}
-
-	@Override
 	public Spot findSpotBySpotId(int spotId) {
 		return spotStore.retrieveSpotBySpotId(spotId);
 	}
@@ -88,11 +70,6 @@ public class SpotServiceLogic implements SpotService{
 		return spotStore.retrieveSpotsByRegisterId(registerId);
 	}
 
-	@Override
-	public List<Spot> findSpotsBySpotName(String spotName) {
-		
-		return spotStore.retrieveSpotsBySpotName(spotName);
-	}
 
 	@Override
 	public boolean modifySpot(Spot spot) {
@@ -120,6 +97,12 @@ public class SpotServiceLogic implements SpotService{
 	@Override
 	public boolean registSpotImage(int spotId, String imageUrl) {
 		return spotStore.createSpotImage(spotId, imageUrl);
+	}
+
+	@Override
+	public List<Spot> findSpotsByCondition(String spotLocation, String spotType, String spotName) {
+		
+		return spotStore.retriveSpotsByCondition(spotLocation, spotType, spotName);
 	}
 
 }

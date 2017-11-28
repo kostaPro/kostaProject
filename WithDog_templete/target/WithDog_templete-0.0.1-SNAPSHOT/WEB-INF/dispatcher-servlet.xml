@@ -10,6 +10,7 @@
 	<mvc:annotation-driven/>
 
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<mvc:resources location="/images/" mapping="/images/*"/>
 
 	<context:component-scan base-package="controller"/>
 	<context:component-scan base-package="service.logic"/>

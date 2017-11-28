@@ -132,102 +132,61 @@
 	<div id="main">
 
 		<div class="container">
-			<form class="property-search-form"
-				action="spotList.do" method="post">
-					<div class="row">
+			<form class="property-search-form" action="spotList.do" method="post">
+				<div class="row">
 
-						<div class="3u">
-							<select name="location" id="location" class="form-control">
-								<option value="all">지역을 선택해주세요.</option>
-								<option
-									value="%ed%96%89%eb%8b%b4%eb%8f%84%ed%9c%b4%ea%b2%8c%ec%86%8c">
-				            행담도휴게소					        </option>
-								<option value="apgujeong-chungdamdong">
-				            압구정 / 청담동					        </option>
-								<option value="asansi">
-				            아산시					        </option>
-								<option value="bojung-cafe-street">
-				            보정동카페거리					        </option>
-								<option value="bundanggu">
-				            분당구					        </option>
-								<option value="deokpyeon-eco-service-area">
-				            덕평자연휴게소					        </option>
-								<option value="dongdaemoon">
-				            동대문구					        </option>
-								<option value="galosugil">
-				            가로수길					        </option>
-								<option value="gangnam-bus-terminal">
-				            강남고속버스터미널					        </option>
-								<option value="gwanak">
-				            관악구					        </option>
-								<option value="gwangjin">
-				            광진구					        </option>
-								<option value="habjeongdong">
-				            홍대 / 합정/ 공덕					        </option>
-								<option value="ilsan-newtown">
-				            일산/고양					        </option>
-								<option value="itaewon">
-				            이태원					        </option>
-								<option value="jamsil">
-				            잠실/송파					        </option>
-								<option value="jungnang">
-				            중랑구(상봉역/망우역)					        </option>
-								<option value="kwanghwamoon">
-				            광화문 / 을지로					        </option>
-								<option value="pajoo-unjung">
-				            파주운정신도시					        </option>
-								<option value="sangam-dong">
-				            상암동					        </option>
-								<option value="seoulstation">
-				            서울역 / 명동					        </option>
-								<option value="songdo">
-				            인천/송도					        </option>
-								<option value="sudaemoon">
-				            서대문/충정로					        </option>
-								<option value="sungdonggu">
-				            성동구(성수동)					        </option>
-								<option value="teheran">
-				            테헤란로 / 강남					        </option>
-								<option value="yangcheon-gu">
-				            양천구					        </option>
-								<option value="yangjae-dong">
-				            양재동					        </option>
-								<option value="yeouido">
-				            여의도 / 영등포					        </option>
-							</select>
-						</div>
+					<div class="3u">
+						<select name="spotLocation" id="spotLocation" class="form-control">
+							<option value="">지역을 선택해주세요.</option>
+							<option value="서울특별시">서울</option>
+							<option value="경기도">경기</option>
+							<option value="인천광역시">인천</option>
+							<option value="강원도">강원</option>
+							<option value="부산광역시">부산</option>
+							<option value="경상남도">경남</option>
+							<option value="전라남도">전남</option>
+							<option value="전라북도">전북</option>
+							<option value="경상북도">경북</option>
+							<option value="충청남도">충남</option>
+							<option value="충청북도">충북</option>
+							<option value="제주특별시">제주</option>
+						</select>
+					</div>
 
 
-						<div class="3u">
-							<select name="spotType" id="spotType" class="form-control">
-								<option value="all">분류를 선택해주세요.</option>
-								<option value="hospital">
+					<div class="3u">
+						<select name="spotType" id="spotType" class="form-control">
+							<option value="">분류를 선택해주세요.</option>
+							<option value="hospital">
 				            동물병원					        </option>
-								<option value="shop">
+							<option value="shop">
 				            애견 샵				        </option>
-								<option value="cafe">
+							<option value="cafe">
 				            애견 카페					        </option>
-								<option value="park">
+							<option value="park">
 				            공원					        </option>
-								<option value="event">
+							<option value="event">
 				            이벤트					        </option>
-								<option value="accomodation">
+							<option value="accomodation">
 				            숙박 시설					        </option>
-								<option value="etc">
+							<option value="etc">
 				            기타					        </option>
 
-							</select>
-						</div>
-
-						<div class="3u">
-							<input type="text" placeholder="장소명을 입력해주세요" name="spotName" class="form-control" />
-						</div>
-
-						<div class="3u">
-							<input type="submit" value="search" class="btn btn-primary btn-block form-control" id="search_btn" style="color:#fff !important; background:#43becc; border:1px solid #43becc !important;">
-						</div>
-
+						</select>
 					</div>
+
+					<div class="3u">
+						<input type="text" placeholder="장소명을 입력해주세요" name="spotName"
+							class="form-control" />
+					</div>
+
+					<div class="3u">
+						<input type="submit" value="search"
+							class="btn btn-primary btn-block form-control" id="search_btn"
+							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
+					</div>
+
+				</div>
 
 				<!-- Default Order: Newest Properties First -->
 				<input type="hidden" name="order-by" value="date-new" /> <input
