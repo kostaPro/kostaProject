@@ -18,7 +18,7 @@
   <div id="formContent">
     <!-- Tabs Titles -->
     <h2 class="active"><a class="underlineHover" href="#"> Sign In </a></h2>
-    <h2 class="inactive underlineHover"><a class="underlineHover" href="#"> Sign Up </a></h2>
+    <h2 class="inactive underlineHover"><a class="underlineHover" href="registUser.do"> Sign Up </a></h2>
 
     <!-- Icon -->
     <div class="fadeIn first">
