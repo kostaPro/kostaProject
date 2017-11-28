@@ -133,7 +133,7 @@
 
 		<div class="container">
 			<form class="property-search-form"
-				action="http://www.sweetspot.co.kr/search-results/">
+				action="spotList.do" method="post">
 					<div class="row">
 
 						<div class="3u">
@@ -316,10 +316,10 @@
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
+			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
+				href="">CC0</a>)
 		</div>
 	</div>
+
 </body>
 </html>

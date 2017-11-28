@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,6 @@ public class SpotController {
 		Spot spot = spotService.findSpotBySpotId(Integer.parseInt(spotId));
 		ModelAndView modelAndView = new ModelAndView("spotDetail.jsp");
 		modelAndView.addObject("spotDetail", spot);
-		
 		return modelAndView;
 	}
 	
@@ -80,6 +80,8 @@ public class SpotController {
 			spot.setThumbnail(saveFileName);
 		}
 		
+		spotService.registSpot(spot);
+
 		// 넘어온 파일을 리스트로 저장
 		List<MultipartFile> mf = file.getFiles("spotImage");
 		if (mf.size() == 0 && mf.get(0).getOriginalFilename().equals("")) {
@@ -105,14 +107,26 @@ public class SpotController {
 			}
 		}
 		
-		spotService.registSpot(spot);
 		
 		return "redirect:spotDetail.do?spotId=" + spot.getSpotId();
 	}
 	
+	@RequestMapping(value="/spotList.do", method = RequestMethod.GET)
+	public ModelAndView showSpotList() {
+		List<Spot> spotList = spotService.findAllSpots();
+		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
+		modelAndView.addObject("spotList", spotList);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/spotList.do", method = RequestMethod.POST)
+	public ModelAndView searchSpotList(String location, String spotType, String spotName) {
+		List<Spot> spotList = spotService.findSpotsBySpotName(spotName);
+		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
+		modelAndView.addObject("spotList", spotList);
+		return modelAndView;
+	}
 
-//	+showSpotList() : ModelAndView
-//	+searchSpotList(location : String, spotType : String, spotName : String) : ModelAndView
 
 //	+showMySpot(session : HttpSession) : ModelAndView
 //	+showModifySpot(spotId : String) : ModelAndView

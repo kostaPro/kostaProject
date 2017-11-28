@@ -53,7 +53,8 @@
 		<div class="container">
 			<section>
 				<header>
-					<h2 align="left">${spot.spotName }</h2>
+					<a href="spotDetail.do?spotId=${spot.spotId }">
+					<h2 align="left">${spot.spotName }</h2></a>
 
 					<h2 align="right">
 						<a

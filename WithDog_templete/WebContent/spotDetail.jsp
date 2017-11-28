@@ -133,10 +133,15 @@
 	<div id="main">
 
 		<div class="container">
+
 			<div class="row">
+				<div class="3u" style="float: right; margin-right:30px">
+					<a href="spotList.do"class="btn_comm btn_submit form-control" style="text-align: center;">
+					<strong style="color: white">장소목록으로</strong></a>
+				</div>
+			</div>
 
-
-
+			<div class="row">
 				<section>
 					<header>
 						<h2 align="left">${spotDetail.spotName }</h2>
@@ -146,8 +151,8 @@
 							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
 							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
 							<hr>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
+							<a href="#" class="image full"> <img
+								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
 
 						</section>
 					</div>
@@ -174,24 +179,13 @@
 			<hr>
 			<section>
 				<div class="row">
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics02.jpg" alt=""></a>
-						</section>
-					</div>
-					<div class="4u">
-						<section>
-							<a href="#" class="image full"><img
-								src="resources/img/pics03.jpg" alt=""></a>
-						</section>
-					</div>
+					<c:forEach var="uploadFile" items="${spotDetail.spotImageList}">
+						<div class="4u">
+							<section>
+								<img class="imgs" src="/images/${uploadFile}" />
+							</section>
+						</div>
+					</c:forEach>
 				</div>
 			</section>
 		</div>
@@ -206,7 +200,7 @@
 					<section>
 						<header>
 							<h2>Review List</h2>
-						<hr>
+							<hr>
 						</header>
 
 					</section>
@@ -260,9 +254,11 @@
 				</div>
 			</div>
 			<div class="3u">
-				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit form-control" style="text-align: center"><strong style="color:white">평가글 등록</strong></a>	
+				<a href="registReview.do?spotId=${spotDetail.spotId }"
+					class="btn_comm btn_submit form-control" style="text-align: center"><strong
+					style="color: white">평가글 등록</strong></a>
 			</div>
-			
+
 		</div>
 	</div>
 	<!-- /Footer -->
@@ -270,9 +266,8 @@
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
+			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
+				href="">CC0</a>)
 		</div>
 	</div>
 
