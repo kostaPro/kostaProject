@@ -160,9 +160,9 @@
 				</section>
 
 				<section>
-					<div class="4u">
-						<iframe width="760" height="500"
-							src="http://withdog.dothome.co.kr/"></iframe>
+					<div class="7u">
+						<iframe style="width:760px; height:500px"
+							src="http://wedog.dothome.co.kr/"></iframe>
 					</div>
 				</section>
 
