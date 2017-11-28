@@ -33,18 +33,18 @@
       
 						<select form="location" name="favoriteLocation" >
 							<option value="선호지역">&nbsp&nbsp&nbsplocation</option>
-							<option value="서울">서울특별시</option>
-							<option value="경기">경기도</option>
-							<option value="인천">인천광역시</option>
-							<option value="강원">강원도</option>
-							<option value="부산">부산광역시</option>
-							<option value="경남">경상남도</option>
-							<option value="전남">전라남도</option>
-							<option value="전북">전라북도</option>
-							<option value="경북">경상북도</option>
-							<option value="충남">충청남도</option>
-							<option value="충북">충청북도</option>
-							<option value="제주">제주특별시</option>
+							<option value="서울특별시">서울</option>
+							<option value="경기도">경기</option>
+							<option value="인천광역시">인천</option>
+							<option value="강원도">강원</option>
+							<option value="부산광역시">부산</option>
+							<option value="경상남도">경남</option>
+							<option value="전라남도">전남</option>
+							<option value="전라북도">전북</option>
+							<option value="경상북도">경북</option>
+							<option value="충청남도">충남</option>
+							<option value="충청북도">충북</option>
+							<option value="제주특별시">제주</option>
 						</select>
 		<input type="text" id="petInfo" class="fadeIn second" name="petInfo" placeholder="ex) Poodle/3Y/Male dog">				
 		
