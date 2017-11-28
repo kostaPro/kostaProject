@@ -1,7 +1,8 @@
 package store;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import domain.Meeting;
 
@@ -16,6 +17,7 @@ public interface MeetingStore {
 	List<Meeting> retrieveMeetingsByHost(String hostId);
 	Meeting retrieveMeetingByMeetingId(int meetingId);
 	List<String> retrieveJoinListByMeetingId(int meetingId);
+	boolean createMeetingImage(String imageUrl, int meetingId);
 	List<String> retrieveImageListByMeetingId(int meetingId);
 	boolean joinMeeting(int meetingId, String guestId);
 	boolean cancelMeeting(int meetingId, String guestId);

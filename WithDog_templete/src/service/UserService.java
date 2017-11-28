@@ -10,6 +10,6 @@ public interface UserService {
 	boolean modifyUser(User user);
 	boolean removeUser(String userId);
 	User findUserByUserId(String userId);
-	List<User> findUserList(List<User> userIdList);
+	List<User> findUserList(List<String> userIdList);
 
 }

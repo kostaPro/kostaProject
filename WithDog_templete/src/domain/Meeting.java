@@ -1,6 +1,6 @@
 package domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class Meeting {
@@ -8,12 +8,12 @@ public class Meeting {
 	private int meetingId;
 	private Date meetingDate;
 	private int meetingTime;
-	private String meetingSpot;
+	private Spot meetingSpot;
 	private int minPerson;
 	private String meetingPurpose;
 	private List<String> meetingImageList;
 	private String hostId;
-	private List<User> meetingJoinList;
+	private List<String> meetingJoinList;
 	private List<Comment> commentList;
 	
 	public int getMeetingId() {
@@ -34,11 +34,11 @@ public class Meeting {
 	public void setMeetingTime(int meetingTime) {
 		this.meetingTime = meetingTime;
 	}
-	public String getMeetingSpot() {
+	public Spot getMeetingSpot() {
 		return meetingSpot;
 	}
-	public void setMeetingSpot(String meetingSpot) {
-		this.meetingSpot = meetingSpot;
+	public void setMeetingSpot(Spot spot) {
+		this.meetingSpot = spot;
 	}
 	public int getMinPerson() {
 		return minPerson;
@@ -64,10 +64,10 @@ public class Meeting {
 	public void setHostId(String hostId) {
 		this.hostId = hostId;
 	}
-	public List<User> getMeetingJoinList() {
+	public List<String> getMeetingJoinList() {
 		return meetingJoinList;
 	}
-	public void setMeetingJoinList(List<User> meetingJoinList) {
+	public void setMeetingJoinList(List<String> meetingJoinList) {
 		this.meetingJoinList = meetingJoinList;
 	}
 	public List<Comment> getCommentList() {
