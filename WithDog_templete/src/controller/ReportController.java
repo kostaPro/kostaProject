@@ -92,9 +92,16 @@ public class ReportController {
 
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(value = "/searchReportByType.do")
 	public ModelAndView showSearchByReportType(String reportType) {
-		return null;
+		
+		List<Report> reportList = reportService.findReportsByReportType(reportType);
+		
+		ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
+		modelAndView.addObject("reportList", reportList);
+		
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/blackList.do")
@@ -108,6 +115,7 @@ public class ReportController {
 		return modelAndView;
 	}
 
+	
 	public ModelAndView showSuspectReport(String suspectId) {
 
 		List<Report> blakcListDetail = reportService.findReportsBySuspectId(suspectId);
@@ -120,10 +128,16 @@ public class ReportController {
 	}
 
 	public ModelAndView showModifyReport(String reportId) {
+		
 		return null;
 	}
 
 	public String modifyReport(Report report) {
+		
+//		String reportTarget = "1";
+//		Report r = reportService.findReport(Integer.parseInt(reportTargetId);
+//		reportService.modifyReport(r);
+		
 		return null;
 	}
 
