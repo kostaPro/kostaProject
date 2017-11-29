@@ -35,8 +35,24 @@ public class SpotController {
 	@RequestMapping("/spotDetail.do")
 	public ModelAndView showSpotDetail(String spotId) {
 		Spot spot = spotService.findSpotBySpotId(Integer.parseInt(spotId));
+		
+		String location = spot.getSpotLocation();
+		String locArray[] = location.split(" ");
+		
 		ModelAndView modelAndView = new ModelAndView("spotDetail.jsp");
 		modelAndView.addObject("spotDetail", spot);
+		
+			modelAndView.addObject("do",locArray[0]);
+
+
+			modelAndView.addObject("gu",locArray[1]);
+
+
+			modelAndView.addObject("dong",locArray[2]);
+
+
+			modelAndView.addObject("bunji",locArray[3]);
+
 		return modelAndView;
 	}
 	
@@ -126,7 +142,7 @@ public class SpotController {
 		modelAndView.addObject("spotList", spotList);
 		return modelAndView;
 	}
-
+	
 
 //	+showMySpot(session : HttpSession) : ModelAndView
 //	+showModifySpot(spotId : String) : ModelAndView
