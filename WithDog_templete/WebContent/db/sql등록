@@ -78,9 +78,9 @@ reviewCommentId number primary Key,
 content varchar(400),
 registDate date,
 writerId  varchar(20),
+reviewId number,
 parentId number,
-depth number,
-reviewId number
+dept number
 );
 
 create table reviewCommentReport_tb(

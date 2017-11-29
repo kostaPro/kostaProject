@@ -135,22 +135,25 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="3u" style="float: right; margin-right:30px">
-					<a href="spotList.do"class="btn_comm btn_submit form-control" style="text-align: center;">
-					<strong style="color: white">장소목록으로</strong></a>
+				<div class="3u" style="float: right; margin-right: 30px">
+					<a href="spotList.do" class="btn_comm btn_submit form-control"
+						style="text-align: center;"> <strong style="color: white">장소목록으로</strong></a>
 				</div>
 			</div>
 
 			<div class="row">
 				<section>
-					<header>
-						<h2 align="left">${spotDetail.spotName }</h2>
-					</header>
+
+						<header>
+							<h2 align="left">${spotDetail.spotName }</h2>
+						</header>
+
+					
 					<div class="row">
 						<section>
 							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
 							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
-							
+
 							<a href="#" class="image full"> <img
 								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
 
@@ -161,7 +164,7 @@
 
 				<section>
 					<div class="7u">
-						<iframe style="width:760px; height:500px"
+						<iframe style="width: 760px; height: 500px"
 							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
 					</div>
 				</section>
