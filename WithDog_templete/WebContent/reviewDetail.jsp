@@ -63,8 +63,9 @@
 						            		
 											var writerId = $("input[name='writerId']");
 											var registDate = $("input[name='registDate']");
-											var content = $("textarea[name='content']");
 											var commentId = $("input[name='commentId']");
+											
+											var reply_area = $("#reply_area");
 											
 						            		var reply = 
 						            			'<tr reply_type="main">'+
@@ -72,7 +73,7 @@
 							            		'<strong>'+writerId.val()+'</strong>'+
 							            		'	</td>'+
 							            		'	<td class="text-left">'+
-							            		''+content.val()+''+
+							            		''+content+''+
 							            		'	</td>'+
 							            		'	<td class="text-right">'+
 							            		''+registDate.val()+''+
@@ -94,7 +95,7 @@
 						                     }
 
 						            		//댓글 초기화
-						            		content.val("");
+						            		 $("#content").val("");
 										});
 
 						
@@ -245,18 +246,10 @@
 		                        url         :   "removeReviewComment.do",
 		                        dataType    :   "json",
 		                        type        :   "Get",
+		                        async		: 	false,
 		                        data        :   objParams,
 		                        success     :   function(retVal){
 		 
-		                        	"reviewDetail.do?spotId="
-									+ $(
-											"#spotId")
-											.val()
-									+ "&reviewId="
-									+ $(
-											"#reviewId")
-											.val();
-	
 		                        },
 		                        error       :   function(request, status, error){
 		                            console.log("AJAX_ERROR");
@@ -400,6 +393,7 @@
 			    		<td>
 			    			<c:if test="${comments.depth != '1'}">
 			    			<input type="hidden" id="commentId" name="commentId" value="${comments.commentId }">
+			    			<input type="hidden" id="parentId" name="parentId" value="${comments.parentId }">
 			    				<button class="btn btn-outline-primary" name="reply_reply" reply_id = "${comments.commentId}">답글 달기</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
 			    			</c:if>
 			    		</td>
