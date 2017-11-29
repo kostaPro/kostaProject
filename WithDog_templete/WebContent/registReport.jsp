@@ -69,7 +69,7 @@
 						<h3 align="left">신고구분 |${reportType }</h3>
 						<h3 align="left">신고대상 |${reportTargetId }</h3>
 						<br>
-						<div class="reports">
+						<div class="report">
 
 							<textarea class="form-control" id="reportContent" name="reportContent"
 								rows="10" cols="40" placeholder="신고 사유를 입력해 주세요."

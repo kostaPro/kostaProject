@@ -144,27 +144,29 @@
 					</section>
 				</div>
 			</div>
-
+<form action="searchReportByType.do">
 			<div class="row">
 				<div class="15u">
 
 					<select form="reportType" name="reportType">
 						<option value="all">신고구분을 선택해주세요.</option>
 
-						<option value="모임">모임</option>
-						<option value="이벤트">이벤트</option>
-						<option value="평가글">평가글</option>
-						<option value="댓글">댓글</option>
+						<option value="meeting">모임</option>
+						<option value="event">이벤트</option>
+						<option value="review">평가글</option>
+						<option value="comment">댓글</option>
 
 					</select>
 				</div>
 				<div class="2u">
 					<input type="submit" value="search"
 						class="btn btn-primary btn-block form-control" id="search_btn"
-						style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
+						style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
+						>
 				</div>
+				
 			</div>
-
+</form>
 			<div>
 				<table class="table table-striped table-bordered table-hover">
 					<colgroup>
@@ -194,7 +196,7 @@
 								<c:forEach var="allReportList" items="${allReportList }">
 									<tr>
 										<td class="text-center"><a
-											href="reportDetail.do?reportId=${allReportList.reporterId }">${allReportList.reporterId }</a></td>
+											href="reportDetail.do?reportId=${allReportList.reportTargetId }">${allReportList.reportTargetId }</a></td>
 										<td class="text-center">${allReportList.reportTargetId }</td>
 										<td class="text-center">${allReportList.reportContent }</td>
 										<td class="text-center"><select form="reportType"

@@ -32,41 +32,35 @@ public class ReportController {
 	// +modifyReport(report : Report) : String
 	// +removeReport(reportId : String) : String
 
-	@RequestMapping(value = "/registReport.do", method = RequestMethod.GET)//
+	@RequestMapping(value = "/registReport.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReport(String reportType, String reportTargetId) {
-// reportType, reportTargetId  도장 꾹꾹, reporterId는 jsp에서 userId로 받아버려
+
 		
 		reportType = "spot";
 		reportTargetId = "3";
-		
-		ModelAndView modelAndView = new ModelAndView("registReport.do");
+
+		ModelAndView modelAndView = new ModelAndView("registReport.jsp");
+
 		
 		modelAndView.addObject("reportTargetId", reportTargetId);
 		modelAndView.addObject("reportType", reportType);
-		
+
 		return modelAndView;
 
 	}
 
-	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST)//
+	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST) //
 	public String registReport(Report report, HttpSession session) {
-
+		
 		String userId = "sy";
+		String status = "2";
 		
-		String reporterId = (String) session.getAttribute(userId);
-		Integer reportTargetId = (Integer) session.getAttribute("reportTargetId");
-		String reportType = (String) session.getAttribute("reportType");
-		String reportContent = (String)session.getAttribute("reportContent");
-		
-		report.setReporterId(reporterId);
-		report.setReportTargetId(reportTargetId);
-		report.setReportType(reportType);
-		report.setReportContents(reportContent);
-		
+		report.setReporterId((String)session.getAttribute(userId));
+		report.setStatus(status);
 
-		reportService.registRepot(report);
+		reportService.registReport(report);
 
-		return "redirect:/userPage.do?userId=" + report.getReporterId();
+		return "redirect:userReport.do?reporterId=" + report.getReporterId();
 	}
 
 	@RequestMapping(value = "/userReport.do")
@@ -92,15 +86,15 @@ public class ReportController {
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/searchReportByType.do")
 	public ModelAndView showSearchByReportType(String reportType) {
-		
+
 		List<Report> reportList = reportService.findReportsByReportType(reportType);
-		
+
 		ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
 		modelAndView.addObject("reportList", reportList);
-		
+
 		return modelAndView;
 	}
 
@@ -115,33 +109,34 @@ public class ReportController {
 		return modelAndView;
 	}
 
-	
 	public ModelAndView showSuspectReport(String suspectId) {
 
 		List<Report> blakcListDetail = reportService.findReportsBySuspectId(suspectId);
-		
+
 		ModelAndView modelAndView = new ModelAndView("blackListDetail.jsp");
 		modelAndView.addObject("blackListDetail", blakcListDetail);
-		
+
 		return modelAndView;
-		
+
 	}
 
 	public ModelAndView showModifyReport(String reportId) {
-		
+
 		return null;
 	}
 
 	public String modifyReport(Report report) {
-		
-//		String reportTarget = "1";
-//		Report r = reportService.findReport(Integer.parseInt(reportTargetId);
-//		reportService.modifyReport(r);
-		
+
+		// String reportTarget = "1";
+		// Report r = reportService.findReport(Integer.parseInt(reportTargetId);
+		// reportService.modifyReport(r);
+
 		return null;
 	}
 
-	public String removeReport(String reportId) {
+	public String removeReport(String reportTargetId) {
+		reportService.removeReport(Integer.parseInt(reportTargetId));
 		return null;
+
 	}
 }

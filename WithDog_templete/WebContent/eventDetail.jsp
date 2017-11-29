@@ -148,7 +148,7 @@
 							<h3 align="left">이벤트 이름 | ${eventDetail.eventName }</h3>
 							<hr>
 							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
+								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
 
 						</section>
 					</div>
