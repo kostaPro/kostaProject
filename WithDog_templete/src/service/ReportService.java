@@ -11,8 +11,8 @@ public interface ReportService {
 	List<Report> findReportsBySuspectId(String suspectId);
 	List<Report> findAllReports();
 	List<Report> findReportsByReportType(String reportType);
-	List<String> findBlackList();
-	Report findReport(String reporterId, int targetId);
+	List<String> findBlackList(String status);
+	Report findReport(int reportTargetId);
 	boolean modifyReport(Report report);
 	boolean removeReport(int reportId);
 	

@@ -12,58 +12,81 @@ import store.ReportStore;
 import store.UserStore;
 
 @Service
-public class ReportServiceLogic implements ReportService{
-	
+public class ReportServiceLogic implements ReportService {
+
 	@Autowired
 	private ReportStore reportStore;
 	@Autowired
 	private UserStore userStore;
-	
+
 	@Override
 	public boolean registRepot(Report report) {
+
+		String reportType = report.getReportType();
+
+		if (reportType == "spot") {
+			return reportStore.createSpotReport(report);
+		} else if (reportType == "meeting") {
+			return reportStore.createMeetingCommentReport(report);
+		} else if (reportType == "review") {
+			return reportStore.createReviewReport(report);
+		} else if (reportType == "eventComment") {
+			return reportStore.createEventCommentReport(report);
+		} else if (reportType == "meetingComment") {
+			return reportStore.createMeetingCommentReport(report);
+		} else if (reportType == "reviewComment") {
+			return reportStore.createReviewCommentReport(report);
+		}
 		
-		return false;
+		return true;
 	}
+
 	@Override
-	public List<Report> findReportsByReporterId(String reporterId) {
-		
-		return null;
+	public List<Report> findReportsByReporterId(String reporterId) {//
+
+		return reportStore.retrieveReportsByReporterId(reporterId);
 	}
+
 	@Override
 	public List<Report> findReportsBySuspectId(String suspectId) {
-		
+
 		return null;
 	}
+
 	@Override
 	public List<Report> findAllReports() {
-		
-		return null;
+
+		return reportStore.retrieveAllReports();
 	}
+
 	@Override
 	public List<Report> findReportsByReportType(String reportType) {
-	
+
 		return null;
 	}
+
 	@Override
-	public List<String> findBlackList() {
-		
-		return null;
+	public List<String> findBlackList(String status) {
+
+		return reportStore.retrieveBlackList(status);
 	}
+
 	@Override
-	public Report findReport(String reporterId, int targetId) {
-		
+	public Report findReport(int reportTargetId) {
+
 		return null;
 	}
+
 	@Override
 	public boolean modifyReport(Report report) {
-		
-		return false;
-	}
-	@Override
-	public boolean removeReport(int reportId) {
-		
+
 		return false;
 	}
 
+	@Override
+	public boolean removeReport(int reportId) {
+
+		return false;
+	}
 
 }
