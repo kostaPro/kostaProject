@@ -14,6 +14,6 @@ public interface ReportService {
 	List<String> findBlackList(String status);
 	Report findReport(int reportTargetId);
 	boolean modifyReport(Report report);
-	boolean removeReport(int reportId);
+	boolean removeReport(int reportTargetId);
 	
 }

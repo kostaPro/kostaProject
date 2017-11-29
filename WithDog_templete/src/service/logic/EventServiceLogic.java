@@ -34,36 +34,36 @@ public class EventServiceLogic implements EventService {
 	@Autowired
 	private UserStore userStore;
 
-	@Test
-	public void test() {
-
-		Spot spot = new Spot();
-		spot.setSpotId(1);
-
-		String oDate = "2017-12-25";
-		Date oepnDate = null;
-		String cDate = "2017-12-25";
-		Date closeDate = null;
-
-		try {
-			oepnDate = new SimpleDateFormat("yyyy-MM-dd").parse(oDate);
-			closeDate = new SimpleDateFormat("yyyy-MM-dd").parse(cDate);
-
-			Event event = new Event();
-			event.setEventName("testName7");
-			event.setEventSpot(spot);
-			event.setEventImage("27");
-			event.setOpenDate(oepnDate);
-			event.setCloseDate(closeDate);
-			event.setEventInfo("127");
-
-			registEvent(event);
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-	}
+//	@Test
+//	public void test() {
+//
+//		Spot spot = new Spot();
+//		spot.setSpotId(1);
+//
+//		String oDate = "2017-12-25";
+//		Date oepnDate = null;
+//		String cDate = "2017-12-25";
+//		Date closeDate = null;
+//
+//		try {
+//			oepnDate = new SimpleDateFormat("yyyy-MM-dd").parse(oDate);
+//			closeDate = new SimpleDateFormat("yyyy-MM-dd").parse(cDate);
+//
+//			Event event = new Event();
+//			event.setEventName("testName7");
+//			event.setEventSpot(spot);
+//			event.setEventImage("27");
+//			event.setOpenDate(oepnDate);
+//			event.setCloseDate(closeDate);
+//			event.setEventInfo("127");
+//
+//			registEvent(event);
+//
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	@Override
 	public boolean registEvent(Event event) {

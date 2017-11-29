@@ -84,7 +84,7 @@ public class ReportServiceLogic implements ReportService {
 	}
 
 	@Override
-	public boolean removeReport(int reportId) {
+	public boolean removeReport(int reportTargetId) {
 
 		return false;
 	}
