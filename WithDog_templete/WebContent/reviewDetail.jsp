@@ -23,14 +23,14 @@
 						$("#reply_save")
 								.click(
 										function() {
-
 											//널 검사 
 											if ($("#content").val().trim() == "") {
 												alert("내용을 입력하세요.");
 												$("#content").focus();
 												return false;
 											}
-
+											var content = $("#content").val().replace("\n", "<br>"); //개행처리
+											
 											//값 셋팅
 											var objParams = {
 												parentId : "0",
@@ -38,10 +38,8 @@
 												reviewId : $("#reviewId").val(),
 												spotId : $("#spotId").val(),
 												writerId : $("#writerId").val(),
-												content : $("#content").val()
+												content : content
 											};
-
-											var reply_id;
 
 											//ajax 호출
 											$
@@ -50,16 +48,10 @@
 														dataType : "json",
 														type : "post",
 														data : objParams,
+														async : false,
 														success : function(
 																retVal) {
-															location.href = "reviewDetail.do?spotId="
-																	+ $(
-																			"#spotId")
-																			.val()
-																	+ "&reviewId="
-																	+ $(
-																			"#reviewId")
-																			.val();
+
 														},
 														error : function(
 																request,
@@ -68,6 +60,41 @@
 																	.log("AJAX_ERROR");
 														}
 													});
+						            		
+											var writerId = $("input[name='writerId']");
+											var registDate = $("input[name='registDate']");
+											var content = $("textarea[name='content']");
+											var commentId = $("input[name='commentId']");
+											
+						            		var reply = 
+						            			'<tr reply_type="main">'+
+							            		'	<td class="text-left">'+
+							            		'<strong>'+writerId.val()+'</strong>'+
+							            		'	</td>'+
+							            		'	<td class="text-left">'+
+							            		''+content.val()+''+
+							            		'	</td>'+
+							            		'	<td class="text-right">'+
+							            		''+registDate.val()+''+
+							            		'	</td>'+
+							            		'<td>'+
+							            		'<button class="btn btn-outline-primary" name="reply_reply" reply_id = "'+commentId.val()+'">답글 달기</button>'+
+							            		'	</td>'+
+							            		'<td>'+
+							            		'<button id="reply_update" class="btn btn-outline-primary" name="reply_update">수정</button>'+
+							            		'</td>'+
+							            		'<td>'+
+							            		'<button id="reply_del" class="btn btn-primary" name="reply_del">삭제</button>'+
+							            		'</tr>';
+
+						            		 if($('#reply_area').contents().size()==0){
+						                         $('#reply_area').append(reply);
+						                     }else{
+						                         $('#reply_area tr:last').after(reply);
+						                     }
+
+						            		//댓글 초기화
+						            		content.val("");
 										});
 
 						
@@ -79,18 +106,26 @@
 		                    var reply_id = $(this).attr("reply_id");
 		                    var last_check = false;//마지막 tr 체크
 		                     
+		                    var writerId = $("input[name='writerId']");
+							var registDate = $("input[name='registDate']");
+							
 		                    //입력받는 창 등록
 		                     var replyEditor = 
 		                        '<tr id="reply_add" class="reply_reply">'+
-		                        '   <td width="870px">'+
-		                        '       <textarea name="content" rows="3" cols="50"></textarea>'+
-		                        '   </td>'+
-		                        '   <td>'+
-		                        '       <button name="reply_reply_save" reply_id="'+reply_id+'">등록</button>'+
-		                        '       <button name="reply_reply_cancel">취소</button>'+
-		                        '   </td>'+
+		                        '<td>'+
+		                        '<strong>'+writerId.val()+'</strong>'+
+		                        '</td>'+
+		                        '<td>'+
+		                        '<textarea class="form-control" rows="4" cols="80" name="reContent" style="resize: none;" ></textarea>'+
+		                        '</td>'+
+		                        '<td>'+
+		                        '<button class="btn btn-outline-primary" name="reply_reply_save" reply_id="'+reply_id+'">등록</button>'+
+		                        '<br>'+
+		                        '<br>'+
+		                        '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'+
+		                        '</td>'+
 		                        '</tr>';
-		                         
+
 		                    var prevTr = $(this).parent().parent().next();
 		                     
 		                    //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
@@ -122,11 +157,19 @@
 		                $(document).on("click","button[name='reply_reply_save']",function(){
 		                                         
 
-		                    var content = $("textarea[name='content']");
+		                    var reContent = $("textarea[name='reContent']");
 		                    var writerId = $("input[name='writerId']");
 		                    var spotId = $("input[name='spotId']");
 		                    var reviewId = $("input[name='reviewId']");
+							var registDate = $("input[name='registDate']");
+							var commentId = $("input[name='commentId']");
+							var content = reContent.val().replace("\n", "<br>"); //개행처리
 
+		                    if(reContent.val().trim() == ""){
+		                        alert("내용을 입력하세요.");
+		                        reContent.focus();
+		                        return false;
+		                    }
 
 		                    //값 셋팅
 		                    var objParams = {	               
@@ -135,7 +178,7 @@
 		                            depth           : "1",
 		                            writerId    : writerId.val(),
 		                            spotId : spotId.val(),
-		                            content : content.val()
+		                            content : reContent.val()
 		                    };
 		                     
 		                    var reply_id;
@@ -145,16 +188,10 @@
 		                    	url : "registReviewComment.do",
 								dataType : "json",
 								type : "post",
+								async		: 	false,
 								data : objParams,
 		                        success     :   function(retVal){
-		                        	location.href = "reviewDetail.do?spotId="
-										+ $(
-												"#spotId")
-												.val()
-										+ "&reviewId="
-										+ $(
-												"#reviewId")
-												.val();
+		                        
 		                        },
 		                        error       :   function(request, status, error){
 		                            console.log("AJAX_ERROR");
@@ -163,15 +200,25 @@
 		                     
 		                    var reply = 
 		                        '<tr reply_type="sub">'+
-		                        '   <td width="870px"> → '+
-		                        writerId.val()+
-		                        '   </td>'+
-		                      
-		                        '   <td>'+
-		                        '       <button name="reply_del" reply_id = "'+reply_id+'">삭제</button>'+
-		                        '   </td>'+
-		                        '</tr>';
-		                         
+		                		'<td class="text-left">'+
+			            		'	</td>'+
+			            		'	<td class="text-left">'+
+			            		'→ <strong>'+writerId.val()+'</strong>'+
+			            		'<br>'+
+			            		''+content+''+
+			            		'	</td>'+
+			            		'	<td class="text-right">'+
+			            		''+registDate.val()+''+
+			            		'	</td>'+
+			            		'	<td>'+
+			            		'	</td>'+
+			            		'<td>'+
+			            		'<button id="reply_update" class="btn btn-outline-primary" name="reply_update">수정</button>'+
+			            		'</td>'+
+			            		'<td>'+
+			            		'<button id="reply_del" class="btn btn-primary" name="reply_del">삭제</button>'+
+			            		'</tr>';
+
 		                    var prevTr = $(this).parent().parent().prev();
 		                     
 		                    prevTr.after(reply);
@@ -180,9 +227,64 @@
 		                     
 		                });
 						 
+		              
+		              
+		              
+		              //댓글 삭제
+		                $("button[name='reply_del']").click(function(){
+		                     
+		                    var check = false;
+
+		                    //값 셋팅
+		                    var objParams = {
+		                            commentId : $(this).attr("reply_id")
+		                    };
+		                     
+		                    //ajax 호출
+		                    $.ajax({
+		                        url         :   "removeReviewComment.do",
+		                        dataType    :   "json",
+		                        type        :   "Get",
+		                        data        :   objParams,
+		                        success     :   function(retVal){
+		 
+		                        	"reviewDetail.do?spotId="
+									+ $(
+											"#spotId")
+											.val()
+									+ "&reviewId="
+									+ $(
+											"#reviewId")
+											.val();
+	
+		                        },
+		                        error       :   function(request, status, error){
+		                            console.log("AJAX_ERROR");
+		                        }
+		                    });
+		                     
+		                    if(check){
+		                        //삭제하면서 하위 댓글도 삭제
+		                        var prevTr = $(this).parent().parent().next(); //댓글의 다음
+		                         
+		                        while(prevTr.attr("reply_type")=="sub"){//댓글의 다음이 sub면 계속 넘어감
+		                            prevTr = prevTr.next();
+		                            prevTr.prev().remove();
+		                        }
+		                         
+		                        //마지막 리플 처리
+		                        if(prevTr.attr("reply_type") == undefined){
+		                            prevTr = $(this).parent().parent();
+		                            prevTr.remove();
+		                        }
+		                         
+		                        $(this).parent().parent().remove(); 
+		                    }
+		                     
+		                });
 						 
-						 
-						 
+		              
+		             	
 						
 		            	//대댓글 입력창 취소
 		            	$(document).on("click","button[name='reply_reply_cancel']",function(){
@@ -270,30 +372,20 @@
 						</section>
 					</div>
 				</section>
-				<table class="table" style="font-size: 14px; padding: 20px;">
-					<colgroup>
+				
+
+   			<table class="table" style="font-size: 14px; padding: 20px;" id="reply_area">
+   				<colgroup>
 						<col width="100" />
 						<col width="800" />
 						<col width="150" />
-					</colgroup>
-					<c:forEach var="comments" items="${comment}">
-						<tr>
-							<td class="text-left"><strong>${comments.writerId }</strong></td>
-							<td class="text-left">${comments.content }</td>
-							<td class="text-right">${comments.registDate }<a href="">
-									수정</a> <a href="">삭제</a></td>
-						</tr>
-					</c:forEach>
-					<tr>
-					</tr>
-				</table>
-
-   			<table class="table" style="font-size: 14px; padding: 20px;" id="reply_area">
-   				<tr reply_type="all"><!-- 뒤에 댓글 붙이기 쉽게 선언 -->
+				</colgroup>
+				<tr reply_type="all"><!-- 뒤에 댓글 붙이기 쉽게 선언 -->
    					<td colspan="4"></td>
    				</tr>
 	   			<!-- 댓글이 들어갈 공간 -->
 	   			<c:forEach var="comments" items="${comment}">
+	   			<input type="hidden" id="comment" name="comment" value="${comment}">
 					<tr reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>"><!-- 댓글의 depth 표시 -->
 			    		<td class="text-left">
 			    			<c:if test="${comments.depth == '0'}"><strong>${comments.writerId }</strong></c:if>
@@ -302,16 +394,24 @@
 			    		<td class="text-left"><c:if test="${comments.depth == '1'}"> → <strong>${comments.writerId }</strong><br>${comments.content }</c:if>
 			    		<c:if test="${comments.depth == '0'}">${comments.content }</c:if>
 			    		</td>
-			    		<td class="text-right">${comments.registDate }<a href=""> 수정</a><a href="">삭제</a></td>
+			    		<td class="text-right">
+			    		<input type="hidden" id="registDate" name="registDate" value="${comments.registDate }">${comments.registDate }</td>
+			    		
 			    		<td>
-			    			<button name="reply_del" reply_id = "${comments.commentId}">삭제</button>
 			    			<c:if test="${comments.depth != '1'}">
-			    				<button name="reply_reply" reply_id = "${comments.commentId}">댓글</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
+			    			<input type="hidden" id="commentId" name="commentId" value="${comments.commentId }">
+			    				<button class="btn btn-outline-primary" name="reply_reply" reply_id = "${comments.commentId}">답글 달기</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
 			    			</c:if>
 			    		</td>
+			    		 <c:if test="${user.userId == comments.writerId}">
+			    		<td>
+			    		<button id="reply_update" class="btn btn-outline-primary" name="reply_update">수정</button></td>
+					<td><a href="removeReviewComment.do?commentId=${comments.commentId}&reviewId=${review.reviewId }&spotId=${spot.spotId}">
+					<button id="reply_del" class="btn btn-primary" name="reply_del">삭제</button></a></td></c:if>
 			    	</tr>
 			    </c:forEach>
    			</table>
+   		
 
 			</section>
 		</div>
@@ -322,7 +422,7 @@
 					value="${review.reviewId }"> <input type="hidden"
 					id="spotId" name="spotId" value="${spot.spotId }"> <input
 					type="hidden" id="writerId" name="writerId" value="${user.userId }">
-				<textarea class="form-control" rows="4" cols="40" id="content"
+				<textarea class="form-control" rows="4" cols="40" style="resize: none;" id="content"
 					name="content" placeholder="댓글을 입력하세요."></textarea>
 				<button id="reply_save" class="btn btn-primary" name="reply_save">댓글
 					등록</button>

@@ -11,9 +11,9 @@
 			SELECT eventComment_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO eventComment_tb (eventCommentId, writerId, content,
-		registDate, eventId)
+		registDate, eventId, parentId, depth)
 		VALUES (#{commentId}, #{writerId}, #{content},
-		SYSDATE, #{targetId})
+		SYSDATE, #{targetId}, #{parentId}, #{depth})
 	</insert>
 
 	<insert id="createReviewComment" parameterType="Comment">
@@ -23,7 +23,8 @@
 		</selectKey>
 		INSERT INTO reviewComment_tb (reviewCommentId, writerId, content,
 		registDate, reviewId, parentId, depth)
-		VALUES (#{commentId}, #{writerId}, #{content},
+		VALUES (#{commentId},
+		#{writerId}, #{content},
 		SYSDATE, #{targetId}, #{parentId}, #{depth})
 	</insert>
 
@@ -33,33 +34,35 @@
 			SELECT meetingComment_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO meetingComment_tb (meetingCommentId, writerId, content,
-		registDate, meetingId)
+		registDate, meetingId, parentId, depth)
 		VALUES (#{commentId}, #{writerId}, #{content},
-		SYSDATE, #{targetId})
+		SYSDATE, #{targetId}, #{parentId}, #{depth})
 	</insert>
 
 	<select id="retrieveCommentsByReviewId" parameterType="integer"
 		resultType="Comment">
-		SELECT reviewCommentId as commentId, writerId, content, registDate,
+		SELECT reviewCommentId as commentId, writerId, content,
+		registDate,
 		reviewId, parentId, depth FROM
 		reviewComment_tb
-		WHERE reviewId = #{targetId} order by reviewCommentId asc
+		WHERE
+		reviewId = #{targetId} order by reviewCommentId asc
 	</select>
 
 	<select id="retrieveCommentsByMeetingId" parameterType="integer"
 		resultType="Comment">
 		SELECT meetingCommentId, writerId, content, registDate,
-		meetingId FROM
+		meetingId, parentId, depth FROM
 		meetingComment_tb
-		WHERE meetingId = #{targetId}
+		WHERE meetingId = #{targetId} order by meetingCommentId asc
 	</select>
 
 	<select id="retrieveCommentsByEventId" parameterType="integer"
 		resultType="Comment">
 		SELECT eventCommentId, writerId, content, registDate,
-		eventId FROM
+		eventId, parentId, depth FROM
 		eventComment_tb
-		WHERE eventId = #{targetId}
+		WHERE eventId = #{targetId} order by eventCommentId asc
 	</select>
 
 	<select id="retrieveCommentByCommentId" parameterType="integer"
@@ -95,20 +98,23 @@
 
 	<delete id="deleteReviewComment" parameterType="integer">
 		DELETE FROM
-		reviewComment_tb WHERE
-		reviewCommentId = #{commentId}
+		reviewComment_tb WHERE reviewCommentId IN (SELECT reviewCommentId FROM
+		reviewComment_tb START WITH reviewCommentId = #{commentId}
+		CONNECT BY PRIOR reviewCommentId = parentId)
 	</delete>
 
 	<delete id="deleteEventComment" parameterType="integer">
 		DELETE FROM
-		eventComment_tb WHERE
-		eventCommentId = #{commentId}
+		eventComment_tb WHERE eventCommentId IN (SELECT eventCommentId FROM
+		eventComment_tb START WITH eventCommentId = #{commentId}
+		CONNECT BY PRIOR eventCommentId = parentId)
 	</delete>
 
 	<delete id="deleteMeetingComment" parameterType="integer">
 		DELETE FROM
-		meetingComment_tb WHERE
-		meetingCommentId = #{commentId}
+		meetingComment_tb WHERE meetingCommentId IN (SELECT meetingCommentId FROM
+		meetingComment_tb START WITH meetingCommentId = #{commentId}
+		CONNECT BY PRIOR meetingCommentId = parentId)
 	</delete>
 
 	<delete id="deleteReviewCommentList" parameterType="integer">

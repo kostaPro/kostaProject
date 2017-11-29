@@ -175,15 +175,12 @@ public class ReviewController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/ajax.do", method = RequestMethod.POST)
-	public ModelAndView ajax() {
-		User user = new User();
-		user.setContact("1111");
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("person", user);
-		modelAndView.setViewName("jsonView");
-		return modelAndView;
+	@RequestMapping("/removeReviewComment.do")
+	public String removeReviewComment(String commentId, String parentId) {
+
+		commentService.removeReviewComment(Integer.parseInt(commentId));
+
+		return "reviewDetail.do";
 	}
 	
 }
