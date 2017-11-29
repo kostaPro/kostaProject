@@ -8,7 +8,8 @@
   
  
   
-  
+  	  <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+	  <script type="text/javascript" src="resources/js/userImage.js"></script>
   
       <link rel="stylesheet" href="resources/css/loginStyle.css">
 
@@ -26,9 +27,9 @@
     
     
     <!-- Login Form -->
-    <form>
+    <form action="registUser.do" method="POST" enctype="multipart/form-data">
       <input type="text" id="userId" class="fadeIn second" name="userId" placeholder="ID">
-      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
       <input type="text" id="contact" class="fadeIn second" name="contact" placeholder="contact">
       
 						<select form="location" name="favoriteLocation" >
@@ -49,12 +50,13 @@
 		<input type="text" id="petInfo" class="fadeIn second" name="petInfo" placeholder="ex) Poodle/3Y/Male dog">				
 		
 		
+		
 		<section>
 									<label class="upload-button">애견 이미지 첨부<input
-										style="display: none" type="file" name="file" id="input_imgs"
+										style="display: none" type="file" name="petImage" id="petImage"
 										multiple="multiple" />
 									</label>
-									<div class="imgs_wrap"></div>
+									<img src="#" id="pet_image" style="width:300px; display: absolute; float:center">
 								</section>
 						
 
