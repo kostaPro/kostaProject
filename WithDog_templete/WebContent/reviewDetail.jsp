@@ -13,6 +13,186 @@
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						//댓글 저장
+						$("#reply_save")
+								.click(
+										function() {
+
+											//널 검사 
+											if ($("#content").val().trim() == "") {
+												alert("내용을 입력하세요.");
+												$("#content").focus();
+												return false;
+											}
+
+											//값 셋팅
+											var objParams = {
+												parentId : "0",
+												depth : "0",
+												reviewId : $("#reviewId").val(),
+												spotId : $("#spotId").val(),
+												writerId : $("#writerId").val(),
+												content : $("#content").val()
+											};
+
+											var reply_id;
+
+											//ajax 호출
+											$
+													.ajax({
+														url : "registReviewComment.do",
+														dataType : "json",
+														type : "post",
+														data : objParams,
+														success : function(
+																retVal) {
+															location.href = "reviewDetail.do?spotId="
+																	+ $(
+																			"#spotId")
+																			.val()
+																	+ "&reviewId="
+																	+ $(
+																			"#reviewId")
+																			.val();
+														},
+														error : function(
+																request,
+																status, error) {
+															console
+																	.log("AJAX_ERROR");
+														}
+													});
+										});
+
+						
+						 //대댓글 입력창
+		                $(document).on("click","button[name='reply_reply']",function(){ //동적 이벤트
+		                     
+		                    $("#reply_add").remove();
+		                     
+		                    var reply_id = $(this).attr("reply_id");
+		                    var last_check = false;//마지막 tr 체크
+		                     
+		                    //입력받는 창 등록
+		                     var replyEditor = 
+		                        '<tr id="reply_add" class="reply_reply">'+
+		                        '   <td width="870px">'+
+		                        '       <textarea name="content" rows="3" cols="50"></textarea>'+
+		                        '   </td>'+
+		                        '   <td>'+
+		                        '       <button name="reply_reply_save" reply_id="'+reply_id+'">등록</button>'+
+		                        '       <button name="reply_reply_cancel">취소</button>'+
+		                        '   </td>'+
+		                        '</tr>';
+		                         
+		                    var prevTr = $(this).parent().parent().next();
+		                     
+		                    //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
+		                    //마지막 리플 처리
+		                    if(prevTr.attr("reply_type") == undefined){
+		                        prevTr = $(this).parent().parent();
+		                    }else{
+		                        while(prevTr.attr("reply_type")=="sub"){//댓글의 다음이 sub면 계속 넘어감
+		                            prevTr = prevTr.next();
+		                        }
+		                         
+		                        if(prevTr.attr("reply_type") == undefined){//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
+		                            last_check = true;
+		                        }else{
+		                            prevTr = prevTr.prev();
+		                        }
+		                         
+		                    }
+		                     
+		                    if(last_check){//마지막이라면 제일 마지막 tr 뒤에 댓글 입력을 붙인다.
+		                        $('#reply_area tr:last').after(replyEditor);    
+		                    }else{
+		                        prevTr.after(replyEditor);
+		                    }
+		                     
+		                });
+						 
+		              //대댓글 등록
+		                $(document).on("click","button[name='reply_reply_save']",function(){
+		                                         
+
+		                    var content = $("textarea[name='content']");
+		                    var writerId = $("input[name='writerId']");
+		                    var spotId = $("input[name='spotId']");
+		                    var reviewId = $("input[name='reviewId']");
+
+
+		                    //값 셋팅
+		                    var objParams = {	               
+		                            reviewId        : reviewId.val(),
+		                            parentId        : $(this).attr("reply_id"), 
+		                            depth           : "1",
+		                            writerId    : writerId.val(),
+		                            spotId : spotId.val(),
+		                            content : content.val()
+		                    };
+		                     
+		                    var reply_id;
+		                     
+		                    //ajax 호출
+		                    $.ajax({
+		                    	url : "registReviewComment.do",
+								dataType : "json",
+								type : "post",
+								data : objParams,
+		                        success     :   function(retVal){
+		                        	location.href = "reviewDetail.do?spotId="
+										+ $(
+												"#spotId")
+												.val()
+										+ "&reviewId="
+										+ $(
+												"#reviewId")
+												.val();
+		                        },
+		                        error       :   function(request, status, error){
+		                            console.log("AJAX_ERROR");
+		                        }
+		                    });
+		                     
+		                    var reply = 
+		                        '<tr reply_type="sub">'+
+		                        '   <td width="870px"> → '+
+		                        writerId.val()+
+		                        '   </td>'+
+		                      
+		                        '   <td>'+
+		                        '       <button name="reply_del" reply_id = "'+reply_id+'">삭제</button>'+
+		                        '   </td>'+
+		                        '</tr>';
+		                         
+		                    var prevTr = $(this).parent().parent().prev();
+		                     
+		                    prevTr.after(reply);
+		                                         
+		                    $("#reply_add").remove();
+		                     
+		                });
+						 
+						 
+						 
+						 
+						
+		            	//대댓글 입력창 취소
+		            	$(document).on("click","button[name='reply_reply_cancel']",function(){
+		            		$("#reply_add").remove();
+		            	});
+				
+					});
+</script>
+
+
 </head>
 <body class="homepage">
 
@@ -101,59 +281,54 @@
 						<tr>
 							<td class="text-left"><strong>${comments.writerId }</strong></td>
 							<td class="text-left">${comments.content }</td>
-							<td class="text-right">${comments.registDate }<a href="">수정</a>
-								<a href="">삭제</a></td>
+							<td class="text-right">${comments.registDate }<a href="">
+									수정</a> <a href="">삭제</a></td>
 						</tr>
 					</c:forEach>
 					<tr>
 					</tr>
 				</table>
+
+   			<table class="table" style="font-size: 14px; padding: 20px;" id="reply_area">
+   				<tr reply_type="all"><!-- 뒤에 댓글 붙이기 쉽게 선언 -->
+   					<td colspan="4"></td>
+   				</tr>
+	   			<!-- 댓글이 들어갈 공간 -->
+	   			<c:forEach var="comments" items="${comment}">
+					<tr reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>"><!-- 댓글의 depth 표시 -->
+			    		<td class="text-left">
+			    			<c:if test="${comments.depth == '0'}"><strong>${comments.writerId }</strong></c:if>
+			    			<c:if test="${comments.depth == '1'}"></c:if>
+			    		</td>
+			    		<td class="text-left"><c:if test="${comments.depth == '1'}"> → <strong>${comments.writerId }</strong><br>${comments.content }</c:if>
+			    		<c:if test="${comments.depth == '0'}">${comments.content }</c:if>
+			    		</td>
+			    		<td class="text-right">${comments.registDate }<a href=""> 수정</a><a href="">삭제</a></td>
+			    		<td>
+			    			<button name="reply_del" reply_id = "${comments.commentId}">삭제</button>
+			    			<c:if test="${comments.depth != '1'}">
+			    				<button name="reply_reply" reply_id = "${comments.commentId}">댓글</button><!-- 첫 댓글에만 댓글이 추가 대댓글 불가 -->
+			    			</c:if>
+			    		</td>
+			    	</tr>
+			    </c:forEach>
+   			</table>
+
 			</section>
 		</div>
-		<div class="section">
-			<div class="reviews">
-				<form action="registReviewComment.do" method="Post">
-					<input type="hidden" name="reviewId" value="${review.reviewId }">
-					<input type="hidden" name="spotId" value="${spot.spotId }">
-					<input type="hidden" name="writerId" value="${user.userId }">
-					<textarea class="form-control" id="review" rows="4" cols="40"
-						placeholder="댓글을 작성해 주세요." name="content"></textarea>
-					<input type="submit" class="btn btn-primary" value="댓글 등록">
-				</form>
-			</div>
-		</div>
-
-
-
-
 
 		<div class="section">
 			<div class="reviews">
-				<form name="commentInsertForm">
-					<div class="input-group">
-						<input type="hidden" name="reviewId" value="${review.reviewId}" /> 
-						<input type="hidden" name="spotId" value="${spot.spotId }">
-					<input type="hidden" name="writerId" value="${user.userId }">
-						<input
-							type="text" class="form-control" id="content" name="content"
-							placeholder="내용을 입력하세요."> <span class="input-group-btn">
-							<button class="btn btn-primary" type="button"
-								name="commentInsertBtn">댓글 등록</button>
-						</span>
-					</div>
-				</form>
-			</div>
-
-			<div class="container">
-				<div class="commentList"></div>
+				<input type="hidden" id="reviewId" name="reviewId"
+					value="${review.reviewId }"> <input type="hidden"
+					id="spotId" name="spotId" value="${spot.spotId }"> <input
+					type="hidden" id="writerId" name="writerId" value="${user.userId }">
+				<textarea class="form-control" rows="4" cols="40" id="content"
+					name="content" placeholder="댓글을 입력하세요."></textarea>
+				<button id="reply_save" class="btn btn-primary" name="reply_save">댓글
+					등록</button>
 			</div>
 		</div>
-		<%@ include file="comments.jsp"%>
-
-
-
-
-
 
 	</div>
 	<!-- /Main -->

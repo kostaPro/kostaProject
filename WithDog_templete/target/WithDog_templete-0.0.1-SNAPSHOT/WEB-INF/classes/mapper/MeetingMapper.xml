@@ -4,5 +4,140 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="store.mapper.MeetingMapper">
+		
+	<sql id="selectMeeting">
+		SELECT meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
+	</sql>
+	
+	<resultMap type="Meeting" id="MeetingMap">
+		
+		<id property="meetingId" column="meetingId"/>
+		<result property="meetingDate" column="meetingDate"/>
+		<result property="meetingTime" column="meetingTime"/>
+		<result property="minPerson" column="minPerson"/>
+		<result property="meetingPurpose" column="meetingPurpose"/>
+		<result property="hostId" column="hostId"/>
+		
+		<association property="meetingSpot" column="spotId"
+			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
+			jdbcType="NUMERIC" />
+			
+		<collection property="meetingImageList" column="meetingId"
+			ofType="String" select="store.mapper.MeetingMapper.retrieveImageListByMeetingId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+			
+		<collection property="commentList" column="meetingId"
+			ofType="Comment" select="store.mapper.CommentMapper.retrieveCommentsByMeetingId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+			
+			
+	</resultMap>
+	
+	<insert id="createMeeting" parameterType="Meeting">
+		<selectKey keyProperty="meetingId" resultType="integer"
+			order="BEFORE">
+			SELECT meeting_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO meeting_tb(meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId)
+		VALUES (#{meetingId}, #{meetingDate}, #{meetingTime}, #{meetingSpot.spotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
+	</insert>
+	
+	
+	
+	<select id="retrieveAllMeetings" resultType="Meeting" >
+		<include refid="selectMeeting"/>
+		FROM meeting_tb
+	</select>
+	
+	<select id="retrieveMeetingsByLocation" parameterType="String" resultType="Meeting">
+		<include refid="selectMeeting"/>
+		FROM meeting_tb INNER JOIN spot_tb
+		ON meeting_tb.meetingSpotId = spot_tb.spotId
+		WHERE spot_tb.spotLocation LIKE #{location}
+	</select>
+	
+	<select id="retrieveMeetingsByDate" parameterType="Date" resultType="Meeting">
+		<include refid="selectMeeting"/>
+		FROM meeting_tb
+		WHERE meetingDate = #{meetingDate}
+	</select>
+	
+	<select id="retrieveMeetingsByLocationDate" parameterType="Map" resultType="Meeting">
+		<include refid="selectMeeting"/>
+		FROM meeting_tb INNER JOIN spot_tb
+		ON meeting_tb.meetingSpotId = spot_tb.spotId
+		WHERE spot_tb.spotLocation Like #{location}
+		AND meeting_tb.meetingDate = #{meetingDate}
+	</select>
+	
+	<select id="retrieveMeetingsByGuest" parameterType="String" resultType="Meeting">
+		SELECT meeting_tb.meetingId as meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
+		FROM meeting_tb INNER JOIN joinMeeting_tb
+		ON meeting_tb.meetingId = joinMeeting_tb.meetingId
+		WHERE joinMeeting_tb.guestId = #{guestId}
+	</select>
+	
+	<select id="retrieveMeetingsByHost" parameterType="String" resultType="Meeting">
+		<include refid="selectMeeting"/>
+		FROM meeting_tb
+		WHERE hostId = #{hostId}
+	</select>
+
+	<select id="retrieveMeetingByMeetingId" parameterType="Integer" resultMap="MeetingMap">
+		<include refid="selectMeeting"/>
+		FROM meeting_tb
+		WHERE meetingId = #{meetingId}
+	</select>	
+
+	<select id="retrieveJoinListByMeetingId" parameterType="Integer" resultType="String">
+		SELECT guestId
+		FROM joinMeeting_tb INNER JOIN meeting_tb
+		ON joinMeeting_tb.meetingId = meeting_tb.meetingId
+		WHERE meeting_tb.meetingId = #{meetingId}
+	</select>
+
+	<insert id="createMeetingImage" parameterType="Map">
+		<selectKey keyProperty="meetingImageId" resultType="Integer"
+			order="BEFORE">
+			SELECT meetingImage_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO meetingImage_tb(meetingImageId, imageUrl, meetingId)
+		VALUES(#{meetingImageId}, #{imageUrl}, #{meetingId})
+	</insert>
+	
+	<select id="retrieveImageListByMeetingId" parameterType="Integer" resultType="String">
+		SELECT imageUrl
+		FROM meetingImage_tb
+		WHERE meetingId = #{meetingId}
+	</select>
+	
+	<insert id="joinMeeting" parameterType="Map">
+		INSERT INTO joinMeeting_tb(meetingId, guestId)
+		VALUES(#{meetingId}, #{guestId})
+	</insert>
+	
+	
+	<delete id="cancelMeeting" parameterType="Map">
+		DELETE FROM joinMeeting_tb
+		WHERE meetingId = #{meetingId} AND guestId = #{guestId}
+	</delete>
+	
+	<delete id="cancelAllJoinList" parameterType="Integer">
+		DELETE FROM joinMeeting_tb
+		WHERE meetingId = #{meetingId}
+	</delete>
+		
+	<update id="updateMeeting" parameterType="Meeting">
+		UPDATE meeting_tb
+		SET meetingDate=#{meetingDate}, meetingTime=#{meetingTime}, meetingSpotId=#{meetingSpot.spotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPurpose}
+		WHERE meetingId = #{meetingId}
+	</update>
+	
+	<delete id="deleteMeeting" parameterType="Meeting">
+		DELETE FROM meeting_tb
+		WHERE meetingId = #{meetingId}
+	</delete>
+	
+	
 	
 </mapper>

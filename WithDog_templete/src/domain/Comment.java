@@ -12,6 +12,22 @@ public class Comment {
 	private List<Comment> replyList;
 	private int targetId;
 	
+	private String parentId;
+	private String depth;
+	
+	public String getParentId() {
+		return parentId;
+	}
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	public String getDepth() {
+		return depth;
+	}
+	public void setDepth(String depth) {
+		this.depth = depth;
+	}
+	
 	public int getTargetId() {
 		return targetId;
 	}

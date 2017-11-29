@@ -39,7 +39,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/registUser.do", method = RequestMethod.POST)
-	public String registUser(User user, MultipartHttpServletRequest file) throws IOException  {
+	public String registUser(User user,MultipartHttpServletRequest file) throws IOException  {
 		
 //		String realFolder = "c:\\" + File.separator + "tempFiles";
 //		File dir = new File(realFolder);

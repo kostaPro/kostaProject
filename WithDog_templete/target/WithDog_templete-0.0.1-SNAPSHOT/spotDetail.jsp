@@ -133,6 +133,7 @@
 	<div id="main">
 
 		<div class="container">
+<<<<<<< HEAD
 
 			<div class="row">
 				<div class="3u" style="float: right; margin-right:30px">
@@ -268,6 +269,148 @@
 		<div class="container">
 			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
 				href="">CC0</a>)
+=======
+			<div class="row">
+
+
+
+				<section>
+					<header>
+						<h2 align="left">${spotDetail.spotName }</h2>
+					</header>
+					<div class="row">
+						<section>
+							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
+							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
+							<hr>
+							<a href="#" class="image full"><img
+								src="resources/img/pics01.jpg" alt=""></a>
+
+						</section>
+					</div>
+
+				</section>
+
+				<section>
+					<div class="4u">
+						<iframe width="760" height="500"
+							src="http://withdog.dothome.co.kr/"></iframe>
+					</div>
+				</section>
+
+			</div>
+
+			<section>
+				<div style="border: 2px solid; padding: 10px;">
+
+					<h2>장소 소개</h2>
+					<h3>${spotDetail.spotInfo }</h3>
+				</div>
+			</section>
+
+			<hr>
+			<section>
+				<div class="row">
+					<div class="4u">
+						<section>
+							<a href="#" class="image full"><img
+								src="resources/img/pics01.jpg" alt=""></a>
+						</section>
+					</div>
+					<div class="4u">
+						<section>
+							<a href="#" class="image full"><img
+								src="resources/img/pics02.jpg" alt=""></a>
+						</section>
+					</div>
+					<div class="4u">
+						<section>
+							<a href="#" class="image full"><img
+								src="resources/img/pics03.jpg" alt=""></a>
+						</section>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<!-- /Main -->
+
+	<!-- Footer -->
+	<div id="footer">
+		<div class="container">
+			<div class="row half">
+				<div class="3u">
+					<section>
+						<header>
+							<h2>Review List</h2>
+						<hr>
+						</header>
+
+					</section>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="15u">
+
+
+					<table class="table table-striped table-bordered table-hover">
+						<colgroup>
+							<col width="80" />
+							<col width="500" />
+							<col width="300" />
+							<col width="300" />
+							<col width="80" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="text-center">번호</th>
+								<th class="text-center">제목</th>
+								<th class="text-center">작성일</th>
+								<th class="text-center">작성자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${empty spotDetail.reviewList }">
+									<tr>
+										<th colspan="4" class="text-center">평가글 존재하지 않습니다.</th>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="review" items="${spotDetail.reviewList }">
+										<tr>
+											<td class="text-center">${review.reviewId }</td>
+											<td class="text-center"><a
+												href="reviewDetail.do?reviewId=${review.reviewId }&spotId=${spotDetail.spotId}">${review.title }</a></td>
+											<td class="text-center"><fmt:formatDate
+													value="${review.registDate }" pattern="yyyy-MM-dd" /></td>
+											<td class="text-center">${review.writerId }</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+
+
+				</div>
+			</div>
+			<div class="3u">
+				<a href="registReview.do?spotId=${spotDetail.spotId }" class="btn_comm btn_submit form-control" style="text-align: center"><strong style="color:white">평가글 등록</strong></a>	
+			</div>
+			
+		</div>
+	</div>
+	<!-- /Footer -->
+
+	<!-- Copyright -->
+	<div id="copyright">
+		<div class="container">
+			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
+				href="http://unsplash.com">Unsplash</a> (<a
+				href="http://unsplash.com/cc0">CC0</a>)
+>>>>>>> refs/remotes/origin/imageUpload
 		</div>
 	</div>
 

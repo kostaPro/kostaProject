@@ -161,7 +161,8 @@ public class ReviewController {
 		comment.setTargetId(Integer.parseInt(reviewId));
 		commentService.registReviewComment(comment);
 		
-		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
 	
@@ -171,6 +172,17 @@ public class ReviewController {
 		commentService.modifyReviewComment(comment);
 		
 		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/ajax.do", method = RequestMethod.POST)
+	public ModelAndView ajax() {
+		User user = new User();
+		user.setContact("1111");
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("person", user);
+		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
 	
