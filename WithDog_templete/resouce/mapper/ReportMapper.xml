@@ -22,7 +22,7 @@
 		eventCommentReport_tb (reportContent, reportTargetId,
 		reporterId,
 		status)
-		VALUES (#{reportContent}, #{reportType},
+		VALUES (#{reportContent},
 		#{reportTargetId},
 		#{reporterId}, #{status})
 	</insert>
@@ -30,115 +30,104 @@
 
 	<insert id="createMeetingCommentReport" parameterType="Report">
 		INSERT
-		into MeetingCommentReport_tb (reportContent,
-
-		reportTargetId,
+		into MeetingCommentReport_tb (reportContent, reportTargetId,
 		reporterId, status)
 		VALUES (#{reportContent},
-		#{reportType},
-		#{reportTargetId}, #{reporterId}, #{status})
+		#{reportTargetId},
+		#{reporterId}, #{status})
 	</insert>
 
 	<insert id="createMeetingReport" parameterType="Report">
 		INSERT into
-		MeetingReport_tb (reportContent, reportType, reportTargetId,
+		MeetingReport_tb (reportContent, reportTargetId,
 		reporterId, status)
-		VALUES (#{reportContent}, #{reportType},
-		#{reportTargetId}, #{reporterId}, #{status})
+		VALUES (#{reportContent},
+		#{reportTargetId},
+		#{reporterId}, #{status})
 	</insert>
 
 	<insert id="createReviewCommentReport" parameterType="Report">
 		INSERT into
-		ReviewCommentReport_tb (reportContent, reportType, reportTargetId,
+		ReviewCommentReport_tb (reportContent, reportTargetId,
 		reporterId, status)
-		VALUES (#{reportContent}, #{reportType},
-		#{reportTargetId}, #{reporterId}, #{status})
+		VALUES (#{reportContent},
+		#{reportTargetId},
+		#{reporterId}, #{status})
 	</insert>
 
 	<insert id="createReviewReport" parameterType="Report">
 		INSERT into
-		ReviewReport_tb (reportContent, reportType, reportTargetId,reporterId,
+		ReviewReport_tb (reportContent, reportTargetId,reporterId,
 		status)
-		VALUES (#{reportContent}, #{reportType},
+		VALUES (#{reportContent},
 		#{reportTargetId},
 		#{reporterId}, #{status})
 	</insert>
 
 	<insert id="createSpotReport" parameterType="Report">
 		INSERT into
-		spotReport_tb (reportContent, reportType, reportTargetId, reporterId,
+		spotReport_tb (reportContent, reportTargetId, reporterId,
 		status)
-		VALUES (#{reportContent}, #{reportType}, #{reportTargetId},
+		VALUES (#{reportContent},
+		#{reportTargetId},
 		#{reporterId}, #{status})
 	</insert>
 
 
 
 	<select id="retrieveAllReports" resultType="Report">
-		SELECT reportContent,
-		reportType, reportTargetId,
-		reporterId, status FROM
+		SELECT reportContent,reportTargetId,reporterId,status FROM
 		eventCommentReport_tb
 		UNION
-		SELECT reportContent, reportType,
-		reportTargetId, reporterId, status FROM
+		SELECT reportContent,reportTargetId,reporterId,status FROM
 		meetingCommentReport_tb
 		UNION
-		SELECT reportContent, reportType, reportTargetId, reporterId, status
-		FROM
+		SELECT reportContent,reportTargetId,reporterId,status FROM
 		meetingReport_tb
 		UNION
-		SELECT reportContent, reportType,
-		reportTargetId, reporterId, status FROM
+		SELECT reportContent,reportTargetId,reporterId,status FROM
 		reviewCommentReport_tb
 		UNION
-		SELECT reportContent, reportType, reportTargetId, reporterId, status
-		FROM
+		SELECT reportContent,reportTargetId,reporterId,status FROM
 		reviewReport_tb
 		UNION
-		SELECT reportContent, reportType,
-		reportTargetId, reporterId, status FROM
+		SELECT reportContent,reportTargetId,reporterId,status FROM
 		spotReport_tb
 	</select>
 
 	<select id="retrieveReportsByReporterId" parameterType="String"
 		resultType="Report">
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM eventCommentReport_tb WHERE reporterId =
+		SELECT reportContent, reportTargetId, reporterId, status 
+		FROM eventCommentReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
+		SELECT reportContent, reportTargetId, reporterId, status FROM
 		meetingCommentReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
+		SELECT reportContent, reportTargetId, reporterId, status FROM
 		meetingReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
+		SELECT reportContent, reportTargetId, reporterId, status FROM
 		reviewCommentReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
+		SELECT reportContent, reportTargetId, reporterId, status FROM
 		reviewReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
-		SELECT reportContent, reportType, reportTargetId,
-		reporterId, status FROM
+		SELECT reportContent, reportTargetId, reporterId, status FROM
 		spotReport_tb WHERE reporterId = #{reporterId}
 	</select>
 
@@ -345,35 +334,70 @@
 		SELECT suspectId, status, count(*) 신고횟수
 		FROM meetingCommentReport_tb
 		GROUP BY suspectId, status
-		HAVING status = #{status}
-
+		HAVING status = '0'
 		UNION
 
 		SELECT suspectId, status, count(*) 신고횟수
 		FROM meetingReport_tb
 		GROUP BY suspectId, status
-		HAVING status = #{status}
+		HAVING status = '0'
 
 		UNION
 
 		SELECT suspectId, status, count(*) 신고횟수
 		FROM reviewCommentReport_tb
 		GROUP BY suspectId, status
-		HAVING status = #{status}
+		HAVING status = '0'
 
 		UNION
 
 		SELECT suspectId, status, count(*) 신고횟수
 		FROM reviewCommentReport_tb
 		GROUP BY suspectId, status
-		HAVING status = #{status}
+		HAVING status = '0'
 
 		UNION
 
 		SELECT suspectId, status, count(*) 신고횟수
 		FROM spotReport_tb
 		GROUP BY suspectId, status
-		HAVING status = #{status}
+		HAVING status =  '0'
+	</select>
+	
+	<select id="retrieveReport" parameterType="Map" resultType="Report">
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM eventCommentReport_tb
+		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM meetingCommentReport_tb
+		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM meetingReport_tb
+		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status 
+		FROM reviewCommentReport_tb
+		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM reviewReport_tb
+		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM spotReport_tb
+		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
 	</select>
 
 </mapper>

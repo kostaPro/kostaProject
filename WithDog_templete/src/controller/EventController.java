@@ -14,8 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Comment;
 import domain.Event;
+import domain.User;
 import service.CommentService;
 import service.EventService;
+import service.SpotService;
+import service.UserService;
 
 @Controller
 public class EventController {
@@ -37,23 +40,24 @@ public class EventController {
 	// +modifyEventComment(comment : Comment): String
 	// +removeEventComment(commentId : String): String
 
+	
 	@Autowired
 	private EventService eventService;
+	
 	@Autowired
 	private CommentService commentService;
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
 		
-		
-		return null;
+		return "registEvent.jsp";
 	}
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.POST)
-	public String registEvent(Event event, File MultipartHttpServletRequest) {
+	public String registEvent(Event event, MultipartHttpServletRequest file) {
 
 		eventService.registEvent(event);
-		return "redirect:eventdetail.jsp";
+		return "redirect:eventDetail.jsp";
 	}
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
@@ -65,18 +69,23 @@ public class EventController {
 //	@RequestMapping(value = "/")
 	public ModelAndView searchEvent(Date date, String location) {
 
-		
 		return null;
 	}
 
-//	@RequestMapping("")
+	@RequestMapping(value = "/eventDetail.do")
 	public ModelAndView showEventDetail(String eventId) {
-		return null;
+		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
+		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
+		modelAndView.addObject("eventDetail", event);
+		
+		return modelAndView;
 	}
 
 //	@RequestMapping("")
 	public String joinEventMeeting(String eventId, Date date, HttpSession session) {
+		
 		return null;
+	
 	}
 
 //	@RequestMapping("")
@@ -87,9 +96,13 @@ public class EventController {
 	@RequestMapping(value = "modifyEvent.do", method=RequestMethod.GET)
 	public ModelAndView showModifyEvent(String eventId) {
 		
+		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		
+		ModelAndView modelAndView = new ModelAndView("modifyEvent.jsp");
+		modelAndView.addObject("event", event);
 		
-		return null;
+		return modelAndView;
+		
 	}
 
 	@RequestMapping(value = "modifyEvent.do", method=RequestMethod.POST)
@@ -100,10 +113,10 @@ public class EventController {
 		return "redirect:/eventDetail.do?eventId="+ event.getEventId();
 	}
 	
-//	@RequestMapping(value = "modifyEvent.do", method=RequestMethod.POST)
+	@RequestMapping(value = "removeEvent.do", method=RequestMethod.GET)
 	public String removeEvent(String eventId) {
 		
-		//eventService.removeEvent(eventId);
+		eventService.removeEvent(Integer.parseInt(eventId));
 		
 		return "eventList.jsp";
 	}
