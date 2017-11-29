@@ -1,5 +1,6 @@
 package service.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import domain.Comment;
 import domain.Review;
 import service.ReviewService;
 import store.CommentStore;
@@ -46,7 +48,7 @@ public class ReviewServiceLogic implements ReviewService{
 	@Override
 	public Review findReviewByReviewId(int reviewId) {
 		Review review = reviewStore.retrieveReviewByReviewId(reviewId);
-		review.setCommentList(commentStore.retrieveCommentsByReviewId(reviewId));
+		review.setCommentList(findCommentByReviewId(reviewId));
 		review.setReviewImageList(reviewStore.retrieveImageListByReviewId(reviewId));
 		
 		return review;
@@ -75,5 +77,37 @@ public class ReviewServiceLogic implements ReviewService{
 		reviewStore.deleteReviewImage(reviewId);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Comment> findCommentByReviewId(int reviewId) {
+		List<Comment> reviewCommentList = commentStore.retrieveCommentsByReviewId(reviewId);
+		
+		//부모
+		List<Comment> reviewCommentListParent = new ArrayList<Comment>();
+		//자식
+		List<Comment> reviewCommentListChild = new ArrayList<Comment>();
+		//통합
+		List<Comment> newReviewCommentList = new ArrayList<Comment>();
+		
+		//부모 자식 분리
+		for(Comment comment : reviewCommentList) {
+			if(comment.getDepth().equals("0")) {
+				reviewCommentListParent.add(comment);
+			}else {
+				reviewCommentListChild.add(comment);
+			}
+		}
+		//로직
+		for(Comment reviewCommentParent : reviewCommentListParent) {
+			newReviewCommentList.add(reviewCommentParent);
+			for(Comment reviewCommentChild : reviewCommentListChild) {
+				String commentId = String.valueOf(reviewCommentParent.getCommentId());
+				if(commentId.equals(reviewCommentChild.getParentId())) {
+					newReviewCommentList.add(reviewCommentChild);
+				}
+			}
+		}
+		return newReviewCommentList;
 	}
 }

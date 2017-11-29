@@ -10,6 +10,7 @@
 	<mvc:annotation-driven/>
 
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<mvc:resources location="/images/" mapping="/images/*"/>
 
 	<context:component-scan base-package="controller"/>
 	<context:component-scan base-package="service.logic"/>
@@ -19,5 +20,11 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="5000000" />
 	</bean>
+	
+	<bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"/> 
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"> 
+	<property name="order" value="1"></property> 
+	</bean> 
+
 
 </beans>

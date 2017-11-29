@@ -22,9 +22,9 @@
 			SELECT reviewComment_seq.nextval FROM dual
 		</selectKey>
 		INSERT INTO reviewComment_tb (reviewCommentId, writerId, content,
-		registDate, reviewId)
+		registDate, reviewId, parentId, depth)
 		VALUES (#{commentId}, #{writerId}, #{content},
-		SYSDATE, #{targetId})
+		SYSDATE, #{targetId}, #{parentId}, #{depth})
 	</insert>
 
 	<insert id="createMeetingComment" parameterType="Comment">
@@ -40,10 +40,10 @@
 
 	<select id="retrieveCommentsByReviewId" parameterType="integer"
 		resultType="Comment">
-		SELECT reviewCommentId, writerId, content, registDate,
-		reviewId FROM
+		SELECT reviewCommentId as commentId, writerId, content, registDate,
+		reviewId, parentId, depth FROM
 		reviewComment_tb
-		WHERE reviewId = #{targetId}
+		WHERE reviewId = #{targetId} order by reviewCommentId asc
 	</select>
 
 	<select id="retrieveCommentsByMeetingId" parameterType="integer"
