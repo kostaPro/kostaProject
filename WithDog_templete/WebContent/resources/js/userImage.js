@@ -4,7 +4,7 @@ var petImage;
 
 $(document).ready(function() {
 		
-	$("#petImage").on("change", readURL);
+	$("#pImage").on("change", readURL);
 
 });
 

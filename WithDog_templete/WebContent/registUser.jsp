@@ -53,7 +53,7 @@
 		
 		<section>
 									<label class="upload-button">애견 이미지 첨부<input
-										style="display: none" type="file" name="petImage" id="petImage"
+										style="display: none" type="file" name="pImage" id="pImage"
 										multiple="multiple" />
 									</label>
 									<img src="#" id="pet_image" style="width:300px; display: absolute; float:center">

@@ -41,38 +41,38 @@ public class UserController {
 	@RequestMapping(value = "/registUser.do", method = RequestMethod.POST)
 	public String registUser(User user, MultipartHttpServletRequest file) throws IOException  {
 		
-//		String realFolder = "c:\\" + File.separator + "tempFiles";
-//		File dir = new File(realFolder);
-//		if(!dir.isDirectory()) {
-//			dir.mkdirs();
-//		}
-//		
-//		MultipartFile petImage = file.getFile("petImage");
-//		System.out.println(petImage.getOriginalFilename());
-//		if(petImage == null && petImage.getOriginalFilename().equals("")) {
-//			
-//		}else {
-//			// 파일 중복명 처리
-//			String genId = UUID.randomUUID().toString();
-//			// 본래 파일명
-//			String originalfileName = petImage.getOriginalFilename();
-//			// 저장되는 파일 이름
-//			String saveFileName = genId + "." + originalfileName;
-//
-//			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
-//
-//			byte[] bytes = petImage.getBytes();
-//
-//			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
-//			out.write(bytes);
-//			out.close(); 
-//			
-//			user.setPetImage(saveFileName);
-//		}
+		String realFolder = "c:\\" + File.separator + "tempFiles";
+		File dir = new File(realFolder);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		
+		MultipartFile petImage = file.getFile("pImage");
+		System.out.println(petImage.getOriginalFilename());
+		if(petImage == null && petImage.getOriginalFilename().equals("")) {
+			
+		}else {
+			// 파일 중복명 처리
+			String genId = UUID.randomUUID().toString();
+			// 본래 파일명
+			String originalfileName = petImage.getOriginalFilename();
+			// 저장되는 파일 이름
+			String saveFileName = genId + "." + originalfileName;
+
+			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
+
+			byte[] bytes = petImage.getBytes();
+
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+			out.write(bytes);
+			out.close(); 
+			
+			user.setPetImage(saveFileName);
+		}
 //		System.out.println(user.getPetImage());
 		
 //		boolean registered =
-		user.setPetImage("fffff");
+		
 		 userService.registUser(user);
 		
 		return "redirect:login.jsp";
