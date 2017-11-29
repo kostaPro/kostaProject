@@ -38,21 +38,19 @@ public class SpotController {
 		
 		String location = spot.getSpotLocation();
 		String locArray[] = location.split(" ");
+		String keyArray[] = {"locationDo","locationGu","locationDong","locationBunji" };
 		
 		ModelAndView modelAndView = new ModelAndView("spotDetail.jsp");
 		modelAndView.addObject("spotDetail", spot);
 		
-			modelAndView.addObject("do",locArray[0]);
-
-
-			modelAndView.addObject("gu",locArray[1]);
-
-
-			modelAndView.addObject("dong",locArray[2]);
-
-
-			modelAndView.addObject("bunji",locArray[3]);
-
+		//주소지 시군구별로 셋팅
+		for(int i =0 ; i<keyArray.length ; i++) {	
+			if(locArray[i] != null) {				
+				modelAndView.addObject(keyArray[i] , locArray[i]);
+			}else {
+				modelAndView.addObject(keyArray[i] , " ");				
+			}
+		}
 		return modelAndView;
 	}
 	

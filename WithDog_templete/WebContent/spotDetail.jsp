@@ -150,7 +150,7 @@
 						<section>
 							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
 							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
-							<hr>
+							
 							<a href="#" class="image full"> <img
 								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
 
@@ -162,7 +162,7 @@
 				<section>
 					<div class="7u">
 						<iframe style="width:760px; height:500px"
-							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C&gu_gun=%EA%B4%80%EC%95%85%EA%B5%AC&dong=%EB%B4%89%EC%B2%9C%EB%8F%99&bunji=196-31"></iframe>
+							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
 					</div>
 				</section>
 
@@ -176,7 +176,6 @@
 				</div>
 			</section>
 
-			<hr>
 			<section>
 				<div class="row">
 					<c:forEach var="uploadFile" items="${spotDetail.spotImageList}">
