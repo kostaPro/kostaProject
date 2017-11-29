@@ -305,14 +305,9 @@
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
-<<<<<<< HEAD
 			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
 				href="">CC0</a>)
-=======
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
->>>>>>> refs/remotes/origin/imageUpload
+
 		</div>
 	</div>
 

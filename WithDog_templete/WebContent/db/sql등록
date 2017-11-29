@@ -78,6 +78,8 @@ reviewCommentId number primary Key,
 content varchar(400),
 registDate date,
 writerId  varchar(20),
+parentId number,
+depth number,
 reviewId number
 );
 
