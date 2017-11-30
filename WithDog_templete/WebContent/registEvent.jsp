@@ -169,26 +169,25 @@
 						<!-- step1 시작-->
 						
 						<div class="wrap_listing">
-							<form action="registSpot.do" method="POST"
+							<form action="registEvent.do" method="POST"
 								enctype="multipart/form-data">
 								<fieldset>
 									<legend class="screen_out">이벤트 등록하기 폼</legend>
 									<div class="form_details">
 
-										
-
+									
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
 										
 										<p><i class="fa fa-check"></i>
-											시작일: <input type="text" id="datepicker">
+											시작일: <input type="text" id="datepicker" name="openDate">
 										</p>
 										<p><i class="fa fa-check"></i>
-											종료일: <input type="text" id="datepicker">
+											종료일: <input type="text" id="datepicker" name="closeDate">
 										</p>
 
 										<label for="inpName" class="lab_comm"><strong
 											class="tit_form"><i class="fa fa-check"></i>이벤트명</strong></label> <input
-											type="text" id="inpName" name="spotName" class="inp_comm">
+											type="text" id="inpName" name="eventName" class="inp_comm">
 
 										<section >
 											<strong class="tit_form"><i class="fa fa-check"></i>이벤트의 대표 사진을 첨부해주세요.<i
@@ -196,7 +195,7 @@
 											<div class="file_area">
 												<div class="file_comm">
 													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
-														<input type="file" id="input_thumbnail" name="spotThumbnail"
+														<input type="file" id="input_thumbnail" name="eventImg"
 														class="inp_file file_attach"> </span> <br><br>
 														
 															<img src="#" id="spot_thumb" style="width:600px; display: absolute; float:center">
@@ -217,7 +216,7 @@
 
 										<section>
 
-											<input type="text" class="inp_comm" name="spotLocation">
+											<input type="text" class="inp_comm" name="eventLocation">
 											<a href="#"
 												class="btn btn-primary btn-block form-control btn_comm"><strong
 												style="color: white">검색하기</strong></a>
@@ -226,7 +225,7 @@
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form"><i class="fa fa-check"></i>소개글<i class="txt_check"></i></strong>
 										</label>
-										<textarea class="inp_comm" name="spotInfo" placeholder=""></textarea>
+										<textarea class="inp_comm" name="eventInfo" placeholder=""></textarea>
 
 										
 										

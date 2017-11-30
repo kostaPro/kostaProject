@@ -53,7 +53,7 @@ public class EventController {
 	@Autowired
 	private CommentService commentService;
 
-	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET) // O
 	public String showRegistEvent() {
 
 		return "registEvent.jsp";
@@ -100,7 +100,7 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
-	public ModelAndView showEventList() {
+	public ModelAndView showEventList() { // O
 
 		List<Event> eventList = eventService.findAllEvents();
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
@@ -116,8 +116,7 @@ public class EventController {
 		List<Event> eventList = eventService.findAllEvents();
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 		modelAndView.addObject("eventList", eventList);
-		
-		
+				
 		if (location == null && date != null) {
 			
 			eventList = eventService.findEventsByDate(date);
@@ -134,7 +133,7 @@ public class EventController {
 			
 			return modelAndView;
 
-		} else if (location != null && date != null) {
+		} else{
 			
 			eventList = eventService.findEventsByDateLocation(date, location);
 			modelAndView = new ModelAndView("eventList.jsp");
@@ -143,12 +142,10 @@ public class EventController {
 			return modelAndView;
 
 		}
-		return modelAndView;
-		
-		
+			
 	}
 
-	@RequestMapping(value = "/eventDetail.do")
+	@RequestMapping(value = "/eventDetail.do") // O
 	public ModelAndView showEventDetail(String eventId) {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");

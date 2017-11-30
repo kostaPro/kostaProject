@@ -6,7 +6,7 @@ import domain.Report;
 
 public interface ReportService {
 
-	boolean registRepot(Report report);
+	boolean registReport(Report report);
 	List<Report> findReportsByReporterId(String reporterId);
 	List<Report> findReportsBySuspectId(String suspectId);
 	List<Report> findAllReports();

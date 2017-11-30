@@ -65,12 +65,8 @@
 	</insert>
 
 	<insert id="createSpotReport" parameterType="Report">
-		INSERT into
-		spotReport_tb (reportContent, reportTargetId, reporterId,
-		status)
-		VALUES (#{reportContent},
-		#{reportTargetId},
-		#{reporterId}, #{status})
+		INSERT INTO spotReport_tb (reportContent, reportTargetId, reporterId, status)
+		VALUES (#{reportContent}, #{reportTargetId}, #{reporterId}, #{status})
 	</insert>
 
 

@@ -15,6 +15,9 @@ public interface EventStore {
 	List<Event> retrieveEventsByDateLocation(Date date, String location);
 	Event retrieveEventByEventId(int eventId);
 	List<String> retrieveJoinListByEventDate(int eventId, Date eventDate);
+	
+	
+	
 	boolean joinEventMeeting(int eventId, String guestId, Date date);
 	boolean cancelEventMeeting(int eventId, String guestId, Date date);
 	boolean cancelAllEventMeeting(int eventId);

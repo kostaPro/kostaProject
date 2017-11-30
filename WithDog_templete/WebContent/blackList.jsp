@@ -146,6 +146,7 @@
 			</div>
 
 			<div class="row">
+			<form action="">
 				<div class="15u">
 
 					<div>
@@ -173,8 +174,8 @@
 										<c:forEach var="blackList" items="${blackList }">
 											<tr>
 												<td class="text-center"><a
-													href="reportDetail.do?reportId=${blackList.suspectId }">${blackList.reportTargetId }</a></td>
-												<td class="text-center">${blackList.?}</td>
+													href="reportDetail.do?reportTargetId=${blackList.reportTargetId  }">${blackList.reportTargetId }</a></td>
+												<td class="text-center">${blackList.status }</td>
 												<td><input type="submit" value="탈퇴"
 													class="btn btn-primary btn-block form-control"
 													id="search_btn"
@@ -190,6 +191,7 @@
 
 					</div>
 				</div>
+				</form>
 
 			</div>
 		</div>

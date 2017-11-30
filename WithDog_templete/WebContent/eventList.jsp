@@ -16,10 +16,11 @@
 <meta name="keywords" content="" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 
 
 
@@ -100,12 +101,12 @@
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#datepicker").datepicker();
+	});
+</script>
 
 </head>
 <body class="homepage">
@@ -146,15 +147,19 @@
 	<div id="main">
 
 		<div class="container">
-			<form class="property-search-form"
-				action="http://www.sweetspot.co.kr/search-results/">
-					<div class="row">
-						<p><input type="text" id="datepicker" value="날짜를 선택해주세요."></p>
-						<div class="3u">
-						<select form="location" name="favoriteLocation" >
-								<option value="all">지역을 선택해주세요.</option>
-								
-							
+			<form class="property-search-form" action="eventList.do"
+				method="post">
+
+
+				<div class="row">
+					<p>
+						<input type="text" id="datepicker" value="날짜를 선택해주세요.">
+					</p>
+					<div class="3u">
+						<select form="location" name="favoriteLocation">
+							<option value="all">지역을 선택해주세요.</option>
+
+
 							<option value="서울">서울특별시</option>
 							<option value="경기">경기도</option>
 							<option value="인천">인천광역시</option>
@@ -168,104 +173,107 @@
 							<option value="충북">충청북도</option>
 							<option value="제주">제주특별시</option>
 						</select>
-						</div>
-
-
-					
-						
-
-						
-						<div class="3u">
-							<input type="submit" value="search" class="btn btn-primary btn-block form-control" id="search_btn" style="color:#fff !important; background:#43becc; border:1px solid #43becc !important;">
-						</div>
-
 					</div>
+
+
+
+
+
+
+					<div class="3u">
+						<input type="submit" value="search"
+							class="btn btn-primary btn-block form-control" id="search_btn"
+							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
+							onclick="">
+					</div>
+
+				</div>
 
 				<!-- Default Order: Newest Properties First -->
 				<input type="hidden" name="order-by" value="date-new" /> <input
 					type="hidden" name="pageid" value="841" />
-
 			</form>
 
 		</div>
-	</div>
-	<!-- /Main -->
+</div>
+		<!-- /Main -->
 
-	<!-- Footer -->
-	<div id="footer">
-		<div class="container">
-			<div class="row half">
-				<div class="3u">
-					<section>
-						<header>
-							<h2>EventList</h2>
-							<hr>
-						</header>
+		<!-- Footer -->
+		<div id="footer">
+			<div class="container">
+				<div class="row half">
+					<div class="3u">
+						<section>
+							<header>
+								<h2>EventList</h2>
+								<hr>
+							</header>
 
-					</section>
+						</section>
+					</div>
 				</div>
-			</div>
 
-			<div class="row">
-				<div class="15u">
+				<div class="row">
+					<div class="15u">
 
 
-					<table class="table table-striped table-bordered table-hover">
-						<colgroup>
-							<col width="400" />
-							<col width="800" />
-							<col width="300" />
-							<col width="400" />
-						</colgroup>
-						<thead>
-							<tr>
-								<th class="text-center">이벤트 명</th>
-								<th class="text-center">시작일</th>
-								<th class="text-center">종료일</th>
-								<th class="text-center">이벤트 장소</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:choose>
-								<c:when test="${empty eventList }">
-									<tr>
-										<th colspan="4 " class="text-center">이벤트가 존재하지 않습니다.</th>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="spot" items="${eventList }">
+						<table class="table table-striped table-bordered table-hover">
+							<colgroup>
+								<col width="400" />
+								<col width="800" />
+								<col width="300" />
+								<col width="400" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="text-center">이벤트 명</th>
+									<th class="text-center">시작일</th>
+									<th class="text-center">종료일</th>
+									<th class="text-center">이벤트 장소</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+									<c:when test="${empty eventList }">
 										<tr>
-											<td class="text-center"><a
-												href="spotDetail.do?spotId=${event.eventId }">${event.eventName }</a></td>
-											<td class="text-center">${spot.spotLocation }</td>
-											<td class="text-center">${spot.spotType }</td>
+											<th colspan="4 " class="text-center">이벤트가 존재하지 않습니다.</th>
 										</tr>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="eventList" items="${eventList }">
+											<tr>
+												<td class="text-center"><a
+													href="eventDetail.do?eventId=${eventList.eventId }">${eventList.eventName }</a></td>
+												<td class="text-center">${eventList.openDate }</td>
+												<td class="text-center">${eventList.closeDate }</td>
+												<td class="text-center">${eventList.eventInfo }</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
 
 
+					</div>
 				</div>
-			</div>
-			<div class="3u">
-				<a href="registEvent.do" class="btn_comm btn_submit form-control"
-					style="text-align: center"><strong style="color: white">이벤트
-						등록</strong></a>
-			</div>
+				<div class="3u">
+					<a href="registEvent.do" class="btn_comm btn_submit form-control"
+						style="text-align: center"><strong style="color: white">이벤트
+							등록</strong></a>
+				</div>
 
+			</div>
 		</div>
-	</div>
-	<!-- /Footer -->
+		<!-- /Footer -->
 
-	<!-- Copyright -->
-	<div id="copyright">
-		<div class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
+		<!-- Copyright -->
+		<div id="copyright">
+			<div class="container">
+				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
+					href="http://unsplash.com">Unsplash</a> (<a
+					href="http://unsplash.com/cc0">CC0</a>)
+			</div>
 		</div>
-	</div>
 </body>
 </html>

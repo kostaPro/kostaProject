@@ -20,7 +20,8 @@
 		<collection property="commentList" column="eventId" ofType="Comment"
 			select="store.mapper.CommentMapper.retrieveCommentsByEventId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
-
+			
+		
 	</resultMap>
 
 	<sql id="selectEvent">
@@ -129,11 +130,5 @@
 		WHERE EVENTID = #{eventId}
 		and JOINDATE = #{eventDate}
 	</select>
-
-
-
-
-
-
 
 </mapper>

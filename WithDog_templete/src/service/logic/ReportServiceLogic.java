@@ -20,9 +20,9 @@ public class ReportServiceLogic implements ReportService {
 	private UserStore userStore;
 
 	@Override
-	public boolean registRepot(Report report) {
+	public boolean registReport(Report report) {
 
-		String reportType = report.getReportType();
+		String reportType = "spot";
 
 		if (reportType == "spot") {
 			return reportStore.createSpotReport(report);
@@ -34,11 +34,10 @@ public class ReportServiceLogic implements ReportService {
 			return reportStore.createEventCommentReport(report);
 		} else if (reportType == "meetingComment") {
 			return reportStore.createMeetingCommentReport(report);
-		} else if (reportType == "reviewComment") {
+		} else{
 			return reportStore.createReviewCommentReport(report);
 		}
 		
-		return true;
 	}
 
 	@Override

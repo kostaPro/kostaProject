@@ -54,8 +54,7 @@
 	<div id="main">
 		<div class="container">
 			<section>
-				<form action="registReport.do" method="POST"
-					enctype="multipart/form-data">
+				<form action="registReport.do" method="POST">
 					<header>
 
 						<h2 align="left">신고 등록</h2>
@@ -64,21 +63,18 @@
 
 					<section>
 						<input type="hidden" name="reportType" value="${reportType }">
-						<input type="hidden" name="reportTargetId " value="${reportTargetId }">
+						<input type="hidden" name="reportTargetId "
+							value="${reportTargetId }">
 						<h3 align="left">신고자 | ${userId }</h3>
 						<h3 align="left">신고구분 |${reportType }</h3>
 						<h3 align="left">신고대상 |${reportTargetId }</h3>
-						<br>
-						<div class="reports">
+						<br> <input type="text" class="form-control"
+							id="reportContent" name="reportContent"
+							placeholder="신고 사유를 입력해 주세요." /> <br>
+						<h2 align="right">
+							<input class="btn btn-primary" type="submit" value="신고 등록" />
+						</h2>
 
-							<textarea class="form-control" id="reportContent" name="reportContent"
-								rows="10" cols="40" placeholder="신고 사유를 입력해 주세요."
-								required="required"></textarea>
-							<br>
-							<h2 align="right">
-								<input class="btn btn-primary" type="submit" value="신고 등록" />
-							</h2>
-						</div>
 					</section>
 				</form>
 			</section>
