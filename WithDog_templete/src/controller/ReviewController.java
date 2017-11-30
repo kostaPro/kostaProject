@@ -171,7 +171,8 @@ public class ReviewController {
 		
 		commentService.modifyReviewComment(comment);
 		
-		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
 	
