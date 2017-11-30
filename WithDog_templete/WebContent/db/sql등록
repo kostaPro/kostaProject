@@ -131,6 +131,7 @@ CREATE TABLE joinEvent_tb (
 
 CREATE TABLE meeting_tb (
 	meetingId number PRIMARY KEY,
+	meetingName varchar(20),
 	meetingDate Date,
 	meetingTime number,
 	minPerson number,

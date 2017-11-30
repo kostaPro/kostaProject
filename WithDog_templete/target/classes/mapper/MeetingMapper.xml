@@ -6,12 +6,13 @@
 <mapper namespace="store.mapper.MeetingMapper">
 		
 	<sql id="selectMeeting">
-		SELECT meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
+		SELECT meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
 	</sql>
 	
 	<resultMap type="Meeting" id="MeetingMap">
 		
 		<id property="meetingId" column="meetingId"/>
+		<result property="meetingName" column="meetingName"/>
 		<result property="meetingDate" column="meetingDate"/>
 		<result property="meetingTime" column="meetingTime"/>
 		<result property="minPerson" column="minPerson"/>
@@ -38,8 +39,8 @@
 			order="BEFORE">
 			SELECT meeting_seq.nextval FROM dual
 		</selectKey>
-		INSERT INTO meeting_tb(meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId)
-		VALUES (#{meetingId}, #{meetingDate}, #{meetingTime}, #{meetingSpot.spotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
+		INSERT INTO meeting_tb(meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId)
+		VALUES (#{meetingId}, #{meetingName}, #{meetingDate}, #{meetingTime}, #{meetingSpot.spotId}, #{minPerson}, #{meetingPurpose}, #{hostId})
 	</insert>
 	
 	
@@ -129,7 +130,7 @@
 		
 	<update id="updateMeeting" parameterType="Meeting">
 		UPDATE meeting_tb
-		SET meetingDate=#{meetingDate}, meetingTime=#{meetingTime}, meetingSpotId=#{meetingSpot.spotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPurpose}
+		SET meetingDate=#{meetingDate}, meetingName=#{meetingName}, meetingTime=#{meetingTime}, meetingSpotId=#{meetingSpot.spotId}, minPerson=#{minPerson}, meetingPurpose=#{meetingPurpose}
 		WHERE meetingId = #{meetingId}
 	</update>
 	

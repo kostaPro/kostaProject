@@ -6,6 +6,7 @@ import java.util.List;
 public class Meeting {
 	
 	private int meetingId;
+	private String meetingName;
 	private Date meetingDate;
 	private int meetingTime;
 	private Spot meetingSpot;
@@ -75,6 +76,12 @@ public class Meeting {
 	}
 	public void setCommentList(List<Comment> commentList) {
 		this.commentList = commentList;
+	}
+	public String getMeetingName() {
+		return meetingName;
+	}
+	public void setMeetingName(String meetingName) {
+		this.meetingName = meetingName;
 	}
 
 }
