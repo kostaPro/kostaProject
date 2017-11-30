@@ -119,4 +119,11 @@ public class MeetingServiceLogic implements MeetingService{
 		return result;
 	}
 
+
+	@Override
+	public boolean registMeetingImage(String imageUrl, int meetingId) {
+		return meetingStore.createMeetingImage(imageUrl, meetingId);
+	}
+	
+	
 }

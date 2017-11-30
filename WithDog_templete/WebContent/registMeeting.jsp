@@ -92,7 +92,7 @@
 <script src="resources/js/init.js"></script>
 
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="resources/js/spotImage.js"></script>
+<script type="text/javascript" src="resources/js/meetingImage.js"></script>
 
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
@@ -107,12 +107,12 @@
   </script>
 
 <style type="text/css">
-.spot_imgs {
+.imgs_wrap {
 	width: 1100px;
 	display: inline-block;
 }
 
-.spot_imgs img {
+.imgs_wrap img {
 	margin: 20px;
 	max-width: 300px;
 	float: left;
@@ -168,27 +168,31 @@
 						<!-- step1 시작-->
 						
 						<div class="wrap_listing">
-							<form action="registEvent.do" method="POST"
+							<form action="registMeeting.do" method="POST"
 								enctype="multipart/form-data">
 								<fieldset>
-									<legend class="screen_out">이벤트 등록하기 폼</legend>
+									<legend class="screen_out">모임 등록하기 폼</legend>
 									<div class="form_details">
 
 									
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
+										
+										<label for="inpName" class="lab_comm"><strong
+											class="tit_form"><i class="fa fa-check"></i>모임명</strong></label> <input
+											type="text" id="inpName" name="meetingName" class="inp_comm">
 										
 										<p><i class="fa fa-check"></i>
 											모임 일자: <input type="text" id="datepicker" name="meetingDate">&nbsp&nbsp&nbsp
 										<i class="fa fa-check"></i>
 											모임 시간: 
 											<select form="time" name="meetingTime" >
-												<option value="시간">시간</option>
-												<option value="00">0시</option>
-												<option value="01">1시</option>
-												<option value="02">2시</option>
-												<option value="03">3시</option>
-												<option value="04">4시</option>
-												<option value="05">5시</option>
+												<option value="">시간</option>
+												<option value=0>0시</option>
+												<option value=1>1시</option>
+												<option value=2>2시</option>
+												<option value=3>3시</option>
+												<option value=4>4시</option>
+												<option value=5>5시</option>
 												<option value="06">6시</option>
 												<option value="07">7시</option>
 												<option value="08">8시</option>
@@ -208,25 +212,37 @@
 												<option value="22">22시</option>
 												<option value="23">23시</option>
 											</select>
+											&nbsp&nbsp
+											모임 최소 인원: 
+											<select form="time" name="minPerson" >
+												<option value="">인원</option>
+												<option value=1>1명</option>
+												<option value=2>2명</option>
+												<option value=3>3명</option>
+												<option value="4">4명</option>
+												<option value="5">5명</option>
+												<option value="6">6명</option>
+												<option value="7">7명</option>
+												<option value="8">8명</option>
+												<option value="9">9명</option>
+												<option value="10">10명</option>
+												<option value="15">15명</option>
+												<option value="20">20명</option>
+											</select>
 										</p>
 
-										<label for="inpName" class="lab_comm"><strong
-											class="tit_form"><i class="fa fa-check"></i>이벤트명</strong></label> <input
-											type="text" id="inpName" name="eventName" class="inp_comm">
+										
 
 										<section >
-											<strong class="tit_form"><i class="fa fa-check"></i>이벤트의 대표 사진을 첨부해주세요.<i
+											<strong class="tit_form"><i class="fa fa-check"></i>모임 관련 사진을 첨부해주세요.<i
 												class="txt_check"> </i></strong>
-											<div class="file_area">
-												<div class="file_comm">
-													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
-														<input type="file" id="input_thumbnail" name="eventImg"
-														class="inp_file file_attach"> </span> <br><br>
-														
-															<img src="#" id="spot_thumb" style="width:600px; display: absolute; float:center">
-
-												</div>
-											</div>
+											
+									<label class="btn btn-info upload-button">이미지 첨부
+									<input style="display: none" type="file" name="file" id="input_imgs"
+										multiple="multiple" />
+									</label>
+									<div class="imgs_wrap"></div>
+								
 										</section>
 
 										<section style="display: inline-block; width:650px">
@@ -236,12 +252,12 @@
 										</section>
 
 
-										<strong class="tit_form"><i class="fa fa-check"></i>이벤트의
+										<strong class="tit_form"><i class="fa fa-check"></i>모임의
 											주소를 입력해주세요.</strong>
 
 										<section>
 
-											<input type="text" class="inp_comm" name="eventLocation">
+											<input type="text" class="inp_comm" name="meetingSpot">
 											<a href="#"
 												class="btn btn-primary btn-block form-control btn_comm"><strong
 												style="color: white">검색하기</strong></a>
@@ -250,7 +266,7 @@
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form"><i class="fa fa-check"></i>소개글<i class="txt_check"></i></strong>
 										</label>
-										<textarea class="inp_comm" name="eventInfo" placeholder=""></textarea>
+										<textarea class="inp_comm" name="meetingPurpose" placeholder=""></textarea>
 
 										
 										
