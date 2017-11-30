@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +42,6 @@ public class ReportController {
 
 		ModelAndView modelAndView = new ModelAndView("registReport.jsp");
 
-		
 		modelAndView.addObject("reportTargetId", reportTargetId);
 		modelAndView.addObject("reportType", reportType);
 
@@ -53,11 +53,17 @@ public class ReportController {
 	public String registReport(Report report, HttpSession session) {
 		
 		String userId = "sy";
-		String status = "2";
 		
-		report.setReporterId((String)session.getAttribute(userId));
-		report.setStatus(status);
-
+//		userId = (String)session.getAttribute(userId);
+		
+		if(userId.equals("admin")) {
+			report.setStatus("o");
+		}else {
+			report.setStatus("-");
+		}
+		report.setReporterId(userId);
+		System.out.println(report.getReportType());
+		System.out.println(report.getReportTargetId());
 		reportService.registReport(report);
 
 		return "redirect:userReport.do?reporterId=" + report.getReporterId();

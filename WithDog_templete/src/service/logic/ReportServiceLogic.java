@@ -38,8 +38,6 @@ public class ReportServiceLogic implements ReportService {
 			return reportStore.createReviewCommentReport(report);
 		}
 		
-		
-		
 	}
 
 	@Override
