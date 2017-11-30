@@ -1,0 +1,169 @@
+﻿﻿﻿<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>simpleMap</title>
+        <script src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=1846f5be-0dc1-342e-9ade-67d136c5adde"></script>
+        <script type="text/javascript">
+
+ 	    var mapW, mapH;     // 지도의 가로, 세로 크기(Pixel단위) 를 지정 합니다. 
+            var currentLonLat, zoom;      //중심 좌표와 지도레벨을 정의 합니다. 
+
+	    var markerLayer;	//마커를 올릴 레이어를 정의 합니다.
+	    var lon		//지도에 표시할 마커의 경도를 정의합니다.
+	    var lat;		//지도에 표시할 마커의 위도를 정의합니다.
+
+	    var size;		//마커의 중심 크키를 정의 합니다.
+	    var offset;
+	    var icon;		//마커의 이미지를 정의합니다.
+
+	    var marker;
+
+	    var city_do, gu_gun, dong, bunji;  //Get Request를 통해 넘겨 받을 주소값을 정의합니다.
+
+
+	    //Get Request의 파라미터들을 읽어옵니다.
+            function getRequests() {
+
+  		  var s1 = location.search.substring(1, location.search.length).split('&'),
+   		     r = {}, s2, i;
+  		  for (i = 0; i < s1.length; i += 1) {
+    			  s2 = s1[i].split('=');
+      			  r[decodeURIComponent(s2[0]).toLowerCase()] = decodeURIComponent(s2[1]);
+  		  }
+  		  return r;
+
+            } 	
+
+
+            function setVariables(){ 
+  
+		var QueryString = getRequests();	//request의 파라미터를 읽어옵니다.
+
+		city_do = QueryString["city_do"];	//request의 파라미터의 이름으로 값을 찾습니다.
+		gu_gun = QueryString["gu_gun"];
+		dong = QueryString["dong"];
+		bunji = QueryString["bunji"];
+
+		var request = new httpRequest();
+
+		request.method = "GET";
+		request.url = "https://apis.skplanetx.com/tmap/geo/geocoding?version=1&city_do="+ city_do + "&gu_gun="+ gu_gun +"&dong="+ dong +"&bunji="+bunji+"&appKey=1846f5be-0dc1-342e-9ade-67d136c5adde";
+		
+		request.success = function(response)
+		{
+			var data = JSON.stringify(response);
+			var locationList = JSON.parse(response);
+			var location = locationList.coordinateInfo;
+
+			lon = location.lon;
+			lat = location.lat;
+		};
+
+		request.fail = function(error)
+		{
+			console.log(error);
+		};
+
+		request.send();	
+		
+		currentLonLat = new Tmap.LonLat(lon, lat);  
+                        //중심점 좌표 입니다. EPSG3857 좌표계 형식 입니다. 
+
+                zoom = 16;  // zoom level입니다.  0~19 레벨을 서비스 하고 있습니다. 숫자가 클수록 확대되어 보입니다.
+                mapW = '630px';  // 지도의 가로 크기 입니다. 
+                mapH = '470px';  // 지도의 세로 크기 입니다. 
+
+		markerLayer = new Tmap.Layer.Markers();
+
+		size = new Tmap.Size(24,38);	//마커 크기의 기준값 입니다.
+		offset = new Tmap.Pixel(-(size.w), -(size.h));	//마커의 크기를 지정합니다.
+
+            }
+             
+            function init() {
+                setVariables();
+
+                map = new Tmap.Map({div:'map_div', width:mapW, height:mapH, animation:true}); 
+                // div : 지도가 생성될 div의 id값과 같은 값을 옵션으로 정의 합니다.
+                // Tmap,Map 클래스에 대한 상세 사항은 "JavaScript" 하위메뉴인 "기본 기능" 페이지를 참조 해주세요. 
+
+
+		map.addLayer(markerLayer);
+ 		icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); 
+     
+		marker = new Tmap.Marker(currentLonLat, icon);	//마커를 표시할 좌표를 지정합니다.
+		markerLayer.addMarker(marker);			//마커를 표시합니다.
+		map.setCenter(currentLonLat, zoom);		//지도가 표시될 중심 좌표와 지도레벨을 정의 합니다.
+
+
+		
+            }  
+
+function httpRequest()
+{
+    var ajax = null,
+        response = null,
+        self = this;
+
+    this.method = null;
+    this.url = null;
+    this.async = true;
+    this.data = null;
+
+    this.send = function()
+    {
+        ajax.open(this.method, this.url, this.asnyc);
+        ajax.send(this.data);
+    };
+
+    if(window.XMLHttpRequest)
+    {
+        ajax = new XMLHttpRequest();
+    }
+    else if(window.ActiveXObject)
+    {
+        try
+        {
+            ajax = new ActiveXObject("Msxml2.XMLHTTP.6.0");
+        }
+        catch(e)
+        {
+            try
+            {
+                ajax = new ActiveXObject("Msxml2.XMLHTTP.3.0");
+            }
+            catch(ee)
+            {
+                self.fail("not supported");
+            }
+        }
+    }
+
+    if(ajax == null)
+    {
+        return false;
+    }
+
+    ajax.onreadystatechange = function()
+    {
+        if(this.readyState == 4)
+        {
+            if(this.status == 200)
+            {
+                self.success(this.responseText);
+            }
+            else
+            {
+                self.fail(this.status + " - " + this.statusText);
+            }
+        }
+    };
+}
+        </script>
+    </head>
+
+    <body onload="init()">
+        <div id="map_div">
+        </div>     
+    </body>
+</html>

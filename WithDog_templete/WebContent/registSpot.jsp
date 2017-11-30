@@ -183,8 +183,7 @@
 													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
 														<input type="file" id="input_thumbnail"
 														name="spotThumbnail" class="inp_file file_attach">
-													</span> <br>
-													<br> <img src="#" id="spot_thumb"
+													</span> <br> <br> <img src="#" id="spot_thumb"
 														style="width: 600px; display: absolute; float: center">
 
 												</div>
@@ -258,6 +257,14 @@
 												class="btn btn-primary btn-block form-control btn_comm">
 										</section>
 
+										<section>
+											<div class="7u">
+												<iframe name="mapFrame" id="mapFrame"
+													style="width: 650px; height: 500px"
+													src="http://wedog.dothome.co.kr/RegistSpotMark.html"></iframe>
+											</div>
+										</section>
+
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form">소개글<i class="txt_check"> (선택)</i></strong>
 										</label>
@@ -309,23 +316,42 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script>
 		function searchingAddress() {
-			new daum.Postcode({
-				
-				hideMapBtn: true,
-				hideEngBtn: true,
-				
-				oncomplete : function(data) {
+			new daum.Postcode(
+					{
 
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+						hideMapBtn : true,
+						hideEngBtn : true,
 
-					// 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('spotLocation').value = data.jibunAddress;
+						oncomplete : function(data) {
 
-					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById('spotLocation').focus();
-				}
-			}).open({
-				q: document.getElementById('spotLocation').value
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+							// 주소 정보를 해당 필드에 넣는다.
+							if (data.autoJibunAddress) {
+								document.getElementById('spotLocation').value = data.autoJibunAddress;
+							} else {
+								document.getElementById('spotLocation').value = data.jibunAddress;
+							}
+
+							// 커서를 상세주소 필드로 이동한다.
+							document.getElementById('spotLocation').focus();
+
+							var location = document
+									.getElementById('spotLocation').value
+									.split(' ');
+
+							document.getElementById('mapFrame').src = "http://wedog.dothome.co.kr/RegistSpotMark.html?city_do="
+									+ location[0]
+									+ "&gu_gun="
+									+ location[1]
+									+ "&dong="
+									+ location[2]
+									+ "&bunji="
+									+ location[3];
+
+						}
+					}).open({
+				q : document.getElementById('spotLocation').value
 			});
 		}
 	</script>
