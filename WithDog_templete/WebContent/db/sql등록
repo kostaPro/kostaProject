@@ -24,7 +24,7 @@ spotId number primary Key,
 spotName varchar(20),
 spotLocation varchar(100),
 spotInfo varchar(500),
-spotType varchar(10),
+spotType varchar(15),
 thumbNail varchar(150),
 registerId varchar(20)
 );

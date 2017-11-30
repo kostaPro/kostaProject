@@ -105,9 +105,6 @@
 	max-width: 300px;
 	float: left;
 }
-
-
-
 </style>
 
 </head>
@@ -178,24 +175,25 @@
 											class="tit_form"><i class="fa fa-check"></i>장소명</strong></label> <input
 											type="text" id="inpName" name="spotName" class="inp_comm">
 
-										<section >
+										<section>
 											<strong class="tit_form">장소의 대표 사진을 첨부해주세요.<i
 												class="txt_check"> (선택)</i></strong>
 											<div class="file_area">
 												<div class="file_comm">
 													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
-														<input type="file" id="input_thumbnail" name="spotThumbnail"
-														class="inp_file file_attach"> </span> <br><br>
-														
-															<img src="#" id="spot_thumb" style="width:600px; display: absolute; float:center">
+														<input type="file" id="input_thumbnail"
+														name="spotThumbnail" class="inp_file file_attach">
+													</span> <br>
+													<br> <img src="#" id="spot_thumb"
+														style="width: 600px; display: absolute; float: center">
 
 												</div>
 											</div>
 										</section>
 
-										<section style="display: inline-block; width:650px">
-											<strong class="tit_form"><i
-												class="fa fa-check"></i>장소 분류를 선택해주세요.</strong>
+										<section style="display: inline-block; width: 650px">
+											<strong class="tit_form"><i class="fa fa-check"></i>장소
+												분류를 선택해주세요.</strong>
 											<ul class="list_type2">
 												<li><input type="checkbox" id="etc" name="etc"
 													disabled="disabled"> <label for="etc"
@@ -254,10 +252,10 @@
 
 										<section>
 
-											<input type="text" class="inp_comm" name="spotLocation">
-											<a href="#"
-												class="btn btn-primary btn-block form-control btn_comm"><strong
-												style="color: white">검색하기</strong></a>
+											<input type="text" class="inp_comm" name="spotLocation"
+												id="spotLocation"> <input type="button"
+												onclick="searchingAddress()" value="검색하기"
+												class="btn btn-primary btn-block form-control btn_comm">
 										</section>
 
 										<label for="inpComp" class="lab_comm"> <strong
@@ -270,14 +268,11 @@
 										<div class="file_area">
 											<div class="file_comm">
 												<span class="file_name"></span> <span class="btn_file">
-													<label>파일첨부</label> 
-													<input type="file" id="input_imgs" name="spotImage" class="inp_file file_attach"
+													<label>파일첨부</label> <input type="file" id="input_imgs"
+													name="spotImage" class="inp_file file_attach"
 													multiple="multiple">
 												</span>
 											</div>
-											<button type="button" class="btn_add">
-												<span class="screen_out">추가</span>
-											</button>
 										</div>
 										<span class="file_notice">최대 3개까지 첨부 가능</span>
 										<section>
@@ -309,6 +304,31 @@
 				href="">CC0</a>)
 		</div>
 	</div>
+
+
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script>
+		function searchingAddress() {
+			new daum.Postcode({
+				
+				hideMapBtn: true,
+				hideEngBtn: true,
+				
+				oncomplete : function(data) {
+
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('spotLocation').value = data.jibunAddress;
+
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById('spotLocation').focus();
+				}
+			}).open({
+				q: document.getElementById('spotLocation').value
+			});
+		}
+	</script>
 
 </body>
 </html>
