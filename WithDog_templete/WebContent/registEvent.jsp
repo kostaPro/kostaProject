@@ -102,9 +102,15 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
-    $( "#datepicker" ).datepicker();
+    $( "#datepicker1" ).datepicker();
   } );
   </script>
+  <script>
+  $( function() {
+    $( "#datepicker2" ).datepicker();
+  } );
+  </script>
+  
 
 <style type="text/css">
 .spot_imgs {
@@ -179,10 +185,10 @@
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
 										
 										<p><i class="fa fa-check"></i>
-											시작일: <input type="text" id="datepicker" name="openDate">
+											시작일: <input type="text" id="datepicker1" name="openDate">
 										</p>
 										<p><i class="fa fa-check"></i>
-											종료일: <input type="text" id="datepicker" name="closeDate">
+											종료일: <input type="text" id="datepicker2" name="closeDate">
 										</p>
 
 										<label for="inpName" class="lab_comm"><strong

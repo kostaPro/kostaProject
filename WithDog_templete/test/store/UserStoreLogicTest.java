@@ -57,14 +57,14 @@ public class UserStoreLogicTest {
 //	
 //	}
 
-	@Test
-	public void testRetrieveUserByUserId() {
-	
-		User user = store.retrieveUserByUserId("uraid");
-		assertEquals("01022229999", user.getContact());
-		
-				
-	}
+//	@Test
+//	public void testRetrieveUserByUserId() {
+//	
+//		User user = store.retrieveUserByUserId("uraid");
+//		assertEquals("01022229999", user.getContact());
+//		
+//				
+//	}
 
 	@Test
 	public void testRetrieveUserList() {

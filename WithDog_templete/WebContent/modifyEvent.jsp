@@ -103,7 +103,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#datepicker").datepicker();
+		$("#datepicker1").datepicker();
+	});
+</script>
+<script>
+	$(function() {
+		$("#datepicker2").datepicker();
 	});
 </script>
 
@@ -169,27 +174,29 @@
 						<!-- step1 시작-->
 
 						<div class="wrap_listing">
-							<form action="modifyEvent.do" method="POST"
-								enctype="multipart/form-data">
+							<form action="modifyEvent.do" method="POST" enctype="multipart/form-data">
+							<input type="hidden" name="eventId" value="${event.eventId }">
 								<fieldset>
 									<legend class="screen_out">이벤트 수정하기 폼</legend>
 									<div class="form_details">
 
-										
-
-
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
-										
-										<p><i class="fa fa-check"></i>
-											시작일: <input type="text" id="datepicker" value="${event.openDate }">
-										</p>
-										<p><i class="fa fa-check"></i>
-											종료일: <input type="text" id="datepicker" value="${event.closeDate }">
+
+										<p>
+											<i class="fa fa-check"></i> 시작일: <input type="text"
+												id="datepicker1" name="openDate" value="${event.openDate }">
 										</p>
 
-										<label for="inpName" class="lab_comm" ><strong
+										<p>
+											<i class="fa fa-check"></i> 종료일: <input type="text"
+												id="datepicker2" name="closeDate"
+												value="${event.closeDate }">
+										</p>
+
+										<label for="inpName" class="lab_comm"><strong
 											class="tit_form"><i class="fa fa-check"></i>이벤트명</strong></label> <input
-											type="text" id="inpName" name="eventName" class="inp_comm" value="${event.eventName }" readOnly>
+											type="text" id="inpName" name="eventName" class="inp_comm"
+											value="${event.eventName }" readOnly>
 
 										<section>
 											<strong class="tit_form"><i class="fa fa-check"></i>이벤트의
@@ -197,10 +204,9 @@
 											<div class="file_area">
 												<div class="file_comm">
 													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
-														<input type="file" id="input_thumbnail"
-														name="eventImg" class="inp_file file_attach">
-													</span> <br>
-													<br> <img src="#" id="spot_thumb"
+														<input type="file" id="input_thumbnail" name="eventImg"
+														class="inp_file file_attach"> </span> <br> <br>
+													<img src="#" id="spot_thumb"
 														style="width: 600px; display: absolute; float: center">
 
 												</div>
@@ -208,8 +214,6 @@
 										</section>
 
 										<section style="display: inline-block; width: 650px">
-
-
 
 										</section>
 
@@ -219,7 +223,7 @@
 
 										<section>
 
-											<input type="text" class="inp_comm" name="eventLocation">
+											<input type="text" class="inp_comm" name="eventLocation" value="${event.eventName }">
 											<a href="#"
 												class="btn btn-primary btn-block form-control btn_comm"><strong
 												style="color: white">검색하기</strong></a>
@@ -229,13 +233,14 @@
 											class="tit_form"><i class="fa fa-check"></i>소개글<i
 												class="txt_check"></i></strong>
 										</label>
-										<textarea class="inp_comm" name="eventInfo" placeholder=""></textarea>
+										<input type="text" class="inp_comm" name="eventInfo" placeholder="" value="${event.eventInfo }"></input>
 
 										<input type="submit"
-											class="btn_comm btn_submit send_listing_place" value="수정신청"></input>
+											class="btn_comm btn_submit send_listing_place" value="수정신청" ></input>
 
-										<input type="submit"
-											class="btn_comm btn_submit send_listing_place"  onclick="eventDetail.do?eventId=${event.eventId }" value="수정취소"></input>
+										<button type="submit"
+											class="btn_comm btn_submit send_listing_place"
+											onclick="eventDetail.do?eventId=${event.eventId }">수정취소</button>
 									</div>
 								</fieldset>
 							</form>

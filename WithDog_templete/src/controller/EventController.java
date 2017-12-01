@@ -4,6 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +56,7 @@ public class EventController {
 	@Autowired
 	private CommentService commentService;
 
-	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET) // O
+	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
 
 		return "registEvent.jsp";
@@ -101,19 +104,40 @@ public class EventController {
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
 	public ModelAndView showEventList() { // O
-
+		
 		List<Event> eventList = eventService.findAllEvents();
+		List<String> openDates = new ArrayList<>();
+		List<String> closeDates = new ArrayList<>();
+		
+		for (int i = 0; i < eventList.size() + 1; i++) {
+			
+			Date openDate = eventList.get(i).getOpenDate();		
+			Date closeDate = eventList.get(i).getCloseDate();
+		
+			SimpleDateFormat transForm = new SimpleDateFormat("yyyy-MM-dd");
+		
+			String stringOpenDate = transForm.format(openDate);
+			String stringCloseDate = transForm.format(closeDate);
+			
+			openDates.set(i, stringOpenDate);
+			closeDates.set(i, stringCloseDate);
+		
+		}
+		
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
+			
+		modelAndView.addObject("openDates", openDates);
+		modelAndView.addObject("closeDates", closeDates);
 		modelAndView.addObject("eventList", eventList);
 
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST) //
+	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
 	public ModelAndView searchEvent(Date date, String location) {
 
-		
 		List<Event> eventList = eventService.findAllEvents();
+		
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 		modelAndView.addObject("eventList", eventList);
 				
@@ -145,12 +169,12 @@ public class EventController {
 			
 	}
 
-	@RequestMapping(value = "/eventDetail.do") // O
+	@RequestMapping(value = "/eventDetail.do")
 	public ModelAndView showEventDetail(String eventId) {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
-
+				
 		return modelAndView;
 	}
 
@@ -172,10 +196,8 @@ public class EventController {
 		return null;
 	}
 
-	@RequestMapping(value = "modifyEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.GET)
 	public ModelAndView showModifyEvent(String eventId) {
-
-		eventId = "47";
 
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 
@@ -183,10 +205,9 @@ public class EventController {
 		modelAndView.addObject("event", event);
 
 		return modelAndView;
-
 	}
 
-	@RequestMapping(value = "modifyEvent.do", method = RequestMethod.POST) //
+	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.POST)
 	public String modifyEvent(Event event, MultipartHttpServletRequest file) {
 
 		Spot eventSpot = new Spot();
@@ -198,7 +219,7 @@ public class EventController {
 		return "redirect:eventDetail.do?eventId=" + event.getEventId();
 	}
 
-	@RequestMapping(value = "removeEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeEvent.do", method = RequestMethod.GET)
 	public String removeEvent(String eventId) {
 
 		eventId = "47";

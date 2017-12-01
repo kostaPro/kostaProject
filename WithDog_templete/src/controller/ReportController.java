@@ -36,34 +36,38 @@ public class ReportController {
 	@RequestMapping(value = "/registReport.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReport(String reportType, String reportTargetId) {
 
-		
+		String userId = "sy";
 		reportType = "spot";
-		reportTargetId = "3";
+		reportTargetId = "13";
 
 		ModelAndView modelAndView = new ModelAndView("registReport.jsp");
 
+		modelAndView.addObject("userId", userId);
+		
 		modelAndView.addObject("reportTargetId", reportTargetId);
 		modelAndView.addObject("reportType", reportType);
 
 		return modelAndView;
-
 	}
 
-	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST) //
+	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST)
 	public String registReport(Report report, HttpSession session) {
 		
+		//String userId = (String)session.getAttribute("userId");
 		String userId = "sy";
-		
-//		userId = (String)session.getAttribute(userId);
 		
 		if(userId.equals("admin")) {
 			report.setStatus("o");
 		}else {
 			report.setStatus("-");
 		}
+		
 		report.setReporterId(userId);
+		
+		
 		System.out.println(report.getReportType());
 		System.out.println(report.getReportTargetId());
+		
 		reportService.registReport(report);
 
 		return "redirect:userReport.do?reporterId=" + report.getReporterId();
