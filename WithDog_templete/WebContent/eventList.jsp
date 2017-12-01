@@ -104,7 +104,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#datepicker").datepicker();
+		$("#datepicker").datepicker({dateFormat:'y/mm/dd'}
+		altField : '#getdate');
 	});
 </script>
 
@@ -147,14 +148,15 @@
 	<div id="main">
 
 		<div class="container">
-			<form class="property-search-form" action="eventList.do"
-				method="post">
-
+			<form class="property-search-form" action="eventList.do" method="post">
 
 				<div class="row">
 					<p>
-						<input type="text" id="datepicker" value="날짜를 선택해주세요.">
+					
+						<input type="text" id="getdate" name="date">
+						<input type="text" id="datepicker" value="시작일을 선택해주세요.">
 					</p>
+					
 					<div class="3u">
 						<select form="location" name="favoriteLocation">
 							<option value="all">지역을 선택해주세요.</option>
@@ -175,16 +177,12 @@
 						</select>
 					</div>
 
-
-
-
-
-
 					<div class="3u">
+					
 						<input type="submit" value="search"
 							class="btn btn-primary btn-block form-control" id="search_btn"
 							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
-							onclick="">
+							>
 					</div>
 
 				</div>
@@ -195,85 +193,87 @@
 			</form>
 
 		</div>
-</div>
-		<!-- /Main -->
+	</div>
+	<!-- /Main -->
 
-		<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<div class="row half">
-					<div class="3u">
-						<section>
-							<header>
-								<h2>EventList</h2>
-								<hr>
-							</header>
-
-						</section>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="15u">
-
-
-						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="300" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">이벤트 명</th>
-									<th class="text-center">시작일</th>
-									<th class="text-center">종료일</th>
-									<th class="text-center">이벤트 장소</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty eventList }">
-										<tr>
-											<th colspan="4 " class="text-center">이벤트가 존재하지 않습니다.</th>
-										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="eventList" items="${eventList }">
-											<tr>
-												<td class="text-center"><a
-													href="eventDetail.do?eventId=${eventList.eventId }">${eventList.eventName }</a></td>
-												<td class="text-center">${eventList.openDate }</td>
-												<td class="text-center">${eventList.closeDate }</td>
-												<td class="text-center">${eventList.eventInfo }</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-
-
-					</div>
-				</div>
+	<!-- Footer -->
+	<div id="footer">
+		<div class="container">
+			<div class="row half">
 				<div class="3u">
-					<a href="registEvent.do" class="btn_comm btn_submit form-control"
-						style="text-align: center"><strong style="color: white">이벤트
-							등록</strong></a>
+					<section>
+						<header>
+							<h2>EventList</h2>
+
+						</header>
+
+					</section>
 				</div>
-
 			</div>
-		</div>
-		<!-- /Footer -->
 
-		<!-- Copyright -->
-		<div id="copyright">
-			<div class="container">
-				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-					href="http://unsplash.com">Unsplash</a> (<a
-					href="http://unsplash.com/cc0">CC0</a>)
+			<div class="row">
+				<div class="15u">
+
+
+					<table class="table table-striped table-bordered table-hover">
+						<colgroup>
+							<col width="400" />
+							<col width="800" />
+							<col width="300" />
+							<col width="400" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="text-center">이벤트 명</th>
+								<th class="text-center">시작일</th>
+								<th class="text-center">종료일</th>
+								<th class="text-center">이벤트 장소</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${empty eventList }">
+									<tr>
+										<th colspan="4 " class="text-center">이벤트가 존재하지 않습니다.</th>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="eventList" items="${eventList }">
+										<tr>
+											<td class="text-center"><a
+												href="eventDetail.do?eventId=${eventList.eventId }">${eventList.eventName }</a></td>
+											<td class="text-center"><fmt:formatDate
+													value="${eventList.openDate}" pattern="yyyy-MM-dd" /></td>
+											<td class="text-center"><fmt:formatDate
+													value="${eventList.closeDate}" pattern="yyyy-MM-dd" /></td>
+											<td class="text-center">${eventList.eventInfo }</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+
+
+				</div>
 			</div>
+			<div class="3u" style="float: right">
+				<a href="registEvent.do" class="btn_comm btn_submit form-control"
+					style="text-align: center"><strong style="color: white">이벤트
+						등록</strong></a>
+			</div>
+
 		</div>
+	</div>
+	<!-- /Footer -->
+
+	<!-- Copyright -->
+	<div id="copyright">
+		<div class="container">
+			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
+				href="http://unsplash.com">Unsplash</a> (<a
+				href="http://unsplash.com/cc0">CC0</a>)
+		</div>
+	</div>
 </body>
 </html>

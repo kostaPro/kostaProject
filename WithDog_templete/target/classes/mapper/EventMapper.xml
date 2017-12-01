@@ -20,9 +20,11 @@
 		<collection property="commentList" column="eventId" ofType="Comment"
 			select="store.mapper.CommentMapper.retrieveCommentsByEventId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
-			
-		
+
+
 	</resultMap>
+
+	
 
 	<sql id="selectEvent">
 		select eventId, eventName, eventSpotId, eventImage,
@@ -59,8 +61,8 @@
 		WHERE spot_tb.spotLocation like
 		#{location}
 	</select>
-	<select id="retrieveEventsByDate" parameterType="Date"
-		resultType="Event">
+
+	<select id="retrieveEventsByDate" parameterType="Date" resultType="Event">
 		<include refid="selectEvent"></include>
 		WHERE OPENDATE = #{date}
 	</select>

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -103,70 +104,52 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
-	public ModelAndView showEventList() { // O
-		
+	public ModelAndView showEventList() {
+
 		List<Event> eventList = eventService.findAllEvents();
-		List<String> openDates = new ArrayList<>();
-		List<String> closeDates = new ArrayList<>();
-		
-		for (int i = 0; i < eventList.size() + 1; i++) {
-			
-			Date openDate = eventList.get(i).getOpenDate();		
-			Date closeDate = eventList.get(i).getCloseDate();
-		
-			SimpleDateFormat transForm = new SimpleDateFormat("yyyy-MM-dd");
-		
-			String stringOpenDate = transForm.format(openDate);
-			String stringCloseDate = transForm.format(closeDate);
-			
-			openDates.set(i, stringOpenDate);
-			closeDates.set(i, stringCloseDate);
-		
-		}
-		
+
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
-			
-		modelAndView.addObject("openDates", openDates);
-		modelAndView.addObject("closeDates", closeDates);
 		modelAndView.addObject("eventList", eventList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
-	public ModelAndView searchEvent(Date date, String location) {
+	public ModelAndView searchEvent(@RequestParam("date") Date date, @RequestParam("location") String location) {
 
-		List<Event> eventList = eventService.findAllEvents();
+//		List<Event> eventList = eventService.findAllEvents();
+//
+//		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
+//		modelAndView.addObject("eventList", eventList);
+
+//		if (location == null && date != null) {
 		
-		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
-		modelAndView.addObject("eventList", eventList);
-				
-		if (location == null && date != null) {
-			
-			eventList = eventService.findEventsByDate(date);
+			List<Event> eventList = eventService.findEventsByDate(date);
+		
+			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
-			
+
 			return modelAndView;
 
-		} else if (location != null && date == null) {
-			
-			eventList = eventService.findEventsByLocation(location);
-			modelAndView = new ModelAndView("eventList.jsp");
-			modelAndView.addObject("eventList", eventList);
-			
-			return modelAndView;
+//		} else if (location != null && date == null) {
+//
+//			eventList = eventService.findEventsByLocation(location);
+//			modelAndView = new ModelAndView("eventList.jsp");
+//			modelAndView.addObject("eventList", eventList);
+//
+//			return modelAndView;
+//
+//		} else {
+//
+//			eventList = eventService.findEventsByDateLocation(date, location);
+//			modelAndView = new ModelAndView("eventList.jsp");
+//			modelAndView.addObject("eventList", eventList);
+//
+//			return modelAndView;
+//
+//		}
 
-		} else{
-			
-			eventList = eventService.findEventsByDateLocation(date, location);
-			modelAndView = new ModelAndView("eventList.jsp");
-			modelAndView.addObject("eventList", eventList);
-			
-			return modelAndView;
-
-		}
-			
 	}
 
 	@RequestMapping(value = "/eventDetail.do")
@@ -174,25 +157,25 @@ public class EventController {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
-				
+
 		return modelAndView;
 	}
 
 	// @RequestMapping("")
 	public String joinEventMeeting(String eventId, Date date, HttpSession session) {
 
-		String guestId = (String)session.getAttribute("userId");
+		String guestId = (String) session.getAttribute("userId");
 		eventService.joinEventMeeting(Integer.parseInt(eventId), guestId, date);
 
-		return null;//그냥 단순히 조인하는건데?ㅠ어디로 보낼라고?ㅠ
+		return null;// 그냥 단순히 조인하는건데?ㅠ어디로 보낼라고?ㅠ
 	}
 
 	// @RequestMapping("")
 	public String cancelEventMeeting(String eventId, Date date, HttpSession session) {
 
-		String guestId = (String)session.getAttribute("userId");
+		String guestId = (String) session.getAttribute("userId");
 		eventService.cancelEventMeeting(Integer.parseInt(eventId), guestId, date);
-		
+
 		return null;
 	}
 
@@ -236,10 +219,10 @@ public class EventController {
 
 	// @RequestMapping("")
 	public String modifyEventComment(Comment comment) {
-		
+
 		commentService.modifyEventComment(comment);
-			return null;
-		
+		return null;
+
 	}
 
 	// @RequestMapping("")
