@@ -394,10 +394,7 @@
 								<header>
 									<a href="javascript:void(0)" class="name">${comments.writerId }</a>
 									<span>${comments.registDate }</span>
-									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>
-									
-									<c:if test="${comments.depth == '0'}"><input type="checkbox" value="" id="hide-reply" name="check" checked /></c:if>
-
+									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>							
 									 <c:if test="${user.userId == comments.writerId}">
 			    						<button class="btn btn-outline-primary" name="reply_update" reply_comment="${comments.content}" id="${comments.commentId}">수정</button>
 										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
@@ -433,16 +430,6 @@
 			} else {
 				$("label").text("댓글 펼치기");
 				$(".comments").slideUp(300);
-			}
-		});
-		
-		$("#hide-reply").click(function() {
-			if ($(this).is(":checked")) {
-				$("label").text("댓글 숨기기");
-				$(".commenter").slideDown(300);
-			} else {
-				$("label").text("댓글 펼치기");
-				$(".commenter").slideUp(300);
 			}
 		});
 	</script>
