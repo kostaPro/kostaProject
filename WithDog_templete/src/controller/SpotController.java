@@ -94,6 +94,9 @@ public class SpotController {
 			spot.setThumbnail(saveFileName);
 		}
 		
+		String baseAddr = spot.getSpotLocation();
+		spot.setSpotLocation(baseAddr + " " + spot.getSpotName());
+
 		spotService.registSpot(spot);
 
 		// 넘어온 파일을 리스트로 저장

@@ -10,90 +10,35 @@
 <head>
 <title>WithDog_RegistSpot</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
 
-<link rel='dns-prefetch' href='//netdna.bootstrapcdn.com' />
-<link rel='dns-prefetch' href='//maps.google.com' />
-<link rel='dns-prefetch' href='//code.jquery.com' />
-<link rel='dns-prefetch' href='//fonts.googleapis.com' />
-<link rel='dns-prefetch' href='//s.w.org' />
-
-<link rel='stylesheet' id='jquery-ui-css'
-	href='http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css?ver=1.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='acf-global-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-global.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='select2-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/inc/select2/select2.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='acf-input-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-input.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='acf-pro-input-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/pro/assets/css/acf-pro-input.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='contact-form-7-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.2.1'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='plugin-member-wa-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/member-wa/common/css/member-wa-style.css?ver=1.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='plugin-member-wa-templates-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/member-wa/common/css/member-wa-template.css?ver=1.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='thcu-styles-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/theme-customization/css/renewal.css?ver=4.8.1'
-	type='text/css' media='all' />
+<!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
 	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
 	type='text/css' media='all' />
+	
+<!--필수항목 아이콘-->
 <link rel='stylesheet' id='font-awesome-css'
 	href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
 	type='text/css' media='all' />
-<link rel='stylesheet' id='google-font-css'
-	href='//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='chosen-select-css'
-	href='http://www.sweetspot.co.kr/wp-content/themes/realty/assets/chosen/chosen.min.css'
-	type='text/css' media='all' />
+
+	
+<!--화면 전체 디자인-->
 <link rel='stylesheet' id='style-css'
 	href='http://www.sweetspot.co.kr/wp-content/themes/realty-child/style.css'
 	type='text/css' media='all' />
-<link rel='stylesheet' id='print-css'
-	href='http://www.sweetspot.co.kr/wp-content/themes/realty/print.css'
-	type='text/css' media='print' />
-<link rel='stylesheet' id='buttons-css'
-	href='http://www.sweetspot.co.kr/wp-includes/css/buttons.min.css?ver=4.8.1'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='dashicons-css'
-	href='http://www.sweetspot.co.kr/wp-includes/css/dashicons.min.css?ver=4.8.1'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='mediaelement-css'
-	href='http://www.sweetspot.co.kr/wp-includes/js/mediaelement/mediaelementplayer.min.css?ver=2.22.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='wp-mediaelement-css'
-	href='http://www.sweetspot.co.kr/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=4.8.1'
-	type='text/css' media='all' />
-
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-
-<script src="resources/js/skel.min.js"></script>
-<script src="resources/js/skel-panels.min.js"></script>
-<script src="resources/js/init.js"></script>
-
-<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="resources/js/spotImage.js"></script>
-
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<!--업로드한 이미지 미리보기-->
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="resources/js/spotImage.js"></script>
 
+<!--주소 검색-->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="resources/js/searchingAddress.js"></script>
+
+<!--미리보기 용 css-->
 <style type="text/css">
 .spot_imgs {
 	width: 1100px;
@@ -105,6 +50,7 @@
 	max-width: 300px;
 	float: left;
 }
+
 </style>
 
 </head>
@@ -311,50 +257,6 @@
 				href="">CC0</a>)
 		</div>
 	</div>
-
-
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script>
-		function searchingAddress() {
-			new daum.Postcode(
-					{
-
-						hideMapBtn : true,
-						hideEngBtn : true,
-
-						oncomplete : function(data) {
-
-							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-							// 주소 정보를 해당 필드에 넣는다.
-							if (data.autoJibunAddress) {
-								document.getElementById('spotLocation').value = data.autoJibunAddress;
-							} else {
-								document.getElementById('spotLocation').value = data.jibunAddress;
-							}
-
-							// 커서를 상세주소 필드로 이동한다.
-							document.getElementById('spotLocation').focus();
-
-							var location = document
-									.getElementById('spotLocation').value
-									.split(' ');
-
-							document.getElementById('mapFrame').src = "http://wedog.dothome.co.kr/RegistSpotMark.html?city_do="
-									+ location[0]
-									+ "&gu_gun="
-									+ location[1]
-									+ "&dong="
-									+ location[2]
-									+ "&bunji="
-									+ location[3];
-
-						}
-					}).open({
-				q : document.getElementById('spotLocation').value
-			});
-		}
-	</script>
 
 </body>
 </html>
