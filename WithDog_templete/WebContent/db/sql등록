@@ -75,7 +75,7 @@ reporterId varchar(20)
 
 create table reviewComment_tb(
 reviewCommentId number primary Key,
-content varchar(400),
+content varchar(1000),
 registDate date,
 writerId  varchar(20),
 reviewId number,

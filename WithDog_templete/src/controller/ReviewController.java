@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -167,20 +166,24 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "/modifyReviewComment.do", method = RequestMethod.POST)
-	public ModelAndView modifyReviewComment(Comment comment, String reviewId, String spotId) {
+	public ModelAndView modifyReviewComment(Comment comment, String commentId, String reviewId, String spotId) {
 		
+		comment.setCommentId(Integer.parseInt(commentId));
 		commentService.modifyReviewComment(comment);
 		
-		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
 	
 	@RequestMapping("/removeReviewComment.do")
-	public String removeReviewComment(String commentId, String parentId) {
+	public ModelAndView removeReviewComment(String commentId, String parentId, String reviewId, String spotId) {
 
 		commentService.removeReviewComment(Integer.parseInt(commentId));
-
-		return "reviewDetail.do";
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
 	}
 	
 }

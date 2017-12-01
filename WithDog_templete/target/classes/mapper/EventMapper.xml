@@ -17,10 +17,7 @@
 			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
 			jdbcType="NUMERIC" />
 
-		<collection property="commentList" column="eventId" ofType="Comment"
-			select="store.mapper.CommentMapper.retrieveCommentsByEventId"
-			javaType="ArrayList" jdbcType="NUMERIC" />
-			
+	
 		
 	</resultMap>
 
