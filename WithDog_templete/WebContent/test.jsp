@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <!--
 	Elemental by TEMPLATED
@@ -8,7 +9,7 @@
 -->
 <html>
 <head>
-<title>Elemental by TEMPLATED</title>
+<title>Welcome To WithDog</title>
 
 <!--화면 전체 디자인-->
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
@@ -16,6 +17,33 @@
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
 <!--이미지 슬라이드-->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+
+<script>
+	$(document).ready(function() {
+		$('#eventSlider').bxSlider({
+			auto : true,
+			pager : false,
+			slideWidth : 200,
+			minSlides : 2,
+			maxSlides : 3,
+			slideMargin : 10,
+			moveSlides : 2,
+			nextSelector : '#eventSlider_next',
+			prevSelector : '#eventSlider_prev',
+			nextText : 'next',
+			prevText : 'prev'
+
+		});
+	});
+</script>
+
 
 </head>
 <body class="homepage">
@@ -33,6 +61,19 @@
 				<header>
 					<h2>Event List</h2>
 				</header>
+
+				<div class="slideWrap">
+					<div id="eventSlider" class="slider">
+						<c:forEach var="event" items="${eventList }">
+							<div class="slide">
+								<img src="/images/${event.eventImage}">
+								<p>${event.eventName }</p>
+							</div>
+						</c:forEach>
+					</div>
+					<span id="eventSlider_prev" class="slider_prev css3button"></span>
+					<span id="eventSlider_next" class="slider_next css3button"></span>
+				</div>
 			</section>
 		</div>
 	</div>

@@ -94,7 +94,7 @@ public class UserController {
 		if (loginUser != null) {
 			if (user.getPassword().equals(loginUser.getPassword())) {
 				session.setAttribute("loginUser", loginUser);
-				return "redirect:main.jsp";
+				return "redirect:main.do";
 			}
 		}
 		return "redirect:login.jsp";
