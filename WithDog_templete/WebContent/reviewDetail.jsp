@@ -350,7 +350,7 @@
 					<h2 align="center">${review.title }</h2>
 					<div class="row">
 					<p>
-					<span>[ 작성자 | ${review.writerId } ]</span> <span>[ 장소명 | ${spot.spotName } ]</span>
+					<span>[ 작성자 | ${review.writerId } ]</span> <a href="spotDetail.do?spotId=${spot.spotId }"><span>[ 장소명 | ${spot.spotName } ]</span></a>
 					<span>[ 작성일 | ${review.registDate } ]</span></p>
 					</div>
 					   

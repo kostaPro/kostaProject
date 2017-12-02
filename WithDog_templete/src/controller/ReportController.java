@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Report;
@@ -36,44 +37,51 @@ public class ReportController {
 	@RequestMapping(value = "/registReport.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReport(String reportType, String reportTargetId) {
 
-		
+		String userId = "sy";
 		reportType = "spot";
-		reportTargetId = "3";
+		reportTargetId = "13";
 
 		ModelAndView modelAndView = new ModelAndView("registReport.jsp");
 
+		modelAndView.addObject("userId", userId);
+		
 		modelAndView.addObject("reportTargetId", reportTargetId);
 		modelAndView.addObject("reportType", reportType);
 
 		return modelAndView;
-
 	}
 
-	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST) //
+	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST)
 	public String registReport(Report report, HttpSession session) {
 		
+		//String userId = (String)session.getAttribute("userId");
 		String userId = "sy";
-		
-//		userId = (String)session.getAttribute(userId);
 		
 		if(userId.equals("admin")) {
 			report.setStatus("o");
 		}else {
 			report.setStatus("-");
 		}
+		
 		report.setReporterId(userId);
+		
+		
 		System.out.println(report.getReportType());
 		System.out.println(report.getReportTargetId());
+		
 		reportService.registReport(report);
 
 		return "redirect:userReport.do?reporterId=" + report.getReporterId();
 	}
 
 	@RequestMapping(value = "/userReport.do")
-	public ModelAndView showUserReport(HttpSession session) {//
+	public ModelAndView showUserReport(HttpSession session) {
+		
 		User user = new User();
 		user.setUserId("sy");
-
+		
+		session.setAttribute("user", user);
+		
 		List<Report> userReportList = reportService.findReportsByReporterId(session.getId());
 
 		ModelAndView modelAndView = new ModelAndView("userReport.jsp");
@@ -85,16 +93,16 @@ public class ReportController {
 	@RequestMapping(value = "/adminReport.do")
 	public ModelAndView showAdminReport() {
 
-		List<Report> allReportList = reportService.findAllReports();
+		List<Report> reportList = reportService.findAllReports();
 
 		ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
-		modelAndView.addObject("allReportList", allReportList);
+		modelAndView.addObject("reportList", reportList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/searchReportByType.do")
-	public ModelAndView showSearchByReportType(String reportType) {
+	public ModelAndView showSearchByReportType(@RequestParam("reportType") String reportType) {
 
 		List<Report> reportList = reportService.findReportsByReportType(reportType);
 

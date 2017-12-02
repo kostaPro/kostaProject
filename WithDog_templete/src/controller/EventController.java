@@ -4,6 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,9 +14,11 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +58,7 @@ public class EventController {
 	@Autowired
 	private CommentService commentService;
 
-	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET) // O
+	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
 
 		return "registEvent.jsp";
@@ -100,52 +105,55 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
-	public ModelAndView showEventList() { // O
+	public ModelAndView showEventList() {
 
 		List<Event> eventList = eventService.findAllEvents();
+
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 		modelAndView.addObject("eventList", eventList);
 
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST) //
-	public ModelAndView searchEvent(Date date, String location) {
+// 
+	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
+	public ModelAndView searchEvent(@RequestParam("spotLocation") String location, @RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
 
-		
-		List<Event> eventList = eventService.findAllEvents();
-		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
-		modelAndView.addObject("eventList", eventList);
-				
+		List<Event> eventList = new ArrayList<>();
+		ModelAndView modelAndView = new ModelAndView();
+			
 		if (location == null && date != null) {
-			
-			eventList = eventService.findEventsByDate(date);
-			modelAndView = new ModelAndView("eventList.jsp");
-			modelAndView.addObject("eventList", eventList);
-			
-			return modelAndView;
+		
+		eventList = eventService.findEventsByDate(date);
+		
+		modelAndView = new ModelAndView("eventList.jsp");
+		modelAndView.addObject("eventList", eventList);
 
-		} else if (location != null && date == null) {
-			
+		return modelAndView;
+
+		} else if(location != null && date == null) {
+
 			eventList = eventService.findEventsByLocation(location);
+			
 			modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
-			
+
 			return modelAndView;
 
-		} else{
-			
+		} else {
+
 			eventList = eventService.findEventsByDateLocation(date, location);
+			
 			modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
-			
+
 			return modelAndView;
 
 		}
-			
+
 	}
 
-	@RequestMapping(value = "/eventDetail.do") // O
+	@RequestMapping(value = "/eventDetail.do")
 	public ModelAndView showEventDetail(String eventId) {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
@@ -157,25 +165,23 @@ public class EventController {
 	// @RequestMapping("")
 	public String joinEventMeeting(String eventId, Date date, HttpSession session) {
 
-		String guestId = (String)session.getAttribute("userId");
+		String guestId = (String) session.getAttribute("userId");
 		eventService.joinEventMeeting(Integer.parseInt(eventId), guestId, date);
 
-		return null;//그냥 단순히 조인하는건데?ㅠ어디로 보낼라고?ㅠ
+		return null;// 그냥 단순히 조인하는건데?ㅠ어디로 보낼라고?ㅠ
 	}
 
 	// @RequestMapping("")
 	public String cancelEventMeeting(String eventId, Date date, HttpSession session) {
 
-		String guestId = (String)session.getAttribute("userId");
+		String guestId = (String) session.getAttribute("userId");
 		eventService.cancelEventMeeting(Integer.parseInt(eventId), guestId, date);
-		
+
 		return null;
 	}
 
-	@RequestMapping(value = "modifyEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.GET)
 	public ModelAndView showModifyEvent(String eventId) {
-
-		eventId = "47";
 
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 
@@ -183,10 +189,9 @@ public class EventController {
 		modelAndView.addObject("event", event);
 
 		return modelAndView;
-
 	}
 
-	@RequestMapping(value = "modifyEvent.do", method = RequestMethod.POST) //
+	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.POST)
 	public String modifyEvent(Event event, MultipartHttpServletRequest file) {
 
 		Spot eventSpot = new Spot();
@@ -198,7 +203,7 @@ public class EventController {
 		return "redirect:eventDetail.do?eventId=" + event.getEventId();
 	}
 
-	@RequestMapping(value = "removeEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeEvent.do", method = RequestMethod.GET)
 	public String removeEvent(String eventId) {
 
 		eventId = "47";
@@ -215,10 +220,10 @@ public class EventController {
 
 	// @RequestMapping("")
 	public String modifyEventComment(Comment comment) {
-		
+
 		commentService.modifyEventComment(comment);
-			return null;
-		
+		return null;
+
 	}
 
 	// @RequestMapping("")

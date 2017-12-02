@@ -138,35 +138,34 @@
 					<section>
 						<header>
 							<h2>Report List(관리자)</h2>
-							<hr>
+
 						</header>
 
 					</section>
 				</div>
 			</div>
-<form action="searchReportByType.do">
-			<div class="row">
-				<div class="15u">
+			<form action="searchReportByType.do">
+				<div class="row">
+					<div class="15u">
 
-					<select form="reportType" name="reportType">
-						<option value="all">신고구분을 선택해주세요.</option>
+						<select class="form-control" name="reportType" id="reportType">
+							<option value="all">신고구분을 선택해주세요.</option>
 
-						<option value="meeting">모임</option>
-						<option value="event">이벤트</option>
-						<option value="review">평가글</option>
-						<option value="comment">댓글</option>
+							<option value="meeting">모임</option>
+							<option value="spot">장소</option>
+							<option value="review">평가글</option>
+							<option value="comment">댓글</option>
 
-					</select>
+						</select>
+					</div>
+					<div class="2u">
+						<input type="submit" value="search"
+							class="btn btn-primary btn-block form-control" id="search_btn"
+							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
+					</div>
+
 				</div>
-				<div class="2u">
-					<input type="submit" value="search"
-						class="btn btn-primary btn-block form-control" id="search_btn"
-						style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
-						>
-				</div>
-				
-			</div>
-</form>
+			</form>
 			<div>
 				<table class="table table-striped table-bordered table-hover">
 					<colgroup>
@@ -187,18 +186,18 @@
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${empty allReportList }">
+							<c:when test="${empty reportList }">
 								<tr>
 									<th colspan="5 " class="text-center">신고가 존재하지 않습니다.</th>
 								</tr>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="allReportList" items="${allReportList }">
+								<c:forEach var="reportList" items="${reportList }">
 									<tr>
 										<td class="text-center"><a
-											href="reportDetail.do?reportId=${allReportList.reportTargetId }">${allReportList.reportTargetId }</a></td>
-										<td class="text-center">${allReportList.reportTargetId }</td>
-										<td class="text-center">${allReportList.reportContent }</td>
+											href="reportDetail.do?reportId=${reportList.reportTargetId }">${reportList.reportTargetId }</a></td>
+										<td class="text-center">${reportList.reportTargetId }</td>
+										<td class="text-center">${reportList.reportContent }</td>
 										<td class="text-center"><select form="reportType"
 											name="reportType">
 												<option value="all">선택</option>
@@ -225,15 +224,15 @@
 	<!-- /Main -->
 
 
-	
 
-			<!-- Copyright -->
-			<div id="copyright">
-				<div class="container">
-					Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
-						href="">CC0</a>)
-				</div>
-			</div>
+
+	<!-- Copyright -->
+	<div id="copyright">
+		<div class="container">
+			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
+				href="">CC0</a>)
+		</div>
+	</div>
 </body>
 </html>
 

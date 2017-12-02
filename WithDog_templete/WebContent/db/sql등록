@@ -80,7 +80,7 @@ registDate date,
 writerId  varchar(20),
 reviewId number,
 parentId number,
-dept number
+depth number
 );
 
 create table reviewCommentReport_tb(
@@ -160,7 +160,9 @@ CREATE TABLE eventComment_tb (
 	writerId varchar(20),
 	content varchar(400),
     registDate Date,
-	eventId number
+	eventId number,
+	parentId number,
+	depth number
 );
 
 CREATE TABLE joinMeeting_tb (
@@ -180,7 +182,9 @@ CREATE TABLE meetingComment_tb (
 	writerId varchar(20),
 	Content varchar(400),
 	registDate Date,
-	meetingId number
+	meetingId number,
+	parentId number,
+	depth number
 );
 
 CREATE TABLE meetingReport_tb (
