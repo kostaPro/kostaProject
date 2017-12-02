@@ -384,18 +384,23 @@
 						checked /> <label for="hide-button" class="button">댓글 숨기기</label>
 				</div>
 
+			 		
 		<div class="comments">
-		<c:forEach var="comments" items="${comment}">
-			<ul reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
+		<c:forEach var="comments" items="${comment}">  
+		<input type="hidden" id="parentId" name="parentId" value="${comments.parentId}"> 
+			<c:if test="${comments.depth == '1'}"><div class="commenter" id="${comments.parentId}"></c:if><ul reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
 				<li>
-		<c:if test="${comments.depth == '1'}"><div class="commenter"><ul><li></c:if>
+		<c:if test="${comments.depth == '1'}"><ul><li></c:if>
 					<div class="user-comment">
-								<img src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png" alt="">
+								<img src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png" alt=""> 
 								<header>
 									<a href="javascript:void(0)" class="name">${comments.writerId }</a>
 									<span>${comments.registDate }</span>
-									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>							
-									 <c:if test="${user.userId == comments.writerId}">
+									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>	
+				
+						<c:if test="${comments.depth == '0'}"><input type="checkbox" id="${comments.commentId}" name="chk" value="${comments.commentId}" checked /></c:if>
+							
+								<c:if test="${user.userId == comments.writerId}">
 			    						<button class="btn btn-outline-primary" name="reply_update" reply_comment="${comments.content}" id="${comments.commentId}">수정</button>
 										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
 								</header>
@@ -403,10 +408,10 @@
 									<p> ${fn:replace(comments.content, cn, br)}</p><hr>
 								</div>
 					</div>
-   		<c:if test="${comments.depth == '1'}"></li></ul></div></c:if>
+   		<c:if test="${comments.depth == '1'}"></li></ul></c:if>
 				</li>
-   			</ul>
-		</c:forEach>
+   			</ul><c:if test="${comments.depth == '1'}"></div></c:if>
+		</c:forEach>	
    		</div>
 			<div class="section">
 			<div class="reviews">
@@ -424,7 +429,7 @@
 </div>
 	<script>
 		$("#hide-button").click(function() {
-			if ($(this).is(":checked")) {
+			if ($(this).is(":checked")) { 
 				$("label").text("댓글 숨기기");
 				$(".comments").slideDown(300);
 			} else {
@@ -432,6 +437,38 @@
 				$(".comments").slideUp(300);
 			}
 		});
+		
+		
+		// 배열 선언
+		var arrayParam = new Array();
+     
+		//each로 loop를 돌면서 checkbox의 check된 값을 가져와 담아준다.
+		$("input[name='chk']:checked").each(function(){
+			arrayParam.push($(this).val()); 
+			
+		});
+		
+		
+		$("input[name='chk']:checked").each(function(){
+		
+			$(this).is(":checked").click(function() {  
+			if ($(this).is(":checked")) {  
+				
+				$(".commenter").slideDown(300);   
+			 
+			} else {
+				
+				$(".commenter").slideUp(300);  
+			} 
+		 });       
+			
+		});
+
+	 
+
+				 
+		
+
 	</script>
 	<!-- /Main -->
 
