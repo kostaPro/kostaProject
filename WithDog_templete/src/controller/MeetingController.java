@@ -127,5 +127,14 @@ public class MeetingController {
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value = "/meetingList.do", method = RequestMethod.GET)
+	public ModelAndView showMeetingList() {
+		
+		List<Meeting> meetingList = meetingService.findAllMeetings();
+		
+		ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
+		modelAndView.addObject("meetingList", meetingList);
+		
+		return modelAndView;
+	}
 }

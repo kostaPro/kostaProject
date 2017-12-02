@@ -147,7 +147,7 @@
 	<div id="main">
 
 		<div class="container">
-			<form class="property-search-form" action="eventList.do"
+			<form class="property-search-form" action="meetingList.do"
 				method="post">
 
 
@@ -236,19 +236,18 @@
 							</thead>
 							<tbody>
 								<c:choose>
-									<c:when test="${empty eventList }">
+									<c:when test="${empty meetingList }">
 										<tr>
 											<th colspan="4 " class="text-center">이벤트가 존재하지 않습니다.</th>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="eventList" items="${eventList }">
+										<c:forEach var="meetingList" items="${meetingList }">
 											<tr>
 												<td class="text-center"><a
-													href="eventDetail.do?eventId=${eventList.eventId }">${eventList.eventName }</a></td>
-												<td class="text-center">${eventList.openDate }</td>
-												<td class="text-center">${eventList.closeDate }</td>
-												<td class="text-center">${eventList.eventInfo }</td>
+													href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
+												<td class="text-center"><fmt:formatDate value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
+												<td class="text-center">${meetingList.meetingPurpose }</td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
@@ -260,7 +259,7 @@
 					</div>
 				</div>
 				<div class="3u">
-					<a href="registEvent.do" class="btn_comm btn_submit form-control"
+					<a href="registMeeting.do" class="btn_comm btn_submit form-control"
 						style="text-align: center"><strong style="color: white">이벤트
 							등록</strong></a>
 				</div>
