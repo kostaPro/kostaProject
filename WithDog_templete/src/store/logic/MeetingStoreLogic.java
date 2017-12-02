@@ -75,7 +75,9 @@ public class MeetingStoreLogic implements MeetingStore{
 		
 		try {
 			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
+			loaction = "%" + loaction + "%";
 			meetingList = mapper.retrieveMeetingsByLocation(loaction);
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

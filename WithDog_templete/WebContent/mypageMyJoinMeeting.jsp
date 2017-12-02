@@ -10,17 +10,10 @@
 -->
 <html>
 <head>
-<title>WithDog_eventList</title>
+<title>WithDog_adminReport</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-
 
 
 
@@ -100,15 +93,6 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$(function() {
-	$("#datepicker").datepicker({ dateFormat: 'y-mm-dd'});
-	$("#datepicker").datepicker("setDate", null);
-});
-</script>
-
 </head>
 <body class="homepage">
 
@@ -145,134 +129,109 @@ $(function() {
 
 
 	<!-- Main -->
+
+
 	<div id="main">
-
 		<div class="container">
-			<form class="property-search-form" action="meetingList.do"
-				method="post">
+			<div class="row half">
+				<div class="5u">
+					<section>
+						<header>
+							<h2>Report List(관리자)</h2>
 
+						</header>
 
-				<div class="row">
-					<p>
-						<input type="text" id="datepicker" placeholder="날짜를 선택해주세요." name="date">
-					</p>
-					<div class="3u">
-						<select id="spotLocation" name="mLocation">
-							<option value="">지역을 선택해주세요.</option>
-							<option value="서울">서울특별시</option>
-							<option value="경기">경기도</option>
-							<option value="인천">인천광역시</option>
-							<option value="강원">강원도</option>
-							<option value="부산">부산광역시</option>
-							<option value="경남">경상남도</option>
-							<option value="전남">전라남도</option>
-							<option value="전북">전라북도</option>
-							<option value="경북">경상북도</option>
-							<option value="충남">충청남도</option>
-							<option value="충북">충청북도</option>
-							<option value="제주">제주특별시</option>
-						</select>
-					</div>
-
-				
-
-
-
-
-					<div class="3u">
-						<input type="submit" value="search"
-							class="btn btn-primary btn-block form-control" id="search_btn"
-							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
-							onclick="">
-					</div>
-
+					</section>
 				</div>
-
-				<!-- Default Order: Newest Properties First -->
-				<input type="hidden" name="order-by" value="date-new" /> <input
-					type="hidden" name="pageid" value="841" />
-			</form>
-
-		</div>
-</div>
-		<!-- /Main -->
-
-		<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<div class="row half">
-					<div class="3u">
-						<section>
-							<header>
-								<h2>EventList</h2>
-								<hr>
-							</header>
-
-						</section>
-					</div>
-				</div>
-
+			</div>
+			<form action="searchReportByType.do">
 				<div class="row">
 					<div class="15u">
 
+						<select class="form-control" name="reportType" id="reportType">
+							<option value="all">신고구분을 선택해주세요.</option>
 
-						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="300" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">모임 명</th>
-									<th class="text-center">모임 일자</th>
-									<th class="text-center">모임 시간</th>
-									<th class="text-center">주최자</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty meetingList }">
-										<tr>
-											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
-										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="meetingList" items="${meetingList }">
-											<tr>
-												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
-												<td class="text-center"><fmt:formatDate value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${meetingList.meetingTime }시</td>
-												<td class="text-center">${meetingList.hostId }</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
+							<option value="meeting">모임</option>
+							<option value="spot">장소</option>
+							<option value="review">평가글</option>
+							<option value="comment">댓글</option>
 
-
+						</select>
 					</div>
-				</div>
-				<div class="3u">
-					<a href="registMeeting.do" class="btn_comm btn_submit form-control"
-						style="text-align: center"><strong style="color: white">모임
-							등록</strong></a>
-				</div>
+					<div class="2u">
+						<input type="submit" value="search"
+							class="btn btn-primary btn-block form-control" id="search_btn"
+							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
+					</div>
 
+				</div>
+			</form>
+			<div>
+				<table class="table table-striped table-bordered table-hover">
+					<colgroup>
+						<col width="200" />
+						<col width="200" />
+						<col width="1000" />
+						<col width="100" />
+						<col width="100" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th class="text-center">신고 구분</th>
+							<th class="text-center">신고 대상</th>
+							<th class="text-center">신고 사유</th>
+							<th class="text-center">처리 상태</th>
+							<th class="text-center"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+							<c:when test="${empty reportList }">
+								<tr>
+									<th colspan="5 " class="text-center">신고가 존재하지 않습니다.</th>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="reportList" items="${reportList }">
+									<tr>
+										<td class="text-center"><a
+											href="reportDetail.do?reportId=${reportList.reportTargetId }">${reportList.reportTargetId }</a></td>
+										<td class="text-center">${reportList.reportTargetId }</td>
+										<td class="text-center">${reportList.reportContent }</td>
+										<td class="text-center"><select form="reportType"
+											name="reportType">
+												<option value="all">선택</option>
+
+												<option value="1">경고</option>
+												<option value="0">미경고</option>
+
+										</select></td>
+										<td><input type="submit" value="수정"
+											class="btn btn-primary btn-block form-control"
+											id="search_btn"
+											style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"></td>
+									</tr>
+
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<!-- /Footer -->
+	</div>
 
-		<!-- Copyright -->
-		<div id="copyright">
-			<div class="container">
-				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-					href="http://unsplash.com">Unsplash</a> (<a
-					href="http://unsplash.com/cc0">CC0</a>)
-			</div>
+	<!-- /Main -->
+
+
+
+
+	<!-- Copyright -->
+	<div id="copyright">
+		<div class="container">
+			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
+				href="">CC0</a>)
 		</div>
+	</div>
 </body>
 </html>
