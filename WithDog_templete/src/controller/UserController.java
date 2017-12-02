@@ -88,13 +88,14 @@ public class UserController {
       return "login.jsp";
    }
    
-   public String login(User user, HttpServletRequest req) {
-      HttpSession session = req.getSession();
+   @RequestMapping(value = "/login.do", method = RequestMethod.POST)
+   public String login(User user, HttpSession session) {
+      
       
       User loginUser = userService.findUserByUserId(user.getUserId());
       if(user.getPassword().equals(loginUser.getPassword())) {
          session.setAttribute("loginUser", loginUser);
-         return "redirect:main.do";
+         return "redirect:main.jsp";
       }else{
          return "redirect:login.jsp";
       }
