@@ -61,7 +61,7 @@ public class ReportServiceLogic implements ReportService {
 	@Override
 	public List<Report> findReportsByReportType(String reportType) {
 
-		return null;
+		return reportStore.retrieveReportsByReportType(reportType);
 	}
 
 	@Override

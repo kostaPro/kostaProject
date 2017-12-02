@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Report;
@@ -74,10 +75,13 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/userReport.do")
-	public ModelAndView showUserReport(HttpSession session) {//
+	public ModelAndView showUserReport(HttpSession session) {
+		
 		User user = new User();
 		user.setUserId("sy");
-
+		
+		session.setAttribute("user", user);
+		
 		List<Report> userReportList = reportService.findReportsByReporterId(session.getId());
 
 		ModelAndView modelAndView = new ModelAndView("userReport.jsp");
@@ -89,16 +93,16 @@ public class ReportController {
 	@RequestMapping(value = "/adminReport.do")
 	public ModelAndView showAdminReport() {
 
-		List<Report> allReportList = reportService.findAllReports();
+		List<Report> reportList = reportService.findAllReports();
 
 		ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
-		modelAndView.addObject("allReportList", allReportList);
+		modelAndView.addObject("reportList", reportList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/searchReportByType.do")
-	public ModelAndView showSearchByReportType(String reportType) {
+	public ModelAndView showSearchByReportType(@RequestParam("reportType") String reportType) {
 
 		List<Report> reportList = reportService.findReportsByReportType(reportType);
 

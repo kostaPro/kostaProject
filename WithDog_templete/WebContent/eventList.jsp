@@ -104,9 +104,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#datepicker").datepicker({dateFormat:'y/mm/dd'}
-		altField : '#getdate');
+		$("#datepicker").datepicker({ dateFormat: 'y-mm-dd' });
 	});
+	
+	
+	
+	
 </script>
 
 </head>
@@ -152,15 +155,13 @@
 
 				<div class="row">
 					<p>
-					
-						<input type="text" id="getdate" name="date">
-						<input type="text" id="datepicker" value="시작일을 선택해주세요.">
+						<input type="text" id="datepicker" name="date" value="시작일을 선택해주세요.">
 					</p>
 					
 					<div class="3u">
-						<select form="location" name="favoriteLocation">
-							<option value="all">지역을 선택해주세요.</option>
-
+						
+						<select name="spotLocation" id="spotLocation" class="form-control">
+							<option value=null>지역을 선택해주세요.</option>
 
 							<option value="서울">서울특별시</option>
 							<option value="경기">경기도</option>

@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -114,41 +115,41 @@ public class EventController {
 		return modelAndView;
 	}
 
+// 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
-	public ModelAndView searchEvent(@RequestParam("date") Date date, @RequestParam("location") String location) {
+	public ModelAndView searchEvent(@RequestParam("spotLocation") String location, @RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
 
-//		List<Event> eventList = eventService.findAllEvents();
-//
-//		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
-//		modelAndView.addObject("eventList", eventList);
+		List<Event> eventList = new ArrayList<>();
+		ModelAndView modelAndView = new ModelAndView();
+			
+		if (location == null && date != null) {
+		
+		eventList = eventService.findEventsByDate(date);
+		
+		modelAndView = new ModelAndView("eventList.jsp");
+		modelAndView.addObject("eventList", eventList);
 
-//		if (location == null && date != null) {
-		
-			List<Event> eventList = eventService.findEventsByDate(date);
-		
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
+		return modelAndView;
+
+		} else if(location != null && date == null) {
+
+			eventList = eventService.findEventsByLocation(location);
+			
 			modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
 
-//		} else if (location != null && date == null) {
-//
-//			eventList = eventService.findEventsByLocation(location);
-//			modelAndView = new ModelAndView("eventList.jsp");
-//			modelAndView.addObject("eventList", eventList);
-//
-//			return modelAndView;
-//
-//		} else {
-//
-//			eventList = eventService.findEventsByDateLocation(date, location);
-//			modelAndView = new ModelAndView("eventList.jsp");
-//			modelAndView.addObject("eventList", eventList);
-//
-//			return modelAndView;
-//
-//		}
+		} else {
+
+			eventList = eventService.findEventsByDateLocation(date, location);
+			
+			modelAndView = new ModelAndView("eventList.jsp");
+			modelAndView.addObject("eventList", eventList);
+
+			return modelAndView;
+
+		}
 
 	}
 
