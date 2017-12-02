@@ -10,7 +10,7 @@
 		user_tb(userId, password, contact, favoriteLocation, petInfo,
 		petImage)
 		VALUES(#{userId}, #{password}, #{contact},
-		#{favoriteLocation}, #{petInfo}, #{petImage})
+		#{favoriteLocation, jdbcType=VARCHAR}, #{petInfo}, #{petImage})
 	</insert>
 
 	<update id="updateUser" parameterType="User">

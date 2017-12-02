@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -137,4 +138,44 @@ public class MeetingController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "meetingList.do", method = RequestMethod.POST)
+	public ModelAndView searchMeeting(String location, Date date) {
+		
+		List<Meeting> meetingList = new ArrayList<>();
+		
+		if(location == null && date != null) {
+			meetingList = meetingService.findMeetingsByDate(date);
+			
+			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
+			modelAndView.addObject("meetingList", meetingList);
+			
+			return modelAndView;
+		}else if(location != null && date == null){
+			meetingList = meetingService.findMeetingsByLocation(location);
+			
+			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
+			modelAndView.addObject("meetingList", meetingList);
+			
+			return modelAndView;
+		}else if(location != null && date != null) {
+			meetingList = meetingService.findMeetingsByLocationDate(location, date);
+			
+			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
+			modelAndView.addObject("meetingList", meetingList);
+			
+			return modelAndView;
+		}else {
+			List<Meeting> meetingList1 = meetingService.findAllMeetings();
+			
+			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
+			modelAndView.addObject("meetingList", meetingList1);
+			
+			return modelAndView;
+		}
+	}
+	
+	
+	
+		
 }
