@@ -9,54 +9,19 @@
 <html>
 <head>
 <title>Elemental by TEMPLATED</title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="resources/js/skel.min.js"></script>
-<script src="resources/js/skel-panels.min.js"></script>
-<script src="resources/js/init.js"></script>
+
+<!--화면 전체 디자인-->
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
+<!--이미지 슬라이드-->
 
 </head>
 <body class="homepage">
 
 	<!-- Header -->
-	<div id="header">
-		<div class="container">
-
-			<!-- Logo -->
-			<div id="logo">
-				<h1>
-					<a href="spotDetail.do?spotId=2">Elemental</a>
-				</h1>
-			</div>
-		</div>
-		<div id="nav-wrapper" class="container">
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="left-sidebar.html">Left Sidebar</a></li>
-					<li><a href="right-sidebar.html">Right Sidebar</a></li>
-					<li><a href="no-sidebar.html">No Sidebar</a></li>
-				</ul>
-			</nav>
-		</div>
-		<div class="container">
-			<div id="banner">
-				<a href="#" class="image featured"><img src="resources/img/pics11.jpg"
-					alt=""></a>
-			</div>
-		</div>
-	</div>
+	<%@include file="header.jsp"%>
 	<!-- Header -->
 
 
@@ -66,14 +31,13 @@
 		<div class="container">
 			<section>
 				<header>
-					<h2>In posuere eleifend odio quisque emper augue maecenas
-						ligula congue rutrum.</h2>
+					<h2>Event List</h2>
 				</header>
 				<div class="row">
 					<div class="4u">
 						<section>
-							<a href="#" class="image full"><img src="resources/img/pics01.jpg"
-								alt=""></a>
+							<a href="#" class="image full"><img
+								src="resources/img/pics01.jpg" alt=""></a>
 							<p>Pellentesque tristique ante ut risus. Quisque dictum.
 								Integer sagittis convallis, rutrum elementum congue, nibh.
 								Suspendisse dictum porta lectus.</p>
@@ -82,8 +46,8 @@
 					</div>
 					<div class="4u">
 						<section>
-							<a href="#" class="image full"><img src="resources/img/pics02.jpg"
-								alt=""></a>
+							<a href="#" class="image full"><img
+								src="resources/img/pics02.jpg" alt=""></a>
 							<p>Pellentesque tristique ante ut risus. Quisque dictum.
 								Integer sagittis convallis, rutrum elementum congue, nibh.
 								Suspendisse dictum porta lectus.</p>
@@ -92,8 +56,8 @@
 					</div>
 					<div class="4u">
 						<section>
-							<a href="#" class="image full"><img src="resources/img/pics03.jpg"
-								alt=""></a>
+							<a href="#" class="image full"><img
+								src="resources/img/pics03.jpg" alt=""></a>
 							<p>Pellentesque tristique ante ut risus. Quisque dictum.
 								Integer sagittis convallis, rutrum elementum congue, nibh.
 								Suspendisse dictum porta lectus.</p>
@@ -116,16 +80,16 @@
 							<h2>Praesent mattis</h2>
 						</header>
 						<ul class="default">
-							<li><img src="resources/img/pics04.jpg" width="78" height="78"
-								alt="">
+							<li><img src="resources/img/pics04.jpg" width="78"
+								height="78" alt="">
 								<p>Nullam non wisi a sem eleifend. Donec mattis libero.</p> <span
 								class="posted">May 9th | (10 ) Comments</span></li>
-							<li><img src="resources/img/pics05.jpg" width="78" height="78"
-								alt="">
+							<li><img src="resources/img/pics05.jpg" width="78"
+								height="78" alt="">
 								<p>Nullam non wisi a sem eleifend. Donec mattis libero.</p> <span
 								class="posted">May 1st | (10 ) Comments</span></li>
-							<li><img src="resources/img/pics06.jpg" width="78" height="78"
-								alt="">
+							<li><img src="resources/img/pics06.jpg" width="78"
+								height="78" alt="">
 								<p>Nullam non wisi a sem eleifend. Donec mattis libero.</p> <span
 								class="posted">April 28th | (10 ) Comments</span></li>
 						</ul>
@@ -137,16 +101,16 @@
 							<h2>Maecenas luctus</h2>
 						</header>
 						<ul class="default">
-							<li><img src="resources/img/pics07.jpg" width="78" height="78"
-								alt="">
+							<li><img src="resources/img/pics07.jpg" width="78"
+								height="78" alt="">
 								<p>Nullam non wisi a sem eleifend. Donec mattis libero.</p> <span
 								class="posted">May 9th | (10 ) Comments</span></li>
-							<li><img src="resources/img/pics08.jpg" width="78" height="78"
-								alt="">
+							<li><img src="resources/img/pics08.jpg" width="78"
+								height="78" alt="">
 								<p>Nullam non wisi a sem eleifend. Donec mattis libero.</p> <span
 								class="posted">May 1st | (10 ) Comments</span></li>
-							<li><img src="resources/img/pics09.jpg" width="78" height="78"
-								alt="">
+							<li><img src="resources/img/pics09.jpg" width="78"
+								height="78" alt="">
 								<p>Nullam non wisi a sem eleifend. Donec mattis libero.</p> <span
 								class="posted">April 28th | (10 ) Comments</span></li>
 						</ul>
@@ -157,8 +121,8 @@
 						<header>
 							<h2>Elementum facilisis</h2>
 						</header>
-						<a href="#" class="image full"><img src="resources/img/pics10.jpg"
-							alt=""></a>
+						<a href="#" class="image full"><img
+							src="resources/img/pics10.jpg" alt=""></a>
 						<p>
 							This is <strong>Elemental</strong>, a responsive HTML5 site
 							template freebie by <a href="http://templated.co">TEMPLATED</a>.

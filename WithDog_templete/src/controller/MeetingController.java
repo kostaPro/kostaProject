@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -140,11 +142,11 @@ public class MeetingController {
 	}
 	
 	@RequestMapping(value = "meetingList.do", method = RequestMethod.POST)
-	public ModelAndView searchMeeting(String location, Date date) {
+	public ModelAndView searchMeeting(@RequestParam("mLocation") String location,@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
 		
 		List<Meeting> meetingList = new ArrayList<>();
 		
-		if(location == null && date != null) {
+		if(location == "" && date != null) {
 			meetingList = meetingService.findMeetingsByDate(date);
 			
 			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
@@ -165,13 +167,15 @@ public class MeetingController {
 			modelAndView.addObject("meetingList", meetingList);
 			
 			return modelAndView;
-		}else {
-			List<Meeting> meetingList1 = meetingService.findAllMeetings();
+		}else if(location == "" && date == null){
+			meetingList = meetingService.findAllMeetings();
 			
 			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
-			modelAndView.addObject("meetingList", meetingList1);
+			modelAndView.addObject("meetingList", meetingList);
 			
 			return modelAndView;
+		}else {
+			return null;
 		}
 	}
 	

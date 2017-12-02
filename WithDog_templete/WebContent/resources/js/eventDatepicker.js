@@ -5,4 +5,9 @@ $(function() {
     $( "#eventCloseDate" ).datepicker({
     	minDate : 0
     });
+    
+    $("#datepicker").datepicker({ 
+    	minDate : 0,
+    	format : 'yyyy-mm-dd'
+    });
 });

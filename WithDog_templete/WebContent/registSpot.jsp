@@ -57,34 +57,7 @@
 <body class="homepage">
 
 	<!-- Header -->
-	<div id="header">
-		<div class="container">
-
-			<!-- Logo -->
-			<div id="logo">
-				<h1>
-					<a href="#">Elemental</a>
-				</h1>
-			</div>
-		</div>
-		<div id="nav-wrapper" class="container">
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="left-sidebar.html">Left Sidebar</a></li>
-					<li><a href="right-sidebar.html">Right Sidebar</a></li>
-					<li><a href="no-sidebar.html">No Sidebar</a></li>
-				</ul>
-			</nav>
-		</div>
-		<div class="container">
-			<div id="banner">
-				<a href="#" class="image featured"><img
-					src="resources/img/pics11.jpg" alt=""></a>
-			</div>
-		</div>
-	</div>
+	<%@include file="header.jsp"%>
 	<!-- Header -->
 
 
