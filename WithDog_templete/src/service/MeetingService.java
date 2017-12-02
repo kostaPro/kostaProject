@@ -19,5 +19,6 @@ public interface MeetingService {
 	boolean cancelMeeting(int meetingId, String guestId);
 	boolean modifyMeeting(Meeting meeting);
 	boolean removeMeeting(int meetingId);
+	boolean registMeetingImage(String imageUrl, int meetingId);
 
 }
