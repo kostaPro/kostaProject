@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
 </head>
 <body class="homepage">
 
@@ -54,7 +55,7 @@
 							<h3 align="left">시작일 |<fmt:formatDate value="${eventList.openDate}" pattern="yyyy-MM-dd" /></h3>
 							<h3 align="left">종료일 |<fmt:formatDate value="${eventList.closeDate}" pattern="yyyy-MM-dd" /></h3>
 							<!-- 장소 너 왜이러시죠 -->
-							<h3 align="left">장소 | ${eventSpot.spotName}</h3>
+							<h3 align="left">장소 | </h3>
 							<h3 align="left">이벤트 설명 | ${eventDetail.eventInfo}</h3>
 							
 							<a href="#" class="image full"><img
@@ -86,7 +87,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">참여 목록</th>
-								<th class="text-center">${eventDetail.eventJoinLists}</th>
+								<th class="text-center"></th>
 							</tr>
 						</thead>
 

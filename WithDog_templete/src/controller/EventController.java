@@ -156,6 +156,7 @@ public class EventController {
 	@RequestMapping(value = "/eventDetail.do")
 	public ModelAndView showEventDetail(String eventId) {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
+	
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 

@@ -1,0 +1,38 @@
+﻿<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>simpleMap</title>
+        <script src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=1846f5be-0dc1-342e-9ade-67d136c5adde"></script>
+	<script src="jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
+
+var map;
+function initialize(){
+    map = new Tmap.Map({div:'map_div', width:'50%', height:'200px'});
+    map.setCenter(new Tmap.LonLat(14135911, 4518361),15);
+    var c_ll = map.getCenter();
+    loadGetLatLonFromAddress("서울특별시 강남구 삼성동 159-1");
+}
+
+function loadGetLatLonFromAddress(ll){
+    var tdata = new Tmap.TData();
+    tdata.events.register("onComplete", tdata, onCompleteLoadGetLatLonFromAddress);
+    var optionObj = {version:1};
+    tdata.getLatLonFromAddress(ll, optionObj);
+}
+
+function onCompleteLoadGetLatLonFromAddress(){
+    console.log(jQuery(this.responseXML).find("lat").text());
+    console.log(jQuery(this.responseXML).find("lon").text());
+}
+ </script>
+    </head>
+
+    <body onload="initialize()">
+        <div id="map_div">
+        </div> 
+
+<hr>
+<h1>geocoding Test</h1>       
+    </body>
+</html>

@@ -3606,8 +3606,10 @@ table td[class*="col-"], table th[class*="col-"] {
 /*********************************************************************************/
 /* Slide                                                                         */
 /*********************************************************************************/
-div.bxslider {
-    margin-left: 25%;
-    margin-right: 25%;
-  max-height:300px;
+
+#meetingWrap {
+	position: relative;
+	background: #f4f4f4;
+	border-top: 1px solid;
+	border-color: rgba(0, 0, 0, .1);
 }

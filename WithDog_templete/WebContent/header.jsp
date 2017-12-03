@@ -21,9 +21,10 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li class="active"><a href="main.jsp">Home</a></li>
+					<li class="active"><a href="main.do">Home</a></li>
 					<li><a href="meetingList.do">모임</a></li>
 					<li><a href="spotList.do">장소</a></li>
+					<li><a href="eventList.do">이벤트</a></li>
 					<li><a href="myPage.do">MyPage</a></li>
 					<li><a href="myPage.do">${loginUser.userId } 회원님 반갑습니다.</a></li>
 				</ul>

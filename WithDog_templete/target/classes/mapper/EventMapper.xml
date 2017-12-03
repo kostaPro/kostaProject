@@ -20,11 +20,7 @@
 		<collection property="commentList" column="eventId" ofType="Comment"
 			select="store.mapper.CommentMapper.retrieveCommentsByEventId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
-
-
 	</resultMap>
-
-	
 
 	<sql id="selectEvent">
 		select eventId, eventName, eventSpotId, eventImage,
@@ -49,7 +45,6 @@
 	<select id="retrieveAllEvents" resultType="Event">
 		<include refid="selectEvent"></include>
 	</select>
-
 
 	<select id="retrieveEventsByLocation" parameterType="String"
 		resultType="Event">
@@ -84,10 +79,6 @@
 		WHERE EVENTID = #{eventId}
 	</select>
 
-
-
-
-
 	<update id="updateEvent" parameterType="Event">
 		UPDATE event_tb
 		SET
@@ -101,13 +92,11 @@
 		WHERE EVENTID = #{eventId}
 	</delete>
 
-
 	<insert id="joinEventMeeting" parameterType="Map">
 		INSERT into
 		joinEvent_tb
 		VALUES(#{eventId},#{guestId},#{date})
 	</insert>
-
 
 	<delete id="cancelEventMeeting" parameterType="Map">
 		DELETE FROM
@@ -116,14 +105,11 @@
 		JOINDATE = #{date}
 	</delete>
 
-
 	<delete id="cancelAllEventMeeting" parameterType="integer">
 		DELETE FROM
 		joinEvent_tb
 		WHERE eventId = #{eventId}
 	</delete>
-
-
 
 	<select id="retrieveJoinListByEventDate" parameterType="Map"
 		resultType="Event">

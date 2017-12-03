@@ -23,8 +23,10 @@ public class EventServiceLogic implements EventService {
 
 	@Autowired
 	private EventStore eventStore;
+	
 	@Autowired
 	private CommentStore commentStore;
+	
 	@Autowired
 	private UserStore userStore;
 
