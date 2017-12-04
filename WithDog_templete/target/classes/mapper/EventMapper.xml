@@ -93,7 +93,7 @@
 	</delete>
 
 	<insert id="joinEventMeeting" parameterType="Map">
-		INSERT into joinEvent_tb(eventId,guestId,date)
+		INSERT into joinEvent_tb(eventId,guestId,joindate)
 		VALUES(#{eventId},#{guestId},#{date})
 	</insert>
 
