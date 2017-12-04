@@ -388,9 +388,14 @@
 		<div class="comments">
 		<c:forEach var="comments" items="${comment}">  
 		<input type="hidden" id="parentId" name="parentId" value="${comments.parentId}"> 
-			<c:if test="${comments.depth == '1'}"><div class="commenter" id="${comments.parentId}"></c:if><ul reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
+			<c:if test="${comments.depth == '1'}">
+			<div class="commenter" value="${comments.parentId}"></c:if>
+			
+			<ul reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
+				
 				<li>
 		<c:if test="${comments.depth == '1'}"><ul><li></c:if>
+		
 					<div class="user-comment">
 								<img src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png" alt=""> 
 								<header>
@@ -404,6 +409,7 @@
 			    						<button class="btn btn-outline-primary" name="reply_update" reply_comment="${comments.content}" id="${comments.commentId}">수정</button>
 										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
 								</header>
+								
 								<div class="content">
 									<p> ${fn:replace(comments.content, cn, br)}</p><hr>
 								</div>
@@ -448,26 +454,27 @@
 			
 		});
 		
-		
-		$("input[name='chk']:checked").each(function(){
-		
-			$(this).is(":checked").click(function() {  
+
+			$("input[name='chk']:checked").click(function() {  
 			if ($(this).is(":checked")) {  
 				
-				$(".commenter").slideDown(300);   
+				
+				var parent = $(this).val();
+				$(".commenter").each(function() {
+					var reply = null;     
+					reply.push($(this).val()); 
+				if(parent.val() == reply.val()){
+ 					reply.slideDown(300);   
+				}
+				});
+		
+			
 			 
 			} else {
 				
-				$(".commenter").slideUp(300);  
+				$(".commenter, #pid").slideUp(300);  
 			} 
 		 });       
-			
-		});
-
-	 
-
-				 
-		
 
 	</script>
 	<!-- /Main -->
