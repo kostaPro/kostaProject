@@ -28,6 +28,7 @@ import domain.User;
 import service.CommentService;
 import service.MeetingService;
 import service.SpotService;
+import service.UserService;
 
 @Controller
 public class MeetingController {
@@ -50,6 +51,8 @@ public class MeetingController {
 	
 	@Autowired
 	private MeetingService meetingService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private SpotService spotService;
 	@Autowired
@@ -115,10 +118,12 @@ public class MeetingController {
 	}
 	
 	@RequestMapping(value = "/meetingDetail.do")
-	public ModelAndView showMeetingDetail(String meetingId) {
+	public ModelAndView showMeetingDetail(String meetingId, HttpSession session) {
 		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
 //		Spot spot = spotService.findSpotBySpotId(meeting.getMeetingSpot().getSpotId());
 
+		User user = (User)session.getAttribute("loginUser");
+		
 		List<String> meetingList = meeting.getMeetingImageList();
 		List<String> joinList = meeting.getMeetingJoinList();
 		
@@ -127,6 +132,7 @@ public class MeetingController {
 //		modelAndView.addObject("meetingSpot", spot);
 		modelAndView.addObject("ImageList", meetingList);
 		modelAndView.addObject("joinList", joinList);
+		modelAndView.addObject("User", user);
 		return modelAndView;
 	}
 	
