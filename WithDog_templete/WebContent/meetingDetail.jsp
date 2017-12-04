@@ -53,8 +53,8 @@
 							<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
 							<hr>
 						<a href="신고.do"><img src="resources/img/alarm.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					<a href="showModify.do"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					<a href="deleteMeeting.do"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
+					<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
+					<a href="deleteMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
 					<br>
 					</header>
 							
