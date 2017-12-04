@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -12,9 +13,10 @@
 
 			<!-- Logo -->
 			<div id="logo">
-				<h1>
-					<a href="#">WithDog</a>
-				</h1>
+					<div style="width: 100%; height: 100px; line-height: 100px; text-align: center">
+					<a href="main.jsp"><img src="resources/img/main_logo.png" style="width: 270px; height: auto; vertical-align:center;"
+					alt=""></a></div>
+				
 			</div>
 		</div>
 		<div id="nav-wrapper" class="container">
@@ -32,7 +34,7 @@
 		</div>
 		<div class="container">
 			<div id="banner">
-				<a href="#" class="image featured"><img src="resources/img/pics11.jpg"
+				<a href="#" class="image featured"><img src="resources/img/pics13.jpg"
 					alt=""></a>
 			</div>
 		</div>

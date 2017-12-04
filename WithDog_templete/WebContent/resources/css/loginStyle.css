@@ -164,7 +164,7 @@ input[type=text]:focus{
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder, select[form=location]:placeholder{
+input[type=text]:placeholder, select[class=location]:placeholder{
   color: #cccccc;
 }
 
@@ -194,7 +194,7 @@ input[type=password]:focus{
   border-bottom: 2px solid #5fbae9;
 }
 
-select[form=location]{
+select[class=location]{
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

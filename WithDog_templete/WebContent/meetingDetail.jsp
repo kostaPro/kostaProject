@@ -43,29 +43,31 @@
 		<div class="container">
 			<div class="row">
 
-				<section>
 					<header>
+					
 						<h2 align="left">${meetingDetail.meetingName }</h2>
-					</header>
-					<div class="row">
-						<section>
+						
 							<h3 align="left">모임 일자 | <fmt:formatDate value="${meetingDetail.meetingDate}" pattern="yyyy-MM-dd" /></h3>
 							<!-- 왜이러시죠 -->
 							<h3 align="left">장소 |</h3>
 							<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
 							<hr>
-							<c:forEach var="mImage" items="${ImageList}">
-								<div class="4u">
-									<section>
-										<img class="imgs" src="/images/${mImage}" />
-									</section>
-								</div>
-							</c:forEach>
+						<a href="신고.do"><img src="resources/img/alarm.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
+					<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
+					<a href="deleteMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
+					<br>
+					</header>
+							
 
-						</section>
-					</div>
-
-				</section>
+				<div class="row">
+					<c:forEach var="mImage" items="${ImageList}">
+						<div class="4u">
+							<section>
+								<img class="imgs" src="/images/${mImage}" />
+							</section>
+						</div>
+					</c:forEach>
+				</div>
 
 				<section>
 					<div class="4u">
@@ -96,6 +98,11 @@
 					</table>
 				</div>
 			</section>
+
+<section><p>
+
+					</p></section>
+
 
 		</div>
 	</div>
