@@ -3604,10 +3604,10 @@ table td[class*="col-"], table th[class*="col-"] {
 }
 
 /*********************************************************************************/
-/* Slide                                                                         */
+/* partition                                                                     */
 /*********************************************************************************/
 
-#meetingWrap {
+#subWrap {
 	position: relative;
 	background: #f4f4f4;
 	border-top: 1px solid;

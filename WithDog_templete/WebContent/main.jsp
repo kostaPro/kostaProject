@@ -13,6 +13,16 @@
 <head>
 <title>Welcome To WithDog</title>
 
+<!--화면 정렬-->
+<link rel='stylesheet' id='bootstrap-css'
+	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
+	type='text/css' media='all' />
+
+<!--필수항목 아이콘-->
+<link rel='stylesheet' id='font-awesome-css'
+	href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+	type='text/css' media='all' />
+	
 <!--화면 전체 디자인-->
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
@@ -57,7 +67,7 @@
 					<div id="eventSlider" class="slider">
 						<c:forEach var="event" items="${eventList }">
 							<div class="slide">
-								<img src="/images/${event.eventImage}">
+								<a href="eventDetail.do?eventId=${event.eventId }"><img src="/images/${event.eventImage}"></a>
 								<p style="font-size: 35px; padding: 5px">
 									<strong>${event.eventName }</strong>
 								</p>
@@ -71,7 +81,7 @@
 	<!-- /Main -->
 
 	<!-- Footer -->
-	<div id="meetingWrap">
+	<div id="subWrap">
 		<div class="container">
 			<section>
 

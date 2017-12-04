@@ -139,8 +139,6 @@ public class EventStoreLogic implements EventStore{
 			EventMapper mapper = session.getMapper(EventMapper.class);
 			event = mapper.retrieveEventByEventId(eventId);
 			
-			System.out.println(event);
-			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

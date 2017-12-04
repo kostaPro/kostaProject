@@ -64,10 +64,6 @@ public class EventServiceLogic implements EventService {
 	public Event findEventByEventId(int eventId) {
 
 		Event event = eventStore.retrieveEventByEventId(eventId);
-		// openDate와 closeDate사이의 날 차이
-		// long diffDay = (closeDate.getTime() - openDate.getTime()) / (24 * 60 * 60 *
-		// 1000);
-		// int p = (int)(diffDay);
 
 		// Date to String
 		Date openDate = event.getOpenDate();
@@ -96,18 +92,17 @@ public class EventServiceLogic implements EventService {
 		Map<String, List<User>> eventJoinLists = new HashMap<>();
 
 		// 참여목록 만드는 for문
-		for (int i = 0; i < (closeDay - openDay) + 1; i++) {
+//		for (int i = 0; i < (closeDay - openDay) + 1; i++) {
+//
+//			Date eventDate = openDate;
+//
+//			List<String> userIdList = eventStore.retrieveJoinListByEventDate(eventId, eventDate);
+//			List<User> users = userStore.retrieveUserList(userIdList);
+//
+//			eventJoinLists.put(String.valueOf(i), users);
+//
+//		}
 
-			Date eventDate = openDate;
-
-			List<String> userIdList = eventStore.retrieveJoinListByEventDate(eventId, eventDate);
-			List<User> users = userStore.retrieveUserList(userIdList);
-
-			eventJoinLists.put(String.valueOf(i), users);
-
-		}
-
-		System.out.println(eventJoinLists.size());
 
 		return event;
 	}
