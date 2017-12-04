@@ -69,11 +69,12 @@ public class UserStoreLogicTest {
 	@Test
 	public void testRetrieveUserList() {
 		List<String> ids = new ArrayList<>();
-		ids.add("uraid");
-		ids.add("Hoon");
+		ids.add("aa");
+		ids.add("mei");
 		
 		List<User> list = store.retrieveUserList(ids);
 		assertEquals(2, list.size());
+		assertEquals("인천", list.get(1).getFavoriteLocation());
 	}
 
 }

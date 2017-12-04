@@ -1,5 +1,6 @@
 package service.logic;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,40 +70,32 @@ public class EventServiceLogic implements EventService {
 		Date openDate = event.getOpenDate();
 		Date closeDate = event.getCloseDate();
 
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd");
 
-		String start = transFormat.format(openDate);
-		String end = transFormat.format(closeDate);
+		int start = Integer.parseInt(transFormat.format(openDate));
+		int end = Integer.parseInt(transFormat.format(closeDate));
 
-		// 년,월, 일 쪼개기
-		String[] arrayStart;
-		arrayStart = start.split("-");
-
-		String[] arrayEnd;
-		arrayEnd = end.split("-");
-
-		// 일만 String으로 추출
-		String open = arrayStart[2];
-		String close = arrayEnd[2];
-
-		// String to int
-		int openDay = Integer.parseInt(open);
-		int closeDay = Integer.parseInt(close);
-
-		Map<String, List<User>> eventJoinLists = new HashMap<>();
+		Map<String, List<User>> eventJoinFullList = new HashMap<>();
 
 		// 참여목록 만드는 for문
-//		for (int i = 0; i < (closeDay - openDay) + 1; i++) {
+//		for (int i = start; i < (end + 1 ); i++) {
 //
-//			Date eventDate = openDate;
+//			Date eventDate = null;
+//			
+//			try {
+//				eventDate = transFormat.parse(String.valueOf(i));
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 //
 //			List<String> userIdList = eventStore.retrieveJoinListByEventDate(eventId, eventDate);
 //			List<User> users = userStore.retrieveUserList(userIdList);
 //
-//			eventJoinLists.put(String.valueOf(i), users);
-//
+//			eventJoinFullList.put(String.valueOf(i), users);
 //		}
 
+//		event.setEventJoinLists(eventJoinFullList);
 
 		return event;
 	}

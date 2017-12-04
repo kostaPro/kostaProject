@@ -31,6 +31,19 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<!--목록접기를 위한 jQuery추가 -->
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+
+<style type="text/css">
+</style>
+<style>
+.joinDate a {
+	cursor: pointer;
+}
+</style>
+
+
 </head>
 <body class="homepage">
 
@@ -102,33 +115,55 @@
 
 			<section>
 				<div
-					style="border: 2px solid; padding: 10px; background-color: #AAA">
+					style="border: 2px solid; padding: 10px; background-color: #43C0CE">
 
-					<h2>참여자 목록</h2>
+					<hr style="width: 30%; border: solid 2px white">
+					<h1 style="font-size: 40px; margin-top: 10px; margin-bottom: 10px">참여자
+						목록</h1>
+					<hr style="width: 30%; border: solid 2px white">
 
-					<c:forEach var="rowCount" begin="1" end="3" step="1">
-						<div class="row" style="margin-top: 20px">
+					<c:forEach var="dateFlag" items="${eventPeriod }" varStatus="status">
+						
+						<div class="row">
+							<div class="joinDate">
+								<h3 style="font-size: 30px; margin-left: 10px;">
+								<fmt:formatDate value="${dateFlag }" pattern="yyyy-MM-dd" var="joinDate" />
+									[ <c:out value="${joinDate }"></c:out> ] 
+									<Button name="spreadBtn" class="btn_comm" onclick="showList(${status.count})">▼</Button> 
+								</h3>
+							</div>
 
-							<c:forEach var="colCount" begin="1" end="4" step="1">
-
-								<div class="3u">
-
-									<div
-										style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
-										<h2>${loginUser.userId }</h2>
-										<img
-											style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
-											src="/images/${loginUser.petImage}">
-										<h2>포메라니안/3Y/Female</h2>
-										<h2>${loginUser.contact }</h2>
-									</div>
-
+							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a href="joinEvent.do?eventId=${eventDetail.eventId }&date=${joinDate }" ><strong><font color="#43C0CE">참여하기</font></strong></a>
 								</div>
-							</c:forEach>
-
+							</div>
 						</div>
 
+						<div id="dailyJoinList${status.count }" class="joinList" style="display: none">
+							<c:forEach var="rowCount" begin="1" end="1" step="1">
+								<div class="row" style="margin-top: 20px">
+
+									<c:forEach var="colCount" begin="1" end="6" step="1">
+
+										<div class="2u">
+											<div
+												style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+												<h2>${loginUser.userId }</h2>
+												<img
+													style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+													src="/images/${loginUser.petImage}">
+												<h2>포메라니안/3Y/Female</h2>
+												<h2>${loginUser.contact }</h2>
+											</div>
+
+										</div>
+									</c:forEach>
+								</div>
+							</c:forEach>
+						</div>
 					</c:forEach>
+
 				</div>
 			</section>
 
@@ -162,7 +197,17 @@
 				href="">CC0</a>)
 		</div>
 	</div>
+<script type="text/javascript">
+function showList(flag){
+	var joinList = "#dailyJoinList" + flag;
 
+	if($(joinList).is(":visible")){
+		$(joinList).slideUp();
+	}else{
+		$(joinList).slideDown();
+	}
+};
+</script>
 
 </body>
 </html>

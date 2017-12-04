@@ -154,22 +154,36 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventDetail.do")
-	public ModelAndView showEventDetail(String eventId) {
+	public ModelAndView showEventDetail(String eventId) throws ParseException {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
-	
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		int openDate = Integer.parseInt(format.format(event.getOpenDate()));
+		int closeDate = Integer.parseInt(format.format(event.getCloseDate()));
+		
+		List<Date> eventPeriod = new ArrayList<>();
+		
+		for(int date = openDate; date < (closeDate +1) ; date++) {
+			Date dateForm = format.parse(String.valueOf(date));
+			eventPeriod.add(dateForm);
+		}
+		
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
+		modelAndView.addObject("eventPeriod",eventPeriod);
 
 		return modelAndView;
 	}
 
-	// @RequestMapping("")
-	public String joinEventMeeting(String eventId, Date date, HttpSession session) {
+	@RequestMapping(value= "/joinEvent.do",  method = RequestMethod.GET)
+	public String joinEventMeeting(String eventId, String date, HttpSession session) throws ParseException {
 
-		String guestId = (String) session.getAttribute("userId");
-		eventService.joinEventMeeting(Integer.parseInt(eventId), guestId, date);
+		User guest = (User) session.getAttribute("loginUser");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date joinDate = format.parse(date);
+		eventService.joinEventMeeting(Integer.parseInt(eventId), guest.getUserId(), joinDate);
 
-		return null;// 그냥 단순히 조인하는건데?ㅠ어디로 보낼라고?ㅠ
+		return "redirect:eventDetail.do?eventId="+ eventId;
 	}
 
 	// @RequestMapping("")
