@@ -1,7 +1,32 @@
 
-function searchSpotBtn_click(){
+function searchPopBtn_click(){
 	var $href = $('#searchSpot_btn').attr('href');
 	layer_popup($href);
+	
+	var address = $('#eventLocation').val();
+	$('#locationBox').val(address);
+	
+	$.ajax({
+		type: "GET",
+		url: "/searchSpot.do?spotLocation="+address,
+		dataTyle:"json",
+		success:function(data){
+			alert(data.spotName);
+//			insertData(1,data.spotName);
+		},
+		error:function(error){
+			alert(error);
+		}
+		
+	});
+	
+//	function insertData(idx,data){
+//		$("table > tbody > tr:nth-child("+idx+") >  td:nth-child(2)").html(data);
+//	}
+}
+
+function searchSpotBtn_click(){
+	
 }
 
 function layer_popup(el) {

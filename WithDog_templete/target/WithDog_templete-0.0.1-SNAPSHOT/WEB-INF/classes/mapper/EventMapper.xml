@@ -12,16 +12,15 @@
 		<result property="openDate" column="OPENDATE" />
 		<result property="closeDate" column="CLOSEDATE" />
 		<result property="eventInfo" column="EVENTINFO" />
-		
+
 		<association property="eventSpot" column="SPOTID"
 			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
 			jdbcType="NUMERIC" />
-			
-		<collection property="commentList" column="eventId" ofType="Comment" 
-     		select="store.mapper.CommentMapper.retrieveCommentsByEventId" javaType="ArrayList" 
-     		jdbcType="NUMERIC" />
-     		
-     	</resultMap>
+
+		<collection property="commentList" column="eventId" ofType="Comment"
+			select="store.mapper.CommentMapper.retrieveCommentsByEventId"
+			javaType="ArrayList" jdbcType="NUMERIC" />
+	</resultMap>
 
 	<sql id="selectEvent">
 		select eventId, eventName, eventSpotId, eventImage,
@@ -47,8 +46,8 @@
 		<include refid="selectEvent"></include>
 	</select>
 
-
-	<select id="retrieveEventsByLocation" parameterType="String" resultType="Event">
+	<select id="retrieveEventsByLocation" parameterType="String"
+		resultType="Event">
 		SELECT eventId, eventName, eventSpotId, eventImage,
 		openDate, closeDate, eventInfo
 		FROM event_tb INNER JOIN spot_tb
@@ -58,64 +57,65 @@
 		#{location}
 	</select>
 
-	<select id="retrieveEventByEventId" parameterType="integer" resultMap="EventMap">
-		<include refid="selectEvent"></include>
-		WHERE EVENTID = #{eventId}
-	</select>
-	
-	<update id="updateEvent" parameterType="Event">
-		UPDATE event_tb
-		SET
-		OPENDATE = #{openDate}, CLOSEDATE = #{closeDate}, EVENTSPOTID = #{eventSpot.spotId}, EVENTINFO = #{eventInfo}
-		WHERE EVENTID = #{eventId}
-	</update>
-	
-	<delete id="deleteEvent" parameterType="integer">
-		DELETE FROM event_tb
-		WHERE EVENTID = #{eventId}
-	</delete>
-	
-	
-	<insert id="joinEventMeeting" parameterType="Map">
-		INSERT into joinEvent_tb
-		VALUES(#{eventId},#{guestId},#{date})
-	</insert>
-	
-	
-	<delete id="cancelEventMeeting" parameterType="Map">
-		DELETE FROM joinEvent_tb
-		WHERE EVENTID = #{eventId} AND GUESTID = #{guestId} AND JOINDATE = #{date}
-	</delete>
-	
-	
-	<delete id="cancelAllEventMeeting" parameterType="integer">
-		DELETE FROM joinEvent_tb
-		WHERE eventId = #{eventId}
-	</delete>
-	
 	<select id="retrieveEventsByDate" parameterType="Date" resultType="Event">
 		<include refid="selectEvent"></include>
 		WHERE OPENDATE = #{date}
 	</select>
-	
-	<select id="retrieveEventsByDateLocation" parameterType="Map" resultType="Event">
+
+	<select id="retrieveEventsByDateLocation" parameterType="Map"
+		resultType="Event">
 		select eventId, eventName, eventSpotId, eventImage,
 		openDate, closeDate, eventInfo
 		from event_tb JOIN spot_tb
-		on event_tb.eventSpotId = spot_tb.spotId
-		WHERE OPENDATE = #{date} and spot_tb.spotLocation like #{location}
+		on
+		event_tb.eventSpotId = spot_tb.spotId
+		WHERE OPENDATE = #{date} and
+		spot_tb.spotLocation like #{location}
 	</select>
-	
-	<select id="retrieveJoinListByEventDate" parameterType="Map" resultType="Event">
+
+	<select id="retrieveEventByEventId" parameterType="integer"
+		resultMap="EventMap">
+		<include refid="selectEvent"></include>
+		WHERE EVENTID = #{eventId}
+	</select>
+
+	<update id="updateEvent" parameterType="Event">
+		UPDATE event_tb
+		SET
+		EVENTSPOTID = #{eventSpot.spotId}, EVENTINFO = #{eventInfo}
+		WHERE
+		EVENTID = #{eventId}
+	</update>
+
+	<delete id="deleteEvent" parameterType="integer">
+		DELETE FROM event_tb
+		WHERE EVENTID = #{eventId}
+	</delete>
+
+	<insert id="joinEventMeeting" parameterType="Map">
+		INSERT into joinEvent_tb(eventId,guestId,joindate)
+		VALUES(#{eventId},#{guestId},#{date})
+	</insert>
+
+	<delete id="cancelEventMeeting" parameterType="Map">
+		DELETE FROM
+		joinEvent_tb
+		WHERE EVENTID = #{eventId} AND GUESTID = #{guestId} AND
+		JOINDATE = #{date}
+	</delete>
+
+	<delete id="cancelAllEventMeeting" parameterType="integer">
+		DELETE FROM
+		joinEvent_tb
+		WHERE eventId = #{eventId}
+	</delete>
+
+	<select id="retrieveJoinListByEventDate" parameterType="Map"
+		resultType="String">
 		select guestId
 		from joinEvent_tb
-		WHERE EVENTID = #{eventId} and JOINDATE = #{eventDate}
+		WHERE EVENTID = #{eventId}
+		and JOINDATE = #{eventDate}
 	</select>
-	
-	
-
-
-
-
 
 </mapper>

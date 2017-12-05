@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 
 <html>
@@ -45,7 +45,6 @@
 
 <!--팝업용 css-->
 <style type="text/css">
-
 .pop-layer .pop-container {
 	padding: 20px 25px;
 }
@@ -71,7 +70,7 @@
 	width: 500px;
 	height: auto;
 	background-color: #fff;
-	border: 5px solid #3571B5;
+	border: 5px solid #43C0CE;
 	z-index: 10;
 }
 
@@ -105,16 +104,16 @@ a.btn-popupClose {
 	display: inline-block;
 	height: 25px;
 	padding: 0 14px 0;
-	border: 1px solid #304a8a;
-	background-color: #3f5a9d;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
 	font-size: 13px;
 	color: #fff;
 	line-height: 25px;
 }
 
 a.btn-popupClose:hover {
-	border: 1px solid #091940;
-	background-color: #1f326a;
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
 	color: #fff;
 }
 
@@ -122,19 +121,18 @@ a.btn-popupSearch {
 	display: inline-block;
 	height: 32px;
 	padding: 0 14px 0;
-	border: 1px solid #304a8a;
-	background-color: #3f5a9d;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
 	font-size: 13px;
 	align-content: center;
 	color: #fff;
 }
 
 a.btn-popupSearch:hover {
-	border: 1px solid #091940;
-	background-color: #1f326a;
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
 	color: #fff;
 }
-
 </style>
 
 </head>
@@ -189,13 +187,15 @@ a.btn-popupSearch:hover {
 										<section style="display: inline-block; width: 650px">
 
 											<strong class="tit_form"><i class="fa fa-check"></i>이벤트
-												장소를 입력해주세요.</strong> <input type="text" class="inp_comm" id= "eventLocation" name="eventLocation"> 
-												<a href="#searchSpot" id="searchSpot_btn"
-												class="btn btn-primary btn-block form-control btn_comm" onclick="searchSpotBtn_click()">검색하기</a>
+												장소를 입력해주세요.</strong> <input type="text" class="inp_comm"
+												id="eventLocation" name="eventLocation"> <a
+												href="#searchSpot" id="searchSpot_btn"
+												class="btn btn-primary btn-block form-control btn_comm"
+												onclick="searchPopBtn_click()">검색하기</a>
 
 										</section>
-										
-										
+
+
 										<!-- Popup -->
 										<div class="dim-layer">
 											<div class="dimBg"></div>
@@ -203,44 +203,45 @@ a.btn-popupSearch:hover {
 												<div class="pop-container">
 													<div class="pop-conts">
 														<!--content //-->
-														
-															<input type="text" placeholder="주소를 입력해 주세요">
-															
-															<a href="#" class="btn-popupSearch">검색하기</a>
-														
-														<table class="table table-striped table-bordered table-hover">
-						<colgroup>
-							<col width="400" />
-							<col width="800" />
-							<col width="300" />
-						</colgroup>
-						<thead>
-							<tr>
-								<th class="text-center">장소 명</th>
-								<th class="text-center">장소 위치</th>
-								<th class="text-center">장소 분류</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:choose>
-								<c:when test="${empty spotList }">
-									<tr>
-										<th colspan="3 " class="text-center">장소가 존재하지 않습니다.</th>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="spot" items="${spotList }">
-										<tr>
-											<td class="text-center"><a
-												href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
-											<td class="text-center">${spot.spotLocation }</td>
-											<td class="text-center">${spot.spotType }</td>
-										</tr>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-					</table>
+
+														<input id="locationBox" type="text" placeholder="주소를 입력해 주세요"> 
+														<a href="#" class="btn-popupSearch">검색하기</a>
+
+														<table
+															class="table table-striped table-bordered table-hover" style="margin-top:20px">
+															<colgroup>
+																<col width="400" />
+																<col width="800" />
+																<col width="300" />
+															</colgroup>
+															<thead>
+																<tr>
+																	<th class="text-center">장소 명</th>
+																	<th class="text-center">장소 위치</th>
+																	<th class="text-center">장소 분류</th>
+																</tr>
+															</thead>
+															<tbody>
+																<c:choose>
+																	<c:when test="${empty spotList }">
+																		<tr>
+																			<th colspan="3 " class="text-center">장소가 존재하지
+																				않습니다.</th>
+																		</tr>
+																	</c:when>
+																	<c:otherwise>
+																		<c:forEach var="spot" items="${spotList }">
+																			<tr>
+																				<td class="text-center"><a
+																					href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
+																				<td class="text-center">${spot.spotLocation }</td>
+																				<td class="text-center">${spot.spotType }</td>
+																			</tr>
+																		</c:forEach>
+																	</c:otherwise>
+																</c:choose>
+															</tbody>
+														</table>
 
 														<div class="btn-r">
 															<a href="#" class="btn-popupClose">Close</a>

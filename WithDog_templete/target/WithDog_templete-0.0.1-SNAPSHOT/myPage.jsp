@@ -25,28 +25,9 @@
 	<body>
 
 	<!-- Header -->
-		<div id="header">
-			<div class="container">
-					
-				<!-- Logo -->
-					<div id="logo">
-						<h1><a href="#">Elemental</a></h1>
-					</div>
-			</div>
-			<div class="container">
-				<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li class="active"><a href="left-sidebar.html">Left Sidebar</a></li>
-							<li><a href="right-sidebar.html">Right Sidebar</a></li>
-							<li><a href="no-sidebar.html">No Sidebar</a></li>
-						</ul>
-					</nav>
-			</div>
-
-		</div>
+	<%@include file="header.jsp"%>
 	<!-- Header -->
+
 		
 
 	<!-- Main -->

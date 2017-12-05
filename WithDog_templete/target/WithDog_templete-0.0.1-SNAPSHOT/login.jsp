@@ -18,7 +18,7 @@
   <div id="formContent">
     <!-- Tabs Titles -->
     <h2 class="active"><a class="underlineHover" href="#"> Sign In </a></h2>
-    <h2 class="inactive underlineHover"><a class="underlineHover" href="#"> Sign Up </a></h2>
+    <h2 class="inactive underlineHover"><a class="underlineHover" href="registUser.do"> Sign Up </a></h2>
 
     <!-- Icon -->
     <div class="fadeIn first">
@@ -26,9 +26,9 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+    <form action="login.do" method="POST">
+      <input type="text" id="login" class="fadeIn second" name="userId" placeholder="ID">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 

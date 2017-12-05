@@ -12,120 +12,36 @@
 <head>
 <title>WithDog_eventDetail</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
 
-
-
-<link rel='stylesheet' id='jquery-ui-css'
-	href='http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css?ver=1.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='acf-global-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-global.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='select2-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/inc/select2/select2.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='acf-input-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/assets/css/acf-input.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='acf-pro-input-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/advanced-custom-fields-pro/pro/assets/css/acf-pro-input.css?ver=5.2.6'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='contact-form-7-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.2.1'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='plugin-member-wa-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/member-wa/common/css/member-wa-style.css?ver=1.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='plugin-member-wa-templates-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/member-wa/common/css/member-wa-template.css?ver=1.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='thcu-styles-css'
-	href='http://www.sweetspot.co.kr/wp-content/plugins/theme-customization/css/renewal.css?ver=4.8.1'
-	type='text/css' media='all' />
+<!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
 	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
 	type='text/css' media='all' />
+
+<!--필수항목 아이콘-->
 <link rel='stylesheet' id='font-awesome-css'
 	href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
 	type='text/css' media='all' />
-<link rel='stylesheet' id='google-font-css'
-	href='//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='chosen-select-css'
-	href='http://www.sweetspot.co.kr/wp-content/themes/realty/assets/chosen/chosen.min.css'
-	type='text/css' media='all' />
+
+<!--화면 전체 디자인-->
 <link rel='stylesheet' id='style-css'
 	href='http://www.sweetspot.co.kr/wp-content/themes/realty-child/style.css'
 	type='text/css' media='all' />
-<link rel='stylesheet' id='print-css'
-	href='http://www.sweetspot.co.kr/wp-content/themes/realty/print.css'
-	type='text/css' media='print' />
-<link rel='stylesheet' id='buttons-css'
-	href='http://www.sweetspot.co.kr/wp-includes/css/buttons.min.css?ver=4.8.1'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='dashicons-css'
-	href='http://www.sweetspot.co.kr/wp-includes/css/dashicons.min.css?ver=4.8.1'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='mediaelement-css'
-	href='http://www.sweetspot.co.kr/wp-includes/js/mediaelement/mediaelementplayer.min.css?ver=2.22.0'
-	type='text/css' media='all' />
-<link rel='stylesheet' id='wp-mediaelement-css'
-	href='http://www.sweetspot.co.kr/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=4.8.1'
-	type='text/css' media='all' />
-
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-
-
-
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
-<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="resources/js/skel.min.js"></script>
-<script src="resources/js/skel-panels.min.js"></script>
-<script src="resources/js/init.js"></script>
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
+<!--참여 목록 접기를 위한 jQuery추가 -->
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+<!--참여 목록 접기-->
+<script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
 
 </head>
 <body class="homepage">
 
 	<!-- Header -->
-	<div id="header">
-		<div class="container">
-
-			<!-- Logo -->
-			<div id="logo">
-				<h1>
-					<a href="#">Elemental</a>
-				</h1>
-			</div>
-		</div>
-		<div id="nav-wrapper" class="container">
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="left-sidebar.html">Left Sidebar</a></li>
-					<li><a href="right-sidebar.html">Right Sidebar</a></li>
-					<li><a href="no-sidebar.html">No Sidebar</a></li>
-				</ul>
-			</nav>
-		</div>
-		<div class="container">
-			<div id="banner">
-				<a href="#" class="image featured"><img
-					src="resources/img/pics11.jpg" alt=""></a>
-			</div>
-		</div>
-	</div>
+	<%@include file="header.jsp"%>
 	<!-- Header -->
 
 
@@ -133,32 +49,50 @@
 	<div id="main">
 
 		<div class="container">
+
 			<div class="row">
+				<div class="3u" style="float: right; margin-right: 30px">
+					<a href="eventList.do" class="btn_comm btn_submit form-control"
+						style="text-align: center;"> <strong style="color: white">이벤트목록으로</strong></a>
+				</div>
+			</div>
 
-
-
+			<div class="row">
 				<section>
+
 					<header>
 						<h2 align="left">${eventDetail.eventName }</h2>
 					</header>
+
+
 					<div class="row">
 						<section>
-							<h3 align="left">시작일 | ${eventDetail.openDate }</h3>
-							<h3 align="left">종료일 | ${eventDetail.closeDate }</h3>
-							<h3 align="left">이벤트 이름 | ${eventDetail.eventName }</h3>
-							<hr>
-							<a href="#" class="image full"><img
-								src="resources/img/pics01.jpg" alt=""></a>
+							<div class="row">
+								<h3 align="left">
+									시작일 |
+									<fmt:formatDate value="${eventDetail.openDate}"
+										pattern="yyyy-MM-dd" />
+								</h3>
+								<h3 align="left">
+									종료일 |
+									<fmt:formatDate value="${eventDetail.closeDate}"
+										pattern="yyyy-MM-dd" />
+								</h3>
+							</div>
 
+							<h3 align="left">장소 |</h3>
+
+							<a href="#" class="image full"><img
+								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
 						</section>
 					</div>
 
 				</section>
 
 				<section>
-					<div class="4u">
-						<iframe width="760" height="500"
-							src="http://withdog.dothome.co.kr/"></iframe>
+					<div class="7u">
+						<iframe style="width: 760px; height: 500px"
+							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
 					</div>
 				</section>
 
@@ -167,19 +101,71 @@
 			<section>
 				<div style="border: 2px solid; padding: 10px;">
 
-					<h2>참여 목록</h2>
-					
-				</div>
-				<div style="border: 2px solid; padding: 10px;">
-
-					
-					<h3>참여 목록 리스트${eventDetail.eventJoinLists }</h3>
+					<h2>이벤트 소개</h2>
+					<h3>${eventDetail.eventInfo}</h3>
 				</div>
 			</section>
 
-			<hr>
-			
+			<section>
+				<div
+					style="border: 2px solid; padding: 10px; background-color: #43C0CE">
+
+					<hr style="width: 30%; border: solid 2px white">
+					<h1 style="font-size: 40px; margin-top: 10px; margin-bottom: 10px">참여자
+						목록</h1>
+					<hr style="width: 30%; border: solid 2px white">
+
+					<c:forEach var="fullList" items="${fullJoinList }"
+						varStatus="status">
+
+						<div class="row">
+							<div class="joinDate">
+								<h3 style="font-size: 30px; margin-left: 10px;">
+									[ ${fullList.key } ]
+									<Button name="spreadBtn" class="btn_comm"
+										onclick="showList(${status.count})">▼</Button>
+								</h3>
+							</div>
+
+							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="joinEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
+											color="#43C0CE">참여하기</font></strong></a>
+								</div>
+							</div>
+						</div>
+
+						<div id="dailyJoinList${status.count }" class="joinList"
+							style="display: none">
+							<div class="row" style="margin-top: 20px">
+								<c:forEach var="guest" items="${fullList.value }"
+									varStatus="rowCount">
+
+									<div class="2u">
+										<div
+											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+											<h2>${guest.userId }</h2>
+											<img
+												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="/images/${guest.petImage}">
+											<h2>${guest.petInfo }</h2>
+											<h2>${guest.contact }</h2>
+										</div>
+									</div>
+
+									<c:if test="${rowCount.count%6 eq 0 }">
+										</div> <div class="row" style="margin-top: 20px">
+								    </c:if>
+					</c:forEach>
+				</div>
 		</div>
+		</c:forEach>
+
+	</div>
+	</section>
+
+	</div>
 	</div>
 	<!-- /Main -->
 
@@ -191,102 +177,13 @@
 					<section>
 						<header>
 							<h2>Comment List</h2>
-						<hr>
+							<hr>
 						</header>
 
 					</section>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="15u">
-
-
-					<table class="table table-striped table-bordered table-hover">
-						<colgroup>
-							<col width="80" />
-							<col width="500" />
-							<col width="300" />
-							<col width="300" />
-							<col width="80" />
-						</colgroup>
-						
-							<c:choose>
-								<c:when test="${empty eventDetail.commentList }">
-									<tr>
-										<th colspan="4" class="text-center">댓글목록이 존재하지 않습니다.</th>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="review" items="${eventDetail.commentList }">
-												<div class="panel panel-default">
-                <div class="panel-heading">
-                   ${article.title}
-                </div>
-                <div class="panel-body">
-                    <div class="post">
-                        
-                         <strong>${comment.writerId}</strong>
-                         &nbsp;<span class="text-muted">${comment.registDate}</span>
-                        
-
-                         <a href="${pageContext.request.contextPath}commentModify.do?commentId=${comment.commentId}&eventId=${event.eventId}" class="glyphicon glyphicon-cog pull-right" style="padding:10px">수정</a>
-                         <a href="${pageContext.request.contextPath}commentRemove.do?commentId=${comment.commentId}&eventId=${event.eventId}" class="glyphicon glyphicon-trash pull-right" style="padding:10px">삭제</a>
-                    </div>
-                    <br>
-
-                    <p style="padding:20px">
-                        ${article.contents}
-                    </p>
-                    
-                    <c:forEach var="comment" items="${article.comments}">
-	                    <table class="table" style="font-size:13px; padding:20px;">
-	                 		<tr>
-	                 			<td>
-	                 				<strong>${comment.authorName}</strong>
-	                 			</td>
-	                 			<td class="text-right">
-	                 				${comment.regDate}
-	                 				<a class="glyphicon glyphicon-trash"
-	                 				   href="${pageContext.request.contextPath}/comment/remove.do?articleId=${article.articleId}&commentId=${comment.commentId}"></a>
-	                 			</td>
-	                 		</tr>
-	                 		<tr>
-	                 			<td colspan="2">
-	                 				<p class="txt">${comment.comments}</p>
-	                 			</td>
-	                 		</tr>
-	                    </table>
-                    </c:forEach>
-                </div>
-                <div class="panel-footer">
-                	<div class="write_area">
-                		<form action="${pageContext.request.contextPath}/comment/regist.do">
-                			<div>
-                				<input type="hidden" name="articleId" value="${article.articleId}">
-                				<textarea class="input_write_comment" name="comments" placeholder="댓글쓰기"></textarea>
-                				<div class="3u">
-				<a href="registComment.do?eventId=${eventDetail.eventId }" class="btn_comm btn_submit form-control" style="text-align: center"><strong style="color:white">댓글 등록</strong></a>	
-			</div>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						</tbody>
-						
-				
-                			</div>
-                		</form>
-                	</div>
-                </div>
-            </div>
-						
-					</table>
-
-
-				</div>
-			</div>
-			
-			
 		</div>
 	</div>
 	<!-- /Footer -->
@@ -294,12 +191,10 @@
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-				href="http://unsplash.com">Unsplash</a> (<a
-				href="http://unsplash.com/cc0">CC0</a>)
+			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
+				href="">CC0</a>)
 		</div>
 	</div>
-
 
 </body>
 </html>
