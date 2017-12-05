@@ -65,17 +65,6 @@
 					<br>
 					</header>
 							
-
-				<div class="row">
-					<c:forEach var="mImage" items="${ImageList}">
-						<div class="4u">
-							<section>
-								<img class="imgs" src="/images/${mImage}" />
-							</section>
-						</div>
-					</c:forEach>
-				</div>
-
 				<section>
 					<div class="4u">
 						<iframe width="760" height="500"
@@ -84,6 +73,20 @@
 				</section>
 
 			</div>
+			
+			<section>
+				<div class="row">
+					<c:forEach var="mImage" items="${meetingDetail.meetingImageList}">
+						<div class="4u">
+							<section>
+								<img class="imgs" src="/images/${mImage}" />
+							</section>
+						</div>
+					</c:forEach>
+				</div>
+				</section>
+			
+			
 
 			<section>
 

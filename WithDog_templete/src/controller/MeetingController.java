@@ -72,15 +72,14 @@ public class MeetingController {
 	@RequestMapping(value = "/registMeeting.do", method = RequestMethod.POST)
 	public String registMeeting(Meeting meeting, HttpSession session, MultipartHttpServletRequest file) throws IOException {
 		
-		
+		User user = (User)session.getAttribute("loginUser");
 		
 		Spot meetingSpot = new Spot();
 		meetingSpot.setSpotId(1);
 		
 		meeting.setMeetingSpot(meetingSpot);
-		meeting.setHostId("uraid");
-//		meeting.setHostId(session.getId());
-
+		meeting.setHostId(user.getUserId());
+		meetingService.registMeeting(meeting);
 		
 		
 		String realFolder = "c:\\" + File.separator + "tempFiles";
@@ -112,7 +111,7 @@ public class MeetingController {
 			}
 		}
 		
-		meetingService.registMeeting(meeting);
+		
 		
 		return "redirect:meetingDetail.do?meetingId=" + meeting.getMeetingId();
 	}
@@ -123,15 +122,17 @@ public class MeetingController {
 //		Spot spot = spotService.findSpotBySpotId(meeting.getMeetingSpot().getSpotId());
 
 		User user = (User)session.getAttribute("loginUser");
-		
-		List<String> meetingList = meeting.getMeetingImageList();
 		List<String> joinList = meeting.getMeetingJoinList();
+		List<String> meetingList = meeting.getMeetingImageList();
+//		List<User> userList = userService.findUserList(joinList);
+		
 		
 		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
 		modelAndView.addObject("meetingDetail", meeting);
 //		modelAndView.addObject("meetingSpot", spot);
 		modelAndView.addObject("ImageList", meetingList);
 		modelAndView.addObject("joinList", joinList);
+//		modelAndView.addObject("userList", userList);
 		modelAndView.addObject("User", user);
 		return modelAndView;
 	}
@@ -183,9 +184,33 @@ public class MeetingController {
 		}else {
 			return null;
 		}
+		
+	}
+	
+	@RequestMapping(value = "/modifyMeeting.do", method = RequestMethod.GET)
+	public ModelAndView showModifyMeeting(String meetingId){
+		
+		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
+		
+		ModelAndView modelAndView = new ModelAndView("modifyMeeting.jsp");
+		modelAndView.addObject("meetingDetail", meeting);
+		
+		return modelAndView;
+	
 	}
 	
 	
-	
+	@RequestMapping(value = "/modifyMeeting.do", method = RequestMethod.POST)
+	public String modifyMeeting(Meeting meeting){
 		
+		
+		Spot meetingSpot = new Spot();
+		meetingSpot.setSpotId(1);
+		
+		meeting.setMeetingSpot(meetingSpot);
+		
+		meetingService.modifyMeeting(meeting);
+		
+		return "meetingDetail.do?meetingId=" + meeting.getMeetingId();
+	}
 }
