@@ -70,7 +70,7 @@ public class EventServiceLogic implements EventService {
 		Date openDate = event.getOpenDate();
 		Date closeDate = event.getCloseDate();
 
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyMMdd");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyyMMdd");
 
 		int start = Integer.parseInt(transFormat.format(openDate));
 		int end = Integer.parseInt(transFormat.format(closeDate));
@@ -99,8 +99,12 @@ public class EventServiceLogic implements EventService {
 					users = userStore.retrieveUserList(userIdList);
 				}
 			}
+			int year = i/10000;
+			int month = ( i % 10000 ) / 100;
+			int day = ( i % 100 );
 
-			eventJoinFullList.put(String.valueOf(i), users);
+			String joinDate = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
+			eventJoinFullList.put(joinDate, users);
 		}
 
 		event.setEventJoinLists(eventJoinFullList);

@@ -157,20 +157,8 @@ public class EventController {
 	public ModelAndView showEventDetail(String eventId) throws ParseException {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		int openDate = Integer.parseInt(format.format(event.getOpenDate()));
-		int closeDate = Integer.parseInt(format.format(event.getCloseDate()));
-		
-		List<Date> eventPeriod = new ArrayList<>();
-		
-		for(int date = openDate; date < (closeDate +1) ; date++) {
-			Date dateForm = format.parse(String.valueOf(date));
-			eventPeriod.add(dateForm);
-		}
-		
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
-		modelAndView.addObject("eventPeriod",eventPeriod);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
 
 		return modelAndView;
