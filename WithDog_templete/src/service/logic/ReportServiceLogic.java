@@ -1,12 +1,15 @@
 package service.logic;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.Report;
 import domain.Review;
+import domain.BlackList;
 import service.ReportService;
 import store.ReportStore;
 import store.UserStore;
@@ -20,7 +23,7 @@ public class ReportServiceLogic implements ReportService {
 	private UserStore userStore;
 
 	@Override
-	public boolean registReport(Report report) {
+	public boolean registReport(Report report) { //
 
 		String reportType = "spot";
 
@@ -34,14 +37,14 @@ public class ReportServiceLogic implements ReportService {
 			return reportStore.createEventCommentReport(report);
 		} else if (reportType == "meetingComment") {
 			return reportStore.createMeetingCommentReport(report);
-		} else{
+		} else {
 			return reportStore.createReviewCommentReport(report);
 		}
-		
+
 	}
 
 	@Override
-	public List<Report> findReportsByReporterId(String reporterId) {//
+	public List<Report> findReportsByReporterId(String reporterId) {
 
 		return reportStore.retrieveReportsByReporterId(reporterId);
 	}
@@ -49,7 +52,7 @@ public class ReportServiceLogic implements ReportService {
 	@Override
 	public List<Report> findReportsBySuspectId(String suspectId) {
 
-		return null;
+		return reportStore.retrieveReportsBySuspectId(suspectId);
 	}
 
 	@Override
@@ -65,9 +68,9 @@ public class ReportServiceLogic implements ReportService {
 	}
 
 	@Override
-	public List<String> findBlackList(String status) {
+	public List<BlackList> findBlackList() {
 
-		return reportStore.retrieveBlackList(status);
+		return reportStore.retrieveBlackList();
 	}
 
 	@Override
@@ -79,7 +82,22 @@ public class ReportServiceLogic implements ReportService {
 	@Override
 	public boolean modifyReport(Report report) {
 
-		return false;
+		String reportType = "spot";
+
+		if (reportType == "spot") {
+			return reportStore.updateSpotReport(report);
+		} else if (reportType == "meeting") {
+			return reportStore.updateMeetingCommentReport(report);
+		} else if (reportType == "review") {
+			return reportStore.updateReviewReport(report);
+		} else if (reportType == "eventComment") {
+			return reportStore.updateEventCommentReport(report);
+		} else if (reportType == "meetingComment") {
+			return reportStore.updateMeetingCommentReport(report);
+		} else {
+			return reportStore.updateReviewCommentReport(report);
+		}
+
 	}
 
 	@Override

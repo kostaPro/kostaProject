@@ -93,6 +93,10 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<script>
+	var t = $("#selectBox option:checked").val();
+</script>
+
 </head>
 <body class="homepage">
 
@@ -131,25 +135,27 @@
 	<!-- Main -->
 
 
+
 	<div id="main">
+
 		<div class="container">
-			<div class="row half">
-				<div class="5u">
-					<section>
-						<header>
-							<h2>Report List(관리자)</h2>
-
-						</header>
-
-					</section>
-				</div>
-			</div>
 			<form action="searchReportByType.do">
+				<div class="row half">
+					<div class="5u">
+						<section>
+							<header>
+								<h2>Report List(관리자)</h2>
+								<br>
+							</header>
+
+						</section>
+					</div>
+				</div>
 				<div class="row">
 					<div class="15u">
 
 						<select class="form-control" name="reportType" id="reportType">
-							<option value="all">신고구분을 선택해주세요.</option>
+							<option value="">신고구분을 선택해주세요.</option>
 
 							<option value="meeting">모임</option>
 							<option value="spot">장소</option>
@@ -165,19 +171,24 @@
 					</div>
 
 				</div>
+				<br>
 			</form>
+
+
 			<div>
+
 				<table class="table table-striped table-bordered table-hover">
+
 					<colgroup>
 						<col width="200" />
-						<col width="200" />
-						<col width="1000" />
+						<col width="600" />
 						<col width="100" />
 						<col width="100" />
+
 					</colgroup>
 					<thead>
 						<tr>
-							<th class="text-center">신고 구분</th>
+
 							<th class="text-center">신고 대상</th>
 							<th class="text-center">신고 사유</th>
 							<th class="text-center">처리 상태</th>
@@ -185,40 +196,51 @@
 						</tr>
 					</thead>
 					<tbody>
+
 						<c:choose>
 							<c:when test="${empty reportList }">
 								<tr>
 									<th colspan="5 " class="text-center">신고가 존재하지 않습니다.</th>
 								</tr>
 							</c:when>
+
 							<c:otherwise>
+
 								<c:forEach var="reportList" items="${reportList }">
+
 									<tr>
-										<td class="text-center"><a
-											href="reportDetail.do?reportId=${reportList.reportTargetId }">${reportList.reportTargetId }</a></td>
+
 										<td class="text-center">${reportList.reportTargetId }</td>
 										<td class="text-center">${reportList.reportContent }</td>
-										<td class="text-center"><select form="reportType"
-											name="reportType">
-												<option value="all">선택</option>
 
-												<option value="1">경고</option>
-												<option value="0">미경고</option>
+										<td class="text-center">
+										<select class="form-control" name="selectBox" id="selectBox">
+												<option>${reportList.status }</option>
 
+												<option value="O">경고</option>
+												<option value="X">미경고</option>
 										</select></td>
-										<td><input type="submit" value="수정"
-											class="btn btn-primary btn-block form-control"
+
+										<td><a class="btn btn-primary btn-block form-control"
 											id="search_btn"
-											style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"></td>
+											style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
+											href="modifyReport.do?reportTargetId=${reportList.reportTargetId}
+												&status=$("#selectBox option:checked").val()"><b>수정</b></a></td>
+
+
+
 									</tr>
 
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
+
 					</tbody>
 				</table>
+
 			</div>
 		</div>
+
 	</div>
 
 	<!-- /Main -->

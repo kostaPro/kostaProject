@@ -105,6 +105,7 @@
 <script>
 	$(function() {
 		$("#datepicker").datepicker({ dateFormat: 'y-mm-dd' });
+		$("#datepicker").datepicker("setDate",null);
 	});
 	
 	
@@ -161,7 +162,7 @@
 					<div class="3u">
 						
 						<select name="spotLocation" id="spotLocation" class="form-control">
-							<option value=null>지역을 선택해주세요.</option>
+							<option value="">지역을 선택해주세요.</option>
 
 							<option value="서울">서울특별시</option>
 							<option value="경기">경기도</option>

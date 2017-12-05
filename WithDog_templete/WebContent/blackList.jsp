@@ -146,7 +146,7 @@
 			</div>
 
 			<div class="row">
-			<form action="">
+			<form action="잘가라 유저자식">
 				<div class="15u">
 
 					<div>
@@ -159,7 +159,7 @@
 							<thead>
 								<tr>
 									<th class="text-center">피신고자 ID</th>
-									<th class="text-center">신고 횟수</th>
+									<th class="text-center">경고 횟수</th>	
 									<th class="text-center"></th>
 								</tr>
 							</thead>
@@ -174,8 +174,8 @@
 										<c:forEach var="blackList" items="${blackList }">
 											<tr>
 												<td class="text-center"><a
-													href="reportDetail.do?reportTargetId=${blackList.reportTargetId  }">${blackList.reportTargetId }</a></td>
-												<td class="text-center">${blackList.status }</td>
+													href="suspectDetail.do?suspectId=${blackList.suspectId}">${blackList.suspectId}</a></td>
+												<td class="text-center">${blackList.count}</td>
 												<td><input type="submit" value="탈퇴"
 													class="btn btn-primary btn-block form-control"
 													id="search_btn"

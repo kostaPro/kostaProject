@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Report;
 import domain.User;
+import domain.BlackList;
 import service.ReportService;
 import service.UserService;
 
@@ -23,28 +26,17 @@ public class ReportController {
 	@Autowired
 	private ReportService reportService;
 
-	// +showRegistReport(reportType : String, targetId : String) : ModelAndView
-	// +registReport(report : Report, session : HttpSession) : String
-	// +showUserReport(session : HttpSession) : ModelAndView
-	// +showAdminReport() : ModelAndView
-	// +showSearchByReportType(reportType : String) : ModelAndView
-	// +showBlackList() : ModelAndView
-	// +showSuspectReport(suspectId : String) : ModelAndView
-	// +showModifyReport(reportId : String) : ModelAndView
-	// +modifyReport(report : Report) : String
-	// +removeReport(reportId : String) : String
-
 	@RequestMapping(value = "/registReport.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReport(String reportType, String reportTargetId) {
 
 		String userId = "sy";
 		reportType = "spot";
-		reportTargetId = "13";
+		reportTargetId = "1211";
 
 		ModelAndView modelAndView = new ModelAndView("registReport.jsp");
 
 		modelAndView.addObject("userId", userId);
-		
+
 		modelAndView.addObject("reportTargetId", reportTargetId);
 		modelAndView.addObject("reportType", reportType);
 
@@ -52,23 +44,21 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST)
-	public String registReport(Report report, HttpSession session) {
-		
-		//String userId = (String)session.getAttribute("userId");
+	public String registReport(Report report, HttpSession session,
+			@RequestParam("reportContent") String reportContent) {
+
+		// String userId = (String)session.getAttribute("userId");
 		String userId = "sy";
-		
-		if(userId.equals("admin")) {
+
+		if (userId.equals("admin")) {
 			report.setStatus("o");
-		}else {
+		} else {
 			report.setStatus("-");
 		}
-		
+
 		report.setReporterId(userId);
-		
-		
-		System.out.println(report.getReportType());
-		System.out.println(report.getReportTargetId());
-		
+		report.setReportContents(reportContent);
+
 		reportService.registReport(report);
 
 		return "redirect:userReport.do?reporterId=" + report.getReporterId();
@@ -76,12 +66,12 @@ public class ReportController {
 
 	@RequestMapping(value = "/userReport.do")
 	public ModelAndView showUserReport(HttpSession session) {
-		
+
 		User user = new User();
 		user.setUserId("sy");
-		
+
 		session.setAttribute("user", user);
-		
+
 		List<Report> userReportList = reportService.findReportsByReporterId(session.getId());
 
 		ModelAndView modelAndView = new ModelAndView("userReport.jsp");
@@ -104,18 +94,31 @@ public class ReportController {
 	@RequestMapping(value = "/searchReportByType.do")
 	public ModelAndView showSearchByReportType(@RequestParam("reportType") String reportType) {
 
-		List<Report> reportList = reportService.findReportsByReportType(reportType);
+		List<Report> reportList = new ArrayList<>();
 
-		ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
-		modelAndView.addObject("reportList", reportList);
+		if (reportType == "") {
 
-		return modelAndView;
+			reportList = reportService.findAllReports();
+
+			ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
+			modelAndView.addObject("reportList", reportList);
+
+			return modelAndView;
+
+		} else {
+			reportList = reportService.findReportsByReportType(reportType);
+			ModelAndView modelAndView = new ModelAndView("adminReport.jsp");
+			modelAndView.addObject("reportList", reportList);
+
+			return modelAndView;
+		}
+
 	}
 
 	@RequestMapping(value = "/blackList.do")
-	public ModelAndView showBlackList(String status) {
+	public ModelAndView showBlackList() {
 
-		List<String> blackList = reportService.findBlackList(status);
+		List<BlackList> blackList = reportService.findBlackList();
 
 		ModelAndView modelAndView = new ModelAndView("blackList.jsp");
 		modelAndView.addObject("blackList", blackList);
@@ -123,34 +126,40 @@ public class ReportController {
 		return modelAndView;
 	}
 
-	public ModelAndView showSuspectReport(String suspectId) {
+	@RequestMapping(value = "/suspectDetail.do")
+	public ModelAndView showSuspectReport(String suspectId) { // 용의자 아이디로 모든신고 이력조회
 
-		List<Report> blakcListDetail = reportService.findReportsBySuspectId(suspectId);
+		suspectId = "sy";
 
-		ModelAndView modelAndView = new ModelAndView("blackListDetail.jsp");
-		modelAndView.addObject("blackListDetail", blakcListDetail);
+		List<Report> suspectDetailList = reportService.findReportsBySuspectId(suspectId);
+
+		ModelAndView modelAndView = new ModelAndView("suspectDetail.jsp");
+		modelAndView.addObject("suspectDetailList", suspectDetailList);
 
 		return modelAndView;
 
 	}
 
+	// 필요없는듯 하다.
 	public ModelAndView showModifyReport(String reportId) {
 
 		return null;
 	}
 
-	public String modifyReport(Report report) {
+	@RequestMapping(value = "/modifyReport.do")
+	public String modifyReport(Report report) { // 관리자가 myPage에서 처리상태를 수정
 
-		// String reportTarget = "1";
-		// Report r = reportService.findReport(Integer.parseInt(reportTargetId);
-		// reportService.modifyReport(r);
+		
+		reportService.modifyReport(report);
 
-		return null;
+		return "adminReport.do";
 	}
 
 	public String removeReport(String reportTargetId) {
+
 		reportService.removeReport(Integer.parseInt(reportTargetId));
-		return null;
+
+		return "userReport.do";
 
 	}
 }

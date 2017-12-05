@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import domain.Report;
+import domain.BlackList;
 
 public interface ReportMapper {
 	
@@ -34,7 +35,8 @@ public interface ReportMapper {
 	List<Report> retrieveReportsBySuspectId(String suspectId);
 	List<Report> retrieveAllReports();
 	List<Report> retrieveReportsByReportType(Map<String, String> map);
-	List<String> retrieveBlackList(String status);
+	List<BlackList> retrieveBlackList();
+	
 	Report retrieveReport(@Param("reportType") String reportType, @Param("reportTargetId") int reportTargetId );
 	
 }

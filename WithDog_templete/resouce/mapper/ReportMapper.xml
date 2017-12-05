@@ -5,7 +5,6 @@
 
 <mapper namespace="store.mapper.ReportMapper">
 
-
 	<sql id="selectAllReport">
 		SELECT reportContent, reportTargetId,
 		reporterId, status
@@ -24,7 +23,8 @@
 		status)
 		VALUES (#{reportContent},
 		#{reportTargetId},
-		#{reporterId}, #{status})
+		#{reporterId},
+		#{status})
 	</insert>
 
 
@@ -49,10 +49,12 @@
 	<insert id="createReviewCommentReport" parameterType="Report">
 		INSERT into
 		ReviewCommentReport_tb (reportContent, reportTargetId,
-		reporterId, status)
+		reporterId,
+		status)
 		VALUES (#{reportContent},
 		#{reportTargetId},
-		#{reporterId}, #{status})
+		#{reporterId},
+		#{status})
 	</insert>
 
 	<insert id="createReviewReport" parameterType="Report">
@@ -65,132 +67,58 @@
 	</insert>
 
 	<insert id="createSpotReport" parameterType="Report">
-		INSERT INTO spotReport_tb (reportContent, reportTargetId, reporterId, status)
+		INSERT INTO
+		spotReport_tb (reportContent, reportTargetId, reporterId, status)
 		VALUES (#{reportContent}, #{reportTargetId}, #{reporterId}, #{status})
 	</insert>
-
-
-
-	<select id="retrieveAllReports" resultType="Report">
-		SELECT reportContent,reportTargetId,reporterId,status FROM
-		eventCommentReport_tb
-		UNION
-		SELECT reportContent,reportTargetId,reporterId,status FROM
-		meetingCommentReport_tb
-		UNION
-		SELECT reportContent,reportTargetId,reporterId,status FROM
-		meetingReport_tb
-		UNION
-		SELECT reportContent,reportTargetId,reporterId,status FROM
-		reviewCommentReport_tb
-		UNION
-		SELECT reportContent,reportTargetId,reporterId,status FROM
-		reviewReport_tb
-		UNION
-		SELECT reportContent,reportTargetId,reporterId,status FROM
-		spotReport_tb
-	</select>
-
-	<select id="retrieveReportsByReporterId" parameterType="String"
-		resultType="Report">
-		SELECT reportContent, reportTargetId, reporterId, status 
-		FROM eventCommentReport_tb WHERE reporterId =
-		#{reporterId}
-
-		UNION
-
-		SELECT reportContent, reportTargetId, reporterId, status FROM
-		meetingCommentReport_tb WHERE reporterId =
-		#{reporterId}
-
-		UNION
-
-		SELECT reportContent, reportTargetId, reporterId, status FROM
-		meetingReport_tb WHERE reporterId =
-		#{reporterId}
-
-		UNION
-
-		SELECT reportContent, reportTargetId, reporterId, status FROM
-		reviewCommentReport_tb WHERE reporterId =
-		#{reporterId}
-
-		UNION
-
-		SELECT reportContent, reportTargetId, reporterId, status FROM
-		reviewReport_tb WHERE reporterId =
-		#{reporterId}
-
-		UNION
-
-		SELECT reportContent, reportTargetId, reporterId, status FROM
-		spotReport_tb WHERE reporterId = #{reporterId}
-	</select>
-
-
-	<select id="retrieveReportsByReportType" parameterType="Map"
-		resultType="Report">
-		SELECT reportContent, reportTargetId,reporterId, status
-		<if test="reportType == 'spot'">
-			From spotReport_tb
-		</if>
-		<if test="reportType == 'meeting'">
-			From meetingReport_tb
-		</if>
-		<if test="reportType == 'review'">
-			From reviewReport_tb
-		</if>
-		<if test="reportType == 'comment'">
-			From reviewCommentReport_tb
-
-			UNION
-
-			SELECT reportContent,
-			reportTargetId,reporterId, status
-			From EventCommentReport_tb
-
-			UNION
-
-			SELECT reportContent, reportTargetId,reporterId, status
-			From
-			meetingCommentReport_tb
-		</if>
-	</select>
-
-
+	
+	
+	<!-- 관리자가 처리상태를 수정 -->
 	<update id="updateEventCommentReport" parameterType="Report">
 		UPDATE
 		eventCommentReport_tb
-		SET status = #{status} 
+		SET status = #{status}
+		WHERE
+		REPORTTARGETID = #{reportTargetId}
 	</update>
 
 	<update id="updateMeetingCommentReport" parameterType="Report">
 		UPDATE
 		meetingCommentReport_tb
 		SET status = #{status}
+		WHERE
+		REPORTTARGETID = #{reportTargetId}
 	</update>
 
 	<update id="updateMeetingReport" parameterType="Report">
 		UPDATE
 		meetingReport_tb
 		SET status = #{status}
+		WHERE
+		REPORTTARGETID = #{reportTargetId}
 	</update>
 
 	<update id="updateReviewCommentReport" parameterType="Report">
 		UPDATE
 		reviewCommentReport_tb
 		SET status = #{status}
+		WHERE
+		REPORTTARGETID = #{reportTargetId}
 	</update>
 
 	<update id="updateReviewReport" parameterType="Report">
 		UPDATE
 		ReviewReport_tb
 		SET status = #{status}
+		WHERE
+		REPORTTARGETID = #{reportTargetId}
 	</update>
 
 	<update id="updateSpotReport" parameterType="Report">
 		UPDATE spotReport_tb
-		SET status = #{status}
+		SET status = #{status, jdbcType=VARCHAR}
+		WHERE
+		REPORTTARGETID = #{reportTargetId}
 	</update>
 
 
@@ -233,167 +161,291 @@
 	</delete>
 
 
+
+	<select id="retrieveAllReports" resultType="Report">
+		SELECT
+		reportContent,reportTargetId,reporterId,status FROM
+		eventCommentReport_tb
+		UNION
+		SELECT
+		reportContent,reportTargetId,reporterId,status FROM
+		meetingCommentReport_tb
+		UNION
+		SELECT
+		reportContent,reportTargetId,reporterId,status FROM
+		meetingReport_tb
+		UNION
+		SELECT reportContent,reportTargetId,reporterId,status FROM
+		reviewCommentReport_tb
+		UNION
+		SELECT
+		reportContent,reportTargetId,reporterId,status FROM
+		reviewReport_tb
+		UNION
+		SELECT reportContent,reportTargetId,reporterId,status FROM
+		spotReport_tb
+	</select>
+
+	<!-- user가 본인이 신고한 신고들 보기 -->
+	<select id="retrieveReportsByReporterId" parameterType="String"
+		resultType="Report">
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM eventCommentReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT
+		reportContent, reportTargetId, reporterId, status FROM
+		meetingCommentReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT
+		reportContent, reportTargetId, reporterId, status FROM
+		meetingReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT
+		reportContent, reportTargetId, reporterId, status FROM
+		reviewCommentReport_tb WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT
+		reportContent, reportTargetId, reporterId, status FROM
+		reviewReport_tb
+		WHERE reporterId =
+		#{reporterId}
+
+		UNION
+
+		SELECT reportContent,
+		reportTargetId, reporterId, status FROM
+		spotReport_tb WHERE reporterId
+		= #{reporterId}
+	</select>
+
+	<!-- 모임/장소/댓글/평가글에 따라서 조회 -->
+	<select id="retrieveReportsByReportType" parameterType="Map"
+		resultType="Report">
+		SELECT reportContent, reportTargetId,reporterId, status
+		<if test="reportType == 'spot'">
+			From spotReport_tb
+		</if>
+		<if test="reportType == 'meeting'">
+			From meetingReport_tb
+		</if>
+		<if test="reportType == 'review'">
+			From reviewReport_tb
+		</if>
+		<if test="reportType == 'comment'">
+			From reviewCommentReport_tb
+
+			UNION
+
+			SELECT reportContent,
+			reportTargetId,reporterId, status
+			From EventCommentReport_tb
+
+			UNION
+
+			SELECT reportContent, reportTargetId,reporterId, status
+			From
+			meetingCommentReport_tb
+		</if>
+	</select>
+
+
+
+	<!-- 범죄자 이력 조회 : 무슨 무슨 신고 당했나 -->
 	<select id="retrieveReportsBySuspectId" parameterType="String"
 		resultType="Report">
-		SELECT reportContent, reportTargetId, status, suspectId
-		FROM eventCommentReport_tb
-		WHERE SUSPECTID IN
-		(SELECT writerId as suspectId
-		FROM eventComment_tb
-		WHERE
-		EVENTCOMMENTID IN
-		(SELECT reportTargetId
-		FROM eventCommentReport_tb
-		WHERE writerId=#{suspectId}))
-
-		UNION
-
-		SELECT reportContent, reportTargetId, status, suspectId
-		FROM meetingCommentReport_tb
-		WHERE SUSPECTID IN
-		(SELECT writerId as suspectId
-		FROM meetingComment_tb
-		WHERE
-		MEETINGCOMMENTID IN
-		(SELECT reportTargetId
-		FROM meetingCommentReport_tb
-		WHERE writerId=#{suspectId}))
-
-		UNION
-
-		SELECT reportContent, reportTargetId, status, suspectId
+		SELECT
+		eventCommentReport_tb.reportTargetId,
+		eventCommentReport_tb.reportContent, eventCommentReport_tb.status
 		FROM
-		reviewCommentReport_tb
-		WHERE SUSPECTID IN
-		(SELECT writerId as suspectId
-		FROM reviewComment_tb
-		WHERE REVIEWCOMMENTID IN
-		(SELECT reportTargetId
-		FROM reviewCommentReport_tb
-		WHERE writerId=#{suspectId}))
+		eventCommentReport_tb
+		INNER JOIN eventComment_tb
+		ON
+		eventComment_tb.eventCommentId = eventCommentReport_tb.reportTargetId
+		WHERE eventComment_tb.writerId = #{suspectId}
+
 
 		UNION
 
-		SELECT reportContent, reportTargetId, status, suspectId
+		SELECT
+		meetingCommentReport_tb.reportTargetId, meetingCommentReport_tb.reportContent,
+		meetingCommentReport_tb.status
+		FROM meetingCommentReport_tb
+		INNER JOIN
+		meetingComment_tb
+		ON meetingComment_tb.meetingCommentId =
+		meetingCommentReport_tb.reportTargetId
+		WHERE meetingComment_tb.writerId
+		= #{suspectId}
+
+
+		UNION
+
+		SELECT meetingReport_tb.reportTargetId,
+		meetingReport_tb.reportContent,
+		meetingReport_tb.status
 		FROM
 		meetingReport_tb
-		WHERE SUSPECTID IN
-		(SELECT hostId as suspectId
-		FROM meeting_tb
-		WHERE
-		MEETINGID IN
-		(SELECT reportTargetId
-		FROM meetingReport_tb
-		WHERE
-		hostId=#{suspectId}))
+		INNER JOIN meeting_tb
+		ON meeting_tb.meetingId =
+		meetingReport_tb.reportTargetId
+		WHERE meeting_tb.hostId = #{suspectId}
+
 
 		UNION
 
-		SELECT reportContent, reportTargetId, status, suspectId
-		FROM
-		reviewReport_tb
-		WHERE SUSPECTID IN
-		(SELECT writerId as suspectId
-		FROM review_tb
-		WHERE
-		REVIEWID IN
-		(SELECT reportTargetId
-		FROM reviewReport_tb
-		WHERE
-		writerId=#{suspectId}))
+		SELECT reviewCommentReport_tb.reportTargetId,
+		reviewCommentReport_tb.reportContent,
+		reviewCommentReport_tb.status
+		FROM reviewCommentReport_tb
+		INNER JOIN reviewComment_tb
+		ON
+		reviewComment_tb.reviewCommentId =
+		reviewCommentReport_tb.reportTargetId
+		WHERE reviewComment_tb.writerId =
+		#{suspectId}
+
 		UNION
 
-		SELECT reportContent, reportTargetId, status, suspectId
-		FROM
-		spotReport_tb
-		WHERE SUSPECTID IN
-		(SELECT registerId as suspectId
-		FROM spot_tb
-		WHERE
-		SPOTID IN
-		(SELECT reportTargetId
+		SELECT spotReport_tb.reportTargetId,
+		spotReport_tb.reportContent, spotReport_tb.status
 		FROM spotReport_tb
-		WHERE
-		registerId=#{suspectId}))
+		INNER JOIN spot_tb
+		ON spot_tb.spotId = spotReport_tb.reportTargetId
+		WHERE spot_tb.registerId = #{suspectId}
 
 	</select>
 
-	<select id="retrieveBlackList" parameterType="String"
-		resultType="Report">
-		SELECT suspectId, status, count(*) 신고횟수
-		FROM eventCommentReport_tb
-		GROUP BY suspectId, status
-		HAVING status = '0'
-
-		UNION
-
-		SELECT suspectId, status, count(*) 신고횟수
-		FROM meetingCommentReport_tb
-		GROUP BY suspectId, status
-		HAVING status = '0'
-		UNION
-
-		SELECT suspectId, status, count(*) 신고횟수
-		FROM meetingReport_tb
-		GROUP BY suspectId, status
-		HAVING status = '0'
-
-		UNION
-
-		SELECT suspectId, status, count(*) 신고횟수
-		FROM reviewCommentReport_tb
-		GROUP BY suspectId, status
-		HAVING status = '0'
-
-		UNION
-
-		SELECT suspectId, status, count(*) 신고횟수
-		FROM reviewCommentReport_tb
-		GROUP BY suspectId, status
-		HAVING status = '0'
-
-		UNION
-
-		SELECT suspectId, status, count(*) 신고횟수
-		FROM spotReport_tb
-		GROUP BY suspectId, status
-		HAVING status =  '0'
-	</select>
+	<!-- 범죄자 Id와 경고횟수 조회 -->
+	<select id="retrieveBlackList" resultType="BlackList">
 	
-	<select id="retrieveReport" parameterType="Map" resultType="Report">
-		SELECT reportContent, reportTargetId, reporterId, status
+		SELECT writerId as suspectId, count(*) count
+		FROM eventComment_tb
+		JOIN eventCommentReport_tb
+		ON
+		eventComment_tb.eventCommentId = eventCommentReport_tb.reportTargetId
+		WHERE EVENTCOMMENTID IN
+		(SELECT eventCommentReport_tb.reportTargetId
 		FROM eventCommentReport_tb
-		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
-		
+		INNER JOIN eventComment_tb
+		ON
+		eventComment_tb.eventCommentId = eventCommentReport_tb.reportTargetId
+		WHERE eventCommentReport_tb.status='0'
+		)
+		GROUP BY writerId, status
+        
 		UNION
-		
-		SELECT reportContent, reportTargetId, reporterId, status
-		FROM meetingCommentReport_tb
-		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
-		
-		UNION
-		
-		SELECT reportContent, reportTargetId, reporterId, status
+
+		SELECT hostId as suspectId, count(*) count
+		FROM meeting_tb
+		JOIN meetingReport_tb
+		ON
+		meeting_tb.meetingId = meetingReport_tb.reportTargetId
+		WHERE MEETINGID
+		IN
+		(SELECT meetingReport_tb.reportTargetId
 		FROM meetingReport_tb
-		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
-		
+		INNER
+		JOIN meeting_tb
+		ON
+		meeting_tb.meetingId =
+		meetingReport_tb.reportTargetId
+		WHERE meetingReport_tb.status='0'
+		)
+		GROUP BY hostId, status
+
 		UNION
-		
-		SELECT reportContent, reportTargetId, reporterId, status 
+
+		SELECT writerId as suspectId, count(*) count
+		FROM
+		meetingComment_tb
+		JOIN meetingCommentReport_tb
+		ON
+		meetingComment_tb.meetingId = meetingCommentReport_tb.reportTargetId
+		WHERE MEETINGCommentID IN
+		(SELECT
+		MEETINGCommentReport_tb.reportTargetId
+		FROM meetingCommentReport_tb
+		INNER JOIN meetingComment_tb
+		ON
+		meetingComment_tb.meetingCommentId =
+		meetingCommentReport_tb.reportTargetId
+		WHERE
+		meetingCommentReport_tb.status='0'
+		)
+		GROUP BY writerId, status
+
+		UNION
+
+		SELECT writerId as suspectId, count(*) count
+		FROM reviewComment_tb
+		JOIN
+		reviewCommentReport_tb
+		ON reviewComment_tb.reviewId =
+		reviewCommentReport_tb.reportTargetId
+		WHERE reviewCommentID IN
+		(SELECT
+		reviewCommentReport_tb.reportTargetId
 		FROM reviewCommentReport_tb
-		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
-		
+		INNER
+		JOIN reviewComment_tb
+		ON
+		reviewComment_tb.reviewCommentId =
+		reviewCommentReport_tb.reportTargetId
+		WHERE
+		reviewCommentReport_tb.status='0'
+		)
+		GROUP BY writerId, status
+
 		UNION
-		
-		SELECT reportContent, reportTargetId, reporterId, status
+
+		SELECT writerId as suspectId, count(*) count
+		FROM review_tb
+		JOIN reviewReport_tb
+		ON
+		review_tb.reviewId = reviewReport_tb.reportTargetId
+		WHERE reviewID IN
+		(SELECT reviewReport_tb.reportTargetId
 		FROM reviewReport_tb
-		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
-		
+		INNER JOIN
+		review_tb
+		ON
+		review_tb.reviewId = reviewReport_tb.reportTargetId
+		WHERE
+		reviewReport_tb.status='0'
+		)
+		GROUP BY writerId, status
+
 		UNION
-		
-		SELECT reportContent, reportTargetId, reporterId, status
+
+		SELECT
+		registerId as suspectId, count(*) count
+		FROM spot_tb
+		JOIN spotReport_tb
+		ON
+		spot_tb.spotId = spotReport_tb.reportTargetId
+		WHERE spotID IN
+		(SELECT
+		spotReport_tb.reportTargetId
 		FROM spotReport_tb
-		WHERE reportType = #{reportType} and reportTargetId = #{reportTargetId}
+		INNER JOIN spot_tb
+		ON
+		spot_tb.spotId = spotReport_tb.reportTargetId
+		WHERE
+		spotReport_tb.status='0'
+		)
+		GROUP BY registerId, status
 	</select>
 
 </mapper>

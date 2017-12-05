@@ -10,7 +10,7 @@
 -->
 <html>
 <head>
-<title>WithDog_blackList</title>
+<title>WithDog_SuspectList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -138,7 +138,7 @@
 					<section>
 						<header>
 							<h2>신고이력조회(관리자)</h2>
-							<hr>
+							
 						</header>
 
 					</section>
@@ -157,7 +157,7 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th>신고자Id ${report.suspectId }</th>
+									<th>피신고자ID</th>
 								</tr>
 								<tr>
 									<th class="text-center">신고 대상</th>
@@ -167,18 +167,18 @@
 							</thead>
 							<tbody>
 								<c:choose>
-									<c:when test="${empty reportList }">
+									<c:when test="${empty suspectDetailList }">
 										<tr>
 											<th colspan="5 " class="text-center">신고가 존재하지 않습니다.</th>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="report" items="${reportList }">
+										<c:forEach var="suspectDetailList" items="${suspectDetailList}">
 											<tr>
-												<td class="text-center"><a
-													href="reportDetail.do?reportId=${report.reporterId }">${report.reportType }</a></td>
-												<td class="text-center">${report.reportTargetId }</td>
-												<td class="text-center">경고</td>
+											<td class="text-center">${suspectDetailList.reportTargetId }</td>
+												<td class="text-center">${suspectDetailList.reportContent }</td>
+												<td class="text-center">${suspectDetailList.status}</td>
+												
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>

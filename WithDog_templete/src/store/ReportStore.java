@@ -1,8 +1,10 @@
 package store;
 
 import java.util.List;
+import java.util.Map;
 
 import domain.Report;
+import domain.BlackList;
 
 public interface ReportStore {
 	
@@ -31,7 +33,7 @@ public interface ReportStore {
 	List<Report> retrieveReportsBySuspectId(String suspectId);
 	List<Report> retrieveAllReports();
 	List<Report> retrieveReportsByReportType(String reportType);
-	List<String> retrieveBlackList(String status);
+	List<BlackList> retrieveBlackList();
 	Report retrieveReport(String reportType, int reportTargetId);
 
 }
