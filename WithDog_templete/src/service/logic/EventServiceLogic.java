@@ -70,7 +70,7 @@ public class EventServiceLogic implements EventService {
 		Date openDate = event.getOpenDate();
 		Date closeDate = event.getCloseDate();
 
-		SimpleDateFormat transFormat = new SimpleDateFormat("yy/MM/dd");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyMMdd");
 
 		int start = Integer.parseInt(transFormat.format(openDate));
 		int end = Integer.parseInt(transFormat.format(closeDate));
@@ -80,24 +80,30 @@ public class EventServiceLogic implements EventService {
 		// 참여목록 만드는 for문
 		for (int i = start; i < (end + 1 ); i++) {
 
-			Date eventDate = null;
+			Date eventDateForm = null;
+			List<String> userIdList = null;
+			List<User> users = null;
 			
 			try {
-				eventDate = transFormat.parse(String.valueOf(i));
+				eventDateForm = transFormat.parse(String.valueOf(i));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}
+			
+			java.sql.Date eventDate = new java.sql.Date(eventDateForm.getTime());
+			
+			userIdList = eventStore.retrieveJoinListByEventDate(eventId, eventDate);
+			
+			if(userIdList != null ) {
+				if( userIdList.size() != 0) {
+					users = userStore.retrieveUserList(userIdList);
+				}
 			}
 
-			List<String> userIdList = eventStore.retrieveJoinListByEventDate(eventId, eventDate);
-			
-			System.out.println(userIdList);
-//			List<User> users = userStore.retrieveUserList(userIdList);
-
-//			eventJoinFullList.put(String.valueOf(i), users);
+			eventJoinFullList.put(String.valueOf(i), users);
 		}
 
-//		event.setEventJoinLists(eventJoinFullList);
+		event.setEventJoinLists(eventJoinFullList);
 
 		return event;
 	}

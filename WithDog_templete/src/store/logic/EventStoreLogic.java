@@ -163,8 +163,6 @@ public class EventStoreLogic implements EventStore{
 			
 			joinList = mapper.retrieveJoinListByEventDate(map);
 			
-		
-			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

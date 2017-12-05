@@ -171,6 +171,7 @@ public class EventController {
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("eventPeriod",eventPeriod);
+		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
 
 		return modelAndView;
 	}

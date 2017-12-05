@@ -111,7 +111,7 @@
 	</delete>
 
 	<select id="retrieveJoinListByEventDate" parameterType="Map"
-		resultType="Event">
+		resultType="String">
 		select guestId
 		from joinEvent_tb
 		WHERE EVENTID = #{eventId}

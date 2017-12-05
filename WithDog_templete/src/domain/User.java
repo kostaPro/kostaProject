@@ -2,6 +2,11 @@ package domain;
 
 public class User {
 	
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", password=" + password + ", contact=" + contact + ", favoriteLocation="
+				+ favoriteLocation + ", petInfo=" + petInfo + ", petImage=" + petImage + "]";
+	}
 	private String userId;
 	private String password;
 	private String contact;
