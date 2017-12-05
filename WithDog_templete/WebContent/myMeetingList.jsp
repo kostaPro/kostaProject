@@ -45,11 +45,13 @@
 
 
 <style>
-.kimkyungeun input,
-.kimkyungeun select { float:left; margin:0 10px;  width:33%;}
-.kimkyungeun:after { content:""; display:block; clear:both;}
+.pp input,
+.pp select { float:left; margin:0 10px;  width:33%;}
+.pp { content:""; display:block; clear:both;}
 
-.kimkyungeun input:last-of-type { width:100px; color:#fff; background:#43becc; border:1px solid #43becc;}
+.pp input:last-of-type { width:100px; color:#fff; background:#43becc; border:1px solid #43becc;}
+.text-center{ width:100px;}
+.text-ss{ width:10%; text-align: center;}
 </style>
 
 </head>
@@ -65,59 +67,69 @@
 		<div class="container">
 			<div class="row">
 		<%@include file="myPage.jsp"%>
-		<div class="row">
-			<form class="property-search-form" action="meetingList.do"
-				method="post">
-
- 					<div class="kimkyungeun">
-						<input type="text" id="datepicker" placeholder="날짜를 선택해주세요." name="date">
-						<select id="spotLocation" name="mLocation">
-							<option value="">지역을 선택해주세요.</option>
-							<option value="서울">서울특별시</option>
-							<option value="경기">경기도</option>
-							<option value="인천">인천광역시</option>
-							<option value="강원">강원도</option>
-							<option value="부산">부산광역시</option>
-							<option value="경남">경상남도</option>
-							<option value="전남">전라남도</option>
-							<option value="전북">전라북도</option>
-							<option value="경북">경상북도</option>
-							<option value="충남">충청남도</option>
-							<option value="충북">충청북도</option>
-							<option value="제주">제주특별시</option>
-						</select>
-						<input type="submit" value="search" class="btn btn-primary btn-block form-control" id="search_btn">
-					</div>
-
-
-				<!-- Default Order: Newest Properties First -->
-				<input type="hidden" name="order-by" value="date-new" /> <input
-					type="hidden" name="pageid" value="841" />
-			</form>
-
-		</div>
-		</div>
-		</div>
-</div>
-		<!-- /Main -->
-
-		<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<div class="row half">
-					<div class="3u">
+			<div id="content" class="9u skel-cell-important">
+					<section>
 						<section>
 							<header>
-								<h2>EventList</h2>
+								<font size="6" color="#000000"><b>주최 모임</b></font>
 								<hr>
 							</header>
 
 						</section>
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="15u">
+
+
+						<table class="table table-striped table-bordered table-hover">
+							<colgroup>
+								<col width="400" />
+								<col width="800" />
+								<col width="300" />
+								<col width="400" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="text-center">모임 명</th>
+									<th class="text-center" width="30">모임 일자</th>
+									<th class="text-center">모임 시간</th>
+									<th class="text-ss">수정</th>
+									<th class="text-ss">삭제</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+									<c:when test="${empty hostList }">
+										<tr>
+											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="hostMeeting" items="${hostList }">
+											<tr>
+												<td class="text-center"><a
+													href="meetingDetail.do?meetingId=${hostMeeting.meetingId }">${hostMeeting.meetingName }</a></td>
+												<td class="text-center"><fmt:formatDate value="${hostMeeting.meetingDate}" pattern="yyyy-MM-dd" /></td>
+												<td class="text-center">${hostMeeting.meetingTime }시</td>
+												<td><a href="modifyMeeting.do?meetingId=${hostMeeting.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
+												<td><a href="deleteMeeting.do?meetingId=${hostMeeting.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</tbody>
+						</table>
+
+
+			</section>
+			
+			<section>
+						<section>
+							<header>
+								<font size="6" color="#000000"><b>참여 모임</b></font>
+								<hr>
+							</header>
+
+						</section>
+
 
 
 						<table class="table table-striped table-bordered table-hover">
@@ -132,24 +144,22 @@
 									<th class="text-center">모임 명</th>
 									<th class="text-center">모임 일자</th>
 									<th class="text-center">모임 시간</th>
-									<th class="text-center">주최자</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:choose>
-									<c:when test="${empty meetingList }">
+									<c:when test="${empty joinList }">
 										<tr>
 											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="meetingList" items="${meetingList }">
+										<c:forEach var="joinMeeting" items="${joinList }">
 											<tr>
 												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
-												<td class="text-center"><fmt:formatDate value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${meetingList.meetingTime }시</td>
-												<td class="text-center">${meetingList.hostId }</td>
+													href="meetingDetail.do?meetingId=${joinMeeting.meetingId }">${joinMeeting.meetingName }</a></td>
+												<td class="text-center"><fmt:formatDate value="${joinMeeting.meetingDate}" pattern="yyyy-MM-dd" /></td>
+												<td class="text-center">${joinMeeting.meetingTime }시</td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
@@ -158,18 +168,13 @@
 						</table>
 
 
-					</div>
-				</div>
-				<div class="3u">
-					<a href="registMeeting.do" class="btn_comm btn_submit form-control"
-						style="text-align: center"><strong style="color: white">모임
-							등록</strong></a>
-				</div>
+			</section>
 
-			</div>
 		</div>
-		<!-- /Footer -->
-
+		</div>
+		</div>
+</div>
+		
 		<!-- Copyright -->
 		<div id="copyright">
 			<div class="container">

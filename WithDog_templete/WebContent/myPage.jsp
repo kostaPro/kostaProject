@@ -20,28 +20,21 @@
 					<div id="sidebar" class="3u">
 						<section>
 							<header>
-								<h2>Donec dictum</h2>
+								<h2>MyPage</h2>
 							</header>
 							<p></p>
 							<ul class="style1">
-								<li><a href="#">내 정보 관리</a></li>
-								<li><a href="#">모임 관리</a></li>
-								<li><a href="#">장소 관리</a></li>
-								<li><a href="#">평가글 관리</a></li>
-								<li><a href="#">신고 관리</a></li>
+								<li><a href="myUser.do">내 정보 관리</a></li>
+								<li><a href="myMeetingList.do">모임 관리</a></li>
+								<li><a href="mySpotList.do">장소 관리</a></li>
+								<li><a href="myReviewList.do">평가글 관리</a></li>
+								<li><a href="myReportList.do">신고 관리</a></li>
 							</ul>
 						</section>
 						
 					</div>
 					
 					
-					
-				
-	<!-- /Main -->
-
-	<!-- Footer -->
-		
-
-
+	
 	</body>
 </html>

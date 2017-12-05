@@ -208,9 +208,34 @@ public class MeetingController {
 		meetingSpot.setSpotId(1);
 		
 		meeting.setMeetingSpot(meetingSpot);
+		meeting.setMeetingPurpose("ddd");
+		meeting.setMeetingTime(10);
+		meeting.setMinPerson(3);
 		
 		meetingService.modifyMeeting(meeting);
 		
-		return "meetingDetail.do?meetingId=" + meeting.getMeetingId();
+		
+		
+		
+		
+		return "redirect:meetingDetail.do?meetingId=" + meeting.getMeetingId();
 	}
+	
+	@RequestMapping(value = "/myMeetingList.do")
+	public ModelAndView showMyMeeting(HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		List<Meeting> hostList = meetingService.findMeetingsByHost(user.getUserId());
+		List<Meeting> joinList = meetingService.findMeetingsByGuest(user.getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView("myMeetingList.jsp");
+		modelAndView.addObject("hostList", hostList);
+		modelAndView.addObject("joinList", joinList);
+		
+		
+		return modelAndView;
+	}
+	
+	
+	
 }

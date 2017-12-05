@@ -90,7 +90,7 @@
 
 
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
-
+										<input type="hidden" name="meetingId" value="${meetingDetail.meetingId }">
 										<section>
 											<label for="inpName" class="lab_comm"><strong
 												class="tit_form"><i class="fa fa-check"></i>모임명</strong></label> <input
@@ -105,93 +105,15 @@
 													class="tit_form"><i class="fa fa-check"></i>모임일자
 												<input type="text" id="datepicker" name="meetingDate" value="${date }"/></strong></label>
 
-												<label for="inpName" class="lab_comm"  style="padding-left: 20px"><strong
-													class="tit_form"><i class="fa fa-check"></i>모임시간
-													<select form="time" name="meetingTime">
-													<option value=${meetingDetail.meetingTime }>${meetingDetail.meetingTime }시</option>
-													<option value=0>0시</option>
-													<option value=1>1시</option>
-													<option value=2>2시</option>
-													<option value=3>3시</option>
-													<option value=4>4시</option>
-													<option value=5>5시</option>
-													<option value=6>6시</option>
-													<option value=7>7시</option>
-													<option value=8>8시</option>
-													<option value=9>9시</option>
-													<option value=10>10시</option>
-													<option value=11>11시</option>
-													<option value=12>12시</option>
-													<option value=13>13시</option>
-													<option value=14>14시</option>
-													<option value=15>15시</option>
-													<option value=16>16시</option>
-													<option value=17>17시</option>
-													<option value=18>18시</option>
-													<option value=19>19시</option>
-													<option value=20>20시</option>
-													<option value=21>21시</option>
-													<option value=22>22시</option>
-													<option value=23>23시</option>
-												</select></strong></label>
+												
 
-												<label for="inpName" class="lab_comm"  style="padding-left: 20px"><strong
-													class="tit_form">최소인원<select form="time"
-													name="minPerson">
-													<option value=${meetingDetail.minPerson }>${meetingDetail.minPerson }명</option>
-													<option value=1>1명</option>
-													<option value=2>2명</option>
-													<option value=3>3명</option>
-													<option value=4>4명</option>
-													<option value=5>5명</option>
-													<option value=6>6명</option>
-													<option value=7>7명</option>
-													<option value=8>8명</option>
-													<option value=9>9명</option>
-													<option value=10>10명</option>
-													<option value=15>15명</option>
-													<option value=20>20명</option>
-													<option value=30>30명</option>
-												</select></strong></label>
+												
 
 										</div>
 
-										<section>
-											<strong class="tit_form"><i class="fa fa-check"></i>모임
-												관련 사진을 첨부해주세요.<i class="txt_check"> </i></strong> <label
-												class="btn btn-info upload-button">이미지 첨부 <input
-												style="display: none" />
-											</label>
-				<div class="row">
-					<c:forEach var="mImage" items="${meetingDetail.meetingImageList}">
-						<div class="4u">
-							<section>
-								<img class="imgs" src="/images/${mImage}" />
-							</section>
-						</div>
-					</c:forEach>
-				</div>
-				</section>
+										
 
-
-										<section style="display: inline-block; width: 650px">
-
-											<strong class="tit_form"><i class="fa fa-check"></i>모임의
-												주소를 입력해주세요.</strong> <input type="text" class="inp_comm" >
-											<a href="#"
-												class="btn btn-primary btn-block form-control btn_comm"><strong
-												style="color: white">검색하기</strong></a>
-
-										</section>
-
-										<section>
-										<label for="inpComp" class="lab_comm"> <strong
-											class="tit_form"><i class="fa fa-check"></i>소개글<i
-												class="txt_check"></i></strong>
-										</label>
-										<textarea class="inp_comm" name="meetingPurpose"
-											>${meetingDetail.meetingPurpose }</textarea>
-										</section>
+										
 
 										<input type="submit"
 											class="btn_comm btn_submit send_listing_place" value="수정"></input>
