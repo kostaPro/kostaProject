@@ -44,14 +44,15 @@
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
 
-<style>
-.pp input,
-.pp select { float:left; margin:0 10px;  width:33%;}
-.pp { content:""; display:block; clear:both;}
+<style type="text/css">
 
-.pp input:last-of-type { width:100px; color:#fff; background:#43becc; border:1px solid #43becc;}
-.text-center{ width:100px;}
-.text-ss{ width:10%; text-align: center;}
+
+table{
+width:60%;
+height:100px;
+margin:auto;
+}
+
 </style>
 
 </head>
@@ -71,7 +72,7 @@
 					<section>
 						<section>
 							<header>
-								<font size="6" color="#000000"><b>주최 모임</b></font>
+								<font size="6" color="#000000"><b>회원 정보</b></font>
 								<hr>
 							</header>
 
@@ -79,94 +80,71 @@
 
 
 
-						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="300" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">모임 명</th>
-									<th class="text-center" width="30">모임 일자</th>
-									<th class="text-center">모임 시간</th>
-									<th class="text-ss">수정</th>
-									<th class="text-ss">삭제</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty hostList }">
+						<form action="modifyMeeting.do" method="POST"
+								>
+								<fieldset>
+									<legend class="screen_out">모임 수정하기 폼</legend>
+									<div class="form_details">
+
+
+										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
+										<input type="hidden" name="meetingId" value="${meetingDetail.meetingId }">
+										
+										<table>
 										<tr>
-											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
+											<th><label for="inpName" class="lab_comm"><strong
+												class="tit_form"><i class="fa fa-check"></i>비밀번호</strong></label></th> <th><input
+												type="password" id="inpName" name="meetingName" class="inp_comm" value ="${meetingDetail.meetingName }" style="width:200px;" ></th>
 										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="hostMeeting" items="${hostList }">
-											<tr>
-												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${hostMeeting.meetingId }">${hostMeeting.meetingName }</a></td>
-												<td class="text-center"><fmt:formatDate value="${hostMeeting.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${hostMeeting.meetingTime }시</td>
-												<td><a href="myModifyMeeting.do?meetingId=${hostMeeting.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
-												<td><a href="myRemoveMeeting.do?meetingId=${hostMeeting.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-
-
-			</section>
-			
-			<section>
-						<section>
-							<header>
-								<font size="6" color="#000000"><b>참여 모임</b></font>
-								<hr>
-							</header>
-
-						</section>
-
-
-
-						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="300" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">모임 명</th>
-									<th class="text-center">모임 일자</th>
-									<th class="text-center">모임 시간</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty joinList }">
+										
 										<tr>
-											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
+											<th><label for="inpName" class="lab_comm"><strong
+												class="tit_form"><i class="fa fa-check"></i>비밀번호 확인</strong></label></th> <th><input
+												type="password" id="inpName" name="meetingName" class="inp_comm" value ="${meetingDetail.meetingName }" style="width:200px;" ></th>
 										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="joinMeeting" items="${joinList }">
-											<tr>
-												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${joinMeeting.meetingId }">${joinMeeting.meetingName }</a></td>
-												<td class="text-center"><fmt:formatDate value="${joinMeeting.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${joinMeeting.meetingTime }시</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
+										
+										<tr>
+											<th><label for="inpName" class="lab_comm"><strong
+												class="tit_form"><i class="fa fa-check"></i>연락처</strong></label></th> <th><input
+												type="text" id="inpName" name="meetingName" class="inp_comm" value ="${meetingDetail.meetingName }" style="width:200px;"></th>
+										</tr>
+										
+										
+										<tr>
+										<th><label for="inpName" class="lab_comm"><strong
+												class="tit_form"><i class="fa fa-check"></i>선호 지역</strong></label></th>
+												
+										<th><select name="favoriteLocation" style="width:200px;">
+                    						  <option value=""></option>
+                   							  <option value="서울">서울</option>
+                   							  <option value="경기">경기</option>
+                   							  <option value="인천">인천</option>
+                  							  <option value="강원">강원</option>
+                  							  <option value="부산">부산</option>
+                  							  <option value="경남">경남</option>
+                  							  <option value="전남">전남</option>
+                  							  <option value="전북">전북</option>
+                   							  <option value="경북">경북</option>
+                     						  <option value="충남">충남</option>
+                     						  <option value="충북">충북</option>
+             						          <option value="제주특별자치도">제주</option>
+                  						</select></th>
+										</tr>
+										<tr>
+										<th><label for="inpComp" class="lab_comm"> <strong
+											class="tit_form"><i class="fa fa-check"></i>애견 정보<i
+												class="txt_check"></i></strong>
+										</label></th>
+										<th><input type="text" class="inp_comm" name="meetingPurpose"
+											value="${meetingDetail.meetingPurpose }" style="width:200px;"></th>
+										</tr>
+										</table>
 
+										<input type="submit"
+											class="" value="수정"></input>
+									</div>
+								</fieldset>
+							</form>
 
 			</section>
 
