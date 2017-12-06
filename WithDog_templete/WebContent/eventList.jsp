@@ -33,6 +33,14 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<!--데이트피커/팝업/미리보기를 위란 기본 파일-->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+	
 <!--데이트피커-->
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 

@@ -65,12 +65,12 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.POST)
-	public String registEvent(Event event, MultipartHttpServletRequest file) throws IOException {
+	public String registEvent(Event event, String spotId, MultipartHttpServletRequest file) throws IOException {
 
 		Spot eventSpot = new Spot();
-		eventSpot.setSpotId(15);
+		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
-
+		
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
@@ -160,6 +160,9 @@ public class EventController {
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
+		modelAndView.addObject("eventSpot",event.getEventSpot());
+		
+		System.out.println("spotName : " + event.getEventSpot().getSpotName());
 
 		return modelAndView;
 	}

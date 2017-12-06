@@ -80,7 +80,7 @@
 								</h3>
 							</div>
 
-							<h3 align="left">장소 |</h3>
+							<h3 align="left">장소 |${eventSpot.spotLocation }</h3>
 
 							<a href="#" class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
