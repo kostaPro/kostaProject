@@ -66,7 +66,7 @@
 
 		<div class="container">
 			<div class="row">
-		<%@include file="myPage_user.jsp"%>
+		<%@include file="myPage_admin.jsp"%>
 			<div id="content" class="9u skel-cell-important">
 					<section>
 						<section>
@@ -121,55 +121,6 @@
 
 			</section>
 			
-			<section>
-						<section>
-							<header>
-								<font size="6" color="#000000"><b>참여 모임</b></font>
-								<hr>
-							</header>
-
-						</section>
-
-
-
-						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="300" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">모임 명</th>
-									<th class="text-center">모임 일자</th>
-									<th class="text-center">모임 시간</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty joinList }">
-										<tr>
-											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
-										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="joinMeeting" items="${joinList }">
-											<tr>
-												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${joinMeeting.meetingId }">${joinMeeting.meetingName }</a></td>
-												<td class="text-center"><fmt:formatDate value="${joinMeeting.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${joinMeeting.meetingTime }시</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-
-
-			</section>
-
 		</div>
 		</div>
 		</div>

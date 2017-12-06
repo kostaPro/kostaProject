@@ -66,7 +66,7 @@
 
 		<div class="container">
 			<div class="row">
-		<%@include file="myPage.jsp"%>
+		<%@include file="myPage_user.jsp"%>
 			<div id="content" class="9u skel-cell-important">
 					<section>
 						<section>
