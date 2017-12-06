@@ -68,19 +68,19 @@
 					<div class="3u">
 						<select name="spotType" id="spotType" class="form-control">
 							<option value="">분류를 선택해주세요.</option>
-							<option value="hospital">
+							<option value="동물병원">
 				            동물병원					        </option>
-							<option value="shop">
+							<option value="애견샵">
 				            애견 샵				        </option>
-							<option value="cafe">
+							<option value="애견카페">
 				            애견 카페					        </option>
-							<option value="park">
+							<option value="공원">
 				            공원					        </option>
-							<option value="event">
+							<option value="이벤트">
 				            이벤트					        </option>
-							<option value="accomodation">
+							<option value="숙박시설">
 				            숙박 시설					        </option>
-							<option value="etc">
+							<option value="기타">
 				            기타					        </option>
 
 						</select>

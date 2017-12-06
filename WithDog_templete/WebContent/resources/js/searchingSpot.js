@@ -6,12 +6,29 @@ function searchPopBtn_click(){
 	var address = $('#eventLocation').val();
 	$('#locationBox').val(address);
 	
+
+	if(address != ""){
+		searchSpot(address);
+	}
+}
+
+function searchSpot(address){
 	$.ajax({
 		type: "GET",
-		url: "/searchSpot.do?spotLocation="+address,
-		dataTyle:"json",
+		url: "/WithDog_templete/searchSpot.do?spotLocation="+address,
+		dataTyle:"xml",
 		success:function(data){
-			alert(data.spotName);
+			console.log(data);
+			var spotList = $(data).find("spot");
+			var listLen = spotList.length;
+			
+			if(listLen){
+				var spot = "";
+				$(spotList).each(function(){
+					spot += "[ name : " + $(this).find("spotName").text() + " ] [ location : " + $(this).find("spotLocation").text() + " ] [ Type : " + $(this).find("spotType").text() + " ]"; 
+				});
+			}
+			console.log(spot);
 //			insertData(1,data.spotName);
 		},
 		error:function(error){
@@ -19,15 +36,12 @@ function searchPopBtn_click(){
 		}
 		
 	});
-	
-//	function insertData(idx,data){
-//		$("table > tbody > tr:nth-child("+idx+") >  td:nth-child(2)").html(data);
-//	}
 }
 
-function searchSpotBtn_click(){
-	
-}
+//function insertData(idx,data){
+//$("table > tbody > tr:nth-child("+idx+") >  td:nth-child(2)").html(data);
+//}
+
 
 function layer_popup(el) {
 

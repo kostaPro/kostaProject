@@ -67,7 +67,7 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 500px;
+	width: 800px;
 	height: auto;
 	background-color: #fff;
 	border: 5px solid #43C0CE;
