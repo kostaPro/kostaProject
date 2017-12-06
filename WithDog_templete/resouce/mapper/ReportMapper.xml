@@ -27,7 +27,6 @@
 		#{status})
 	</insert>
 
-
 	<insert id="createMeetingCommentReport" parameterType="Report">
 		INSERT
 		into MeetingCommentReport_tb (reportContent, reportTargetId,
@@ -162,6 +161,7 @@
 
 
 
+
 	<select id="retrieveAllReports" resultType="Report">
 		SELECT
 		reportContent,reportTargetId,reporterId,status FROM
@@ -189,35 +189,35 @@
 	<!-- user가 본인이 신고한 신고들 보기 -->
 	<select id="retrieveReportsByReporterId" parameterType="String"
 		resultType="Report">
-		SELECT reportContent, reportTargetId, reporterId, status
+		SELECT reportContent, reportTargetId, status
 		FROM eventCommentReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
 		SELECT
-		reportContent, reportTargetId, reporterId, status FROM
+		reportContent, reportTargetId, status FROM
 		meetingCommentReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
 		SELECT
-		reportContent, reportTargetId, reporterId, status FROM
+		reportContent, reportTargetId, status FROM
 		meetingReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
 		SELECT
-		reportContent, reportTargetId, reporterId, status FROM
+		reportContent, reportTargetId, status FROM
 		reviewCommentReport_tb WHERE reporterId =
 		#{reporterId}
 
 		UNION
 
 		SELECT
-		reportContent, reportTargetId, reporterId, status FROM
+		reportContent, reportTargetId, status FROM
 		reviewReport_tb
 		WHERE reporterId =
 		#{reporterId}
@@ -225,7 +225,7 @@
 		UNION
 
 		SELECT reportContent,
-		reportTargetId, reporterId, status FROM
+		reportTargetId, status FROM
 		spotReport_tb WHERE reporterId
 		= #{reporterId}
 	</select>
@@ -341,7 +341,7 @@
 		INNER JOIN eventComment_tb
 		ON
 		eventComment_tb.eventCommentId = eventCommentReport_tb.reportTargetId
-		WHERE eventCommentReport_tb.status='0'
+		WHERE eventCommentReport_tb.status='O'
 		)
 		GROUP BY writerId, status
         
@@ -361,7 +361,7 @@
 		ON
 		meeting_tb.meetingId =
 		meetingReport_tb.reportTargetId
-		WHERE meetingReport_tb.status='0'
+		WHERE meetingReport_tb.status='O'
 		)
 		GROUP BY hostId, status
 
@@ -382,7 +382,7 @@
 		meetingComment_tb.meetingCommentId =
 		meetingCommentReport_tb.reportTargetId
 		WHERE
-		meetingCommentReport_tb.status='0'
+		meetingCommentReport_tb.status='O'
 		)
 		GROUP BY writerId, status
 
@@ -404,7 +404,7 @@
 		reviewComment_tb.reviewCommentId =
 		reviewCommentReport_tb.reportTargetId
 		WHERE
-		reviewCommentReport_tb.status='0'
+		reviewCommentReport_tb.status='O'
 		)
 		GROUP BY writerId, status
 
@@ -423,7 +423,7 @@
 		ON
 		review_tb.reviewId = reviewReport_tb.reportTargetId
 		WHERE
-		reviewReport_tb.status='0'
+		reviewReport_tb.status='O'
 		)
 		GROUP BY writerId, status
 
@@ -443,9 +443,46 @@
 		ON
 		spot_tb.spotId = spotReport_tb.reportTargetId
 		WHERE
-		spotReport_tb.status='0'
+		spotReport_tb.status='O'
 		)
 		GROUP BY registerId, status
+	</select>
+	
+	<!-- 1개의 report 조회 -->
+	<select id="retrieveReport" parameterType="integer" resultType="Report">
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM eventCommentReport_tb
+		WHERE reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM meetingCommentReport_tb
+		WHERE reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM meetingReport_tb
+		WHERE reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status 
+		FROM reviewCommentReport_tb
+		WHERE reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM reviewReport_tb
+		WHERE reportTargetId = #{reportTargetId}
+		
+		UNION
+		
+		SELECT reportContent, reportTargetId, reporterId, status
+		FROM spotReport_tb
+		WHERE reportTargetId = #{reportTargetId}
 	</select>
 
 </mapper>

@@ -34,6 +34,6 @@ public interface ReportStore {
 	List<Report> retrieveAllReports();
 	List<Report> retrieveReportsByReportType(String reportType);
 	List<BlackList> retrieveBlackList();
-	Report retrieveReport(String reportType, int reportTargetId);
+	Report retrieveReport(int reportTargetId);
 
 }

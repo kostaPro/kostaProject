@@ -19,11 +19,9 @@ public class ReportServiceLogic implements ReportService {
 
 	@Autowired
 	private ReportStore reportStore;
-	@Autowired
-	private UserStore userStore;
 
 	@Override
-	public boolean registReport(Report report) { //
+	public boolean registReport(Report report) {
 
 		String reportType = "spot";
 
@@ -76,7 +74,7 @@ public class ReportServiceLogic implements ReportService {
 	@Override
 	public Report findReport(int reportTargetId) {
 
-		return null;
+		return reportStore.retrieveReport(reportTargetId);
 	}
 
 	@Override

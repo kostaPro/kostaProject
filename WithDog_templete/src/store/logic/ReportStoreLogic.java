@@ -111,8 +111,7 @@ public class ReportStoreLogic implements ReportStore {
 
 		SqlSession session = factory.openSession();
 		List<BlackList> list = null;
-		
-		
+
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			list = mapper.retrieveBlackList();
@@ -127,19 +126,15 @@ public class ReportStoreLogic implements ReportStore {
 	}
 
 	@Override
-	public Report retrieveReport(String reportType, int reportTargetId) {
+	public Report retrieveReport(int reportTargetId) {
 
 		SqlSession session = factory.openSession();
 		Report report = null;
-		Map<String, Object> map = new HashMap<>();
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 
-			map.put("reportType", reportType);
-			map.put("reportTargetId", reportTargetId);
-
-			report = mapper.retrieveReport(reportType, reportTargetId);
+			report = mapper.retrieveReport(reportTargetId);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
