@@ -48,17 +48,17 @@
 						<h2 align="left">${meetingDetail.meetingName }</h2>
 						
 							<h3 align="left">모임 일자 | <fmt:formatDate value="${meetingDetail.meetingDate}" pattern="yyyy-MM-dd" /></h3>
+							<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
 							<!-- 왜이러시죠 -->
 							<h3 align="left">장소 |</h3>
 							<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
 							<hr>
 						<a href="신고.do"><img src="resources/img/alarm.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
 					
-					
 				<c:choose>
 					<c:when test="${loginUser.userId eq meetingDetail.hostId }">
 					<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					<a href="deleteMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
+					<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
 					</c:when>
 				</c:choose>
 					
@@ -112,7 +112,6 @@
 <section><p>
 
 					</p></section>
-
 
 		</div>
 	</div>

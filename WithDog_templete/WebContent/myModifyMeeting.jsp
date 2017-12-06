@@ -82,7 +82,7 @@
 						<!-- step1 시작-->
 
 						<div class="wrap_listing">
-							<form action="modifyMeeting.do" method="POST"
+							<form action="myModifyMeeting.do" method="POST"
 								>
 								<fieldset>
 									<legend class="screen_out">모임 수정하기 폼</legend>
@@ -91,6 +91,7 @@
 
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
 										<input type="hidden" name="meetingId" value="${meetingDetail.meetingId }">
+										<input type="hidden" name="hostId" value="${meetingDetail.hostId }">
 										<section>
 											<label for="inpName" class="lab_comm"><strong
 												class="tit_form"><i class="fa fa-check"></i>모임명</strong></label> <input

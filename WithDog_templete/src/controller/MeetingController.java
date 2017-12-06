@@ -196,13 +196,10 @@ public class MeetingController {
 		modelAndView.addObject("meetingDetail", meeting);
 		
 		return modelAndView;
-	
 	}
-	
 	
 	@RequestMapping(value = "/modifyMeeting.do", method = RequestMethod.POST)
 	public String modifyMeeting(Meeting meeting){
-		
 		
 		Spot meetingSpot = new Spot();
 		meetingSpot.setSpotId(1);
@@ -213,10 +210,6 @@ public class MeetingController {
 		meeting.setMinPerson(3);
 		
 		meetingService.modifyMeeting(meeting);
-		
-		
-		
-		
 		
 		return "redirect:meetingDetail.do?meetingId=" + meeting.getMeetingId();
 	}
@@ -236,6 +229,61 @@ public class MeetingController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/myModifyMeeting.do", method = RequestMethod.GET)
+	public ModelAndView showMyModifyMeeting(String meetingId){
+		
+		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
+		
+		ModelAndView modelAndView = new ModelAndView("myModifyMeeting.jsp");
+		modelAndView.addObject("meetingDetail", meeting);
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/myModifyMeeting.do", method = RequestMethod.POST)
+	public ModelAndView myModifyMeeting(Meeting meeting){
+		
+		Spot meetingSpot = new Spot();
+		meetingSpot.setSpotId(1);
+		meeting.setMeetingSpot(meetingSpot);
+		
+		meetingService.modifyMeeting(meeting);
+		
+		List<Meeting> hostList = meetingService.findMeetingsByHost(meeting.getHostId());
+		List<Meeting> joinList = meetingService.findMeetingsByGuest(meeting.getHostId());
+		
+		ModelAndView modelAndView = new ModelAndView("myMeetingList.jsp");
+		modelAndView.addObject("hostList", hostList);
+		modelAndView.addObject("joinList", joinList);
+		
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping("/removeMeeting.do")
+	public String removeMeeting(String meetingId) {
+
+		
+			meetingService.removeMeeting(Integer.parseInt(meetingId));
+
+			return "redirect:meetingList.do";
+	}
+	
+	
+	@RequestMapping("/myRemoveMeeting.do")
+	public String myRemoveMeeting(String meetingId, HttpSession session) {
+
+		User user = (User)session.getAttribute("loginUser");
+		if(user.getUserId().equals("admin")) {
+//					서윤아 관리자 신고&삭제할때 이부분에서 쓰면 됨!
+//					일해라 강서윤
+			return "adminReport.do";
+		}else {
+			meetingService.removeMeeting(Integer.parseInt(meetingId));
+
+			return "redirect:myMeetingList.do";
+		}
+	}
 	
 	
 }
