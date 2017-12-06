@@ -58,7 +58,7 @@ public class ReviewController {
 	}
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.POST)
-	public ModelAndView registReview(Review review, String spotId, MultipartHttpServletRequest file)
+	public String registReview(Review review, String spotId, MultipartHttpServletRequest file)
 			throws IllegalStateException, IOException {
 
 		review.setSpotId(Integer.parseInt(spotId));
@@ -94,7 +94,8 @@ public class ReviewController {
 				reviewService.registReviewImage(saveFileName, review.getReviewId());
 			}
 		}
-		return new ModelAndView("reviewDetail.do?reviewId=" + review.getReviewId());
+		
+		return "redirect:reviewDetail.do?reviewId=" + review.getReviewId() + "&spotId=" + spotId;
 	}
 
 	@RequestMapping("/reviewDetail.do")

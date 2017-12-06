@@ -12,7 +12,7 @@
 <head>
 <title>WithDog_spotList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
 <!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
 	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
@@ -104,15 +104,7 @@
 					type="hidden" name="pageid" value="841" />
 
 			</form>
-
-			<div class="row">
-				<section>
-					<div class="4u">
-						<iframe width="1180" height="600"
-							src="http://withdog.dothome.co.kr/"></iframe>
-					</div>
-				</section>
-			</div>
+				<div id="map" style="width:100%;height:400px;"></div>	
 		</div>
 	</div>
 	<!-- /Main -->
@@ -183,7 +175,48 @@
 		</div>
 	</div>
 	<!-- /Footer -->
+	 <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+  <script>
+  var map = new naver.maps.Map('map');  
+  var arra = [];  // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 
+  <c:forEach var="item" items="${list }">
+  arra.push("${item}");   
+  </c:forEach>
+  
+  $.each(arra, function(i){
+  naver.maps.Service.geocode({address: arra[i]}, function(status, response) {
+      if (status !== naver.maps.Service.Status.OK) {
+          return alert(arra + '의 검색 결과가 없거나 기타 네트워크 에러');
+      }
+      var result = response.result;
+      // 검색 결과 갯수: result.total
+      // 첫번째 결과 결과 주소: result.items[0].address
+      // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+      var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+      map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+      // 마커 표시
+      var marker = new naver.maps.Marker({
+        position: myaddr,
+        map: map
+      });
+      // 마커 클릭 이벤트 처리
+      naver.maps.Event.addListener(marker, "click", function(e) {
+        if (infowindow.getMap()) {
+            infowindow.close();
+        } else {
+            infowindow.open(map, marker);
+        }
+      });
+      // 마크 클릭시 인포윈도우 오픈
+      var infowindow = new naver.maps.InfoWindow({
+          content: '<h4> [네이버 개발자센터]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
+      });
+  });
+  
+  })
+
+      </script>
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">

@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,54 +31,53 @@ public class SpotController {
 
 	@Autowired
 	private SpotService spotService;
-	
+
 	@Autowired
 	private ReportService reportService;
-	
+
 	@RequestMapping("/spotDetail.do")
 	public ModelAndView showSpotDetail(String spotId) {
 		Spot spot = spotService.findSpotBySpotId(Integer.parseInt(spotId));
-		
+
 		String location = spot.getSpotLocation();
 		String locArray[] = location.split(" ");
-		String keyArray[] = {"locationDo","locationGu","locationDong","locationBunji" };
-		
+		String keyArray[] = { "locationDo", "locationGu", "locationDong", "locationBunji" };
+
 		ModelAndView modelAndView = new ModelAndView("spotDetail.jsp");
 		modelAndView.addObject("spotDetail", spot);
-		
-		//주소지 시군구별로 셋팅
-		for(int i =0 ; i<keyArray.length ; i++) {	
-			if(locArray[i] != null) {				
-				modelAndView.addObject(keyArray[i] , locArray[i]);
-			}else {
-				modelAndView.addObject(keyArray[i] , " ");				
+
+		// 주소지 시군구별로 셋팅
+		for (int i = 0; i < keyArray.length; i++) {
+			if (locArray[i] != null) {
+				modelAndView.addObject(keyArray[i], locArray[i]);
+			} else {
+				modelAndView.addObject(keyArray[i], " ");
 			}
 		}
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/registSpot.do", method = RequestMethod.GET)
 	public String showRegistSpot() {
 		return "registSpot.jsp";
 	}
-	
+
 	@RequestMapping(value = "/registSpot.do", method = RequestMethod.POST)
-	public String registSpot(Spot spot,HttpSession session,MultipartHttpServletRequest file) throws IOException {
-		
+	public String registSpot(Spot spot, HttpSession session, MultipartHttpServletRequest file) throws IOException {
+
 		spot.setRegisterId("mei");
-		
-		
+
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
 
-		//썸네일 저장
+		// 썸네일 저장
 		MultipartFile thumbnail = file.getFile("spotThumbnail");
-		if(thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
-		
-		}else {
+		if (thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
+
+		} else {
 			// 파일 중복명 처리
 			String genId = UUID.randomUUID().toString();
 			// 본래 파일명
@@ -92,10 +92,10 @@ public class SpotController {
 			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
 			out.write(bytes);
 			out.close();
-			
+
 			spot.setThumbnail(saveFileName);
 		}
-		
+
 		String baseAddr = spot.getSpotLocation();
 		spot.setSpotLocation(baseAddr + " " + spot.getSpotName());
 
@@ -125,42 +125,45 @@ public class SpotController {
 				spotService.registSpotImage(spot.getSpotId(), saveFileName);
 			}
 		}
-		
-		
+
 		return "redirect:spotDetail.do?spotId=" + spot.getSpotId();
 	}
-	
-	@RequestMapping(value="/spotList.do", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/spotList.do", method = RequestMethod.GET)
 	public ModelAndView showSpotList() {
 		List<Spot> spotList = spotService.findAllSpots();
+
+		List<String> list = new ArrayList<>();
+		for (Spot spot : spotList) {
+			list.add(spot.getSpotLocation());
+		}
+
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
+		modelAndView.addObject("list", list);
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/spotList.do", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/spotList.do", method = RequestMethod.POST)
 	public ModelAndView searchSpotList(String spotLocation, String spotType, String spotName) {
 		List<Spot> spotList = spotService.findSpotsByCondition(spotLocation, spotType, spotName);
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/searchSpot.do", produces="application/xml")
+
+	@RequestMapping(value = "/searchSpot.do", produces = "application/xml")
 	public @ResponseBody Spots searchSpot(String spotLocation) {
 		Spots spotList = new Spots();
 		List<Spot> spots = spotService.findSpotsByCondition(spotLocation, "", "");
-		
+
 		spotList.setSpotList(spots);
 		return spotList;
 	}
-	
 
-//	+showMySpot(session : HttpSession) : ModelAndView
-//	+showModifySpot(spotId : String) : ModelAndView
-//	+modifySpot(spot : Spot, file : MultipartHttpServletRequest) : String
-//	+removeSpot(spotId : String) : String
+	// +showMySpot(session : HttpSession) : ModelAndView
+	// +showModifySpot(spotId : String) : ModelAndView
+	// +modifySpot(spot : Spot, file : MultipartHttpServletRequest) : String
+	// +removeSpot(spotId : String) : String
 
-	
-	
 }
