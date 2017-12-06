@@ -72,15 +72,14 @@ public class MeetingController {
 	@RequestMapping(value = "/registMeeting.do", method = RequestMethod.POST)
 	public String registMeeting(Meeting meeting, HttpSession session, MultipartHttpServletRequest file) throws IOException {
 		
-		
+		User user = (User)session.getAttribute("loginUser");
 		
 		Spot meetingSpot = new Spot();
 		meetingSpot.setSpotId(1);
 		
 		meeting.setMeetingSpot(meetingSpot);
-		meeting.setHostId("uraid");
-//		meeting.setHostId(session.getId());
-
+		meeting.setHostId(user.getUserId());
+		meetingService.registMeeting(meeting);
 		
 		
 		String realFolder = "c:\\" + File.separator + "tempFiles";
@@ -112,7 +111,7 @@ public class MeetingController {
 			}
 		}
 		
-		meetingService.registMeeting(meeting);
+		
 		
 		return "redirect:meetingDetail.do?meetingId=" + meeting.getMeetingId();
 	}
@@ -123,15 +122,17 @@ public class MeetingController {
 //		Spot spot = spotService.findSpotBySpotId(meeting.getMeetingSpot().getSpotId());
 
 		User user = (User)session.getAttribute("loginUser");
-		
-		List<String> meetingList = meeting.getMeetingImageList();
 		List<String> joinList = meeting.getMeetingJoinList();
+		List<String> meetingList = meeting.getMeetingImageList();
+//		List<User> userList = userService.findUserList(joinList);
+		
 		
 		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
 		modelAndView.addObject("meetingDetail", meeting);
 //		modelAndView.addObject("meetingSpot", spot);
 		modelAndView.addObject("ImageList", meetingList);
 		modelAndView.addObject("joinList", joinList);
+//		modelAndView.addObject("userList", userList);
 		modelAndView.addObject("User", user);
 		return modelAndView;
 	}
@@ -183,9 +184,106 @@ public class MeetingController {
 		}else {
 			return null;
 		}
+		
+	}
+	
+	@RequestMapping(value = "/modifyMeeting.do", method = RequestMethod.GET)
+	public ModelAndView showModifyMeeting(String meetingId){
+		
+		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
+		
+		ModelAndView modelAndView = new ModelAndView("modifyMeeting.jsp");
+		modelAndView.addObject("meetingDetail", meeting);
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/modifyMeeting.do", method = RequestMethod.POST)
+	public String modifyMeeting(Meeting meeting){
+		
+		Spot meetingSpot = new Spot();
+		meetingSpot.setSpotId(1);
+		
+		meeting.setMeetingSpot(meetingSpot);
+		meeting.setMeetingPurpose("ddd");
+		meeting.setMeetingTime(10);
+		meeting.setMinPerson(3);
+		
+		meetingService.modifyMeeting(meeting);
+		
+		return "redirect:meetingDetail.do?meetingId=" + meeting.getMeetingId();
+	}
+	
+	@RequestMapping(value = "/myMeetingList.do")
+	public ModelAndView showMyMeeting(HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		List<Meeting> hostList = meetingService.findMeetingsByHost(user.getUserId());
+		List<Meeting> joinList = meetingService.findMeetingsByGuest(user.getUserId());
+		
+		ModelAndView modelAndView = new ModelAndView("myMeetingList.jsp");
+		modelAndView.addObject("hostList", hostList);
+		modelAndView.addObject("joinList", joinList);
+		
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/myModifyMeeting.do", method = RequestMethod.GET)
+	public ModelAndView showMyModifyMeeting(String meetingId){
+		
+		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
+		
+		ModelAndView modelAndView = new ModelAndView("myModifyMeeting.jsp");
+		modelAndView.addObject("meetingDetail", meeting);
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/myModifyMeeting.do", method = RequestMethod.POST)
+	public ModelAndView myModifyMeeting(Meeting meeting){
+		
+		Spot meetingSpot = new Spot();
+		meetingSpot.setSpotId(1);
+		meeting.setMeetingSpot(meetingSpot);
+		
+		meetingService.modifyMeeting(meeting);
+		
+		List<Meeting> hostList = meetingService.findMeetingsByHost(meeting.getHostId());
+		List<Meeting> joinList = meetingService.findMeetingsByGuest(meeting.getHostId());
+		
+		ModelAndView modelAndView = new ModelAndView("myMeetingList.jsp");
+		modelAndView.addObject("hostList", hostList);
+		modelAndView.addObject("joinList", joinList);
+		
+		return modelAndView;
 	}
 	
 	
-	
+	@RequestMapping("/removeMeeting.do")
+	public String removeMeeting(String meetingId) {
+
 		
+			meetingService.removeMeeting(Integer.parseInt(meetingId));
+
+			return "redirect:meetingList.do";
+	}
+	
+	
+	@RequestMapping("/myRemoveMeeting.do")
+	public String myRemoveMeeting(String meetingId, HttpSession session) {
+
+		User user = (User)session.getAttribute("loginUser");
+		if(user.getUserId().equals("admin")) {
+//					서윤아 관리자 신고&삭제할때 이부분에서 쓰면 됨!
+//					일해라 강서윤
+			return "adminReport.do";
+		}else {
+			meetingService.removeMeeting(Integer.parseInt(meetingId));
+
+			return "redirect:myMeetingList.do";
+		}
+	}
+	
+	
 }
