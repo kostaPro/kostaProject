@@ -1,15 +1,19 @@
 $(function() {
     $( "#eventOpenDate" ).datepicker({
     	minDate : 0,
-    	format : 'yyyy-mm-dd'
+
+    	dateFormat: 'yy-mm-dd'
+
     });
     $( "#eventCloseDate" ).datepicker({
     	minDate : 0,
-    	format : 'yyyy-mm-dd'
+
+    	dateFormat: 'yy-mm-dd'
+
     });
     
     $("#datepicker").datepicker({ 
     	minDate : 0,
-    	format : 'yyyy-mm-dd'
+    	dateFormat: 'mm/dd/yy'
     });
 });
