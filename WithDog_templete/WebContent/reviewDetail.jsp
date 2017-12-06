@@ -40,7 +40,6 @@
 										depth : "0",
 										reviewId : $("#reviewId").val(),
 										spotId : $("#spotId").val(),
-										writerId : $("#writerId").val(),
 										content : content
 									};
 
@@ -116,7 +115,6 @@
 		                $(document).on("click","button[name='reply_reply_save']",function(){
 		                                         
 		                    var reContent = $("textarea[name='reContent']");
-		                    var writerId = $("input[name='writerId']");
 		                    var spotId = $("input[name='spotId']");
 		                    var reviewId = $("input[name='reviewId']");
 		                    var content = reContent.val().replace("\n", "<br>"); //개행처리
@@ -132,7 +130,6 @@
 		                            reviewId        : reviewId.val(),
 		                            parentId        : $(this).attr("reply_id"), 
 		                            depth           : "1",
-		                            writerId    : writerId.val(),
 		                            spotId : spotId.val(),
 		                            content : content
 		                    };
@@ -369,7 +366,7 @@
 									<a href="javascript:void(0)" class="name">${comments.writerId }</a>
 									<span>${comments.registDate }</span>
 									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>							
-									 <c:if test="${user.userId == comments.writerId}">
+									 <c:if test="${loginUser.userId == comments.writerId}">
 			    						<button class="btn btn-outline-primary" name="reply_update" reply_comment="${comments.content}" id="${comments.commentId}">수정</button>
 										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
 								</header>
@@ -386,7 +383,6 @@
 			<div class="reviews">
 					<input type="hidden" id="reviewId" name="reviewId" value="${review.reviewId }"> 
 					<input type="hidden" id="spotId" name="spotId" value="${spot.spotId }"> 
-					<input type="hidden" id="writerId" name="writerId" value="${user.userId }">
 					<input type="hidden" id="parentId" name="parentId" value="0">
 					<input type="hidden" id="depth" name="depth" value="0">
 				<textarea class="form-control" rows="4" cols="40" style="resize: none;" id="content" name="content" placeholder="댓글을 입력하세요."></textarea>

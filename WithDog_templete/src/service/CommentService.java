@@ -4,7 +4,7 @@ import domain.Comment;
 
 public interface CommentService {
 	
-	boolean registEventComment(Comment comment, int parentReplyId);
+	boolean registEventComment(Comment comment);
 	boolean registMeetingComment(Comment comment);
 	boolean registReviewComment(Comment comment);
 	Comment findCommentByCommentId(int commentId);

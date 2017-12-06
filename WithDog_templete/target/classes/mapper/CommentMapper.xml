@@ -51,7 +51,7 @@
 
 	<select id="retrieveCommentsByMeetingId" parameterType="integer"
 		resultType="Comment">
-		SELECT meetingCommentId, writerId, content, registDate,
+		SELECT meetingCommentId as commentId, writerId, content, registDate,
 		meetingId, parentId, depth FROM
 		meetingComment_tb
 		WHERE meetingId = #{targetId} order by meetingCommentId asc
@@ -59,7 +59,7 @@
 
 	<select id="retrieveCommentsByEventId" parameterType="integer"
 		resultType="Comment">
-		SELECT eventCommentId, writerId, content, registDate,
+		SELECT eventCommentId as commentId, writerId, content, registDate,
 		eventId, parentId, depth FROM
 		eventComment_tb
 		WHERE eventId = #{targetId} order by eventCommentId asc

@@ -28,7 +28,7 @@
 			javaType="ArrayList" jdbcType="NUMERIC" />
 			
 		<collection property="commentList" column="meetingId"
-			ofType="Comment" select="store.mapper.CommentMapper.retrieveCommentsByMeetingId"
+			ofType="String" select="store.mapper.CommentMapper.retrieveCommentsByMeetingId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
 			
 			

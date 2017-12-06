@@ -2,6 +2,7 @@ package service.logic;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -108,7 +109,7 @@ public class EventServiceLogic implements EventService {
 		}
 
 		event.setEventJoinLists(eventJoinFullList);
-
+		event.setCommentList(findCommentByEventId(eventId));
 		return event;
 	}
 
@@ -146,6 +147,38 @@ public class EventServiceLogic implements EventService {
 		}
 
 		return result;
+	}
+	
+	@Override
+	public List<Comment> findCommentByEventId(int eventId) {
+		List<Comment> eventCommentList = commentStore.retrieveCommentsByEventId(eventId);
+		
+		//부모
+		List<Comment> eventCommentListParent = new ArrayList<Comment>();
+		//자식
+		List<Comment> eventCommentListChild = new ArrayList<Comment>();
+		//통합
+		List<Comment> newEventCommentList = new ArrayList<Comment>();
+		
+		//부모 자식 분리
+		for(Comment comment : eventCommentList) {
+			if(comment.getDepth().equals("0")) {
+				eventCommentListParent.add(comment);
+			}else {
+				eventCommentListChild.add(comment);
+			}
+		}
+		//로직
+		for(Comment eventCommentParent : eventCommentListParent) {
+			newEventCommentList.add(eventCommentParent);
+			for(Comment eventCommentChild : eventCommentListChild) {
+				String commentId = String.valueOf(eventCommentParent.getCommentId());
+				if(commentId.equals(eventCommentChild.getParentId())) {
+					newEventCommentList.add(eventCommentChild);
+				}
+			}
+		}
+		return newEventCommentList;
 	}
 
 }

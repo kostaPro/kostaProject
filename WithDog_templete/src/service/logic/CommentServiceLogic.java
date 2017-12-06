@@ -27,7 +27,7 @@ public class CommentServiceLogic implements CommentService{
 //	}
 
 	@Override
-	public boolean registEventComment(Comment comment, int parentReplyId) {
+	public boolean registEventComment(Comment comment) {
 		
 		return commentStore.createEventComment(comment);
 	}

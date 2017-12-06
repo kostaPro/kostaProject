@@ -3,11 +3,13 @@ package service;
 import java.util.Date;
 import java.util.List;
 
+import domain.Comment;
 import domain.Meeting;
 
 public interface MeetingService {
 	
 	boolean registMeeting(Meeting meeting);
+	List<Comment> findCommentByMeetingId(int meetingId);
 	List<Meeting> findAllMeetings();
 	List<Meeting> findMeetingsByLocation(String loaction);
 	List<Meeting> findMeetingsByDate(Date date);
