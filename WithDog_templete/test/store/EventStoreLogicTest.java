@@ -55,51 +55,52 @@ public class EventStoreLogicTest {
 
 	@Test
 	public void testRetrieveEventByEventId() {
-		fail("Not yet implemented");
+		Event event = store.retrieveEventByEventId(1);
+		System.out.println(event);
 	}
 
 	@Test
 	public void testRetrieveJoinListByEventDate() {
 
-		Event event = store.retrieveEventByEventId(2);
-
-		// Date to String
-		Date openDate = event.getOpenDate();
-		Date closeDate = event.getCloseDate();
-
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyMMdd");
-
-		int start = Integer.parseInt(transFormat.format(openDate));
-		int end = Integer.parseInt(transFormat.format(closeDate));
-
-		Map<String, List<User>> eventJoinFullList = new HashMap<>();
-
-		// 참여목록 만드는 for문
-		for (int i = start; i < (end + 1 ); i++) {
-
-			Date eventDateForm = null;
-			List<String> userIdList = null;
-			List<User> users = null;
-			
-			try {
-				eventDateForm = transFormat.parse(String.valueOf(i));
-				System.out.println("DateForm : " + eventDateForm);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-			}
-			
-			java.sql.Date eventDate = new java.sql.Date(eventDateForm.getTime());
-			
-			userIdList = store.retrieveJoinListByEventDate(2, eventDate);
-			
-			if(userIdList != null ) {
-				if( userIdList.size() != 0) {
-					users = userStore.retrieveUserList(userIdList);
-				}
-			}
-			
-			eventJoinFullList.put(String.valueOf(i), users);
-		}
+//		Event event = store.retrieveEventByEventId(2);
+//
+//		// Date to String
+//		Date openDate = event.getOpenDate();
+//		Date closeDate = event.getCloseDate();
+//
+//		SimpleDateFormat transFormat = new SimpleDateFormat("yyMMdd");
+//
+//		int start = Integer.parseInt(transFormat.format(openDate));
+//		int end = Integer.parseInt(transFormat.format(closeDate));
+//
+//		Map<String, List<User>> eventJoinFullList = new HashMap<>();
+//
+//		// 참여목록 만드는 for문
+//		for (int i = start; i < (end + 1 ); i++) {
+//
+//			Date eventDateForm = null;
+//			List<String> userIdList = null;
+//			List<User> users = null;
+//			
+//			try {
+//				eventDateForm = transFormat.parse(String.valueOf(i));
+//				System.out.println("DateForm : " + eventDateForm);
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//			}
+//			
+//			java.sql.Date eventDate = new java.sql.Date(eventDateForm.getTime());
+//			
+//			userIdList = store.retrieveJoinListByEventDate(2, eventDate);
+//			
+//			if(userIdList != null ) {
+//				if( userIdList.size() != 0) {
+//					users = userStore.retrieveUserList(userIdList);
+//				}
+//			}
+//			
+//			eventJoinFullList.put(String.valueOf(i), users);
+//		}
 
 	}
 
