@@ -13,6 +13,7 @@
 		<typeAlias type="domain.Review" alias="Review" />
 		<typeAlias type="domain.Comment" alias="Comment" />
 		<typeAlias type="domain.Report" alias="Report" />
+		<typeAlias type="domain.BlackList" alias="BlackList" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

@@ -1,8 +1,10 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import domain.Report;
+import domain.BlackList;
 
 public interface ReportService {
 
@@ -11,7 +13,7 @@ public interface ReportService {
 	List<Report> findReportsBySuspectId(String suspectId);
 	List<Report> findAllReports();
 	List<Report> findReportsByReportType(String reportType);
-	List<String> findBlackList(String status);
+	List<BlackList> findBlackList();
 	Report findReport(int reportTargetId);
 	boolean modifyReport(Report report);
 	boolean removeReport(int reportTargetId);

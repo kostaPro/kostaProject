@@ -1,6 +1,5 @@
 package store.logic;
 
-
 import java.util.HashMap;
 
 import java.util.List;
@@ -11,13 +10,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
 import domain.Report;
+import domain.BlackList;
 import store.ReportStore;
 import store.factory.SqlSessionFactoryProvider;
 import store.mapper.ReportMapper;
 
 @Repository
-public class ReportStoreLogic implements ReportStore{
-	
+public class ReportStoreLogic implements ReportStore {
+
 	private SqlSessionFactory factory;
 
 	public ReportStoreLogic() {
@@ -33,7 +33,7 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			list = mapper.retrieveReportsByReporterId(reporterId);
-		
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -52,8 +52,7 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			list = mapper.retrieveReportsBySuspectId(suspectId);
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -71,8 +70,8 @@ public class ReportStoreLogic implements ReportStore{
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			list= mapper.retrieveAllReports();
-		
+			list = mapper.retrieveAllReports();
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -88,38 +87,35 @@ public class ReportStoreLogic implements ReportStore{
 		SqlSession session = factory.openSession();
 
 		List<Report> list = null;
-		Map<String, String> map = new HashMap<>(); 
-
+		Map<String, String> map = new HashMap<>();
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 
-			
 			map.put("reportType", reportType);
-			
+
 			list = mapper.retrieveReportsByReportType(map);
-		
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			session.close();
 		}
 
-
 		return list;
 
 	}
 
 	@Override
-	public List<String> retrieveBlackList(String status) { 
+	public List<BlackList> retrieveBlackList() {
 
 		SqlSession session = factory.openSession();
-		List<String> list = null;
+		List<BlackList> list = null;
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-			list = mapper.retrieveBlackList(status);
-			
+			list = mapper.retrieveBlackList();
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -130,20 +126,16 @@ public class ReportStoreLogic implements ReportStore{
 	}
 
 	@Override
-	public Report retrieveReport(String reportType, int reportTargetId) { 
+	public Report retrieveReport(int reportTargetId) {
 
 		SqlSession session = factory.openSession();
 		Report report = null;
-		Map<String, Object> map = new HashMap<>();
 
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
-		
-			map.put("reportType", reportType);
-			map.put("reportTargetId", reportTargetId);
-			
-			report = mapper.retrieveReport(reportType, reportTargetId);
-		
+
+			report = mapper.retrieveReport(reportTargetId);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -152,8 +144,6 @@ public class ReportStoreLogic implements ReportStore{
 
 		return report;
 	}
-
-
 
 	@Override
 	public boolean createEventCommentReport(Report report) {
@@ -164,12 +154,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.createEventCommentReport(report);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -187,13 +177,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.createMeetingCommentReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -211,13 +201,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.createMeetingReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -235,14 +225,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.createReviewCommentReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -260,13 +249,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.createReviewReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -284,13 +273,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.createSpotReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -300,8 +289,6 @@ public class ReportStoreLogic implements ReportStore{
 		return result;
 	}
 
-	
-	
 	@Override
 	public boolean updateEventCommentReport(Report report) {
 		SqlSession session = factory.openSession();
@@ -310,13 +297,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.updateEventCommentReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -335,12 +322,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.updateMeetingCommentReport(report);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -358,14 +345,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.updateMeetingReport(report);
-			
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -383,14 +369,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.updateReviewCommentReport(report);
-			
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -409,12 +394,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.updateReviewReport(report);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -432,13 +417,13 @@ public class ReportStoreLogic implements ReportStore{
 		try {
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.updateSpotReport(report);
-		
-			if(result) {
+
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -448,8 +433,6 @@ public class ReportStoreLogic implements ReportStore{
 		return result;
 	}
 
-	
-	
 	@Override
 	public boolean deleteEventCommentReport(int reportTargetId) {
 		SqlSession session = factory.openSession();
@@ -459,12 +442,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.deleteEventCommentReport(reportTargetId);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-	
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -483,13 +466,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.deleteMeetingCommentReport(reportTargetId);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -508,13 +490,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.deleteMeetingReport(reportTargetId);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -533,13 +514,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.deleteReviewCommentReport(reportTargetId);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -558,13 +538,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.deleteReviewReport(reportTargetId);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -583,13 +562,12 @@ public class ReportStoreLogic implements ReportStore{
 			ReportMapper mapper = session.getMapper(ReportMapper.class);
 			result = mapper.deleteSpotReport(reportTargetId);
 
-			if(result) {
+			if (result) {
 				session.commit();
 			} else {
 				session.rollback();
 			}
-			
-			
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

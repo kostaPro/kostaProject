@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<<<<<<< HEAD
 <!--데이트피커/팝업/미리보기를 위란 기본 파일-->
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -40,6 +41,15 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
+=======
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#datepicker").datepicker({ dateFormat: 'y-mm-dd' });
+		$("#datepicker").datepicker("setDate",null);
+	});
+>>>>>>> refs/remotes/origin/report
 	
 <!--데이트피커-->
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
@@ -66,7 +76,7 @@
 					<div class="3u">
 						
 						<select name="spotLocation" id="spotLocation" class="form-control">
-							<option value=null>지역을 선택해주세요.</option>
+							<option value="">지역을 선택해주세요.</option>
 
 							<option value="서울">서울특별시</option>
 							<option value="경기">경기도</option>

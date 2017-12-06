@@ -115,46 +115,49 @@ public class EventController {
 		return modelAndView;
 	}
 
-// 
+	//
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
-	public ModelAndView searchEvent(@RequestParam("spotLocation") String location, @RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
+	public ModelAndView searchEvent(@RequestParam("spotLocation") String location,
+			@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
 
 		List<Event> eventList = new ArrayList<>();
-		ModelAndView modelAndView = new ModelAndView();
-			
-		if (location == null && date != null) {
-		
-		eventList = eventService.findEventsByDate(date);
-		
-		modelAndView = new ModelAndView("eventList.jsp");
-		modelAndView.addObject("eventList", eventList);
 
-		return modelAndView;
+		if (location == "" && date != null) {
 
-		} else if(location != null && date == null) {
+			eventList = eventService.findEventsByDate(date);
+
+			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
+			modelAndView.addObject("eventList", eventList);
+
+			return modelAndView;
+
+		} else if (location != null && date == null) {
 
 			eventList = eventService.findEventsByLocation(location);
-			
-			modelAndView = new ModelAndView("eventList.jsp");
+
+			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
+			modelAndView.addObject("eventList", eventList);
+
+			return modelAndView;
+
+		} else if (location != null && date != null) {
+
+			eventList = eventService.findEventsByDateLocation(date, location);
+
+			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
 
 		} else {
-
-			eventList = eventService.findEventsByDateLocation(date, location);
-			
-			modelAndView = new ModelAndView("eventList.jsp");
-			modelAndView.addObject("eventList", eventList);
-
-			return modelAndView;
-
+			return null;
 		}
 
 	}
 
 	@RequestMapping(value = "/eventDetail.do")
 	public ModelAndView showEventDetail(String eventId) throws ParseException {
+
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
