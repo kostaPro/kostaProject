@@ -16,8 +16,7 @@
 	<update id="updateUser" parameterType="User">
 		UPDATE user_tb
 		SET password=#{password}, contact=#{contact},
-		favoriteLocation=#{favoriteLocation}, petInfo=#{petInfo},
-		petImage=#{petImage}
+		favoriteLocation=#{favoriteLocation}, petInfo=#{petInfo}
 		WHERE userId = #{userId}
 	</update>
 

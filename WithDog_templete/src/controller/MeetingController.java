@@ -207,9 +207,7 @@ public class MeetingController {
 		meetingSpot.setSpotId(1);
 		
 		meeting.setMeetingSpot(meetingSpot);
-		meeting.setMeetingPurpose("ddd");
-		meeting.setMeetingTime(10);
-		meeting.setMinPerson(3);
+		
 		
 		meetingService.modifyMeeting(meeting);
 		

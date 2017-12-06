@@ -56,6 +56,7 @@ select {
     <form action="registUser.do" method="POST" enctype="multipart/form-data">
       <input type="text" id="userId" class="fadeIn second" name="userId" placeholder="ID">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="password" id="confirm" class="fadeIn third" placeholder="confirm password">
       <input type="text" id="contact" class="fadeIn second" name="contact" placeholder="contact">
 
                   <select name="favoriteLocation" >

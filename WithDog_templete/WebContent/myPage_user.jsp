@@ -24,7 +24,7 @@
 							</header>
 							<p></p>
 							<ul class="style1">
-								<li><a href="myUser.do">내 정보 관리</a></li>
+								<li><a href="myPage.do">내 정보 관리</a></li>
 								<li><a href="myMeetingList.do">모임 관리</a></li>
 								<li><a href="mySpotList.do">장소 관리</a></li>
 								<li><a href="myReviewList.do">평가글 관리</a></li>
