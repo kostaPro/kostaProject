@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Comment;
 import domain.Meeting;
 import domain.Spot;
 import domain.User;
@@ -116,7 +117,7 @@ public class MeetingController {
 		return "redirect:meetingDetail.do?meetingId=" + meeting.getMeetingId();
 	}
 	
-	@RequestMapping(value = "/meetingDetail.do")
+	@RequestMapping("/meetingDetail.do")
 	public ModelAndView showMeetingDetail(String meetingId, HttpSession session) {
 		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
 //		Spot spot = spotService.findSpotBySpotId(meeting.getMeetingSpot().getSpotId());
@@ -125,8 +126,8 @@ public class MeetingController {
 		List<String> joinList = meeting.getMeetingJoinList();
 		List<String> meetingList = meeting.getMeetingImageList();
 //		List<User> userList = userService.findUserList(joinList);
-		
-		
+		List<Comment> comment = meeting.getCommentList(); 
+
 		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
 		modelAndView.addObject("meetingDetail", meeting);
 //		modelAndView.addObject("meetingSpot", spot);
@@ -134,6 +135,7 @@ public class MeetingController {
 		modelAndView.addObject("joinList", joinList);
 //		modelAndView.addObject("userList", userList);
 		modelAndView.addObject("User", user);
+		modelAndView.addObject("comment", comment);
 		return modelAndView;
 	}
 	
@@ -283,6 +285,40 @@ public class MeetingController {
 
 			return "redirect:myMeetingList.do";
 		}
+	}
+	
+	@RequestMapping(value = "/registMeetingComment.do", method = RequestMethod.POST)
+	public ModelAndView registMeetingComment(Comment comment, String meetingId, HttpSession session) {
+		User user = (User) session.getAttribute("loginUser");
+		
+		comment.setWriterId(user.getUserId());
+		comment.setTargetId(Integer.parseInt(meetingId));
+		commentService.registMeetingComment(comment);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/modifyMeetingComment.do", method = RequestMethod.POST)
+	public ModelAndView modifyMeetingComment(Comment comment, String commentId, String meetingId) {
+		
+		comment.setCommentId(Integer.parseInt(commentId));
+		commentService.modifyMeetingComment(comment);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/removeMeetingComment.do")
+	public ModelAndView removeMeetingComment(String commentId, String parentId, String meetingId) {
+
+		commentService.removeMeetingComment(Integer.parseInt(commentId));
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
 	}
 	
 	

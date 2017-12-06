@@ -36,8 +36,8 @@
 						</h2>
 					</header>
 					<section>
-						<input type="hidden" name="writerId" value="${user.userId }">
-						<h3 align="left">작성자 | ${user.userId }</h3>
+						<input type="hidden" name="writerId" value="${loginUser.userId }">
+						<h3 align="left">작성자 | ${loginUser.userId }</h3>
 						<h3 align="left">작성일 | ${date }</h3>
 						<br>
 						<div class="reviews">

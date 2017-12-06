@@ -1,5 +1,6 @@
 package service.logic;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class MeetingServiceLogic implements MeetingService{
 	@Override
 	public Meeting findMeetingByMeetingId(int meetingId) {
 		Meeting meeting = meetingStore.retrieveMeetingByMeetingId(meetingId);
-		meeting.setCommentList(commentStore.retrieveCommentsByMeetingId(meetingId));
+		meeting.setCommentList(findCommentByMeetingId(meetingId));
 		meeting.setMeetingImageList(meetingStore.retrieveImageListByMeetingId(meetingId));
 		meeting.setMeetingJoinList(meetingStore.retrieveJoinListByMeetingId(meetingId));
 		
@@ -125,5 +126,36 @@ public class MeetingServiceLogic implements MeetingService{
 		return meetingStore.createMeetingImage(imageUrl, meetingId);
 	}
 	
+	@Override
+	public List<Comment> findCommentByMeetingId(int meetingId) {
+		List<Comment> meetingCommentList = commentStore.retrieveCommentsByMeetingId(meetingId);
+		
+		//부모
+		List<Comment> meetingCommentListParent = new ArrayList<Comment>();
+		//자식
+		List<Comment> meetingCommentListChild = new ArrayList<Comment>();
+		//통합
+		List<Comment> newMeetingCommentList = new ArrayList<Comment>();
+		
+		//부모 자식 분리
+		for(Comment comment : meetingCommentList) {
+			if(comment.getDepth().equals("0")) {
+				meetingCommentListParent.add(comment);
+			}else {
+				meetingCommentListChild.add(comment);
+			}
+		}
+		//로직
+		for(Comment meetingCommentParent : meetingCommentListParent) {
+			newMeetingCommentList.add(meetingCommentParent);
+			for(Comment meetingCommentChild : meetingCommentListChild) {
+				String commentId = String.valueOf(meetingCommentParent.getCommentId());
+				if(commentId.equals(meetingCommentChild.getParentId())) {
+					newMeetingCommentList.add(meetingCommentChild);
+				}
+			}
+		}
+		return newMeetingCommentList;
+	}
 	
 }

@@ -39,12 +39,6 @@ public class ReviewController {
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReview(String spotId, HttpServletRequest req) {
-		User user = new User();
-		user.setUserId("jakook");
-
-		HttpSession session = req.getSession();
-		session.setAttribute("user", user);
-
 		long now = System.currentTimeMillis();
 		Date date = new Date(now);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -151,13 +145,10 @@ public class ReviewController {
 //	}
 	
 	@RequestMapping(value = "/registReviewComment.do", method = RequestMethod.POST)
-	public ModelAndView registReviewComment(Comment comment, String reviewId, String spotId, HttpServletRequest req) {
-		User user = new User();
-		user.setUserId("jakook");
-
-		HttpSession session = req.getSession();
-		session.setAttribute("user", user);
+	public ModelAndView registReviewComment(Comment comment, String reviewId, String spotId, HttpSession session) {
+		User user = (User) session.getAttribute("loginUser");
 		
+		comment.setWriterId(user.getUserId());
 		comment.setTargetId(Integer.parseInt(reviewId));
 		commentService.registReviewComment(comment);
 		

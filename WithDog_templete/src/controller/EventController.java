@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,10 +158,12 @@ public class EventController {
 	public ModelAndView showEventDetail(String eventId) throws ParseException {
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		
+		List<Comment> comment = event.getCommentList(); 
+		
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
-
+		modelAndView.addObject("comment", comment);
 		return modelAndView;
 	}
 
@@ -234,5 +237,40 @@ public class EventController {
 	public String deleteEventComment(String commentId) {
 		return null;
 	}
+	
+	@RequestMapping(value = "/registEventComment.do", method = RequestMethod.POST)
+	public ModelAndView registEventComment(Comment comment, String eventId, HttpSession session) {
+		User user = (User) session.getAttribute("loginUser");
+		
+		comment.setWriterId(user.getUserId());
+		comment.setTargetId(Integer.parseInt(eventId));
+		commentService.registEventComment(comment);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/modifyEventComment.do", method = RequestMethod.POST)
+	public ModelAndView modifyEventComment(Comment comment, String commentId, String eventId) {
+		
+		comment.setCommentId(Integer.parseInt(commentId));
+		commentService.modifyEventComment(comment);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/removeEventComment.do")
+	public ModelAndView removeEventComment(String commentId, String parentId, String eventId) {
+
+		commentService.removeEventComment(Integer.parseInt(commentId));
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
+	}
+	
 
 }
