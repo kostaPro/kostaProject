@@ -42,7 +42,7 @@ public class ReviewController {
 
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.GET)
-	public ModelAndView showRegistReview(String spotId, HttpServletRequest req) {
+	public ModelAndView showRegistReview(String spotId) {
 		long now = System.currentTimeMillis();
 		Date date = new Date(now);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

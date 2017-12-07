@@ -74,6 +74,9 @@ public class EventController {
 		Spot eventSpot = new Spot();
 		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
+		
+		event.setCloseDate(new Date());
+		event.setOpenDate(new Date());
 
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
