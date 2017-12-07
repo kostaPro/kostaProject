@@ -7,7 +7,6 @@ $(document).ready(function() {
     	minDate : 0,
     	dateFormat: 'yy-mm-dd'
     });
-    
     $("#datepicker").datepicker({ 
     	minDate : 0,
     	dateFormat: 'mm/dd/yy'

@@ -43,9 +43,15 @@
 <!--업로드한 이미지 미리보기-->
 <script type="text/javascript" src="resources/js/meetingImage.js"></script>
 
+<!--주소 검색-->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="resources/js/searchingAddress_pop.js"></script>
 
-<!--팝업띄우기-->
+<!--장소조회 팝업띄우기-->
 <script type="text/javascript" src="resources/js/searchingSpot.js"></script>
+
+<!--장소추가 팝업띄우기-->
+<script type="text/javascript" src="resources/js/addSpot.js"></script>
 
 <!--팝업용 css-->
 <style type="text/css">
@@ -89,6 +95,28 @@
 	z-index: 100;
 }
 
+.add-layer {
+	display: none;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+
+.add-layer .addLayerBg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
+
 .dim-layer .dimBg {
 	position: absolute;
 	top: 0;
@@ -100,11 +128,16 @@
 	filter: alpha(opacity = 50);
 }
 
+.add-layer .pop-layer {
+	display: block;
+}
+
 .dim-layer .pop-layer {
 	display: block;
 }
 
-a.btn-popupClose {
+
+a.btn-popup {
 	display: inline-block;
 	height: 25px;
 	padding: 0 14px 0;
@@ -115,24 +148,7 @@ a.btn-popupClose {
 	line-height: 25px;
 }
 
-a.btn-popupClose:hover {
-	border: 1px solid #128FA6;
-	background-color: #128FA6;
-	color: #fff;
-}
-
-a.btn-popupSearch {
-	display: inline-block;
-	height: 25px;
-	padding: 0 14px 0;
-	border: 1px solid #43C0CE;
-	background-color: #43C0CE;
-	font-size: 13px;
-	color: #fff;
-	line-height: 25px;
-}
-
-a.btn-popupSearch:hover {
+a.btn-popup:hover {
 	border: 1px solid #128FA6;
 	background-color: #128FA6;
 	color: #fff;
@@ -270,7 +286,7 @@ a.btn-popupSearch:hover {
 
 														<input id="locationBox" type="text"
 															placeholder="주소를 입력해 주세요"> <a
-															class="btn-popupSearch" onclick="searchBtn_click()">검색하기</a>
+															class="btn-popup btn-popupSearch" onclick="searchBtn_click()">검색하기</a>
 
 														<table
 															class="table table-striped table-bordered table-hover"
@@ -295,8 +311,9 @@ a.btn-popupSearch:hover {
 
 
 														<div class="btn-r">
-															<a href="#addSpot" id="addSpotPop" class="btn-popupSearch" onclick="addSpotPop_click()">장소 추가</a> <a
-																href="#" class="btn-popupClose">Close</a>
+															<a href="#addSpot" id="addSpotPop"
+																class="btn-popup btn-popupSearch" onclick="addSpotPop_click()">장소
+																추가</a> <a href="#" class="btn-popup btn-popupClose">Close</a>
 														</div>
 														<!--// content-->
 													</div>
@@ -331,24 +348,26 @@ a.btn-popupSearch:hover {
 
 	<!-- addPopup -->
 	<div class="add-layer">
-		<div class="layerBg"></div>
+		<div class="addLayerBg"></div>
 		<div id="addSpot" class="pop-layer">
 			<div class="pop-container">
 				<div class="pop-conts">
 					<!--content //-->
 
-					<form action="" method="POST">
-						<fieldset>
-							<div class="form_details">
+							<div class="registSpot"
+								style="display: table; margin-left: auto; margin-right: auto;">
 
+								<section class="item" style="text-align:center">
 								<label for="inpName" class="lab_comm"><strong
 									class="tit_form"><i class="fa fa-check"></i>장소명</strong></label> <input
-									type="text" id="inpName" name="spotName" class="inp_comm">
+									type="text" id="inpName" name="spotName" class="inp_comm" style="width:80%">
+								</section>
 
-								<section style="display: inline-block; width: 650px">
+								<section class="item" style="text-align:center">
 									<strong class="tit_form"><i class="fa fa-check"></i>장소
 										분류를 선택해주세요.</strong>
 									<ul class="list_type2">
+
 										<li><input type="checkbox" id="etc" name="etc"
 											disabled="disabled"> <label for="etc"
 											class="link_cont"></label></li>
@@ -357,22 +376,25 @@ a.btn-popupSearch:hover {
 											value="동물병원"> <label for="inpStore" class="link_cont"><span
 												class="ico_comm ico_shop"></span><span class="txt_name">동물
 													병원</span></label></li>
+										
 										<li><input type="radio" id="inpEvent" name="spotType"
 											value="애견샵"> <label for="inpEvent" class="link_cont"><span
 												class="ico_comm ico_event"></span><span class="txt_name">애견
 													샵</span></label></li>
+										
 										<li><input type="radio" id="inpFnb" name="spotType"
 											value="애견카페"> <label for="inpFnb" class="link_cont"><span
 												class="ico_comm ico_fnb"></span><span class="txt_name">애견
 													카페</span></label></li>
-
+										
 										<li><input type="checkbox" id="etc" name="etc"
 											disabled="disabled"> <label for="etc"
 											class="link_cont"></label></li>
+
 									</ul>
 
 									<ul class="list_type2">
-										<li><input type="checkbox" id="etc" name="event_type"
+										<li><input type="checkbox" id="etc" name="etc"
 											disabled="disabled"> <label for="etc"
 											class="link_cont"></label></li>
 
@@ -390,38 +412,29 @@ a.btn-popupSearch:hover {
 										<li><input type="radio" id="inpExtra" name="spotType"
 											value="기타"> <label for="inpExtra" class="link_cont"><span
 												class="ico_comm ico_unique"></span> <span class="txt_name">기타</span></label></li>
-
-										<li><input type="checkbox" id="etc" name="event_type"
+										
+										<li><input type="checkbox" id="etc" name="etc"
 											disabled="disabled"> <label for="etc"
 											class="link_cont"></label></li>
 									</ul>
 
 								</section>
 
+								<section style="width:500px; text-align:center">
 
-								<strong class="tit_form"><i class="fa fa-check"></i>공간의
-									주소를 입력해주세요.</strong>
-
-								<section>
-
-									<input type="text" class="inp_comm" name="spotLocation"
-										id="spotLocation"> <input type="button"
-										onclick="searchingAddress()" value="검색하기"
+									<strong class="tit_form"><i class="fa fa-check"></i>공간의
+										주소를 입력해주세요.</strong> 
+										<input type="text" class="inp_comm"
+										name="spotLocation" id="spotLocation" style="width:100%"> <input
+										type="button" onclick="searchingAddress()" value="검색하기"
 										class="btn btn-primary btn-block form-control btn_comm">
 								</section>
 
-								<section>
-									<div class="7u">
-										<iframe name="mapFrame" id="mapFrame"
-											style="width: 650px; height: 500px"
-											src="http://wedog.dothome.co.kr/RegistSpotMark.html"></iframe>
-									</div>
-								</section>
-								<input type="submit" class="btn_comm btn_submit registSpot"
-									value="장소 등록"></input>
+								<div class="btn-r">
+									<a href="#" id="addSpot" class="btn-popup btn-addSpot btn-popupClose"
+										onclick="addSpot()">장소 등록</a>
+								</div>
 							</div>
-						</fieldset>
-					</form>
 					<!--// content-->
 				</div>
 			</div>

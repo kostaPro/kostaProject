@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Review;
 import domain.Spot;
 import domain.Spots;
+import domain.User;
 import service.ReportService;
 import service.SpotService;
 
@@ -127,6 +128,20 @@ public class SpotController {
 		}
 
 		return "redirect:spotDetail.do?spotId=" + spot.getSpotId();
+	}
+	
+	@RequestMapping(value = "/addSpot.do", method = RequestMethod.POST, produces = "text/json; charset=UTF-8")
+	public @ResponseBody ModelAndView addSpot(Spot spot, HttpSession session) {
+
+		User user = (User) session.getAttribute("loginUser");
+		spot.setRegisterId(user.getUserId());
+		spot.setSpotLocation(spot.getSpotLocation() + " " + spot.getSpotName());
+		
+		spotService.registSpot(spot);
+		
+
+		ModelAndView modelAndView = new ModelAndView("jsonView");
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/spotList.do", method = RequestMethod.GET)

@@ -32,8 +32,8 @@
 		spot_TB(spotId, spotName, spotLocation, spotInfo, spotType,
 		thumbnail,registerId)
 		VALUES (#{spotId}, #{spotName}, #{spotLocation},
-		#{spotInfo}, #{spotType},
-		#{thumbnail},#{registerId})
+		#{spotInfo,jdbcType=VARCHAR}, #{spotType},
+		#{thumbnail,jdbcType=VARCHAR},#{registerId})
 	</insert>
 
 	<insert id="createSpotImage" parameterType="Map">

@@ -22,10 +22,10 @@ drop TABLE meetingReport_tb;
 create table spot_tb(
 spotId number primary Key,
 spotName varchar(20),
-spotLocation varchar(100),
-spotInfo varchar(500),
+spotLocation varchar(100) null,
+spotInfo varchar(500) null,
 spotType varchar(15),
-thumbNail varchar(150),
+thumbNail varchar(150) null,
 registerId varchar(20)
 );
 

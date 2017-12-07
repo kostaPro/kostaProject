@@ -1,6 +1,6 @@
 function searchPopBtn_click() {
 	var $href = $('#searchSpot_btn').attr('href');
-	layer_popup($href);
+	search_popup($href);
 
 	var address = $('#resultLocation').val();
 	$('#locationBox').val(address);
@@ -8,11 +8,6 @@ function searchPopBtn_click() {
 	if (address != "") {
 		searchSpot(address);
 	}
-}
-
-function addSpotPop_click() {
-	var $href = $('#addSpotPop').attr('href');
-	layer_popup($href);
 }
 
 function searchBtn_click() {
@@ -77,7 +72,7 @@ function choiceSpot(spotId, address){
 	$('#resultLocation').val(address);
 	$('#spotId').val(spotId);
 }
-function layer_popup(el) {
+function search_popup(el) {
 
 	var $el = $(el); // 레이어의 id를 $el 변수에 저장
 	var isDim = $el.prev().hasClass('dimBg'); // dimmed 레이어를 감지하기 위한 boolean
@@ -104,11 +99,6 @@ function layer_popup(el) {
 	$el.find('a.btn-popupClose').click(function() {
 		isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가
 		// 닫힌다.
-		return false;
-	});
-
-	$('.layer .dimBg').click(function() {
-		$('.dim-layer').fadeOut();
 		return false;
 	});
 
