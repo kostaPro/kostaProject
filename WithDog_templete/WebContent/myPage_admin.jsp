@@ -29,13 +29,13 @@
     <span class='toggler'><font color="#000000">신고 관리</font></span>
     <span class='toggler' style='display:none;'><font color="#000000">신고 관리</font></span>
   </div>
-  <div class='toggled_content' style='display:none;'><a href="mySpotList.do">신고 구분별 조회</a></div>
-  <div class='toggled_content' style='display:none;'><a href="mySpotList.do">블랙 리스트 조회</a></div>
+  <div class='toggled_content' style='display:none;'><a href="adminPage_searchByReportType.do">신고 구분별 조회</a></div>
+  <div class='toggled_content' style='display:none;'><a href="adminPage_blackList.do">블랙 리스트 조회</a></div>
 </div>
 								
 								
 								<li><a href="mySpotList.do">장소 관리</a></li>
-								<li><a href="myEventList.do">이벤트 관리</a></li>
+								<li><a href="adminPage_event.do">이벤트 관리</a></li>
 							</ul>
 						</section>
 						

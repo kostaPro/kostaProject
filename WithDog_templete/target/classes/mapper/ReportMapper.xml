@@ -115,7 +115,7 @@
 
 	<update id="updateSpotReport" parameterType="Report">
 		UPDATE spotReport_tb
-		SET status = #{status, jdbcType=VARCHAR}
+		SET status = #{status}
 		WHERE
 		REPORTTARGETID = #{reportTargetId}
 	</update>
@@ -254,7 +254,7 @@
 
 			UNION
 
-			SELECT reportContent, reportTargetId,reporterId, status
+			SELECT reportContent, reportTargetId, reporterId, status
 			From
 			meetingCommentReport_tb
 		</if>
@@ -372,7 +372,7 @@
 		meetingComment_tb
 		JOIN meetingCommentReport_tb
 		ON
-		meetingComment_tb.meetingId = meetingCommentReport_tb.reportTargetId
+		meetingComment_tb.meetingCommentId = meetingCommentReport_tb.reportTargetId
 		WHERE MEETINGCommentID IN
 		(SELECT
 		MEETINGCommentReport_tb.reportTargetId

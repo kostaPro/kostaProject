@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
-    // 줄바꿈 
-    pageContext.setAttribute("br", "<br/>");
-    pageContext.setAttribute("cn", "\n");
-%> 
+	// 줄바꿈 
+	pageContext.setAttribute("br", "<br/>");
+	pageContext.setAttribute("cn", "\n");
+%>
 <!DOCTYPE HTML>
 <!--
 	Elemental by TEMPLATED
@@ -48,279 +48,309 @@
 			.ready(
 					function() {
 						$("#reply_save")
-						.click(
-								function() {
-									//널 검사 
-									if ($("#content").val().trim() == "") {
-										alert("내용을 입력하세요.");
-										$("#content").focus();
-										return false;
-									}
-									var content = $("#content").val().replace("\n", "<br>"); //개행처리
-									
-									//값 셋팅
-									var objParams = {
-										parentId : "0",
-										depth : "0",
-										meetingId : $("#meetingId").val(),
-										content : content
-									};
+								.click(
+										function() {
+											//널 검사 
+											if ($("#content").val().trim() == "") {
+												alert("내용을 입력하세요.");
+												$("#content").focus();
+												return false;
+											}
+											var content = $("#content").val()
+													.replace("\n", "<br>"); //개행처리
 
+											//값 셋팅
+											var objParams = {
+												parentId : "0",
+												depth : "0",
+												meetingId : $("#meetingId")
+														.val(),
+												content : content
+											};
 
-									//ajax 호출
-									$
-											.ajax({
-												url : "registMeetingComment.do",
-												dataType : "json",
-												type : "post",
-												data : objParams,
-												success : function(
-														retVal) {
-													location.hash
-													window.location.reload(true);
-												},
-												error : function(
-														request,
-														status, error) {
-													console
-															.log("AJAX_ERROR");
+											//ajax 호출
+											$
+													.ajax({
+														url : "registMeetingComment.do",
+														dataType : "json",
+														type : "post",
+														data : objParams,
+														success : function(
+																retVal) {
+															location.hash
+															window.location
+																	.reload(true);
+														},
+														error : function(
+																request,
+																status, error) {
+															console
+																	.log("AJAX_ERROR");
+														}
+													});
+
+											//댓글 초기화
+											$("#content").val("");
+										});
+
+						//대댓글 입력창
+						$(document)
+								.on(
+										"click",
+										"button[name='reply_reply']",
+										function() { //동적 이벤트
+
+											var reply_id = $(this).attr("id");
+											var last_check = false;
+
+											$("#reply_add").remove();
+
+											//입력받는 창 등록
+											var replyEditor = '<div id="reply_add" class="section1">'
+													+ '<div class="reviews">'
+													+ '<textarea class="form-control" style="resize: none;" id="reContent" name="reContent" placeholder="댓글을 입력하세요."></textarea>'
+													+ '<br>'
+													+ '<button class="btn btn-outline-primary" name="reply_reply_save" reply_id="'+reply_id+'">등록</button>'
+													+ '&nbsp;&nbsp;'
+													+ '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'
+													+ '</div>' + '</div>';
+
+											var prevTr = $(this).parent()
+													.parent().next();
+
+											//부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
+											//마지막 리플 처리
+											if (prevTr.attr("reply_type") == undefined) {
+												prevTr = $(this).parent()
+														.parent();
+											} else {
+												while (prevTr
+														.attr("reply_type") == "sub") {//댓글의 다음이 sub면 계속 넘어감
+													prevTr = prevTr.next();
 												}
-											});
-					
-				            		//댓글 초기화
-				            		 $("#content").val("");
+
+												if (prevTr.attr("reply_type") == undefined) {//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
+													last_check = true;
+												} else {
+													prevTr = prevTr.prev();
+												}
+
+											}
+											prevTr.after(replyEditor);
+
+										});
+
+						//대댓글 등록
+						$(document)
+								.on(
+										"click",
+										"button[name='reply_reply_save']",
+										function() {
+
+											var reContent = $("textarea[name='reContent']");
+											var meetingId = $("input[name='meetingId']");
+											var content = reContent.val()
+													.replace("\n", "<br>"); //개행처리
+
+											if (content.trim() == "") {
+												alert("내용을 입력하세요.");
+												content.focus();
+												return false;
+											}
+
+											//값 셋팅
+											var objParams = {
+												meetingId : meetingId.val(),
+												parentId : $(this).attr(
+														"reply_id"),
+												depth : "1",
+												content : content
+											};
+
+											var reply_id;
+
+											//ajax 호출
+											$
+													.ajax({
+														url : "registMeetingComment.do",
+														dataType : "json",
+														type : "post",
+														data : objParams,
+														success : function(
+																retVal) {
+
+															location.hash
+															window.location
+																	.reload(true);
+
+														},
+														error : function(
+																request,
+																status, error) {
+															console
+																	.log("AJAX_ERROR");
+														}
+													});
+
+										});
+
+						//댓글 삭제
+						$("button[name='reply_del']").click(function() {
+
+							var check = false;
+							var meetingId = $("input[name='meetingId']");
+
+							//값 셋팅
+							var objParams = {
+								commentId : $(this).attr("id"),
+								parentId : $(this).attr("parentId")
+							};
+
+							//ajax 호출
+							$.ajax({
+								url : "removeMeetingComment.do",
+								dataType : "json",
+								type : "get",
+								data : objParams,
+								success : function(retVal) {
+									location.hash
+									window.location.reload(true);
+								},
+								error : function(request, status, error) {
+									console.log("AJAX_ERROR");
+								}
+							});
+
+							if (check) {
+								//삭제하면서 하위 댓글도 삭제
+								var prevTr = $(this).parent().parent().next(); //댓글의 다음
+
+								while (prevTr.attr("reply_type") == "sub") {//댓글의 다음이 sub면 계속 넘어감
+									prevTr = prevTr.next();
+									prevTr.prev().remove();
+								}
+
+								//마지막 리플 처리
+								if (prevTr.attr("reply_type") == undefined) {
+									prevTr = $(this).parent().parent();
+									prevTr.remove();
+								}
+
+								$(this).parent().parent().remove();
+							}
+
+						});
+
+						//대댓글 입력창 취소
+						$(document).on("click",
+								"button[name='reply_reply_cancel']",
+								function() {
+									$("#reply_add").remove();
 								});
 
-						
-						 //대댓글 입력창
-		                $(document).on("click","button[name='reply_reply']",function(){ //동적 이벤트
-		                     
-		                    var reply_id = $(this).attr("id");
-		                    var last_check = false;
-		                    
-		                    $("#reply_add").remove();
+						//수정
+						$(document)
+								.on(
+										"click",
+										"button[name='reply_update']",
+										function() { //동적 이벤트
 
-		                    //입력받는 창 등록
-		                     var replyEditor = 
-		                    	 '<div id="reply_add" class="section1">'+
-				         			'<div class="reviews">'+
-				         				'<textarea class="form-control" style="resize: none;" id="reContent" name="reContent" placeholder="댓글을 입력하세요."></textarea>'+
-				         				'<br>'+
-				         				 '<button class="btn btn-outline-primary" name="reply_reply_save" reply_id="'+reply_id+'">등록</button>'+
-					                        '&nbsp;&nbsp;'+
-					                        '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'+
-				         			'</div>'+
-				         		'</div>';
+											var reply_id = $(this).attr("id");
+											var reply_content = $(this).attr(
+													"reply_comment");
+											var last_check = false;
 
-		                    var prevTr = $(this).parent().parent().next();
-		                     
-		                    //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
-		                    //마지막 리플 처리
-		                    if(prevTr.attr("reply_type") == undefined){
-		                        prevTr = $(this).parent().parent();
-		                    }else{
-		                        while(prevTr.attr("reply_type")=="sub"){//댓글의 다음이 sub면 계속 넘어감
-		                            prevTr = prevTr.next();
-		                        }
-		                         
-		                        if(prevTr.attr("reply_type") == undefined){//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
-		                            last_check = true;
-		                        }else{
-		                            prevTr = prevTr.prev();
-		                        }
-		                         
-		                    }
-		                        prevTr.after(replyEditor);
-		                  
-		                });
-						 
-		              //대댓글 등록
-		                $(document).on("click","button[name='reply_reply_save']",function(){
-		                                         
-		                    var reContent = $("textarea[name='reContent']");
-		                    var meetingId = $("input[name='meetingId']");
-		                    var content = reContent.val().replace("\n", "<br>"); //개행처리
+											$("#reply_add").remove();
 
-		                    if(content.trim() == ""){
-		                        alert("내용을 입력하세요.");
-		                        content.focus();
-		                        return false;
-		                    }
+											//입력받는 창 등록
+											var replyEditor = '<div id="reply_add" class="section2">'
+													+ '<div class="reviews">'
+													+ '<textarea class="form-control" style="resize: none;" id="modify" name="modify">'
+													+ reply_content
+													+ '</textarea>'
+													+ '<br>'
+													+ '<button class="btn btn-outline-primary" name="reply_reply_update" reply_id="'+reply_id+'">수정</button>'
+													+ '&nbsp;&nbsp;'
+													+ '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'
+													+ '</div>' + '</div>';
 
-		                    //값 셋팅
-		                    var objParams = {	               
-		                            meetingId        : meetingId.val(),
-		                            parentId        : $(this).attr("reply_id"), 
-		                            depth           : "1",
-		                            content : content
-		                    };
-		                     
-		                    var reply_id;
-		                     
-		                    //ajax 호출
-		                    $.ajax({
-		                    	url : "registMeetingComment.do",
-								dataType : "json",
-								type : "post",
-								data : objParams,
-		                        success     :   function(retVal){
-		                        
-		                        	location.hash
-		                        	window.location.reload(true);
-		                        	
-		                        },
-		                        error       :   function(request, status, error){
-		                            console.log("AJAX_ERROR");
-		                        }
-		                    });
-		                     
-		             
-		                     
-		                });
-		              
+											var prevTr = $(this).parent()
+													.parent().next();
 
-		              //댓글 삭제
-		                $("button[name='reply_del']").click(function(){
-		                     
-		                    var check = false;
-		                    var meetingId = $("input[name='meetingId']");
-		                    
-		                    //값 셋팅
-		                    var objParams = {
-		                            commentId : $(this).attr("id"),
-		                            parentId : $(this).attr("parentId")
-		                    };
-		                     
-		                    //ajax 호출
-		                    $.ajax({
-		                        url         :   "removeMeetingComment.do",
-		                        dataType    :   "json",
-		                        type        :   "get",
-		                        data        :   objParams,
-		                        success     :   function(retVal){
-		                        	location.hash
-		                        	window.location.reload(true);
-		                        },
-		                        error       :   function(request, status, error){
-		                            console.log("AJAX_ERROR");
-		                        }
-		                    });
-		                     
-		                    if(check){
-		                        //삭제하면서 하위 댓글도 삭제
-		                        var prevTr = $(this).parent().parent().next(); //댓글의 다음
-		                         
-		                        while(prevTr.attr("reply_type")=="sub"){//댓글의 다음이 sub면 계속 넘어감
-		                            prevTr = prevTr.next();
-		                            prevTr.prev().remove();
-		                        }
-		                         
-		                        //마지막 리플 처리
-		                        if(prevTr.attr("reply_type") == undefined){
-		                            prevTr = $(this).parent().parent();
-		                            prevTr.remove();
-		                        }
-		                         
-		                        $(this).parent().parent().remove(); 
-		                    }
-		                     
-		                });
-						 
-		              
-		             	
-		            	//대댓글 입력창 취소
-		            	$(document).on("click","button[name='reply_reply_cancel']",function(){
-		            		$("#reply_add").remove();
-		            	});
-		            	
-		            	
+											//부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
+											//마지막 리플 처리
+											if (prevTr.attr("reply_type") == undefined) {
+												prevTr = $(this).parent()
+														.parent();
+											} else {
+												while (prevTr
+														.attr("reply_type") == "sub") {//댓글의 다음이 sub면 계속 넘어감
+													prevTr = prevTr.next();
+												}
 
-		            	//수정
-		            	  $(document).on("click","button[name='reply_update']",function(){ //동적 이벤트
-			                     
-			                    var reply_id = $(this).attr("id");
-			                    var reply_content = $(this).attr("reply_comment");
-			                    var last_check = false;
-			                    
-			                    $("#reply_add").remove();
+												if (prevTr.attr("reply_type") == undefined) {//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
+													last_check = true;
+												} else {
+													prevTr = prevTr.prev();
+												}
 
-			                    //입력받는 창 등록
-			                     var replyEditor = 
-			                    	 '<div id="reply_add" class="section2">'+
-					         			'<div class="reviews">'+
-					         				'<textarea class="form-control" style="resize: none;" id="modify" name="modify">'+reply_content+'</textarea>'+
-					         				'<br>'+
-					         				 '<button class="btn btn-outline-primary" name="reply_reply_update" reply_id="'+reply_id+'">수정</button>'+
-						                        '&nbsp;&nbsp;'+
-						                        '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'+
-					         			'</div>'+
-					         		'</div>';
+											}
+											prevTr.after(replyEditor);
 
-			                    var prevTr = $(this).parent().parent().next();
-			                     
-			                    //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
-			                    //마지막 리플 처리
-			                    if(prevTr.attr("reply_type") == undefined){
-			                        prevTr = $(this).parent().parent();
-			                    }else{
-			                        while(prevTr.attr("reply_type")=="sub"){//댓글의 다음이 sub면 계속 넘어감
-			                            prevTr = prevTr.next();
-			                        }
-			                         
-			                        if(prevTr.attr("reply_type") == undefined){//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
-			                            last_check = true;
-			                        }else{
-			                            prevTr = prevTr.prev();
-			                        }
-			                         
-			                    }
-			                        prevTr.after(replyEditor);
-			                  
-			                });
-		            	  
-		            	  
-		            	  //댓글 수정
-			                $(document).on("click","button[name='reply_reply_update']",function(){
-			                                         
-			                    var meetingId = $("input[name='meetingId']");
-			                    var content = $("textarea[name='modify']");
-			           
+										});
 
-			                    if(content.val().trim() == ""){
-			                        alert("내용을 입력하세요.");
-			                        content.focus();
-			                        return false;
-			                    }
+						//댓글 수정
+						$(document)
+								.on(
+										"click",
+										"button[name='reply_reply_update']",
+										function() {
 
-			                    //값 셋팅
-			                    var objParams = {	               
-			                    		commentId : $(this).attr("reply_id"),
-			                            content : content.val()
-			                    };
-			                     
-			                    var reply_id;
-			                     
-			                    //ajax 호출
-			                    $.ajax({
-			                    	url : "modifyMeetingComment.do",
-									dataType : "json",
-									type : "Post",
-									data : objParams,
-			                        success     :   function(retVal){
-			                        
-			                        	location.hash
-			                        	window.location.reload(true);
-			                        	
-			                        },
-			                        error       :   function(request, status, error){
-			                            console.log("AJAX_ERROR");
-			                        }
-			                    });
-			                     
-			                });
-		         
-		              });  
-	</script>
+											var meetingId = $("input[name='meetingId']");
+											var content = $("textarea[name='modify']");
+
+											if (content.val().trim() == "") {
+												alert("내용을 입력하세요.");
+												content.focus();
+												return false;
+											}
+
+											//값 셋팅
+											var objParams = {
+												commentId : $(this).attr(
+														"reply_id"),
+												content : content.val()
+											};
+
+											var reply_id;
+
+											//ajax 호출
+											$
+													.ajax({
+														url : "modifyMeetingComment.do",
+														dataType : "json",
+														type : "Post",
+														data : objParams,
+														success : function(
+																retVal) {
+
+															location.hash
+															window.location
+																	.reload(true);
+
+														},
+														error : function(
+																request,
+																status, error) {
+															console
+																	.log("AJAX_ERROR");
+														}
+													});
+
+										});
+
+					});
+</script>
 </head>
 <body class="homepage">
 
@@ -335,28 +365,52 @@
 		<div class="container">
 			<div class="row">
 
-					<header>
-					
-						<h2 align="left">${meetingDetail.meetingName }</h2>
-						
-							<h3 align="left">모임 일자 | <fmt:formatDate value="${meetingDetail.meetingDate}" pattern="yyyy-MM-dd" /></h3>
-							<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
-							<!-- 왜이러시죠 -->
-							<h3 align="left">장소 |</h3>
-							<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
-							<hr>
-						<a href="신고.do"><img src="resources/img/alarm.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					
-				<c:choose>
-					<c:when test="${loginUser.userId eq meetingDetail.hostId }">
-					<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					</c:when>
-				</c:choose>
-					
+				<header>
+
+					<h2 align="left">${meetingDetail.meetingName }</h2>
+
+
+
+					<h3 align="left">
+						모임 일자 |
+						<fmt:formatDate value="${meetingDetail.meetingDate}"
+							pattern="yyyy-MM-dd" />
+					</h3>
+					<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
+					<!-- 왜이러시죠 -->
+					<h3 align="left">장소 |</h3>
+					<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
+
+					<hr>
+
+					<div class="row">
+						<c:choose>
+							<c:when test="${loginUser.userId eq meetingDetail.hostId }">
+								<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+									src="resources/img/modify.png"
+									style="width: 25px; height: auto; vertical-align: right;"
+									alt=""></a>
+								<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+									src="resources/img/delete.png"
+									style="width: 25px; height: auto; vertical-align: right;"
+									alt=""></a>
+							</c:when>
+
+
+							<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+								<form action="registReport.do">
+									<input type="hidden" value="meeting" name="reportType">
+									<input type="hidden" value="${meetingDetail.meetingId}"
+										name="reportTargetId"> <input type="image"
+										src="resources/img/alarm.png" name="Submit"
+										src="resources/img/alarm.png" alt="Submit">
+								</form>
+							</c:when>
+						</c:choose>
+					</div>
 					<br>
-					</header>
-							
+				</header>
+
 				<section>
 					<div class="4u">
 						<iframe width="760" height="500"
@@ -365,7 +419,7 @@
 				</section>
 
 			</div>
-			
+
 			<section>
 				<div class="row">
 					<c:forEach var="mImage" items="${meetingDetail.meetingImageList}">
@@ -376,9 +430,9 @@
 						</div>
 					</c:forEach>
 				</div>
-				</section>
-			
-			
+			</section>
+
+
 
 			<section>
 
@@ -401,57 +455,88 @@
 				</div>
 			</section>
 
-<section><p>
-
-					</p></section>
+			<section>
+				<p></p>
+			</section>
 		</div>
 	</div>
-	
+
 	<div id="mainer">
 		<div class="container">
-				<div id="post" class="con">
-	<div class="hide-comments">
+			<div id="post" class="con">
+				<div class="hide-comments">
 					<input type="checkbox" value="" id="hide-button" name="check"
 						checked /> <label for="hide-button" class="button">댓글 숨기기</label>
 				</div>
 
-		<div class="comments">
-		<c:forEach var="comments" items="${comment}">
-			<ul reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
-				<li>
-		<c:if test="${comments.depth == '1'}"><div class="commenter"><ul><li></c:if>
-					<div class="user-comment">
-								<img src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png" alt="">
-								<header>
-									<a href="javascript:void(0)" class="name">${comments.writerId }</a>
-									<span>${comments.registDate }</span>
-									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>							
-									 <c:if test="${loginUser.userId == comments.writerId}">
-			    						<button class="btn btn-outline-primary" name="reply_update" reply_comment="${comments.content}" id="${comments.commentId}">수정</button>
-										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
-								</header>
-								<div class="content">
-									<p> ${fn:replace(comments.content, cn, br)}</p><hr> 
-								</div>
-					</div>
-   		<c:if test="${comments.depth == '1'}"></li></ul></div></c:if>
+				<div class="comments">
+					<c:forEach var="comments" items="${comment}">
+						<ul
+							reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
+							<li><c:if test="${comments.depth == '1'}">
+									<div class="commenter">
+										<ul>
+											<li>
+								</c:if>
+								<div class="user-comment">
+									<img
+										src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png"
+										alt="">
+									<header>
+										<a href="javascript:void(0)" class="name">${comments.writerId }</a>
+										<span>${comments.registDate }</span> &nbsp;&nbsp;&nbsp;
+										<c:if test="${comments.depth != '1'}">
+											<button class="btn btn-outline-primary" name="reply_reply"
+												id="${comments.commentId}">답글 달기</button>
+										</c:if>
+										<c:if test="${loginUser.userId == comments.writerId}">
+											<button class="btn btn-outline-primary" name="reply_update"
+												reply_comment="${comments.content}"
+												id="${comments.commentId}">수정</button>
+											<button class="btn btn-primary" name="reply_del"
+												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+										</c:if>
+										<c:if test="${loginUser.userId != comments.writerId }">
+											<form action="registReport.do">
+												<input type="hidden" value="${comments.writerId }"
+													name="userId"> <input type="hidden"
+													value="meetingComment" name="reportType"> <input
+													type="hidden" value="${comments.commentId}"
+													name="reportTargetId">
+
+												<button class="btn btn-primary" type="submit">신고</button>
+											</form>
+										</c:if>
+									</header>
+									<div class="content">
+										<p>${fn:replace(comments.content, cn, br)}</p>
+										<hr>
+									</div>
+								</div> <c:if test="${comments.depth == '1'}"></li>
+						</ul>
+				</div>
+				</c:if>
 				</li>
-   			</ul>
-		</c:forEach>
-   		</div>
+				</ul>
+				</c:forEach>
+			</div>
 			<div class="section">
-			<div class="reviews">
-					<input type="hidden" id="meetingId" name="meetingId" value="${meetingDetail.meetingId }"> 
-					<input type="hidden" id="parentId" name="parentId" value="0">
-					<input type="hidden" id="depth" name="depth" value="0">
-				<textarea class="form-control" rows="4" cols="40" style="resize: none;" id="content" name="content" placeholder="댓글을 입력하세요."></textarea>
-				<br>
-				<button id="reply_save" class="btn btn-primary" name="reply_save" >댓글 등록</button>
+				<div class="reviews">
+					<input type="hidden" id="meetingId" name="meetingId"
+						value="${meetingDetail.meetingId }"> <input type="hidden"
+						id="parentId" name="parentId" value="0"> <input
+						type="hidden" id="depth" name="depth" value="0">
+					<textarea class="form-control" rows="4" cols="40"
+						style="resize: none;" id="content" name="content"
+						placeholder="댓글을 입력하세요."></textarea>
+					<br>
+					<button id="reply_save" class="btn btn-primary" name="reply_save">댓글
+						등록</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<script>
+	<script>
 		$("#hide-button").click(function() {
 			if ($(this).is(":checked")) {
 				$("label").text("댓글 숨기기");
@@ -460,7 +545,7 @@
 				$("label").text("댓글 펼치기");
 				$(".comments").slideUp(300);
 			}
-		}); 
+		});
 	</script>
 	<!-- /Main -->
 

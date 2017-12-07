@@ -29,6 +29,15 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<!--데이트피커/미리보기를 위란 기본 파일-->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+
 <!--데이트피커-->
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
@@ -52,22 +61,29 @@
 						<!-- step1 시작-->
 
 						<div class="wrap_listing">
-							<form action="modifyEvent.do" method="POST" enctype="multipart/form-data">
-							<input type="hidden" name="eventId" value="${event.eventId }">
+						
+							<form action="modifyEvent.do" method="POST"
+								enctype="multipart/form-data">
+								
+								<input type="hidden" name="eventId" value="${event.eventId }">
 								<fieldset>
 									<legend class="screen_out">이벤트 수정하기 폼</legend>
 									<div class="form_details">
-
+										
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
 
 										<p>
-											<i class="fa fa-check"></i> 시작일: <input type="text"
-												id="eventOpenDate" name="openDate" value="${event.openDate }">
+											<label for="inpName" class="lab_comm"><strong
+												class="tit_form"> <i class="fa fa-check"></i>시작일
+											</strong></label> <input type="text" id="eventOpenDate" name="openDate"
+												value="${event.openDate }">
+
 										</p>
 
 										<p>
-											<i class="fa fa-check"></i> 종료일: <input type="text"
-												id="eventCloseDate" name="closeDate"
+											<label for="inpName" class="lab_comm"><strong
+												class="tit_form"> <i class="fa fa-check"></i>종료일
+											</strong></label> <input type="text" id="eventCloseDate" name="closeDate"
 												value="${event.closeDate }">
 										</p>
 
@@ -101,8 +117,8 @@
 
 										<section>
 
-											<input type="text" class="inp_comm" name="eventLocation" value="${event.eventName }">
-											<a href="#"
+											<input type="text" class="inp_comm" name="eventLocation"
+												value="${event.eventSpot}"> <a href="#"
 												class="btn btn-primary btn-block form-control btn_comm"><strong
 												style="color: white">검색하기</strong></a>
 										</section>
@@ -110,15 +126,14 @@
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form"><i class="fa fa-check"></i>소개글<i
 												class="txt_check"></i></strong>
-										</label>
-										<input type="text" class="inp_comm" name="eventInfo" placeholder="" value="${event.eventInfo }"></input>
+										</label> <input type="text" class="inp_comm" name="eventInfo"
+											placeholder="" value="${event.eventInfo }"></input> <input
+											type="submit" class="btn_comm btn_submit send_listing_place"
+											value="수정신청"></input>
 
-										<input type="submit"
-											class="btn_comm btn_submit send_listing_place" value="수정신청" ></input>
-
-										<button type="submit"
+										<button type="button"
 											class="btn_comm btn_submit send_listing_place"
-											onclick="eventDetail.do?eventId=${event.eventId }">수정취소</button>
+											onclick="location.href='eventDetail.do?eventId=${event.eventId }'">수정취소</button>
 									</div>
 								</fieldset>
 							</form>
