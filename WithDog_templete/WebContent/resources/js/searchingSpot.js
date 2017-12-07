@@ -2,12 +2,17 @@ function searchPopBtn_click() {
 	var $href = $('#searchSpot_btn').attr('href');
 	layer_popup($href);
 
-	var address = $('#eventLocation').val();
+	var address = $('#resultLocation').val();
 	$('#locationBox').val(address);
 
 	if (address != "") {
 		searchSpot(address);
 	}
+}
+
+function addSpotPop_click() {
+	var $href = $('#addSpotPop').attr('href');
+	layer_popup($href);
 }
 
 function searchBtn_click() {
@@ -69,7 +74,7 @@ function choiceSpot(spotId, address){
 	
 	isDim ? $('.dim-layer').fadeOut() : $el.fadeOut();
 	
-	$('#eventLocation').val(address);
+	$('#resultLocation').val(address);
 	$('#spotId').val(spotId);
 }
 function layer_popup(el) {

@@ -71,12 +71,12 @@ public class MeetingController {
 	
 	
 	@RequestMapping(value = "/registMeeting.do", method = RequestMethod.POST)
-	public String registMeeting(Meeting meeting, HttpSession session, MultipartHttpServletRequest file) throws IOException {
+	public String registMeeting(Meeting meeting, String spotId, HttpSession session, MultipartHttpServletRequest file) throws IOException {
 		
 		User user = (User)session.getAttribute("loginUser");
 		
 		Spot meetingSpot = new Spot();
-		meetingSpot.setSpotId(1);
+		meetingSpot.setSpotId(Integer.parseInt(spotId));
 		
 		meeting.setMeetingSpot(meetingSpot);
 		meeting.setHostId(user.getUserId());
@@ -120,7 +120,6 @@ public class MeetingController {
 	@RequestMapping("/meetingDetail.do")
 	public ModelAndView showMeetingDetail(String meetingId, HttpSession session) {
 		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
-//		Spot spot = spotService.findSpotBySpotId(meeting.getMeetingSpot().getSpotId());
 
 		User user = (User)session.getAttribute("loginUser");
 		List<String> joinList = meeting.getMeetingJoinList();
@@ -130,7 +129,7 @@ public class MeetingController {
 
 		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
 		modelAndView.addObject("meetingDetail", meeting);
-//		modelAndView.addObject("meetingSpot", spot);
+		modelAndView.addObject("meetingSpot", meeting.getMeetingSpot());
 		modelAndView.addObject("ImageList", meetingList);
 		modelAndView.addObject("joinList", joinList);
 //		modelAndView.addObject("userList", userList);

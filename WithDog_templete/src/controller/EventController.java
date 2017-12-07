@@ -71,7 +71,7 @@ public class EventController {
 		Spot eventSpot = new Spot();
 		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
-		
+		System.out.println(spotId);
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
@@ -168,7 +168,6 @@ public class EventController {
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
 		modelAndView.addObject("eventSpot",event.getEventSpot());
 		
-		System.out.println("spotName : " + event.getEventSpot().getSpotName());
 		modelAndView.addObject("comment", comment);
 		return modelAndView;
 	}

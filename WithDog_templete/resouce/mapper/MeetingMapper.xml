@@ -6,7 +6,7 @@
 <mapper namespace="store.mapper.MeetingMapper">
 		
 	<sql id="selectMeeting">
-		SELECT meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
+		SELECT meetingId, meetingName, meetingDate, meetingTime, minPerson, meetingPurpose, hostId
 	</sql>
 	
 	<resultMap type="Meeting" id="MeetingMap">
@@ -17,9 +17,10 @@
 		<result property="meetingTime" column="meetingTime"/>
 		<result property="minPerson" column="minPerson"/>
 		<result property="meetingPurpose" column="meetingPurpose"/>
+		<result property="meetingSpot.spotId" column="meetingSpotId"/>
 		<result property="hostId" column="hostId"/>
 		
-		<association property="meetingSpot" column="spotId"
+		<association property="meetingSpot" column="meetingSpotId"
 			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
 			jdbcType="NUMERIC" />
 			
@@ -85,7 +86,7 @@
 	</select>
 
 	<select id="retrieveMeetingByMeetingId" parameterType="Integer" resultMap="MeetingMap">
-		<include refid="selectMeeting"/>
+		SELECT meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
 		FROM meeting_tb
 		WHERE meetingId = #{meetingId}
 	</select>	

@@ -188,7 +188,7 @@ a.btn-popupSearch:hover {
 
 											<strong class="tit_form"><i class="fa fa-check"></i>이벤트
 												장소를 입력해주세요.</strong> <input type="text" class="inp_comm"
-												id="eventLocation" name="eventLocation"> <a
+												id="resultLocation" name="eventLocation"> <a
 												href="#searchSpot" id="searchSpot_btn"
 												class="btn btn-primary btn-block form-control btn_comm"
 												onclick="searchPopBtn_click()">검색하기</a>
