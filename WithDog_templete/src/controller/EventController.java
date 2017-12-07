@@ -58,6 +58,9 @@ public class EventController {
 
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
@@ -157,19 +160,22 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventDetail.do")
-	public ModelAndView showEventDetail(String eventId) throws ParseException {
+	public ModelAndView showEventDetail(String eventId, HttpSession session) throws ParseException {
 
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 		
 		List<Comment> comment = event.getCommentList(); 
 		
+		User userId = (User) session.getAttribute("loginUser");
+		User user = userService.findUserByUserId(userId.getUserId());
+		user.getPetImage();
+		
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
 		modelAndView.addObject("eventSpot",event.getEventSpot());
-		
-		System.out.println("spotName : " + event.getEventSpot().getSpotName());
 		modelAndView.addObject("comment", comment);
+		modelAndView.addObject("user", user);
 		return modelAndView;
 	}
 

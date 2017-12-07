@@ -28,7 +28,7 @@
 			javaType="ArrayList" jdbcType="NUMERIC" />
 			
 		<collection property="commentList" column="meetingId"
-			ofType="Comment" select="store.mapper.CommentMapper.retrieveCommentsByMeetingId"
+			ofType="String" select="store.mapper.CommentMapper.retrieveCommentsByMeetingId"
 			javaType="ArrayList" jdbcType="NUMERIC" />
 			
 			
@@ -72,7 +72,7 @@
 	</select>
 	
 	<select id="retrieveMeetingsByGuest" parameterType="String" resultType="Meeting">
-		SELECT meeting_tb.meetingId as meetingId, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
+		SELECT meeting_tb.meetingId as meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
 		FROM meeting_tb INNER JOIN joinMeeting_tb
 		ON meeting_tb.meetingId = joinMeeting_tb.meetingId
 		WHERE joinMeeting_tb.guestId = #{guestId}

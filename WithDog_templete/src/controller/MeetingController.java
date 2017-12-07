@@ -121,8 +121,10 @@ public class MeetingController {
 	public ModelAndView showMeetingDetail(String meetingId, HttpSession session) {
 		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
 //		Spot spot = spotService.findSpotBySpotId(meeting.getMeetingSpot().getSpotId());
-
+		
 		User user = (User)session.getAttribute("loginUser");
+		User userId = userService.findUserByUserId(user.getUserId());
+		userId.getPetImage();
 		List<String> joinList = meeting.getMeetingJoinList();
 		List<String> meetingList = meeting.getMeetingImageList();
 //		List<User> userList = userService.findUserList(joinList);
@@ -135,6 +137,7 @@ public class MeetingController {
 		modelAndView.addObject("joinList", joinList);
 //		modelAndView.addObject("userList", userList);
 		modelAndView.addObject("User", user);
+		modelAndView.addObject("user", userId);
 		modelAndView.addObject("comment", comment);
 		return modelAndView;
 	}

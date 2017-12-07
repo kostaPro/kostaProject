@@ -63,13 +63,12 @@
 					<table class="table table-striped table-bordered table-hover">
 						<colgroup>
 							<col width="200" />
-							<col width="200" />
 							<col width="1000" />
 							<col width="100" />
 						</colgroup>
 						<thead>
 							<tr>
-								<th class="text-center">신고 구분</th>
+								
 								<th class="text-center">신고 대상</th>
 								<th class="text-center">신고 사유</th>
 								<th class="text-center">처리 상태</th>
@@ -85,8 +84,7 @@
 								<c:otherwise>
 									<c:forEach var="userReportList" items="${userReportList }">
 										<tr>
-											<td class="text-center"><a
-												href="reportDetail.do?reportId=${userReportList.reporterId }">${userReportList.reportTargetId  }</a></td>
+											
 											<td class="text-center">${userReportList.reportTargetId }</td>
 											<td class="text-center">${userReportList.reportContent }</td>
 											<td class="text-center">${userReportList.status }</td>

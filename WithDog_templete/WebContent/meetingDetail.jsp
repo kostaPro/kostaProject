@@ -421,9 +421,9 @@
 				<li>
 		<c:if test="${comments.depth == '1'}"><div class="commenter"><ul><li></c:if>
 					<div class="user-comment">
-								<img src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png" alt="">
+								<img src="/images/${user.petImage }" onclick="OnloadImg(this.src)">
 								<header>
-									<a href="javascript:void(0)" class="name">${comments.writerId }</a>
+									<a class="name">${comments.writerId }</a>
 									<span>${comments.registDate }</span>
 									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>							
 									 <c:if test="${loginUser.userId == comments.writerId}">
@@ -431,7 +431,7 @@
 										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
 								</header>
 								<div class="content">
-									<p> ${fn:replace(comments.content, cn, br)}</p><hr> 
+									<p> ${fn:replace(comments.content, cn, br)}</p>
 								</div>
 					</div>
    		<c:if test="${comments.depth == '1'}"></li></ul></div></c:if>
@@ -461,6 +461,15 @@
 				$(".comments").slideUp(300);
 			}
 		}); 
+		function OnloadImg(url){
+			  var img=new Image();
+			  img.src=url;
+			  var img_width=img.width;
+			  var win_width=img.width+25;
+			  var height=img.height+30;
+			  var OpenWindow=window.open('','_blank', 'width='+img_width+', height='+height+', menubars=no, scrollbars=auto');
+			  OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
+			 }
 	</script>
 	<!-- /Main -->
 

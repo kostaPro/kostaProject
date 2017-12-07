@@ -12,8 +12,9 @@
 		<result property="openDate" column="OPENDATE" />
 		<result property="closeDate" column="CLOSEDATE" />
 		<result property="eventInfo" column="EVENTINFO" />
+		<result property="eventSpot.spotId" column="eventSpotId"/>
 
-		<association property="eventSpot" column="SPOTID"
+		<association property="eventSpot" column="eventSpotId"
 			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
 			jdbcType="NUMERIC" />
 
@@ -23,8 +24,7 @@
 	</resultMap>
 
 	<sql id="selectEvent">
-		select eventId, eventName, eventSpotId, eventImage,
-		openDate, closeDate, eventInfo
+		select eventId, eventName, eventImage, openDate, closeDate, eventInfo
 		from event_tb
 	</sql>
 
@@ -75,7 +75,8 @@
 
 	<select id="retrieveEventByEventId" parameterType="integer"
 		resultMap="EventMap">
-		<include refid="selectEvent"></include>
+		select eventId, eventName,eventSpotId, eventImage, openDate, closeDate, eventInfo
+		from event_tb
 		WHERE EVENTID = #{eventId}
 	</select>
 

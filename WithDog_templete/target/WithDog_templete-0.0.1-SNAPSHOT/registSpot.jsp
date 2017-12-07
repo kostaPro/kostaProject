@@ -118,15 +118,15 @@
 													class="link_cont"></label></li>
 
 												<li><input type="radio" id="inpStore" name="spotType"
-													value="hospital"> <label for="inpStore"
+													value="동물병원"> <label for="inpStore"
 													class="link_cont"><span class="ico_comm ico_shop"></span><span
 														class="txt_name">동물 병원</span></label></li>
 												<li><input type="radio" id="inpEvent" name="spotType"
-													value="shop"> <label for="inpEvent"
+													value="애견샵"> <label for="inpEvent"
 													class="link_cont"><span class="ico_comm ico_event"></span><span
 														class="txt_name">애견 샵</span></label></li>
 												<li><input type="radio" id="inpFnb" name="spotType"
-													value="cafe"> <label for="inpFnb" class="link_cont"><span
+													value="애견카페"> <label for="inpFnb" class="link_cont"><span
 														class="ico_comm ico_fnb"></span><span class="txt_name">애견
 															카페</span></label></li>
 
@@ -141,19 +141,19 @@
 													class="link_cont"></label></li>
 
 												<li><input type="radio" id="inpExhibit" name="spotType"
-													value="park"> <label for="inpExhibit"
+													value="공원"> <label for="inpExhibit"
 													class="link_cont"> <span
 														class="ico_comm ico_exhibit"></span> <span
 														class="txt_name">공원</span></label></li>
 
 												<li><input type="radio" id="inpUnique" name="spotType"
-													value="accomodation"> <label for="inpUnique"
+													value="숙박시설"> <label for="inpUnique"
 													class="link_cont"> <span
 														class="ico_comm ico_unique"></span> <span class="txt_name">숙박
 															시설</span></label></li>
 
 												<li><input type="radio" id="inpExtra" name="spotType"
-													value="etc"> <label for="inpExtra"
+													value="기타"> <label for="inpExtra"
 													class="link_cont"><span class="ico_comm ico_unique"></span>
 														<span class="txt_name">기타</span></label></li>
 

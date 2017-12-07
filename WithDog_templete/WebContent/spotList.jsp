@@ -151,6 +151,7 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="spot" items="${spotList }">
+									<input type="hidden" id="spotLocation" name="spotLocation" value="${spot.spotLocation }"> 
 										<tr>
 											<td class="text-center"><a
 												href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
@@ -179,12 +180,21 @@
   <script>
   var map = new naver.maps.Map('map');  
   var arra = [];  // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-
+  var spotName = [];
+  var spotId = [];
+  
   <c:forEach var="item" items="${list }">
   arra.push("${item}");   
   </c:forEach>
   
+  <c:forEach var="spot" items="${spotList }">
+  spotName.push("${spot.spotName}"); 
+  spotId.push("${spot.spotId}"); 
+  </c:forEach>
+  
   $.each(arra, function(i){
+	  $.each(spotName, function(i){
+		  $.each(spotId, function(i){
   naver.maps.Service.geocode({address: arra[i]}, function(status, response) {
       if (status !== naver.maps.Service.Status.OK) {
           return alert(arra + '의 검색 결과가 없거나 기타 네트워크 에러');
@@ -209,13 +219,14 @@
         }
       });
       // 마크 클릭시 인포윈도우 오픈
-      var infowindow = new naver.maps.InfoWindow({
-          content: '<h4> [네이버 개발자센터]</h4><a href="https://developers.naver.com" target="_blank"><img src="https://developers.naver.com/inc/devcenter/images/nd_img.png"></a>'
-      });
-  });
-  
+      var spotLocation = $("input[name='spotLocation']");
+      var infowindow = new naver.maps.InfoWindow({  
+          content: '<h4>'+spotName[i]+'</h4><h4>'+arra[i]+'</h4><a href="spotDetail.do?spotId='+spotId[i]+'"><button class="btn btn-primary">상세 보기</button></a>'
+      		});
+  		});
+	   })
+	 })
   })
-
       </script>
 	<!-- Copyright -->
 	<div id="copyright">

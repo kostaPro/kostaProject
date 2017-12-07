@@ -26,6 +26,7 @@ import domain.User;
 import service.CommentService;
 import service.ReviewService;
 import service.SpotService;
+import service.UserService;
 
 @Controller
 public class ReviewController {
@@ -36,6 +37,9 @@ public class ReviewController {
 	private CommentService commentService;
 	@Autowired
 	private SpotService spotService;
+	@Autowired
+	private UserService userService;
+
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReview(String spotId, HttpServletRequest req) {
@@ -97,6 +101,10 @@ public class ReviewController {
 
 		Review review = reviewService.findReviewByReviewId(Integer.parseInt(reviewId));
 
+		User userId = (User) session.getAttribute("loginUser");
+		User user = userService.findUserByUserId(userId.getUserId());
+		user.getPetImage();
+		
 		List<String> list = review.getReviewImageList();
 		List<Comment> comment = review.getCommentList();
 
@@ -105,6 +113,7 @@ public class ReviewController {
 		modelAndView.addObject("spot", spotService.findSpotBySpotId(Integer.parseInt(spotId)));
 		modelAndView.addObject("comment", comment);
 		modelAndView.addObject("uploadFileList", list);
+		modelAndView.addObject("user", user);
 		return modelAndView;
 	}
 
