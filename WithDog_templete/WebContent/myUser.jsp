@@ -12,7 +12,6 @@
 <head>
 <title>WithDog_meetingList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
@@ -32,16 +31,7 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
-<!--데이트피커를 위란 기본 파일-->
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
-<!--데이트피커-->
-<script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
 
 <style type="text/css">
@@ -51,6 +41,47 @@ table{
 width:60%;
 height:100px;
 margin:auto;
+}
+
+input.btn-popupSearch {
+	display: inline-block;
+	height: 32px;
+	padding: 0 14px 0;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
+	font-size: 13px;
+	align-content: center;
+	color: #fff;
+}
+
+input.btn-popupSearch:hover {
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
+	color: #fff;
+}
+
+a.btn-popupSearch {
+	display: inline-block;
+	height: 32px;
+	padding: 0 14px 0;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
+	font-size: 13px;
+	align-content: center;
+	color: #fff;
+}
+
+a.btn-popupSearch:hover {
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
+	color: #fff;
+}
+
+.row {
+    
+}
+.row div {
+    
 }
 
 
@@ -78,8 +109,6 @@ margin:auto;
 							</header>
 
 						</section>
-
-
 
 						<form action="myPage.do" method="POST"
 								>
@@ -139,11 +168,15 @@ margin:auto;
 										<th><input type="text" class="inp_comm" name="petInfo"
 											value="${user.petInfo }" style="width:200px;"></th>
 										</tr>
-										</table>
+										<tr>
 
-										<input type="submit"
-											class="" value="수정"></input>
-										<a href="removeUser.do?userId=${user.userId }">탈퇴</a>
+										
+										
+										<th><input type="submit" class="btn-popupSearch" value="수정" style="margin-right:5px; line-height:28px !important;"></input></th>
+										<th><a href="removeUser.do?userId=${user.userId }" class="btn-popupSearch" style="margin:10 0 0 0;"><b><font color="white">탈퇴</font></b></a></th>
+										
+										</tr>
+										</table>
 									</div>
 								</fieldset>
 							</form>

@@ -29,6 +29,7 @@
 					<li><a href="eventList.do">이벤트</a></li>
 					<li><a href="myPage.do">MyPage</a></li>
 					<li><a href="myPage.do">${loginUser.userId } 회원님 반갑습니다.</a></li>
+					<li><a href="logout.do">로그아웃</a></li>
 				</ul>
 			</nav>
 		</div>
