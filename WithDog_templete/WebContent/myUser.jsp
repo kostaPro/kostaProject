@@ -12,7 +12,6 @@
 <head>
 <title>WithDog_meetingList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
@@ -32,16 +31,7 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
-<!--데이트피커를 위란 기본 파일-->
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
-<!--데이트피커-->
-<script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
 
 <style type="text/css">
@@ -52,6 +42,48 @@ width:60%;
 height:100px;
 margin:auto;
 }
+
+input.btn-popupSearch {
+	display: inline-block;
+	height: 32px;
+	padding: 0 14px 0;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
+	font-size: 13px;
+	align-content: center;
+	color: #fff;
+}
+
+input.btn-popupSearch:hover {
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
+	color: #fff;
+}
+
+a.btn-popupSearch {
+	display: inline-block;
+	height: 32px;
+	padding: 0 14px 0;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
+	font-size: 13px;
+	align-content: center;
+	color: #fff;
+}
+
+a.btn-popupSearch:hover {
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
+	color: #fff;
+}
+
+.row {
+    
+}
+.row div {
+    
+}
+
 
 </style>
 
@@ -78,9 +110,7 @@ margin:auto;
 
 						</section>
 
-
-
-						<form action="modifyMeeting.do" method="POST"
+						<form action="myPage.do" method="POST"
 								>
 								<fieldset>
 									<legend class="screen_out">모임 수정하기 폼</legend>
@@ -88,25 +118,25 @@ margin:auto;
 
 
 										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
-										<input type="hidden" name="meetingId" value="${meetingDetail.meetingId }">
+										<input type="hidden" name="userId" value="${user.userId }">
 										
 										<table>
 										<tr>
 											<th><label for="inpName" class="lab_comm"><strong
 												class="tit_form"><i class="fa fa-check"></i>비밀번호</strong></label></th> <th><input
-												type="password" id="inpName" name="meetingName" class="inp_comm" value ="${meetingDetail.meetingName }" style="width:200px;" ></th>
+												type="password" id="inpName" name="password" class="inp_comm" value ="" style="width:200px;" ></th>
 										</tr>
 										
 										<tr>
 											<th><label for="inpName" class="lab_comm"><strong
 												class="tit_form"><i class="fa fa-check"></i>비밀번호 확인</strong></label></th> <th><input
-												type="password" id="inpName" name="meetingName" class="inp_comm" value ="${meetingDetail.meetingName }" style="width:200px;" ></th>
+												type="password" id="inpName" class="inp_comm" value ="" style="width:200px;" ></th>
 										</tr>
 										
 										<tr>
 											<th><label for="inpName" class="lab_comm"><strong
 												class="tit_form"><i class="fa fa-check"></i>연락처</strong></label></th> <th><input
-												type="text" id="inpName" name="meetingName" class="inp_comm" value ="${meetingDetail.meetingName }" style="width:200px;"></th>
+												type="text" id="inpName" name="contact" class="inp_comm" value ="${user.contact }" style="width:200px;"></th>
 										</tr>
 										
 										
@@ -115,7 +145,7 @@ margin:auto;
 												class="tit_form"><i class="fa fa-check"></i>선호 지역</strong></label></th>
 												
 										<th><select name="favoriteLocation" style="width:200px;">
-                    						  <option value=""></option>
+                    						  <option value="${user.favoriteLocation }">${user.favoriteLocation }</option>
                    							  <option value="서울">서울</option>
                    							  <option value="경기">경기</option>
                    							  <option value="인천">인천</option>
@@ -135,13 +165,18 @@ margin:auto;
 											class="tit_form"><i class="fa fa-check"></i>애견 정보<i
 												class="txt_check"></i></strong>
 										</label></th>
-										<th><input type="text" class="inp_comm" name="meetingPurpose"
-											value="${meetingDetail.meetingPurpose }" style="width:200px;"></th>
+										<th><input type="text" class="inp_comm" name="petInfo"
+											value="${user.petInfo }" style="width:200px;"></th>
+										</tr>
+										<tr>
+
+										
+										
+										<th><input type="submit" class="btn-popupSearch" value="수정" style="margin-right:5px; line-height:28px !important;"></input></th>
+										<th><a href="removeUser.do?userId=${user.userId }" class="btn-popupSearch" style="margin:10 0 0 0;"><b><font color="white">탈퇴</font></b></a></th>
+										
 										</tr>
 										</table>
-
-										<input type="submit"
-											class="" value="수정"></input>
 									</div>
 								</fieldset>
 							</form>

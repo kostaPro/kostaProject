@@ -12,9 +12,10 @@
      <script type="text/javascript" src="resources/js/userImage.js"></script>
 
       <link rel="stylesheet" href="resources/css/loginStyle.css">
+      <script type="text/javascript" src="resources/js/image.js"></script>
 
 
-		<style type="text/css">
+<style type="text/css">
 select {
 	style="background-color: #f6f6f6;
   border: none;
@@ -37,8 +38,15 @@ select {
 	
 }
 
-}
-</style>
+
+
+
+
+
+
+<script type="text/javascript">
+
+</script>
 
 </head>
 
@@ -54,9 +62,10 @@ select {
 
     <!-- Login Form -->
     <form action="registUser.do" method="POST" enctype="multipart/form-data">
-      <input type="text" id="userId" class="fadeIn second" name="userId" placeholder="ID">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-      <input type="text" id="contact" class="fadeIn second" name="contact" placeholder="contact">
+      <input type="text" id="userId" class="fadeIn second" name="userId" placeholder="ID" required="required" maxlength="10">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required="required">
+      <input type="password" id="confirm" class="fadeIn third" placeholder="confirm password" required="required">
+      <input type="text" id="contact" class="fadeIn second" name="contact" placeholder="contact" required="required">
 
                   <select name="favoriteLocation" >
                      <option value="">&nbsp&nbsp&nbsplocation</option>

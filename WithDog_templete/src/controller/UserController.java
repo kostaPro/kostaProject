@@ -102,10 +102,12 @@ public class UserController {
 
 	@RequestMapping("/removeUser.do")
 	public String removeUser(String userId) {
-
+		if(userId.equals("admin")) {
+			return "서윤아 어드민 탈퇴시킨다더라 일해라";
+		}else {
 		userService.removeUser(userId);
-
-		return "어디로 갈까?";
+		return "redirect:login.jsp";
+		}
 	}
 
 	@RequestMapping("/logout.do")
@@ -125,9 +127,26 @@ public class UserController {
 		return modelAndView;
 	}
 
-	public String modifyUser(User user) {
-		userService.modifyUser(user);
-
-		return "redirect:마이페이지 어딘가로 갑시다";
+	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
+	public ModelAndView showModifyUser(HttpSession session){
+		
+		User user = (User)session.getAttribute("loginUser");
+		
+		ModelAndView modelAndView = new ModelAndView("myUser.jsp");
+		modelAndView.addObject("user", user);
+		
+		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
+	public ModelAndView modifyUser(User user) {
+		
+		userService.modifyUser(user);
+		
+		ModelAndView modelAndView = new ModelAndView("myUser.jsp");
+		modelAndView.addObject("user", user);
+		
+		return modelAndView;
+	}
+	
 }

@@ -40,7 +40,7 @@ create table user_tb(
 userId varchar(20) primary Key,
 password varchar(20),
 contact varchar(15),
-favoriteLocation varchar(20),
+favoriteLocation varchar(25),
 petInfo varchar(50),
 petImage varchar(150)
 );
