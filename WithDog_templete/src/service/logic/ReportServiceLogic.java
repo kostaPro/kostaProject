@@ -24,11 +24,14 @@ public class ReportServiceLogic implements ReportService {
 	public boolean registReport(Report report) {
 
 		String reportType = "spot";
-
+//		String reportType = report.getReportType();
+		
+		System.out.println(reportType);
+		
 		if (reportType == "spot") {
 			return reportStore.createSpotReport(report);
 		} else if (reportType == "meeting") {
-			return reportStore.createMeetingCommentReport(report);
+			return reportStore.createMeetingReport(report);
 		} else if (reportType == "review") {
 			return reportStore.createReviewReport(report);
 		} else if (reportType == "eventComment") {
@@ -78,9 +81,17 @@ public class ReportServiceLogic implements ReportService {
 	}
 
 	@Override
-	public boolean modifyReport(Report report) {
+	public boolean modifyReport(Report report) { // 왜 reportType을 못받아올까요?
 
-		String reportType = "spot";
+		String reportType = String.valueOf(report.getReportType());
+		
+		// String reportType = "spot";
+		// String s = report.getStatus();
+		// int r = report.getReportTargetId();
+		
+		// System.out.println(r);
+		// System.out.println(s);
+		// System.out.println(reportType);
 
 		if (reportType == "spot") {
 			return reportStore.updateSpotReport(report);
@@ -99,9 +110,23 @@ public class ReportServiceLogic implements ReportService {
 	}
 
 	@Override
-	public boolean removeReport(int reportTargetId) {
+	public boolean removeReport(int reportTargetId) { //
 
 		return false;
+
+		// if (reportType == "spot") {
+		// return reportStore.deleteSpotReport(reportTargetId);
+		// } else if (reportType == "meeting") {
+		// return reportStore.deleteMeetingCommentReport(reportTargetId);
+		// } else if (reportType == "review") {
+		// return reportStore.deleteReviewReport(reportTargetId);
+		// } else if (reportType == "eventComment") {
+		// return reportStore.deleteEventCommentReport(reportTargetId);
+		// } else if (reportType == "meetingComment") {
+		// return reportStore.deleteMeetingCommentReport(reportTargetId);
+		// } else {
+		// return reportStore.deleteReviewCommentReport(reportTargetId);
+		// }
 	}
 
 }

@@ -29,7 +29,7 @@
 				<form action="registReport.do" method="POST">
 				<input type="hidden" name="reportType" value="${reportType }">
 				<input type="hidden" name="reportTargetId" value="${reportTargetId }">
-				<input type="hidden" name="userId" value="${userId}">
+				
 				
 					<header>
 
@@ -39,7 +39,7 @@
 
 					<section>
 						
-						<h3 align="left">신고자 | ${userId }</h3>
+						
 						<h3 align="left">신고구분 | ${reportType }</h3>
 						<h3 align="left">신고대상 | ${reportTargetId }</h3>
 						<br> <input type="text" class="form-control" id="reportContent" name="reportContent" placeholder="신고 사유를 입력해 주세요."/> <br>
