@@ -10,19 +10,19 @@ import service.UserService;
 
 @Controller
 public class MobileUserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping(value = "/mobileLogin.do", produces = "application/xml")
 	public @ResponseBody String login(User user) {
 
 		User loginUser = userService.findUserByUserId(user.getUserId());
 		if (loginUser != null) {
+			if (user.getPassword().equals(loginUser.getPassword())) {
 				return "true";
-			}else {
-				return "false";
+			}
 		}
+		return "false";
 	}
-
 }
