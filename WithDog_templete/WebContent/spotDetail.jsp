@@ -63,15 +63,9 @@
 
 
 								<c:when test="${loginUser.userId ne meetingDetail.hostId }">
-									<form action="registReport.do">
-										<input type="hidden" value="${meetingDetail.hostId }"
-											name="userId"> <input type="hidden" value="meeting"
-											name="reportType"> <input type="hidden"
-											value="${meetingDetail.meetingId}" name="reportTargetId">
-
-										<input type="image" src="resources/img/alarm.png"
-											name="Submit" src="resources/img/alarm.png" alt="Submit"><h3>신고하기</h3>
-									</form>
+									<a href="registReport.do?reportTargetId=${spotDetail.spotId}&reportType=spot"><img
+								src="resources/img/alarm.png"
+								style="width: 25px; height: auto; vertical-align: right;" alt=""><h3>신고하기</h3></a>
 								</c:when>
 							</c:choose>
 							
@@ -97,7 +91,6 @@
 
 							<a href="#" class="image full"> <img
 								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
-
 						</section>
 					</div>
 
