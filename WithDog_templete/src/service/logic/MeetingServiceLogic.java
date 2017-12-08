@@ -14,6 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import domain.Comment;
 import domain.Meeting;
+import domain.User;
 import service.MeetingService;
 import store.CommentStore;
 import store.MeetingStore;
@@ -29,6 +30,8 @@ public class MeetingServiceLogic implements MeetingService{
 	private MeetingStore meetingStore;
 	@Autowired
 	private CommentStore commentStore;
+	@Autowired
+	private UserStore userStore;
 	
 
 //	@Test
@@ -84,9 +87,16 @@ public class MeetingServiceLogic implements MeetingService{
 		Meeting meeting = meetingStore.retrieveMeetingByMeetingId(meetingId);
 		meeting.setCommentList(findCommentByMeetingId(meetingId));
 		meeting.setMeetingImageList(meetingStore.retrieveImageListByMeetingId(meetingId));
-		meeting.setMeetingJoinList(meetingStore.retrieveJoinListByMeetingId(meetingId));
+		
+		List<String> stringList = meetingStore.retrieveJoinListByMeetingId(meetingId);
+		
+		if(stringList.size() != 0 ) {
+			List<User> userList = userStore.retrieveUserList(stringList);
+			meeting.setMeetingJoinList(userList);
+		}
 		
 		return meeting;
+		
 	}
 
 	@Override

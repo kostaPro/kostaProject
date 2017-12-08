@@ -32,8 +32,28 @@
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
 <!--showMap-->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="resources/js/markMultipleSpot.js"></script>
 
+<!--js로 spot객체리스트 넘기기-->
+<script type="text/javascript">
+	var spots = new Array();
+
+	<c:forEach var="spot" items="${spotList }">
+
+	var spotObj = new Object();
+
+	spotObj.spotLocation = "${spot.spotLocation}";
+	spotObj.spotId = "${spot.spotId}";
+	spotObj.spotName = "${spot.spotName}";
+
+	spots.push(spotObj);
+	</c:forEach>
+
+	markMultipleSpot(JSON.stringify(spots));
+</script>
 </head>
 <body class="homepage">
 
@@ -50,21 +70,8 @@
 				<div class="row">
 
 					<div class="3u">
-						<select name="spotLocation" id="spotLocation" class="form-control">
-							<option value="">지역을 선택해주세요.</option>
-							<option value="서울특별시">서울</option>
-							<option value="경기도">경기</option>
-							<option value="인천광역시">인천</option>
-							<option value="강원도">강원</option>
-							<option value="부산광역시">부산</option>
-							<option value="경상남도">경남</option>
-							<option value="전라남도">전남</option>
-							<option value="전라북도">전북</option>
-							<option value="경상북도">경북</option>
-							<option value="충청남도">충남</option>
-							<option value="충청북도">충북</option>
-							<option value="제주특별시">제주</option>
-						</select>
+						<input type="text" placeholder="주소를 입력해주세요" name="spotLocation"
+							id="spotLocation" class="form-control" />
 					</div>
 
 
@@ -103,7 +110,7 @@
 				</div>
 
 			</form>
-				<div id="map" style="width:100%;height:400px;"></div>	
+			<div id="map" style="width: 100%; height: 400px;"></div>
 		</div>
 	</div>
 	<!-- /Main -->
@@ -111,7 +118,7 @@
 	<!-- Footer -->
 	<div id="footer">
 		<div class="container">
-			
+
 			<div class="row half">
 				<div class="3u">
 					<section>
@@ -150,7 +157,8 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="spot" items="${spotList }">
-									<input type="hidden" id="spotLocation" name="spotLocation" value="${spot.spotLocation }"> 
+										<input type="hidden" id="spotList" name="spotList"
+											value="${spotList }">
 										<tr>
 											<td class="text-center"><a
 												href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
@@ -175,58 +183,7 @@
 		</div>
 	</div>
 	<!-- /Footer -->
-	 <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
-  <script>
-  var map = new naver.maps.Map('map');  
-  var arra = [];  // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-  var spotName = [];
-  var spotId = [];
-  
-  <c:forEach var="item" items="${list }">
-  arra.push("${item}");   
-  </c:forEach>
-  
-  <c:forEach var="spot" items="${spotList }">
-  spotName.push("${spot.spotName}"); 
-  spotId.push("${spot.spotId}"); 
-  </c:forEach>
-  
-  $.each(arra, function(i){
-	  $.each(spotName, function(i){
-		  $.each(spotId, function(i){
-  naver.maps.Service.geocode({address: arra[i]}, function(status, response) {
-      if (status !== naver.maps.Service.Status.OK) {
-          return alert(arra + '의 검색 결과가 없거나 기타 네트워크 에러');
-      }
-      var result = response.result;
-      // 검색 결과 갯수: result.total
-      // 첫번째 결과 결과 주소: result.items[0].address
-      // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
-      var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-      map.setCenter(myaddr); // 검색된 좌표로 지도 이동
-      // 마커 표시
-      var marker = new naver.maps.Marker({
-        position: myaddr,
-        map: map
-      });
-      // 마커 클릭 이벤트 처리
-      naver.maps.Event.addListener(marker, "click", function(e) {
-        if (infowindow.getMap()) {
-            infowindow.close();
-        } else {
-            infowindow.open(map, marker);
-        }
-      });
-      // 마크 클릭시 인포윈도우 오픈
-      var spotLocation = $("input[name='spotLocation']");
-      var infowindow = new naver.maps.InfoWindow({  
-          content: '<h4>'+spotName[i]+'</h4><h4>'+arra[i]+'</h4><a href="spotDetail.do?spotId='+spotId[i]+'"><button class="btn btn-primary">상세 보기</button></a>'
-      		});
-  		});
-	   })
-	 })
-  })
-      </script>
+
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">

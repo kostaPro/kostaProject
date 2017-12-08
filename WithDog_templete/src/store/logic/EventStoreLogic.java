@@ -95,6 +95,7 @@ public class EventStoreLogic implements EventStore{
 
 		try {
 			EventMapper mapper = session.getMapper(EventMapper.class);
+			location = "%" + location + "%";
 			list = mapper.retrieveEventsByLocation(location);
 			
 		} catch (Exception e) {
@@ -115,7 +116,7 @@ public class EventStoreLogic implements EventStore{
 
 		try {
 			EventMapper mapper = session.getMapper(EventMapper.class);
-			
+			location = "%" + location + "%";
 			map.put("date", date);
 			map.put("location", location);
 			

@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,12 +125,12 @@ public class MeetingController {
 	public ModelAndView showMeetingDetail(String meetingId, HttpSession session) {
 		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
 
-		User user = (User) session.getAttribute("loginUser");
+		User user = (User)session.getAttribute("loginUser");
+		User hostUser = userService.findUserByUserId(meeting.getHostId());
+
 		User userId = userService.findUserByUserId(user.getUserId());
-		userId.getPetImage();
-		List<String> joinList = meeting.getMeetingJoinList();
 		List<String> meetingList = meeting.getMeetingImageList();
-		// List<User> userList = userService.findUserList(joinList);
+
 		List<Comment> comment = meeting.getCommentList();
 
 		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
@@ -136,10 +138,12 @@ public class MeetingController {
 		modelAndView.addObject("meetingDetail", meeting);
 		modelAndView.addObject("meetingSpot", meeting.getMeetingSpot());
 		modelAndView.addObject("ImageList", meetingList);
-		modelAndView.addObject("joinList", joinList);
-		// modelAndView.addObject("userList", userList);
+
+		modelAndView.addObject("joinList", meeting.getMeetingJoinList());
+
 		modelAndView.addObject("User", user);
 		modelAndView.addObject("user", userId);
+		modelAndView.addObject("hostUser", hostUser);
 		modelAndView.addObject("comment", comment);
 
 		// 기존 신고
@@ -163,12 +167,23 @@ public class MeetingController {
 	}
 
 	@RequestMapping(value = "meetingList.do", method = RequestMethod.POST)
-	public ModelAndView searchMeeting(@RequestParam("mLocation") String location,
-			@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
+	public ModelAndView searchMeeting(@RequestParam("mLocation") String location,@RequestParam("date") String inputDate) {
+		
 
 		List<Meeting> meetingList = new ArrayList<>();
 
-		if (location == "" && date != null) {
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+		Date date = null;
+		try {
+			if(!inputDate.equals("")) {
+				date = dateFormatter.parse(inputDate);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		if(location == "" && date != null) {
+
 			meetingList = meetingService.findMeetingsByDate(date);
 
 			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
@@ -362,5 +377,20 @@ public class MeetingController {
 			return modelAndView;
 		}
 	}
-
+	
+	@RequestMapping(value="/joinMeeting.do", method = RequestMethod.GET)
+	public String joinMeeting(String meetingId, HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		meetingService.joinMeeting(Integer.parseInt(meetingId), user.getUserId());
+		return "redirect:meetingDetail.do?meetingId=" + meetingId;
+	}
+	
+	@RequestMapping(value="/cancelMeeting.do", method = RequestMethod.GET)
+	public String cancelMeeting(String meetingId, HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		meetingService.cancelMeeting(Integer.parseInt(meetingId), user.getUserId());
+		return "redirect:meetingDetail.do?meetingId=" + meetingId;
+	}
 }

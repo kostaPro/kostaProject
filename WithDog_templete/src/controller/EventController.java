@@ -143,7 +143,17 @@ public class EventController {
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
 	public ModelAndView searchEvent(@RequestParam("spotLocation") String location,
-			@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
+			@RequestParam("date") String inputDate) {
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+		Date date = null;
+		try {
+			if(!inputDate.equals("")) {
+				date = dateFormatter.parse(inputDate);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		List<Event> eventList = new ArrayList<>();
 
@@ -156,7 +166,7 @@ public class EventController {
 
 			return modelAndView;
 
-		} else if (location != null && date == null) {
+		} else if (location != "" && date == null) {
 
 			eventList = eventService.findEventsByLocation(location);
 
@@ -165,7 +175,7 @@ public class EventController {
 
 			return modelAndView;
 
-		} else if (location != null && date != null) {
+		} else if (location != "" && date != null) {
 
 			eventList = eventService.findEventsByDateLocation(date, location);
 

@@ -24,6 +24,8 @@ import domain.Review;
 import domain.Spot;
 import domain.Spots;
 import domain.User;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import service.ReportService;
 import service.SpotService;
 
