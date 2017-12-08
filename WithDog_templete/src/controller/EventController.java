@@ -83,9 +83,6 @@ public class EventController {
 		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
 		
-		event.setCloseDate(new Date());
-		event.setOpenDate(new Date());
-
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
@@ -156,12 +153,12 @@ public class EventController {
 		}
 
 		List<Event> eventList = new ArrayList<>();
+		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 
 		if (location == "" && date != null) {
 
 			eventList = eventService.findEventsByDate(date);
 
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
@@ -170,7 +167,6 @@ public class EventController {
 
 			eventList = eventService.findEventsByLocation(location);
 
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
@@ -179,7 +175,6 @@ public class EventController {
 
 			eventList = eventService.findEventsByDateLocation(date, location);
 
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
@@ -187,7 +182,6 @@ public class EventController {
 		} else if (location == "" && date == null) {
 			eventList = eventService.findAllEvents();
 
-			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;

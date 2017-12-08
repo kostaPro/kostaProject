@@ -265,11 +265,11 @@ a.btn-popup:hover {
 											<div class="row">
 												<label for="inpName" class="lab_comm"><strong
 													class="tit_form"> <i class="fa fa-check"></i>시작일
-												</strong></label> <input type="text" id="eventOpenDate" name="aopenDate">
+												</strong></label> <input type="text" id="openDate" name="openDate">
 
 												<label for="inpName" class="lab_comm"><strong
 													class="tit_form"> <i class="fa fa-check"></i>종료일
-												</strong></label> <input type="text" id="eventCloseDate" name="acloseDate">
+												</strong></label> <input type="text" id="closeDate" name="closeDate">
 											</div>
 										</section>
 										<section>

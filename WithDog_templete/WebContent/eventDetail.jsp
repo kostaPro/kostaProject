@@ -43,17 +43,17 @@
 <!--참여 목록 접기-->
 <script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
 
-<!--showMap-->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
-<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="resources/js/showMap.js"></script>
-
-<!-- Design For Comment -->
+<!--댓글 디자인-->
 <link rel="stylesheet" href="resources/css/commentCSS/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style-desktop.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
+
+<!--showMap-->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/showMap.js"></script>
+
 
 <script type="text/javascript">
 	$(document)
@@ -346,7 +346,8 @@
 	<div id="main">
 
 		<div class="container">
-			<div class="row">
+
+			<div class="row" style="float: right;">
 				<c:choose>
 					<c:when test="${loginUser.userId eq 'admin' }">
 
@@ -359,17 +360,23 @@
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
 						<h3>삭제하기</h3></a>
 					</c:when>
+
 				</c:choose>
 
-				<h2 align="right">
+				<div class="3u"
+					style="float: right; margin-right: 35px; width: auto">
 					<a href="eventList.do" class="btn btn-primary"
 						style="text-align: center;"> <strong style="color: white">이벤트
 							목록으로</strong></a>
-				</h2>
-
+				</div>
 			</div>
 
-			<div class="row">
+
+
+
+
+			<div class="row" style="margin-bottom:15px;">
+				<div style="width: 30%; height: 470px;margin-right:15px;">
 				<section>
 
 					<header>
@@ -397,16 +404,15 @@
 								value="${eventSpot.spotLocation }"> <a href="#"
 								class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
-							<hr>
 
 						</section>
 					</div>
 
 				</section>
+				</div>
 
-				<section>
-					<div id="map" style="width: 67%; height: 470px;"></div>
-				</section>
+				<div id="map" style="width: 65%; height: 470px;margin-left:15px;"></div>
+
 
 			</div>
 
@@ -507,35 +513,23 @@
 										<c:if test="${comments.depth != '1'}">
 											<button class="btn btn-outline-primary" name="reply_reply"
 												id="${comments.commentId}">답글 달기</button>
-
-
 										</c:if>
-										<c:choose>
+										<c:if test="${loginUser.userId == comments.writerId}">
+											<button class="btn btn-outline-primary" name="reply_update"
+												reply_comment="${comments.content}"
+												id="${comments.commentId}">수정</button>
+											<button class="btn btn-primary" name="reply_del"
+												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+										</c:if>
+										<!-- 신고버튼 -->
+										<c:if test="${loginUser.userId != comments.writerId }">
 
-											<c:when test="${loginUser.userId eq 'admin' }">
-
-												<button class="btn btn-primary" name="reply_del"
-													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
-
-											</c:when>
+											<button class="btn btn-primary"
+												parentId="${comments.parentId}" id="${comments.commentId}"
+												onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
+										</c:if>
 
 
-											<c:when test="${loginUser.userId == comments.writerId}">
-												<button class="btn btn-outline-primary" name="reply_update"
-													reply_comment="${comments.content}"
-													id="${comments.commentId}">수정</button>
-												<button class="btn btn-primary" name="reply_del"
-													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
-											</c:when>
-
-											<c:when test="${loginUser.userId != comments.writerId }">
-
-												<button class="btn btn-primary"
-													parentId="${comments.parentId}" id="${comments.commentId}"
-													onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
-											</c:when>
-
-										</c:choose>
 
 									</header>
 									<div class="content">

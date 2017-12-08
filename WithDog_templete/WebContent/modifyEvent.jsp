@@ -61,32 +61,39 @@
 						<!-- step1 시작-->
 
 						<div class="wrap_listing">
-						
+
 							<form action="modifyEvent.do" method="POST"
 								enctype="multipart/form-data">
-								
+
 								<input type="hidden" name="eventId" value="${event.eventId }">
 								<fieldset>
 									<legend class="screen_out">이벤트 수정하기 폼</legend>
 									<div class="form_details">
-										
-										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
 
-										<p>
-											<label for="inpName" class="lab_comm"><strong
-												class="tit_form"> <i class="fa fa-check"></i>시작일
-											</strong></label> <input type="text" id="eventOpenDate" name="openDate"
-												value="${event.openDate }">
+										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span><br>
+										<br>
 
-										</p>
+										<section>
+											<div class="row">
+												<p>
+													<label for="inpName" class="lab_comm" style="float: center"><strong
+														class="tit_form"> <i class="fa fa-check"></i>시작일
+													</strong></label> <input type="text" id="openDate" name="openDate"
+														value="${event.openDate }"
+														style="text-align:center; float: center; width: 295px">
 
-										<p>
-											<label for="inpName" class="lab_comm"><strong
-												class="tit_form"> <i class="fa fa-check"></i>종료일
-											</strong></label> <input type="text" id="eventCloseDate" name="closeDate"
-												value="${event.closeDate }">
-										</p>
+												</p>
 
+												<p>
+													<label for="inpName" class="lab_comm"
+														style="float: center;"><strong class="tit_form">
+															<i class="fa fa-check"></i>종료일
+													</strong></label> <input type="text" id="closeDate" name="closeDate"
+														value="${event.closeDate }"
+														style="text-align:center; float: center; width: 295px">
+												</p>
+											</div>
+										</section>
 										<label for="inpName" class="lab_comm"><strong
 											class="tit_form"><i class="fa fa-check"></i>이벤트명</strong></label> <input
 											type="text" id="inpName" name="eventName" class="inp_comm"
