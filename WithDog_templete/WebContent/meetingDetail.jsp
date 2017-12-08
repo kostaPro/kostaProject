@@ -52,7 +52,7 @@
 <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 
 <!--참여 목록 접기-->
-<script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
+<script type="text/javascript" src="resources/js/spreadMeetingJoinList.js"></script>
 
 
 <script type="text/javascript">
