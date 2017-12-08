@@ -86,27 +86,13 @@ $(document).ready(function(){
 				<div class="row">
 					<p>
 						<input type="text" id="datepicker" name="date"
-							value="시작일을 선택해주세요.">
+							placeholder="날짜를 선택해주세요.">
 					</p>
 
 					<div class="3u">
 
-						<select name="spotLocation" id="spotLocation" class="form-control">
-							<option value="">지역을 선택해주세요.</option>
-
-							<option value="서울">서울특별시</option>
-							<option value="경기">경기도</option>
-							<option value="인천">인천광역시</option>
-							<option value="강원">강원도</option>
-							<option value="부산">부산광역시</option>
-							<option value="경남">경상남도</option>
-							<option value="전남">전라남도</option>
-							<option value="전북">전라북도</option>
-							<option value="경북">경상북도</option>
-							<option value="충남">충청남도</option>
-							<option value="충북">충청북도</option>
-							<option value="제주">제주특별시</option>
-						</select>
+						<input type="text" placeholder="주소를 입력해주세요" id="spotLocation"
+							name="spotLocation" class="form-control" />
 					</div>
 
 					<div class="3u">

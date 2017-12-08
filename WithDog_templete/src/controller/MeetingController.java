@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -155,10 +157,20 @@ public class MeetingController {
 	}
 	
 	@RequestMapping(value = "meetingList.do", method = RequestMethod.POST)
-	public ModelAndView searchMeeting(@RequestParam("mLocation") String location,@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
+	public ModelAndView searchMeeting(@RequestParam("mLocation") String location,@RequestParam("date") String inputDate) {
 		
 		List<Meeting> meetingList = new ArrayList<>();
-		
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+		Date date = null;
+		try {
+			if(!inputDate.equals("")) {
+				date = dateFormatter.parse(inputDate);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		if(location == "" && date != null) {
 			meetingList = meetingService.findMeetingsByDate(date);
 			

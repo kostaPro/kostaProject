@@ -44,28 +44,30 @@
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
 <!--showMap-->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
-<script type="text/javascript" src="resources/js/markMultipleMeetingSpot.js"></script>
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript"
+	src="resources/js/markMultipleMeetingSpot.js"></script>
 
 <!--js로 meeting객체리스트 넘기기-->
-<script type="text/javascript" >
-$(document).ready(function(){
-	var meetings = new Array();
-	
-	<c:forEach var="meeting" items="${meetingList }">
-	
+<script type="text/javascript">
+	$(document).ready(function() {
+		var meetings = new Array();
+
+		<c:forEach var="meeting" items="${meetingList }">
+
 		var meetingObj = new Object();
-	
+
 		meetingObj.meetingName = "${meeting.meetingName}";
 		meetingObj.meetingId = "${meeting.meetingId}";
 		meetingObj.meetingSpot = "${meeting.meetingSpot.spotLocation}";
 
 		meetings.push(meetingObj);
-	</c:forEach>
-	
-	markMultipleMeetingSpot(JSON.stringify(meetings));
-	
-})
+		</c:forEach>
+
+		markMultipleMeetingSpot(JSON.stringify(meetings));
+
+	})
 </script>
 </head>
 <body class="homepage">
@@ -84,24 +86,12 @@ $(document).ready(function(){
 
 				<div class="row">
 					<p>
-						<input type="text" id="datepicker" placeholder="날짜를 선택해주세요." name="date">
+						<input type="text" id="datepicker" placeholder="날짜를 선택해주세요."
+							name="date">
 					</p>
 					<div class="3u">
-						<select id="spotLocation" name="mLocation">
-							<option value="">지역을 선택해주세요.</option>
-							<option value="서울">서울특별시</option>
-							<option value="경기">경기도</option>
-							<option value="인천">인천광역시</option>
-							<option value="강원">강원도</option>
-							<option value="부산">부산광역시</option>
-							<option value="경남">경상남도</option>
-							<option value="전남">전라남도</option>
-							<option value="전북">전라북도</option>
-							<option value="경북">경상북도</option>
-							<option value="충남">충청남도</option>
-							<option value="충북">충청북도</option>
-							<option value="제주">제주특별시</option>
-						</select>
+						<input type="text" placeholder="주소를 입력해주세요" id="spotLocation"
+							name="mLocation" class="form-control" />
 					</div>
 
 
@@ -118,88 +108,89 @@ $(document).ready(function(){
 			</form>
 
 		</div>
-</div>
-		<!-- /Main -->
+	</div>
+	<!-- /Main -->
 
-		<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<div class="row half">
-					<div class="3u">
-						<section>
-							<header>
-								<h2>MeetingList</h2>
-								<hr>
-							</header>
-
-						</section>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="15u">
-
-
-						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="400" />
-								<col width="150" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">모임 명</th>
-									<th class="text-center">모임 장소</th>
-									<th class="text-center">모임 일자</th>
-									<th class="text-center">모임 시간</th>
-									<th class="text-center">주최자</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty meetingList }">
-										<tr>
-											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
-										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="meetingList" items="${meetingList }">
-											<tr>
-												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
-													<td class="text-center">${meetingList.meetingSpot.spotLocation }</td>
-												<td class="text-center"><fmt:formatDate value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${meetingList.meetingTime }시</td>
-												<td class="text-center">${meetingList.hostId }</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
-
-
-					</div>
-				</div>
+	<!-- Footer -->
+	<div id="footer">
+		<div class="container">
+			<div class="row half">
 				<div class="3u">
-					<a href="registMeeting.do" class="btn_comm btn_submit form-control"
-						style="text-align: center"><strong style="color: white">모임
-							등록</strong></a>
+					<section>
+						<header>
+							<h2>MeetingList</h2>
+							<hr>
+						</header>
+
+					</section>
 				</div>
-
 			</div>
-		</div>
-		<!-- /Footer -->
 
-		<!-- Copyright -->
-		<div id="copyright">
-			<div class="container">
-				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
-					href="http://unsplash.com">Unsplash</a> (<a
-					href="http://unsplash.com/cc0">CC0</a>)
+			<div class="row">
+				<div class="15u">
+
+
+					<table class="table table-striped table-bordered table-hover">
+						<colgroup>
+							<col width="400" />
+							<col width="800" />
+							<col width="400" />
+							<col width="150" />
+							<col width="400" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="text-center">모임 명</th>
+								<th class="text-center">모임 장소</th>
+								<th class="text-center">모임 일자</th>
+								<th class="text-center">모임 시간</th>
+								<th class="text-center">주최자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${empty meetingList }">
+									<tr>
+										<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="meetingList" items="${meetingList }">
+										<tr>
+											<td class="text-center"><a
+												href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
+											<td class="text-center">${meetingList.meetingSpot.spotLocation }</td>
+											<td class="text-center"><fmt:formatDate
+													value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
+											<td class="text-center">${meetingList.meetingTime }시</td>
+											<td class="text-center">${meetingList.hostId }</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
+
+
+				</div>
 			</div>
+			<div class="3u">
+				<a href="registMeeting.do" class="btn_comm btn_submit form-control"
+					style="text-align: center"><strong style="color: white">모임
+						등록</strong></a>
+			</div>
+
 		</div>
+	</div>
+	<!-- /Footer -->
+
+	<!-- Copyright -->
+	<div id="copyright">
+		<div class="container">
+			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
+				href="http://unsplash.com">Unsplash</a> (<a
+				href="http://unsplash.com/cc0">CC0</a>)
+		</div>
+	</div>
 </body>
 </html>

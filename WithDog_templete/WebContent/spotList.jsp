@@ -32,25 +32,26 @@
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
 <!--showMap-->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
-<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script> 
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/markMultipleSpot.js"></script>
 
 <!--js로 spot객체리스트 넘기기-->
-<script type="text/javascript" >
+<script type="text/javascript">
 	var spots = new Array();
-	
-	<c:forEach var="spot" items="${spotList }">
-	
-		var spotObj = new Object();
-	
-		spotObj.spotLocation = "${spot.spotLocation}";
-		spotObj.spotId = "${spot.spotId}";
-		spotObj.spotName = "${spot.spotName}";
 
-		spots.push(spotObj);
+	<c:forEach var="spot" items="${spotList }">
+
+	var spotObj = new Object();
+
+	spotObj.spotLocation = "${spot.spotLocation}";
+	spotObj.spotId = "${spot.spotId}";
+	spotObj.spotName = "${spot.spotName}";
+
+	spots.push(spotObj);
 	</c:forEach>
-	
+
 	markMultipleSpot(JSON.stringify(spots));
 </script>
 </head>
@@ -69,21 +70,8 @@
 				<div class="row">
 
 					<div class="3u">
-						<select name="spotLocation" id="spotLocation" class="form-control">
-							<option value="">지역을 선택해주세요.</option>
-							<option value="서울특별시">서울</option>
-							<option value="경기도">경기</option>
-							<option value="인천광역시">인천</option>
-							<option value="강원도">강원</option>
-							<option value="부산광역시">부산</option>
-							<option value="경상남도">경남</option>
-							<option value="전라남도">전남</option>
-							<option value="전라북도">전북</option>
-							<option value="경상북도">경북</option>
-							<option value="충청남도">충남</option>
-							<option value="충청북도">충북</option>
-							<option value="제주특별시">제주</option>
-						</select>
+						<input type="text" placeholder="주소를 입력해주세요" name="spotLocation"
+							id="spotLocation" class="form-control" />
 					</div>
 
 
@@ -122,7 +110,7 @@
 				</div>
 
 			</form>
-				<div id="map" style="width:100%;height:400px;"></div>	
+			<div id="map" style="width: 100%; height: 400px;"></div>
 		</div>
 	</div>
 	<!-- /Main -->
@@ -130,7 +118,7 @@
 	<!-- Footer -->
 	<div id="footer">
 		<div class="container">
-			
+
 			<div class="row half">
 				<div class="3u">
 					<section>
@@ -169,7 +157,8 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="spot" items="${spotList }">
-									<input type="hidden" id="spotList" name="spotList" value="${spotList }"> 
+										<input type="hidden" id="spotList" name="spotList"
+											value="${spotList }">
 										<tr>
 											<td class="text-center"><a
 												href="spotDetail.do?spotId=${spot.spotId }">${spot.spotName }</a></td>
@@ -196,7 +185,7 @@
 	<!-- /Footer -->
 
 	<!-- Copyright -->
-	<div id="copyright"> 
+	<div id="copyright">
 		<div class="container">
 			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
 				href="">CC0</a>)
