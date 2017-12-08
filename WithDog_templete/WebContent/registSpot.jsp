@@ -38,6 +38,9 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/searchingAddress.js"></script>
 
+<!--showMap-->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+
 <!--미리보기 용 css-->
 <style type="text/css">
 .spot_imgs {
@@ -177,11 +180,7 @@
 										</section>
 
 										<section>
-											<div class="7u">
-												<iframe name="mapFrame" id="mapFrame"
-													style="width: 650px; height: 500px"
-													src="http://wedog.dothome.co.kr/RegistSpotMark.html"></iframe>
-											</div>
+											<div id="map" style="width:100%;height:300px;"></div>
 										</section>
 
 										<label for="inpComp" class="lab_comm"> <strong
@@ -230,6 +229,5 @@
 				href="">CC0</a>)
 		</div>
 	</div>
-
 </body>
 </html>
