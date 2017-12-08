@@ -40,10 +40,32 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
 	type="text/css" />
- 
+
 <!--데이트피커-->
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
+<!--showMap-->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/markMultipleSpot.js"></script>
+
+<!--js로 event객체리스트 넘기기-->
+<script type="text/javascript" >
+	var events = new Array();
+	
+	<c:forEach var="event" items="${eventList }">
+	
+		var eventObj = new Object();
+	
+		eventObj.eventName = "${event.eventName}";
+		eventObj.eventId = "${event.eventId}";
+		eventObj.eventSpot = "${event.eventSpot.spotLocation}";
+
+		events.push(eventObj);
+	</c:forEach>
+	
+	markMultipleSpot(JSON.stringify(events));
+</script>
 </head>
 <body class="homepage">
 
@@ -56,15 +78,17 @@
 	<div id="main">
 
 		<div class="container">
-			<form class="property-search-form" action="eventList.do" method="post">
+			<form class="property-search-form" action="eventList.do"
+				method="post">
 
 				<div class="row">
 					<p>
-						<input type="text" id="datepicker" name="date" value="시작일을 선택해주세요.">
+						<input type="text" id="datepicker" name="date"
+							value="시작일을 선택해주세요.">
 					</p>
-					
+
 					<div class="3u">
-						
+
 						<select name="spotLocation" id="spotLocation" class="form-control">
 							<option value="">지역을 선택해주세요.</option>
 
@@ -84,18 +108,16 @@
 					</div>
 
 					<div class="3u">
-					
+
 						<input type="submit" value="search"
 							class="btn btn-primary btn-block form-control" id="search_btn"
-							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;"
-							>
+							style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
 					</div>
 
 				</div>
 
-				<!-- Default Order: Newest Properties First -->
-				<input type="hidden" name="order-by" value="date-new" /> <input
-					type="hidden" name="pageid" value="841" />
+				<div id="map" style="width: 100%; height: 400px;"></div>
+
 			</form>
 
 		</div>
@@ -152,7 +174,7 @@
 													value="${eventList.openDate}" pattern="yyyy-MM-dd" /></td>
 											<td class="text-center"><fmt:formatDate
 													value="${eventList.closeDate}" pattern="yyyy-MM-dd" /></td>
-											<td class="text-center">${eventList.eventInfo }</td>
+											<td class="text-center">${eventList.eventSpot.spotLocation }</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
