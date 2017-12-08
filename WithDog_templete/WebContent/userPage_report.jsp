@@ -10,7 +10,8 @@
 -->
 <html>
 <head>
-<title>WithDog_blackList</title>
+<title>WithDog_meetingList</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <!--화면 정렬-->
@@ -30,6 +31,49 @@
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
+<!--데이트피커를 위란 기본 파일-->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
+	type="text/css" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+<!--데이트피커-->
+<script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
+
+
+<style>
+.pp input, .pp select {
+	float: left;
+	margin: 0 10px;
+	width: 33%;
+}
+
+.pp {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.pp input:last-of-type {
+	width: 100px;
+	color: #fff;
+	background: #43becc;
+	border: 1px solid #43becc;
+}
+
+.text-center {
+	width: 100px;
+}
+
+.text-ss {
+	width: 10%;
+	text-align: center;
+}
+</style>
+
 </head>
 <body class="homepage">
 
@@ -37,38 +81,31 @@
 	<%@include file="header.jsp"%>
 	<!-- Header -->
 
-
 	<!-- Main -->
-
-
 	<div id="main">
+
 		<div class="container">
-			<div class="row half">
-				<div class="5u">
-					<section>
-						<header>
-							<h2>신고이력조회(관리자)</h2>
-							<hr>
-						</header>
-
-					</section>
-				</div>
-			</div>
-
 			<div class="row">
-				<div class="15u">
+				<%@include file="myPage_user.jsp"%>
+				<div id="content" class="9u skel-cell-important">
+					<section>
+						<section>
+							<header>
+								<font size="3" color="#000000"><b>내 신고</b></font>
+							</header>
 
-					<div>
+						</section>
+
+
+
 						<table class="table table-striped table-bordered table-hover">
 							<colgroup>
 								<col width="200" />
-								<col width="500" />
+								<col width="900" />
 								<col width="200" />
+
 							</colgroup>
 							<thead>
-								<tr>
-									<th>신고자Id ${report.suspectId }</th>
-								</tr>
 								<tr>
 									<th class="text-center">신고 대상</th>
 									<th class="text-center">신고 사유</th>
@@ -77,49 +114,38 @@
 							</thead>
 							<tbody>
 								<c:choose>
-									<c:when test="${empty reportList }">
+									<c:when test="${empty userReportList }">
 										<tr>
-											<th colspan="5 " class="text-center">신고가 존재하지 않습니다.</th>
+											<th colspan="4 " class="text-center">신고가 존재하지 않습니다.</th>
 										</tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="report" items="${reportList }">
+										<c:forEach var="userReportList" items="${userReportList }">
 											<tr>
-												<td class="text-center"><a
-													href="reportDetail.do?reportId=${report.reporterId }">${report.reportType }</a></td>
-												<td class="text-center">${report.reportTargetId }</td>
-												<td class="text-center">경고</td>
+												<td class="text-center">${userReportList.reportTargetId }</td>
+												<td class="text-center">${userReportList.reportContent }</td>
+												<td class="text-center">${userReportList.status }</td>
+											</tr>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
-
-
 							</tbody>
-
-
-
 						</table>
-						<div class="2u" style = "float:right;">
-							<input type="submit" value="탈퇴"
-								class="btn btn-primary btn-block form-control" id="search_btn"
-								style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
-						</div>
-					</div>
-				</div>
 
+
+					</section>
+
+				</div>
 			</div>
 		</div>
-
 	</div>
-
-	<!-- /Main -->
-
 
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
-			Design: <a href="">WITH DOG</a> Images: <a href="">WITH DOG</a> (<a
-				href="">CC0</a>)
+			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a
+				href="http://unsplash.com">Unsplash</a> (<a
+				href="http://unsplash.com/cc0">CC0</a>)
 		</div>
 	</div>
 </body>

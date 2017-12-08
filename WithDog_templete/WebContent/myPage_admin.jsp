@@ -34,7 +34,7 @@
 </div>
 								
 								
-								<li><a href="mySpotList.do">장소 관리</a></li>
+								<li><a href="adminPage_spot.do">장소 관리</a></li>
 								<li><a href="adminPage_event.do">이벤트 관리</a></li>
 							</ul>
 						</section>

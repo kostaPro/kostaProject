@@ -129,16 +129,15 @@ public class SpotController {
 
 		return "redirect:spotDetail.do?spotId=" + spot.getSpotId();
 	}
-	
+
 	@RequestMapping(value = "/addSpot.do", method = RequestMethod.POST, produces = "text/json; charset=UTF-8")
 	public @ResponseBody ModelAndView addSpot(Spot spot, HttpSession session) {
 
 		User user = (User) session.getAttribute("loginUser");
 		spot.setRegisterId(user.getUserId());
 		spot.setSpotLocation(spot.getSpotLocation() + " " + spot.getSpotName());
-		
+
 		spotService.registSpot(spot);
-		
 
 		ModelAndView modelAndView = new ModelAndView("jsonView");
 		return modelAndView;
@@ -176,7 +175,31 @@ public class SpotController {
 		return spotList;
 	}
 
-	// +showMySpot(session : HttpSession) : ModelAndView
+	@RequestMapping(value = "/userPage_spot.do")
+	public ModelAndView showMySpot(HttpSession session) {
+
+		User user = (User) session.getAttribute("loginUser");
+		String registerId = user.getUserId();
+
+		List<Spot> spotList = spotService.findSpotsByRegisterId(registerId);
+
+		ModelAndView modelAndView = new ModelAndView("userPage_spot.jsp");
+		modelAndView.addObject("spotList", spotList);
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/adminPage_spot.do")
+	public ModelAndView showAdminSpot() {
+
+		List<Spot> spotList = spotService.findAllSpots();
+
+		ModelAndView modelAndView = new ModelAndView("adminPage_spot.jsp");
+		modelAndView.addObject("spotList", spotList);
+
+		return modelAndView;
+	}
+
 	// +showModifySpot(spotId : String) : ModelAndView
 	// +modifySpot(spot : Spot, file : MultipartHttpServletRequest) : String
 	// +removeSpot(spotId : String) : String

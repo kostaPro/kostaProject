@@ -16,7 +16,7 @@
 -->
 <html>
 <head>
-<title>WithDog_eventDetail</title>
+<title>WithDog_meetingDetail</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
@@ -365,32 +365,10 @@
 		<div class="container">
 			<div class="row">
 
-<<<<<<< HEAD
-					<header>
-					
-						<h2 align="left">${meetingDetail.meetingName }</h2>
-						
-							<h3 align="left">모임 일자 | <fmt:formatDate value="${meetingDetail.meetingDate}" pattern="yyyy-MM-dd" /></h3>
-							<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
-							<!-- 왜이러시죠 -->
-							<h3 align="left">장소 |${meetingSpot.spotLocation }</h3>
-							<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
-							<hr>
-						<a href="신고.do"><img src="resources/img/alarm.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					
-				<c:choose>
-					<c:when test="${loginUser.userId eq meetingDetail.hostId }">
-					<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					</c:when>
-				</c:choose>
-					
-=======
+
 				<header>
 
 					<h2 align="left">${meetingDetail.meetingName }</h2>
-
-
 
 					<h3 align="left">
 						모임 일자 |
@@ -399,37 +377,32 @@
 					</h3>
 					<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
 					<!-- 왜이러시죠 -->
-					<h3 align="left">장소 |</h3>
+					<h3 align="left">장소 | ${meetingSpot.spotLocation }</h3>
 					<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
-
 					<hr>
 
-					<div class="row">
-						<c:choose>
-							<c:when test="${loginUser.userId eq meetingDetail.hostId }">
-								<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
-									src="resources/img/modify.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt=""></a>
-								<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
-									src="resources/img/delete.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt=""></a>
-							</c:when>
+
+					<c:choose>
+						<c:when test="${loginUser.userId eq meetingDetail.hostId }">
+
+							<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+								src="resources/img/modify.png"
+								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
+							<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+								src="resources/img/delete.png"
+								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
+						</c:when>
+
+						<c:when test="${loginUser.userId eq meetingDetail.hostId }">
+
+							<a href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
+								src="resources/img/alarm.png"
+								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
+
+						</c:when>
+					</c:choose>
 
 
-							<c:when test="${loginUser.userId ne meetingDetail.hostId }">
-								<form action="registReport.do">
-									<input type="hidden" value="meeting" name="reportType">
-									<input type="hidden" value="${meetingDetail.meetingId}"
-										name="reportTargetId"> <input type="image"
-										src="resources/img/alarm.png" name="Submit"
-										src="resources/img/alarm.png" alt="Submit">
-								</form>
-							</c:when>
-						</c:choose>
-					</div>
->>>>>>> refs/remotes/origin/report
 					<br>
 				</header>
 
@@ -518,17 +491,11 @@
 											<button class="btn btn-primary" name="reply_del"
 												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
 										</c:if>
+										<!-- 신고버튼 -->
 										<c:if test="${loginUser.userId != comments.writerId }">
-											<form action="registReport.do">
-												<input type="hidden" value="${comments.writerId }"
-													name="userId"> <input type="hidden"
-													value="meetingComment" name="reportType"> <input
-													type="hidden" value="${comments.commentId}"
-													name="reportTargetId">
-
-												<button class="btn btn-primary" type="submit">신고</button>
-											</form>
-										</c:if>
+										
+										<button class="btn btn-primary" parentId="${comments.parentId}" id="${comments.commentId}"
+										onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=meetingComment'">신고</button></c:if>
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>
@@ -569,17 +536,18 @@
 				$(".comments").slideUp(300);
 			}
 
-		}); 
-		function OnloadImg(url){
-			  var img=new Image();
-			  img.src=url;
-			  var img_width=img.width;
-			  var win_width=img.width+25;
-			  var height=img.height+30;
-			  var OpenWindow=window.open('','_blank', 'width='+img_width+', height='+height+', menubars=no, scrollbars=auto');
-			  OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
-			 }
-
+		});
+		function OnloadImg(url) {
+			var img = new Image();
+			img.src = url;
+			var img_width = img.width;
+			var win_width = img.width + 25;
+			var height = img.height + 30;
+			var OpenWindow = window.open('', '_blank', 'width=' + img_width
+					+ ', height=' + height + ', menubars=no, scrollbars=auto');
+			OpenWindow.document
+					.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
+		}
 	</script>
 	<!-- /Main -->
 

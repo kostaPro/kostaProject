@@ -106,7 +106,7 @@
 					<div class="3u">
 						<section>
 							<header>
-								<h2>EventList</h2>
+								<h2>MeetingList</h2>
 								<hr>
 							</header>
 

@@ -55,10 +55,10 @@ public class ReportController {
 
 		reportService.registReport(report);
 
-		return "redirect:userReport.do?reporterId=" + report.getReporterId();
+		return "redirect:userPage_report.do?reporterId=" + report.getReporterId();
 	}
 
-	@RequestMapping(value = "/userReport.do")
+	@RequestMapping(value = "/userPage_report.do")
 	public ModelAndView showUserReport(HttpSession session) {
 
 		User user = (User)session.getAttribute("loginUser");
@@ -66,7 +66,7 @@ public class ReportController {
 
 		List<Report> userReportList = reportService.findReportsByReporterId(reporterId);
 
-		ModelAndView modelAndView = new ModelAndView("userReport.jsp");
+		ModelAndView modelAndView = new ModelAndView("userPage_report.jsp");
 		modelAndView.addObject("userReportList", userReportList);
 
 		return modelAndView;
@@ -78,19 +78,27 @@ public class ReportController {
 		String meeting = "meeting";
 		String spot = "spot";
 		String review = "review";
-		String comment = "comment";
+		String eventComment = "eventComment";
+		String reviewComment = "reviewComment";
+		String meetingComment = "meetingComment";
 
 		List<Report> meetingReport = reportService.findReportsByReportType(meeting);
 		List<Report> spotReport = reportService.findReportsByReportType(spot);
 		List<Report> reviewReport = reportService.findReportsByReportType(review);
-		List<Report> commentReport = reportService.findReportsByReportType(comment);
+		
+		List<Report> eventCommentReport = reportService.findReportsByReportType(eventComment);
+		List<Report> reviewCommentReport = reportService.findReportsByReportType(reviewComment);
+		List<Report> meetingCommentReport = reportService.findReportsByReportType(meetingComment);
 
 		ModelAndView modelAndView = new ModelAndView("adminPage_searchByReportType.jsp");
 
 		modelAndView.addObject("meetingReport", meetingReport);
 		modelAndView.addObject("spotReport", spotReport);
 		modelAndView.addObject("reviewReport", reviewReport);
-		modelAndView.addObject("commentReport", commentReport);
+		
+		modelAndView.addObject("eventCommentReport", eventCommentReport);
+		modelAndView.addObject("reviewCommentReport", reviewCommentReport);
+		modelAndView.addObject("meetingCommentReport", meetingCommentReport);
 
 		return modelAndView;
 	}

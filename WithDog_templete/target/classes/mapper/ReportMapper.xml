@@ -243,20 +243,14 @@
 		<if test="reportType == 'review'">
 			From reviewReport_tb
 		</if>
-		<if test="reportType == 'comment'">
+		<if test="reportType == 'reviewComment'">
 			From reviewCommentReport_tb
-
-			UNION
-
-			SELECT reportContent,
-			reportTargetId,reporterId, status
-			From EventCommentReport_tb
-
-			UNION
-
-			SELECT reportContent, reportTargetId, reporterId, status
-			From
-			meetingCommentReport_tb
+		</if>
+		<if test="reportType == 'eventComment'">
+			From eventCommentReport_tb
+		</if>
+		<if test="reportType == 'meetingComment'">
+			From meetingCommentReport_tb
 		</if>
 	</select>
 

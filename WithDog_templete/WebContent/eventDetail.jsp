@@ -376,16 +376,19 @@
 							<a href="#" class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
 						<hr>
+						
 						<c:choose>
-					<c:when test="${loginUser.userId eq 'admin' }">
-					<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a>
-					</c:when>
-					<c:otherwise>
-					
-										</form>
-					</c:otherwise>
-				</c:choose>
+						<c:when test="${loginUser.userId eq 'admin' }">
+
+							<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
+								src="resources/img/modify.png"
+								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
+							<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
+								src="resources/img/delete.png"
+								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
+						</c:when>
+					</c:choose>
+
 						
 						</section>
 					</div>
@@ -495,17 +498,18 @@
 										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
 								<!-- 신고버튼 -->
 										<c:if test="${loginUser.userId != comments.writerId }">
-										<form action="registReport.do">
-												<input type="hidden" value="${comments.writerId }" name="userId">
-												<input type="hidden" value="eventComment" name="reportType">
-												<input type="hidden" value="${comments.commentId}" name="reportTargetId">
-
-											<button class="btn btn-primary" type="submit">신고</button></c:if>
-										</form>
+										
+										<button class="btn btn-primary" parentId="${comments.parentId}" id="${comments.commentId}"
+										onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button></c:if>
+											
+										
+										
 								</header>
 								<div class="content">
 									<p> ${fn:replace(comments.content, cn, br)}</p>
 								</div>
+								
+								
 					</div>
    		<c:if test="${comments.depth == '1'}"></li></ul></div></c:if>
 				</li>

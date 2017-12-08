@@ -40,7 +40,6 @@ public class ReviewController {
 	@Autowired
 	private UserService userService;
 
-
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReview(String spotId, HttpServletRequest req) {
 		long now = System.currentTimeMillis();
@@ -92,7 +91,7 @@ public class ReviewController {
 				reviewService.registReviewImage(saveFileName, review.getReviewId());
 			}
 		}
-		
+
 		return "redirect:reviewDetail.do?reviewId=" + review.getReviewId() + "&spotId=" + spotId;
 	}
 
@@ -104,7 +103,7 @@ public class ReviewController {
 		User userId = (User) session.getAttribute("loginUser");
 		User user = userService.findUserByUserId(userId.getUserId());
 		user.getPetImage();
-		
+
 		List<String> list = review.getReviewImageList();
 		List<Comment> comment = review.getCommentList();
 
@@ -145,46 +144,48 @@ public class ReviewController {
 		return modelAndView;
 	}
 
-//	@RequestMapping("/myReview.do")
-//	public ModelAndView showMyReview(String writerId, HttpServletRequest req) {
-//
-//		ModelAndView modelAndView = new ModelAndView("myPage.do");
-//		modelAndView.addObject("myReview", reviewService.findReviewsByWriterId(writerId));
-//		return modelAndView;
-//	}
-	
+	@RequestMapping("/userPage_review.do")
+	public ModelAndView showMyReview(String writerId, HttpServletRequest req) {
+
+		HttpSession session = req.getSession();
+		
+		ModelAndView modelAndView = new ModelAndView("userPage_review.jsp");
+		modelAndView.addObject("myReview", reviewService.findReviewsByWriterId(session.getId()));
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "/registReviewComment.do", method = RequestMethod.POST)
 	public ModelAndView registReviewComment(Comment comment, String reviewId, String spotId, HttpSession session) {
 		User user = (User) session.getAttribute("loginUser");
-		
+
 		comment.setWriterId(user.getUserId());
 		comment.setTargetId(Integer.parseInt(reviewId));
 		commentService.registReviewComment(comment);
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/modifyReviewComment.do", method = RequestMethod.POST)
 	public ModelAndView modifyReviewComment(Comment comment, String commentId, String reviewId, String spotId) {
-		
+
 		comment.setCommentId(Integer.parseInt(commentId));
 		commentService.modifyReviewComment(comment);
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping("/removeReviewComment.do")
 	public ModelAndView removeReviewComment(String commentId, String parentId, String reviewId, String spotId) {
 
 		commentService.removeReviewComment(Integer.parseInt(commentId));
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("jsonView");
 		return modelAndView;
 	}
-	
+
 }
