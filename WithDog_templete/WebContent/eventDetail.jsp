@@ -43,13 +43,17 @@
 <!--참여 목록 접기-->
 <script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
 
+<!--showMap-->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="resources/js/showMap.js"></script>
 
+<!-- Design For Comment -->
 <link rel="stylesheet" href="resources/css/commentCSS/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style-desktop.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
-
-<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
 
 <script type="text/javascript">
 	$(document)
@@ -342,15 +346,28 @@
 	<div id="main">
 
 		<div class="container">
+			<div class="row">
+				<c:choose>
+					<c:when test="${loginUser.userId eq 'admin' }">
 
+						<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
+							src="resources/img/modify.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>수정하기</h3></a>
+						<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
+							src="resources/img/delete.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>삭제하기</h3></a>
+					</c:when>
+				</c:choose>
 
-			<h2 align="right">
-				<a href="eventList.do" class="btn btn-primary"
-					style="text-align: center;"> <strong style="color: white">이벤트
-						목록으로</strong></a>
-			</h2>
-			<br>
+				<h2 align="right">
+					<a href="eventList.do" class="btn btn-primary"
+						style="text-align: center;"> <strong style="color: white">이벤트
+							목록으로</strong></a>
+				</h2>
 
+			</div>
 
 			<div class="row">
 				<section>
@@ -376,25 +393,11 @@
 							</div>
 
 							<h3 align="left">장소 |${eventSpot.spotLocation }</h3>
-
-							<a href="#" class="image full"><img
+							<input type="hidden" id="spotAddress"
+								value="${eventSpot.spotLocation }"> <a href="#"
+								class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
 							<hr>
-
-							<c:choose>
-								<c:when test="${loginUser.userId eq 'admin' }">
-
-									<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
-										src="resources/img/modify.png"
-										style="width: 25px; height: auto; vertical-align: right;"
-										alt=""></a>
-									<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
-										src="resources/img/delete.png"
-										style="width: 25px; height: auto; vertical-align: right;"
-										alt=""></a>
-								</c:when>
-							</c:choose>
-
 
 						</section>
 					</div>
@@ -402,10 +405,7 @@
 				</section>
 
 				<section>
-					<div class="7u">
-						<iframe style="width: 760px; height: 500px"
-							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
-					</div>
+					<div id="map" style="width: 67%; height: 470px;"></div>
 				</section>
 
 			</div>
@@ -527,7 +527,7 @@
 												<button class="btn btn-primary" name="reply_del"
 													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
 											</c:when>
-											
+
 											<c:when test="${loginUser.userId != comments.writerId }">
 
 												<button class="btn btn-primary"
