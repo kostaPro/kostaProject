@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Comment;
 import domain.Event;
+import domain.Report;
 import domain.Spot;
 import domain.User;
 import service.CommentService;
 import service.EventService;
+import service.ReportService;
 import service.SpotService;
 import service.UserService;
 
@@ -61,6 +63,12 @@ public class EventController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ReportService reportService;
+
+	
+	
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
@@ -166,6 +174,13 @@ public class EventController {
 
 			return modelAndView;
 
+		} else if (location == "" && date == null) {
+			eventList = eventService.findAllEvents();
+
+			ModelAndView modelAndView = new ModelAndView("meetingList.jsp");
+			modelAndView.addObject("eventList", eventList);
+
+			return modelAndView;
 		} else {
 			return null;
 		}
@@ -284,13 +299,36 @@ public class EventController {
 	}
 
 	@RequestMapping("/removeEventComment.do")
-	public ModelAndView removeEventComment(String commentId, String parentId, String eventId) {
-
-		commentService.removeEventComment(Integer.parseInt(commentId));
+	public ModelAndView removeEventComment(String commentId, String parentId, String eventId, HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("jsonView");
-		return modelAndView;
+
+		User user = (User) session.getAttribute("loginUser");
+		if (user.getUserId().equals("admin")) {
+
+			Report report = new Report();
+
+			report.setReportTargetId(Integer.parseInt(eventId));
+			report.setReportType("eventComment");
+			report.setStatus("O");
+			report.setReportContents("관리자 신고");
+			report.setReporterId("admin");
+
+			reportService.registReport(report);
+
+			commentService.removeReviewComment(Integer.parseInt(commentId));
+
+			modelAndView.setViewName("jsonView");
+			return modelAndView;
+
+		} else {
+
+			commentService.removeReviewComment(Integer.parseInt(commentId));
+
+			modelAndView = new ModelAndView();
+			modelAndView.setViewName("jsonView");
+			return modelAndView;
+		}
 	}
 
 }

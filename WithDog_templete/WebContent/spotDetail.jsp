@@ -32,7 +32,8 @@
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
 <!--showMap-->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/showMap.js"></script>
 </head>
@@ -49,27 +50,36 @@
 		<div class="container">
 
 			<div class="row" style="float: right;">
-			<c:choose>
-								<c:when test="${loginUser.userId eq spotDetail.registerId }">
-									<a href="modifySpot.do?spotId=${spotDetail.spotId }" ><img
-										src="resources/img/modify.png"
-										style="width: 25px; height: auto;"
-										><h3>수정하기</h3></a>
-									<a href="removeSpot.do?spotId=${spotDetail.spotId }" ><img
-										src="resources/img/delete.png"
-										style="width: 25px; height: auto; "
-										><h3>삭제하기</h3></a>
-								</c:when>
+				<c:choose>
+					<c:when test="${loginUser.userId eq 'admin' }">
+
+						<a href="removeSpot.do?spotId=${spotDetail.spotId }"><img
+							src="resources/img/delete.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+							<h3>삭제하기</h3></a>
+					</c:when>
+
+					<c:when test="${loginUser.userId eq spotDetail.registerId }">
+						<a href="modifySpot.do?spotId=${spotDetail.spotId }"><img
+							src="resources/img/modify.png" style="width: 25px; height: auto;">
+						<h3>수정하기</h3></a>
+						<a href="removeSpot.do?spotId=${spotDetail.spotId }"><img
+							src="resources/img/delete.png" style="width: 25px; height: auto;">
+						<h3>삭제하기</h3></a>
+					</c:when>
 
 
-								<c:when test="${loginUser.userId ne meetingDetail.hostId }">
-									<a href="registReport.do?reportTargetId=${spotDetail.spotId}&reportType=spot"><img
-								src="resources/img/alarm.png"
-								style="width: 25px; height: auto; vertical-align: right;" alt=""><h3>신고하기</h3></a>
-								</c:when>
-							</c:choose>
-							
-				<div class="3u" style="float:right;margin-right: 30px;width:auto">
+					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+						<a
+							href="registReport.do?reportTargetId=${spotDetail.spotId}&reportType=spot"><img
+							src="resources/img/alarm.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>신고하기</h3></a>
+					</c:when>
+				</c:choose>
+
+				<div class="3u"
+					style="float: right; margin-right: 30px; width: auto">
 					<a href="spotList.do" class="btn_comm btn_submit form-control"
 						style="text-align: center;"> <strong style="color: white">장소목록으로</strong></a>
 				</div>
@@ -87,16 +97,16 @@
 						<section>
 							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
 							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
-							<input type="hidden" id="spotAddress" value="${spotDetail.spotLocation }">
-
-							<a href="#" class="image full"> <img
+							<input type="hidden" id="spotAddress"
+								value="${spotDetail.spotLocation }"> <a href="#"
+								class="image full"> <img
 								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
 						</section>
 					</div>
 
 				</section>
 
-				<div id="map" style="width:63%;height:470px;margin:25px"></div>	
+				<div id="map" style="width: 63%; height: 470px; margin: 25px"></div>
 
 			</div>
 

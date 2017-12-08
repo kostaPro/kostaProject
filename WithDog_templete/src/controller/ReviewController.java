@@ -21,9 +21,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Comment;
+import domain.Report;
 import domain.Review;
 import domain.User;
 import service.CommentService;
+import service.ReportService;
 import service.ReviewService;
 import service.SpotService;
 import service.UserService;
@@ -39,6 +41,8 @@ public class ReviewController {
 	private SpotService spotService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReportService reportService;
 
 	@RequestMapping(value = "/registReview.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReview(String spotId) {
@@ -148,7 +152,7 @@ public class ReviewController {
 	public ModelAndView showMyReview(String writerId, HttpServletRequest req) {
 
 		HttpSession session = req.getSession();
-		
+
 		ModelAndView modelAndView = new ModelAndView("userPage_review.jsp");
 		modelAndView.addObject("myReview", reviewService.findReviewsByWriterId(session.getId()));
 		return modelAndView;
@@ -179,13 +183,37 @@ public class ReviewController {
 	}
 
 	@RequestMapping("/removeReviewComment.do")
-	public ModelAndView removeReviewComment(String commentId, String parentId, String reviewId, String spotId) {
-
-		commentService.removeReviewComment(Integer.parseInt(commentId));
+	public ModelAndView removeReviewComment(String commentId, String parentId, String reviewId, String spotId,
+			HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("jsonView");
-		return modelAndView;
+
+		User user = (User) session.getAttribute("loginUser");
+		if (user.getUserId().equals("admin")) {
+
+			Report report = new Report();
+
+			report.setReportTargetId(Integer.parseInt(commentId));
+			report.setReportType("reviewComment");
+			report.setStatus("O");
+			report.setReportContents("관리자 신고");
+			report.setReporterId("admin");
+
+			reportService.registReport(report);
+
+			commentService.removeReviewComment(Integer.parseInt(commentId));
+
+			modelAndView.setViewName("jsonView");
+			return modelAndView;
+
+		} else {
+
+			commentService.removeReviewComment(Integer.parseInt(commentId));
+
+			modelAndView = new ModelAndView();
+			modelAndView.setViewName("jsonView");
+			return modelAndView;
+		}
 	}
 
 }

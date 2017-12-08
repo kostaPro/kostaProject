@@ -43,17 +43,13 @@
 <!--참여 목록 접기-->
 <script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
 
-<!--댓글 디자인-->
+
 <link rel="stylesheet" href="resources/css/commentCSS/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style-desktop.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
 
-<!--showMap-->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
-<script type="text/javascript" src="resources/js/showMap.js"></script>
-
+<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
 
 <script type="text/javascript">
 	$(document)
@@ -347,44 +343,16 @@
 
 		<div class="container">
 
-			<div class="row" style="float: right;">
-				<c:choose>
-					<c:when test="${loginUser.userId eq 'admin' }">
 
-						<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
-							src="resources/img/modify.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-						<h3>수정하기</h3></a>
-						<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
-							src="resources/img/delete.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-						<h3>삭제하기</h3></a>
-					</c:when>
+			<h2 align="right">
+				<a href="eventList.do" class="btn btn-primary"
+					style="text-align: center;"> <strong style="color: white">이벤트
+						목록으로</strong></a>
+			</h2>
+			<br>
 
 
-					<c:when test="${loginUser.userId ne 'admin' }">
-						<a
-							href="registReport.do?reportTargetId=${eventDetail.eventId}&reportType=event"><img
-							src="resources/img/alarm.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-							<h3>신고하기</h3></a>
-					</c:when>
-				</c:choose>
-
-				<div class="3u"
-					style="float: right; margin-right: 35px; width: auto">
-					<a href="eventList.do" class="btn btn-primary"
-						style="text-align: center;"> <strong style="color: white">이벤트
-							목록으로</strong></a>
-				</div>
-			</div>
-
-
-
-
-
-			<div class="row" style="margin-bottom:15px;">
-				<div style="width: 30%; height: 470px;margin-right:15px;">
+			<div class="row">
 				<section>
 
 					<header>
@@ -408,19 +376,37 @@
 							</div>
 
 							<h3 align="left">장소 |${eventSpot.spotLocation }</h3>
-							<input type="hidden" id="spotAddress"
-								value="${eventSpot.spotLocation }"> <a href="#"
-								class="image full"><img
+
+							<a href="#" class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
+							<hr>
+
+							<c:choose>
+								<c:when test="${loginUser.userId eq 'admin' }">
+
+									<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
+										src="resources/img/modify.png"
+										style="width: 25px; height: auto; vertical-align: right;"
+										alt=""></a>
+									<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
+										src="resources/img/delete.png"
+										style="width: 25px; height: auto; vertical-align: right;"
+										alt=""></a>
+								</c:when>
+							</c:choose>
+
 
 						</section>
 					</div>
 
 				</section>
-				</div>
 
-				<div id="map" style="width: 65%; height: 470px;margin-left:15px;"></div>
-
+				<section>
+					<div class="7u">
+						<iframe style="width: 760px; height: 500px"
+							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
+					</div>
+				</section>
 
 			</div>
 
@@ -521,23 +507,35 @@
 										<c:if test="${comments.depth != '1'}">
 											<button class="btn btn-outline-primary" name="reply_reply"
 												id="${comments.commentId}">답글 달기</button>
-										</c:if>
-										<c:if test="${loginUser.userId == comments.writerId}">
-											<button class="btn btn-outline-primary" name="reply_update"
-												reply_comment="${comments.content}"
-												id="${comments.commentId}">수정</button>
-											<button class="btn btn-primary" name="reply_del"
-												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
-										</c:if>
-										<!-- 신고버튼 -->
-										<c:if test="${loginUser.userId != comments.writerId }">
-
-											<button class="btn btn-primary"
-												parentId="${comments.parentId}" id="${comments.commentId}"
-												onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
-										</c:if>
 
 
+										</c:if>
+										<c:choose>
+
+											<c:when test="${loginUser.userId eq 'admin' }">
+
+												<button class="btn btn-primary" name="reply_del"
+													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+
+											</c:when>
+
+
+											<c:when test="${loginUser.userId == comments.writerId}">
+												<button class="btn btn-outline-primary" name="reply_update"
+													reply_comment="${comments.content}"
+													id="${comments.commentId}">수정</button>
+												<button class="btn btn-primary" name="reply_del"
+													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+											</c:when>
+											
+											<c:when test="${loginUser.userId != comments.writerId }">
+
+												<button class="btn btn-primary"
+													parentId="${comments.parentId}" id="${comments.commentId}"
+													onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
+											</c:when>
+
+										</c:choose>
 
 									</header>
 									<div class="content">

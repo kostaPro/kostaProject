@@ -103,7 +103,7 @@ public class UserController {
 	@RequestMapping("/removeUser.do")
 	public String removeUser(String userId) {
 		if(userId.equals("admin")) {
-			return "서윤아 어드민 탈퇴시킨다더라 일해라";
+			return "redirect:adminPage_blackList.do";
 		}else {
 		userService.removeUser(userId);
 		return "redirect:login.jsp";

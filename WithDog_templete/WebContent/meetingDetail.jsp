@@ -48,6 +48,13 @@
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/showMap.js"></script>
 
+<!--신고 alert 창-->
+<script type="text/javascript">
+	function alertBox() {
+		alert('이미 신고된 모임입니다.');
+	}
+</script>
+
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -370,25 +377,35 @@
 		<div class="container">
 			<div class="row" style="float: right;">
 				<c:choose>
+
+					<c:when test="${loginUser.userId eq 'admin' }">
+
+						<a href="myRemoveMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+							src="resources/img/delete.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+							<h3>삭제하기</h3></a>
+					</c:when>
+
 					<c:when test="${loginUser.userId eq meetingDetail.hostId }">
 
 						<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
 							src="resources/img/modify.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
-						<h3>수정하기</h3></a>
+							<h3>수정하기</h3></a>
 						<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
 							src="resources/img/delete.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
-						<h3>삭제하기</h3></a>
+							<h3>삭제하기</h3></a>
 					</c:when>
 
-
 					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+
 						<a
 							href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
 							src="resources/img/alarm.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
-						<h3>신고하기</h3></a>
+							<h3>신고하기</h3></a>
+
 					</c:when>
 				</c:choose>
 
@@ -492,6 +509,8 @@
 											<button class="btn btn-outline-primary" name="reply_reply"
 												id="${comments.commentId}">답글 달기</button>
 										</c:if>
+
+
 										<c:if test="${loginUser.userId == comments.writerId}">
 											<button class="btn btn-outline-primary" name="reply_update"
 												reply_comment="${comments.content}"
