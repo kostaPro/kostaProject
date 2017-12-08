@@ -122,21 +122,23 @@ public class MeetingController {
 		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
 
 		User user = (User)session.getAttribute("loginUser");
+		User hostUser = userService.findUserByUserId(meeting.getHostId());
 		User userId = userService.findUserByUserId(user.getUserId());
-		userId.getPetImage();
-		List<String> joinList = meeting.getMeetingJoinList();
 		List<String> meetingList = meeting.getMeetingImageList();
-//		List<User> userList = userService.findUserList(joinList);
-		List<Comment> comment = meeting.getCommentList(); 
+		List<Comment> comment = meeting.getCommentList();
+		
+		
+		
+		
 
 		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
 		modelAndView.addObject("meetingDetail", meeting);
 		modelAndView.addObject("meetingSpot", meeting.getMeetingSpot());
 		modelAndView.addObject("ImageList", meetingList);
-		modelAndView.addObject("joinList", joinList);
-//		modelAndView.addObject("userList", userList);
+		modelAndView.addObject("joinList", meeting.getMeetingJoinList());
 		modelAndView.addObject("User", user);
 		modelAndView.addObject("user", userId);
+		modelAndView.addObject("hostUser", hostUser);
 		modelAndView.addObject("comment", comment);
 		return modelAndView;
 	}
@@ -321,5 +323,20 @@ public class MeetingController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/joinMeeting.do", method = RequestMethod.GET)
+	public String joinMeeting(String meetingId, HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		meetingService.joinMeeting(Integer.parseInt(meetingId), user.getUserId());
+		return "redirect:meetingDetail.do?meetingId=" + meetingId;
+	}
+	
+	@RequestMapping(value="/cancelMeeting.do", method = RequestMethod.GET)
+	public String cancelMeeting(String meetingId, HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		meetingService.cancelMeeting(Integer.parseInt(meetingId), user.getUserId());
+		return "redirect:meetingDetail.do?meetingId=" + meetingId;
+	}
 	
 }

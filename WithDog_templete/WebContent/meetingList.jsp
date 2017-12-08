@@ -43,6 +43,30 @@
 <!--데이트피커-->
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
+<!--showMap-->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/markMultipleMeetingSpot.js"></script>
+
+<!--js로 meeting객체리스트 넘기기-->
+<script type="text/javascript" >
+$(document).ready(function(){
+	var meetings = new Array();
+	
+	<c:forEach var="meeting" items="${meetingList }">
+	
+		var meetingObj = new Object();
+	
+		meetingObj.meetingName = "${meeting.meetingName}";
+		meetingObj.meetingId = "${meeting.meetingId}";
+		meetingObj.meetingSpot = "${meeting.meetingSpot.spotLocation}";
+
+		meetings.push(meetingObj);
+	</c:forEach>
+	
+	markMultipleMeetingSpot(JSON.stringify(meetings));
+	
+})
+</script>
 </head>
 <body class="homepage">
 
@@ -90,9 +114,7 @@
 
 				</div>
 
-				<!-- Default Order: Newest Properties First -->
-				<input type="hidden" name="order-by" value="date-new" /> <input
-					type="hidden" name="pageid" value="841" />
+				<div id="map" style="width: 100%; height: 400px;"></div>
 			</form>
 
 		</div>
@@ -122,12 +144,14 @@
 							<colgroup>
 								<col width="400" />
 								<col width="800" />
-								<col width="300" />
+								<col width="400" />
+								<col width="150" />
 								<col width="400" />
 							</colgroup>
 							<thead>
 								<tr>
 									<th class="text-center">모임 명</th>
+									<th class="text-center">모임 장소</th>
 									<th class="text-center">모임 일자</th>
 									<th class="text-center">모임 시간</th>
 									<th class="text-center">주최자</th>
@@ -145,6 +169,7 @@
 											<tr>
 												<td class="text-center"><a
 													href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
+													<td class="text-center">${meetingList.meetingSpot.spotLocation }</td>
 												<td class="text-center"><fmt:formatDate value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
 												<td class="text-center">${meetingList.meetingTime }시</td>
 												<td class="text-center">${meetingList.hostId }</td>

@@ -6,7 +6,7 @@
 <mapper namespace="store.mapper.MeetingMapper">
 		
 	<sql id="selectMeeting">
-		SELECT meetingId, meetingName, meetingDate, meetingTime, minPerson, meetingPurpose, hostId
+		SELECT meetingId, meetingName, meetingSpotId, meetingDate, meetingTime, minPerson, meetingPurpose, hostId
 	</sql>
 	
 	<resultMap type="Meeting" id="MeetingMap">
@@ -35,6 +35,23 @@
 			
 	</resultMap>
 	
+	<resultMap type="Meeting" id="MeetingMinMap">
+		
+		<id property="meetingId" column="meetingId"/>
+		<result property="meetingName" column="meetingName"/>
+		<result property="meetingDate" column="meetingDate"/>
+		<result property="meetingTime" column="meetingTime"/>
+		<result property="minPerson" column="minPerson"/>
+		<result property="meetingPurpose" column="meetingPurpose"/>
+		<result property="meetingSpot.spotId" column="meetingSpotId"/>
+		<result property="hostId" column="hostId"/>
+		
+		<association property="meetingSpot" column="meetingSpotId"
+			select="store.mapper.SpotMapper.retrieveSpotBySpotId" javaType="Spot"
+			jdbcType="NUMERIC" />
+			
+	</resultMap>
+	
 	<insert id="createMeeting" parameterType="Meeting">
 		<selectKey keyProperty="meetingId" resultType="integer"
 			order="BEFORE">
@@ -46,25 +63,25 @@
 	
 	
 	
-	<select id="retrieveAllMeetings" resultType="Meeting" >
+	<select id="retrieveAllMeetings" resultMap="MeetingMinMap" >
 		<include refid="selectMeeting"/>
 		FROM meeting_tb
 	</select>
 	
-	<select id="retrieveMeetingsByLocation" parameterType="String" resultType="Meeting">
+	<select id="retrieveMeetingsByLocation" parameterType="String" resultMap="MeetingMinMap">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb INNER JOIN spot_tb
 		ON meeting_tb.meetingSpotId = spot_tb.spotId
 		WHERE spot_tb.spotLocation LIKE #{location}
 	</select>
 	
-	<select id="retrieveMeetingsByDate" parameterType="Date" resultType="Meeting">
+	<select id="retrieveMeetingsByDate" parameterType="Date" resultMap="MeetingMinMap">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb
 		WHERE meetingDate = #{meetingDate}
 	</select>
 	
-	<select id="retrieveMeetingsByLocationDate" parameterType="Map" resultType="Meeting">
+	<select id="retrieveMeetingsByLocationDate" parameterType="Map" resultMap="MeetingMinMap">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb INNER JOIN spot_tb
 		ON meeting_tb.meetingSpotId = spot_tb.spotId
@@ -72,21 +89,21 @@
 		AND meeting_tb.meetingDate = #{meetingDate}
 	</select>
 	
-	<select id="retrieveMeetingsByGuest" parameterType="String" resultType="Meeting">
+	<select id="retrieveMeetingsByGuest" parameterType="String" resultMap="MeetingMinMap">
 		SELECT meeting_tb.meetingId as meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
 		FROM meeting_tb INNER JOIN joinMeeting_tb
 		ON meeting_tb.meetingId = joinMeeting_tb.meetingId
 		WHERE joinMeeting_tb.guestId = #{guestId}
 	</select>
 	
-	<select id="retrieveMeetingsByHost" parameterType="String" resultType="Meeting">
+	<select id="retrieveMeetingsByHost" parameterType="String" resultMap="MeetingMinMap">
 		<include refid="selectMeeting"/>
 		FROM meeting_tb
 		WHERE hostId = #{hostId}
 	</select>
 
 	<select id="retrieveMeetingByMeetingId" parameterType="Integer" resultMap="MeetingMap">
-		SELECT meetingId, meetingName, meetingDate, meetingTime, meetingSpotId, minPerson, meetingPurpose, hostId
+		<include refid="selectMeeting"/>
 		FROM meeting_tb
 		WHERE meetingId = #{meetingId}
 	</select>	

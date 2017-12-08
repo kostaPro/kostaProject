@@ -48,6 +48,13 @@
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/showMap.js"></script>
 
+<!--참여 목록 접기를 위한 jQuery추가 -->
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+<!--참여 목록 접기-->
+<script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
+
+
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -368,7 +375,9 @@
 	<div id="main">
 
 		<div class="container">
+
 			<div class="row" style="float: right;">
+
 				<c:choose>
 					<c:when test="${loginUser.userId eq meetingDetail.hostId }">
 
@@ -391,6 +400,7 @@
 						<h3>신고하기</h3></a>
 					</c:when>
 				</c:choose>
+
 
 				<div class="3u"
 					style="float: right; margin-right: 35px; width: auto">
@@ -436,27 +446,130 @@
 			</section>
 
 
+			<section>
+			
+				<div
+					style="border: 2px solid; padding: 10px; background-color: #43C0CE">
+
+					<hr style="width: 30%; border: solid 2px white">
+					<h1 style="font-size: 40px; margin-top: 10px; margin-bottom: 10px">모임 주최자
+						</h1>
+					<hr style="width: 30%; border: solid 2px white">
+			
+					
+					
+							<div class="row" style="margin-top: 20px">
+						
+
+									<div class="2u">
+										<div
+											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+											<h2>${hostUser.userId }</h2>
+											<img
+												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="/images/${hostUser.petImage}">
+											<h2>${hostUser.petInfo }</h2>
+											<h2>${hostUser.contact }</h2>
+										</div>
+									</div>
+							</div>
+				</div>
+				
+			</section>
 
 			<section>
+				<div
+					style="border: 2px solid; padding: 10px; background-color: #43C0CE">
 
-				<div style="border: 2px solid; padding: 10px;">
-					<table class="table table-striped table-bordered table-hover">
+					<hr style="width: 30%; border: solid 2px white">
+					<h1 style="font-size: 40px; margin-top: 10px; margin-bottom: 10px">참여자
+						목록</h1>
+					<hr style="width: 30%; border: solid 2px white">
+					
+					
+					<div class="row">
+							<div class="joinDate">
+								<h3 style="font-size: 30px; margin-left: 10px;">
+									<Button name="spreadBtn" class="btn_comm"
+										onclick="showList()">▼</Button> 
+								</h3>
+							</div>
+						
+				<c:choose>	
+					<c:when test="${meetingDetail.hostId eq loginUser.userId }"></c:when>
+					<c:otherwise>
+						<c:set value="0" var="check"/>
 
-						<colgroup>
-							<col width="800" />
-							<col width="300" />
-						</colgroup>
-						<thead>
-							<tr>
-								<th class="text-center">참여 목록</th>
-								<th class="text-center">${joinList}</th>
-							</tr>
-						</thead>
+						<c:forEach var="guest" items="${joinList }">
+								<c:if test="${loginUser.userId eq guest.userId}">
+									<c:set value="1" var="check"/>
+								</c:if>
+						</c:forEach>
+						
+						
+						<c:choose>
+							<c:when test="${check eq 1}">
+							
+							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="cancelMeeting.do?meetingId=${meetingDetail.meetingId }"><strong><font
+											color="#43C0CE">참여취소</font></strong></a>
+								</div>
+							</div>
+												
+							</c:when>
+							<c:otherwise>
+							
+								<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="joinMeeting.do?meetingId=${meetingDetail.meetingId }"><strong><font
+											color="#43C0CE">참여하기</font></strong></a>
+								</div>
+							</div>
+							
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>	
+				</c:choose>		
+						
+						</div>
+						
+						<div id="JoinList" class="joinList" 
+							style="display: none">
+							<div class="row" style="margin-top: 20px">
+						
+						
+						
+								<c:forEach var="guest" items="${joinList }"
+									varStatus="rowCount">
 
-
-					</table>
-				</div>
-			</section>
+									<div class="2u">
+										<div
+											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+											<h2>${guest.userId }</h2>
+											<img
+												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="/images/${guest.petImage}">
+											<h2>${guest.petInfo }</h2>
+											<h2>${guest.contact }</h2>
+										</div>
+									</div>
+									
+									<c:if test="${rowCount.count%6 eq 0 }">
+										</div> <div class="row" style="margin-top: 20px">
+								    </c:if>
+									
+								</c:forEach>
+						
+						
+							</div>
+						</div>	
+						
+					</div>
+	
+	</section>
 
 			<section>
 				<p></p>
