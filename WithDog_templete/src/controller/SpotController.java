@@ -66,7 +66,8 @@ public class SpotController {
 	@RequestMapping(value = "/registSpot.do", method = RequestMethod.POST)
 	public String registSpot(Spot spot, HttpSession session, MultipartHttpServletRequest file) throws IOException {
 
-		spot.setRegisterId("mei");
+		User user = (User)session.getAttribute("loginUser");
+		spot.setRegisterId(user.getUserId());
 
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);

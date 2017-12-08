@@ -36,12 +36,17 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<!--댓글 디자인-->
 <link rel="stylesheet" href="resources/css/commentCSS/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style-desktop.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
 
-<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+<!--showMap-->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="resources/js/showMap.js"></script>
 
 <script type="text/javascript">
 	$(document)
@@ -363,55 +368,58 @@
 	<div id="main">
 
 		<div class="container">
+			<div class="row" style="float: right;">
+				<c:choose>
+					<c:when test="${loginUser.userId eq meetingDetail.hostId }">
+
+						<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+							src="resources/img/modify.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>수정하기</h3></a>
+						<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
+							src="resources/img/delete.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>삭제하기</h3></a>
+					</c:when>
+
+
+					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+						<a
+							href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
+							src="resources/img/alarm.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>신고하기</h3></a>
+					</c:when>
+				</c:choose>
+
+				<div class="3u"
+					style="float: right; margin-right: 35px; width: auto">
+					<a href="meetingList.do" class="btn_comm btn_submit form-control"
+						style="text-align: center;"> <strong style="color: white">모임목록으로</strong></a>
+				</div>
+			</div>
+
+
 			<div class="row">
+				<div style="width: 30%; height: 470px;">
+					<header>
 
+						<h2 align="left">${meetingDetail.meetingName }</h2>
 
-				<header>
+						<h3 align="left">
+							모임 일자 |
+							<fmt:formatDate value="${meetingDetail.meetingDate}"
+								pattern="yyyy-MM-dd" />
+						</h3>
+						<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
+						<h3 align="left">장소 | ${meetingSpot.spotLocation }</h3>
+						<input type="hidden" id="spotAddress"
+							value="${meetingSpot.spotLocation }">
+						<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
+					</header>
+				</div>
 
-					<h2 align="left">${meetingDetail.meetingName }</h2>
-
-					<h3 align="left">
-						모임 일자 |
-						<fmt:formatDate value="${meetingDetail.meetingDate}"
-							pattern="yyyy-MM-dd" />
-					</h3>
-					<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
-					<!-- 왜이러시죠 -->
-					<h3 align="left">장소 | ${meetingSpot.spotLocation }</h3>
-					<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
-					<hr>
-
-
-					<c:choose>
-						<c:when test="${loginUser.userId eq meetingDetail.hostId }">
-
-							<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
-								src="resources/img/modify.png"
-								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
-							<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
-								src="resources/img/delete.png"
-								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
-						</c:when>
-
-						<c:when test="${loginUser.userId eq meetingDetail.hostId }">
-
-							<a href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
-								src="resources/img/alarm.png"
-								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
-
-						</c:when>
-					</c:choose>
-
-
-					<br>
-				</header>
-
-				<section>
-					<div class="4u">
-						<iframe width="760" height="500"
-							src="http://withdog.dothome.co.kr/"></iframe>
-					</div>
-				</section>
+				<div id="map" style="width: 67%; height: 470px;"></div>
 
 			</div>
 
@@ -493,9 +501,11 @@
 										</c:if>
 										<!-- 신고버튼 -->
 										<c:if test="${loginUser.userId != comments.writerId }">
-										
-										<button class="btn btn-primary" parentId="${comments.parentId}" id="${comments.commentId}"
-										onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=meetingComment'">신고</button></c:if>
+
+											<button class="btn btn-primary"
+												parentId="${comments.parentId}" id="${comments.commentId}"
+												onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=meetingComment'">신고</button>
+										</c:if>
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>

@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
-    // 줄바꿈 
-    pageContext.setAttribute("br", "<br/>");
-    pageContext.setAttribute("cn", "\n");
-%> 
+	// 줄바꿈 
+	pageContext.setAttribute("br", "<br/>");
+	pageContext.setAttribute("cn", "\n");
+%>
 <!DOCTYPE HTML>
 <!--
 	Elemental by TEMPLATED
@@ -32,7 +32,7 @@
 <!--화면 전체 디자인-->
 <link rel='stylesheet' id='style-css'
 	href='http://www.sweetspot.co.kr/wp-content/themes/realty-child/style.css'
-	type='text/css' media='all' />  
+	type='text/css' media='all' />
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
@@ -43,13 +43,17 @@
 <!--참여 목록 접기-->
 <script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
 
-
-<link rel="stylesheet" href="resources/css/commentCSS/skel-noscript.css" /> 
+<!--댓글 디자인-->
+<link rel="stylesheet" href="resources/css/commentCSS/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/style-desktop.css" />
-<link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css"> 
+<link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
 
-<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+<!--showMap-->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/showMap.js"></script>
+
 
 <script type="text/javascript">
 	$(document)
@@ -343,12 +347,44 @@
 
 		<div class="container">
 
-		
-					<h2 align="right"><a href="eventList.do" class="btn btn-primary"  
-						style="text-align: center;"> <strong style="color: white">이벤트 목록으로</strong></a></h2><br>
-		
+			<div class="row" style="float: right;">
+				<c:choose>
+					<c:when test="${loginUser.userId eq 'admin' }">
 
-			<div class="row">
+						<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
+							src="resources/img/modify.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>수정하기</h3></a>
+						<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
+							src="resources/img/delete.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>삭제하기</h3></a>
+					</c:when>
+
+
+					<c:when test="${loginUser.userId ne 'admin' }">
+						<a
+							href="registReport.do?reportTargetId=${eventDetail.eventId}&reportType=event"><img
+							src="resources/img/alarm.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+							<h3>신고하기</h3></a>
+					</c:when>
+				</c:choose>
+
+				<div class="3u"
+					style="float: right; margin-right: 35px; width: auto">
+					<a href="eventList.do" class="btn btn-primary"
+						style="text-align: center;"> <strong style="color: white">이벤트
+							목록으로</strong></a>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="row" style="margin-bottom:15px;">
+				<div style="width: 30%; height: 470px;margin-right:15px;">
 				<section>
 
 					<header>
@@ -372,35 +408,19 @@
 							</div>
 
 							<h3 align="left">장소 |${eventSpot.spotLocation }</h3>
-
-							<a href="#" class="image full"><img
+							<input type="hidden" id="spotAddress"
+								value="${eventSpot.spotLocation }"> <a href="#"
+								class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
-						<hr>
-						
-						<c:choose>
-						<c:when test="${loginUser.userId eq 'admin' }">
 
-							<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
-								src="resources/img/modify.png"
-								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
-							<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
-								src="resources/img/delete.png"
-								style="width: 25px; height: auto; vertical-align: right;" alt=""></a>
-						</c:when>
-					</c:choose>
-
-						
 						</section>
 					</div>
 
 				</section>
+				</div>
 
-				<section>
-					<div class="7u">
-						<iframe style="width: 760px; height: 500px"
-							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
-					</div>
-				</section>
+				<div id="map" style="width: 65%; height: 470px;margin-left:15px;"></div>
+
 
 			</div>
 
@@ -461,8 +481,9 @@
 									</div>
 
 									<c:if test="${rowCount.count%6 eq 0 }">
-										</div> <div class="row" style="margin-top: 20px">
-								    </c:if>
+							</div>
+							<div class="row" style="margin-top: 20px">
+								</c:if>
 					</c:forEach>
 				</div>
 		</div>
@@ -473,62 +494,82 @@
 
 	</div>
 	</div>
-	
+
 	<div id="mainer">
 		<div class="container">
-				<div id="post" class="con">
-	<div class="hide-comments">
+			<div id="post" class="con">
+				<div class="hide-comments">
 					<input type="checkbox" value="" id="hide-button" name="check"
 						checked /> <label for="hide-button" class="button">댓글 숨기기</label>
 				</div>
 
-		<div class="comments">
-		<c:forEach var="comments" items="${comment}">
-			<ul reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
-				<li>
-		<c:if test="${comments.depth == '1'}"><div class="commenter"><ul><li></c:if>
-					<div class="user-comment">
-								<img src="/images/${user.petImage }" onclick="OnloadImg(this.src)">
-								<header>
-									<a class="name">${comments.writerId }</a>
-									<span>${comments.registDate }</span>
-									&nbsp;&nbsp;&nbsp;<c:if test="${comments.depth != '1'}"><button class="btn btn-outline-primary" name="reply_reply" id="${comments.commentId}">답글 달기</button></c:if>							
-									 <c:if test="${loginUser.userId == comments.writerId}">
-			    						<button class="btn btn-outline-primary" name="reply_update" reply_comment="${comments.content}" id="${comments.commentId}">수정</button>
-										<button class="btn btn-primary" name="reply_del" parentId="${comments.parentId}" id="${comments.commentId}">삭제</button></c:if>
-								<!-- 신고버튼 -->
+				<div class="comments">
+					<c:forEach var="comments" items="${comment}">
+						<ul
+							reply_type="<c:if test="${comments.depth == '0'}">main</c:if><c:if test="${comments.depth == '1'}">sub</c:if>">
+							<li><c:if test="${comments.depth == '1'}">
+									<div class="commenter">
+										<ul>
+											<li>
+								</c:if>
+								<div class="user-comment">
+									<img src="/images/${user.petImage }"
+										onclick="OnloadImg(this.src)">
+									<header>
+										<a class="name">${comments.writerId }</a> <span>${comments.registDate }</span>
+										&nbsp;&nbsp;&nbsp;
+										<c:if test="${comments.depth != '1'}">
+											<button class="btn btn-outline-primary" name="reply_reply"
+												id="${comments.commentId}">답글 달기</button>
+										</c:if>
+										<c:if test="${loginUser.userId == comments.writerId}">
+											<button class="btn btn-outline-primary" name="reply_update"
+												reply_comment="${comments.content}"
+												id="${comments.commentId}">수정</button>
+											<button class="btn btn-primary" name="reply_del"
+												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+										</c:if>
+										<!-- 신고버튼 -->
 										<c:if test="${loginUser.userId != comments.writerId }">
-										
-										<button class="btn btn-primary" parentId="${comments.parentId}" id="${comments.commentId}"
-										onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button></c:if>
-											
-										
-										
-								</header>
-								<div class="content">
-									<p> ${fn:replace(comments.content, cn, br)}</p>
-								</div>
-								
-								
-					</div>
-   		<c:if test="${comments.depth == '1'}"></li></ul></div></c:if>
+
+											<button class="btn btn-primary"
+												parentId="${comments.parentId}" id="${comments.commentId}"
+												onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
+										</c:if>
+
+
+
+									</header>
+									<div class="content">
+										<p>${fn:replace(comments.content, cn, br)}</p>
+									</div>
+
+
+								</div> <c:if test="${comments.depth == '1'}"></li>
+						</ul>
+				</div>
+				</c:if>
 				</li>
-   			</ul>
-		</c:forEach>
-   		</div>
+				</ul>
+				</c:forEach>
+			</div>
 			<div class="section">
-			<div class="reviews">
-					<input type="hidden" id="eventId" name="eventId" value="${eventDetail.eventId }"> 
-					<input type="hidden" id="parentId" name="parentId" value="0">
-					<input type="hidden" id="depth" name="depth" value="0">
-				<textarea class="form-control" rows="4" cols="40" style="resize: none;" id="content" name="content" placeholder="댓글을 입력하세요."></textarea>
-				<br>
-				<button id="reply_save" class="btn btn-primary" name="reply_save" >댓글 등록</button>
+				<div class="reviews">
+					<input type="hidden" id="eventId" name="eventId"
+						value="${eventDetail.eventId }"> <input type="hidden"
+						id="parentId" name="parentId" value="0"> <input
+						type="hidden" id="depth" name="depth" value="0">
+					<textarea class="form-control" rows="4" cols="40"
+						style="resize: none;" id="content" name="content"
+						placeholder="댓글을 입력하세요."></textarea>
+					<br>
+					<button id="reply_save" class="btn btn-primary" name="reply_save">댓글
+						등록</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<script>
+	<script>
 		$("#hide-button").click(function() {
 			if ($(this).is(":checked")) {
 				$("label").text("댓글 숨기기");
@@ -550,7 +591,7 @@
 	</script>
 	<!-- /Main -->
 
-	
+
 	<!-- Copyright -->
 	<div id="copyright">
 		<div class="container">
