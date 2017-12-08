@@ -414,6 +414,36 @@
 			</section>
 
 
+			<section>
+			
+				<div
+					style="border: 2px solid; padding: 10px; background-color: #43C0CE">
+
+					<hr style="width: 30%; border: solid 2px white">
+					<h1 style="font-size: 40px; margin-top: 10px; margin-bottom: 10px">모임 주최자
+						</h1>
+					<hr style="width: 30%; border: solid 2px white">
+			
+					
+					
+							<div class="row" style="margin-top: 20px">
+						
+
+									<div class="2u">
+										<div
+											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+											<h2>${hostUser.userId }</h2>
+											<img
+												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="/images/${hostUser.petImage}">
+											<h2>${hostUser.petInfo }</h2>
+											<h2>${hostUser.contact }</h2>
+										</div>
+									</div>
+							</div>
+				</div>
+				
+			</section>
 
 			<section>
 				<div
@@ -432,21 +462,45 @@
 										onclick="showList()">▼</Button> 
 								</h3>
 							</div>
+						
+				<c:choose>	
+					<c:when test="${meetingDetail.hostId eq loginUser.userId }"></c:when>
+					<c:otherwise>
+						<c:set value="0" var="check"/>
 
+						<c:forEach var="guest" items="${joinList }">
+								<c:if test="${loginUser.userId eq guest.userId}">
+									<c:set value="1" var="check"/>
+								</c:if>
+						</c:forEach>
 						
 						
-						
-						
+						<c:choose>
+							<c:when test="${check eq 1}">
+							
 							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="cancelMeeting.do?meetingId=${meetingDetail.meetingId }"><strong><font
+											color="#43C0CE">참여취소</font></strong></a>
+								</div>
+							</div>
+												
+							</c:when>
+							<c:otherwise>
+							
+								<div class="1u" style="padding: 5px;">
 								<div style="background-color: #FFF;">
 									<a
 										href="joinMeeting.do?meetingId=${meetingDetail.meetingId }"><strong><font
 											color="#43C0CE">참여하기</font></strong></a>
 								</div>
 							</div>
-						
-						
-						
+							
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>	
+				</c:choose>		
 						
 						</div>
 						
