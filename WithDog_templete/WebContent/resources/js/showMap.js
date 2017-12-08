@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	var map = new naver.maps.Map('map');  
-	var addr = $("#spotAddress").val();  // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
-
+	var addr = $("#spotAddress").val();
+	
 	naver.maps.Service.geocode({address: addr}, function(status, response) {
 	    if (status !== naver.maps.Service.Status.OK) {
 	        return alert(addr + '의 검색 결과가 없거나 기타 네트워크 에러');

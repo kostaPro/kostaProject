@@ -35,7 +35,6 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/showMap.js"></script>
-
 </head>
 <body class="homepage">
 
@@ -49,8 +48,34 @@
 
 		<div class="container">
 
-			<div class="row">
-				<div class="3u" style="float: right; margin-right: 30px">
+			<div class="row" style="float: right;">
+			<c:choose>
+								<c:when test="${loginUser.userId eq spotDetail.registerId }">
+									<a href="modifySpot.do?spotId=${spotDetail.spotId }" ><img
+										src="resources/img/modify.png"
+										style="width: 25px; height: auto;"
+										><h3>수정하기</h3></a>
+									<a href="removeSpot.do?spotId=${spotDetail.spotId }" ><img
+										src="resources/img/delete.png"
+										style="width: 25px; height: auto; "
+										><h3>삭제하기</h3></a>
+								</c:when>
+
+
+								<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+									<form action="registReport.do">
+										<input type="hidden" value="${meetingDetail.hostId }"
+											name="userId"> <input type="hidden" value="meeting"
+											name="reportType"> <input type="hidden"
+											value="${meetingDetail.meetingId}" name="reportTargetId">
+
+										<input type="image" src="resources/img/alarm.png"
+											name="Submit" src="resources/img/alarm.png" alt="Submit"><h3>신고하기</h3>
+									</form>
+								</c:when>
+							</c:choose>
+							
+				<div class="3u" style="float:right;margin-right: 30px;width:auto">
 					<a href="spotList.do" class="btn_comm btn_submit form-control"
 						style="text-align: center;"> <strong style="color: white">장소목록으로</strong></a>
 				</div>
@@ -73,39 +98,12 @@
 							<a href="#" class="image full"> <img
 								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
 
-							<c:choose>
-								<c:when test="${loginUser.userId eq spotDetail.registerId }">
-									<a href="modifySpot.do?spotId=${spotDetail.spotId }"><img
-										src="resources/img/modify.png"
-										style="width: 25px; height: auto; vertical-align: right;"
-										alt=""></a>
-									<a href="removeSpot.do?spotId=${spotDetail.spotId }"><img
-										src="resources/img/delete.png"
-										style="width: 25px; height: auto; vertical-align: right;"
-										alt=""></a>
-								</c:when>
-
-
-								<c:when test="${loginUser.userId ne meetingDetail.hostId }">
-									<form action="registReport.do">
-										<input type="hidden" value="${meetingDetail.hostId }"
-											name="userId"> <input type="hidden" value="meeting"
-											name="reportType"> <input type="hidden"
-											value="${meetingDetail.meetingId}" name="reportTargetId">
-
-										<input type="image" src="resources/img/alarm.png"
-											name="Submit" src="resources/img/alarm.png" alt="Submit">
-									</form>
-								</c:when>
-							</c:choose>
-
-
 						</section>
 					</div>
 
 				</section>
 
-				<div id="map" style="width:60%;height:400px;margin:25px"></div>	
+				<div id="map" style="width:63%;height:470px;margin:25px"></div>	
 
 			</div>
 
