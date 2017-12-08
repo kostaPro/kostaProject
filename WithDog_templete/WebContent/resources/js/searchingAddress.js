@@ -1,3 +1,9 @@
+var map;
+
+$(document).ready(function(){
+	map = new naver.maps.Map('map');  
+})
+
 function searchingAddress() {
 	new daum.Postcode(
 			{
@@ -19,19 +25,32 @@ function searchingAddress() {
 
 					// 커서를 상세주소 필드로 이동한다.
 					document.getElementById('spotLocation').focus();
-
-					var location = document.getElementById('spotLocation').value
-							.split(' ');
-
-					document.getElementById('mapFrame').src = "http://wedog.dothome.co.kr/RegistSpotMark.html?city_do="
-							+ location[0]
-							+ "&gu_gun="
-							+ location[1]
-							+ "&dong="
-							+ location[2] + "&bunji=" + location[3];
+					markingOnMap();
 
 				}
 			}).open({
 		q : document.getElementById('spotLocation').value
 	});
+}
+
+function markingOnMap(){
+	var addr = $("#spotLocation").val();  // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
+
+	naver.maps.Service.geocode({address: addr}, function(status, response) {
+	    if (status !== naver.maps.Service.Status.OK) {
+	        return alert(addr + '의 검색 결과가 없거나 기타 네트워크 에러');
+	    }
+	    var result = response.result;
+	    // 검색 결과 갯수: result.total
+	    // 첫번째 결과 결과 주소: result.items[0].address
+	    // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
+	    var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
+	    map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+	    // 마커 표시
+	    var marker = new naver.maps.Marker({
+	      position: myaddr,
+	      map: map
+	    });
+	    
+	})
 }

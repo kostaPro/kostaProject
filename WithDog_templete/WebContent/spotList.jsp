@@ -12,7 +12,7 @@
 <head>
 <title>WithDog_spotList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
+
 <!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
 	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
@@ -30,6 +30,9 @@
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
+
+<!--showMap-->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
 
 </head>
 <body class="homepage">
@@ -98,10 +101,6 @@
 					</div>
 
 				</div>
-
-				<!-- Default Order: Newest Properties First -->
-				<input type="hidden" name="order-by" value="date-new" /> <input
-					type="hidden" name="pageid" value="841" />
 
 			</form>
 				<div id="map" style="width:100%;height:400px;"></div>	

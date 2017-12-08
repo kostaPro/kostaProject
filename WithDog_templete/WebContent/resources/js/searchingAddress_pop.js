@@ -20,10 +20,6 @@ function searchingAddress() {
 							// 커서를 상세주소 필드로 이동한다.
 							document.getElementById('spotLocation').focus();
 
-							var location = document
-									.getElementById('spotLocation').value
-									.split(' ');
-
 						}
 					}).open({
 				q : document.getElementById('spotLocation').value

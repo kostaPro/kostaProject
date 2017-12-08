@@ -31,6 +31,11 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
+<!--showMap-->
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="resources/js/showMap.js"></script>
+
 </head>
 <body class="homepage">
 
@@ -63,6 +68,7 @@
 						<section>
 							<h3 align="left">분류 | ${spotDetail.spotType }</h3>
 							<h3 align="left">주소 | ${spotDetail.spotLocation }</h3>
+							<input type="hidden" id="spotAddress" value="${spotDetail.spotLocation }">
 
 							<a href="#" class="image full"> <img
 								src="/images/${spotDetail.thumbnail }" style="width: 370px"></a>
@@ -99,12 +105,7 @@
 
 				</section>
 
-				<section>
-					<div class="7u">
-						<iframe style="width: 760px; height: 500px"
-							src="http://wedog.dothome.co.kr/detailSpotMark.html?city_do=${locationDo }&gu_gun=${locationGu }&dong=${locationDong }&bunji=${locationBunji}"></iframe>
-					</div>
-				</section>
+				<div id="map" style="width:60%;height:400px;margin:25px"></div>	
 
 			</div>
 
