@@ -45,12 +45,12 @@
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
 
 <!--showMap-->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
-<script type="text/javascript" src="resources/js/markMultipleSpot.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript" src="resources/js/markMultipleEventSpot.js"></script>
 
 <!--js로 event객체리스트 넘기기-->
 <script type="text/javascript" >
+$(document).ready(function(){
 	var events = new Array();
 	
 	<c:forEach var="event" items="${eventList }">
@@ -64,7 +64,9 @@
 		events.push(eventObj);
 	</c:forEach>
 	
-	markMultipleSpot(JSON.stringify(events));
+	markMultipleEventSpot(JSON.stringify(events));
+	
+})
 </script>
 </head>
 <body class="homepage">
