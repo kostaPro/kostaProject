@@ -41,7 +41,11 @@
 <link rel="stylesheet" href="resources/css/commentCSS/style-desktop.css" />
 <link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
 
-<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+<!--참여 목록 접기를 위한 jQuery추가 -->
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+<!--참여 목록 접기-->
+<script type="text/javascript" src="resources/js/spreadJoinList.js"></script>
 
 <script type="text/javascript">
 	$(document)
@@ -365,7 +369,6 @@
 		<div class="container">
 			<div class="row">
 
-<<<<<<< HEAD
 					<header>
 					
 						<h2 align="left">${meetingDetail.meetingName }</h2>
@@ -385,51 +388,7 @@
 					</c:when>
 				</c:choose>
 					
-=======
-				<header>
 
-					<h2 align="left">${meetingDetail.meetingName }</h2>
-
-
-
-					<h3 align="left">
-						모임 일자 |
-						<fmt:formatDate value="${meetingDetail.meetingDate}"
-							pattern="yyyy-MM-dd" />
-					</h3>
-					<h3 align="left">모임 시간 | ${meetingDetail.meetingTime}시</h3>
-					<!-- 왜이러시죠 -->
-					<h3 align="left">장소 |</h3>
-					<h3 align="left">모임 목적 | ${meetingDetail.meetingPurpose}</h3>
-
-					<hr>
-
-					<div class="row">
-						<c:choose>
-							<c:when test="${loginUser.userId eq meetingDetail.hostId }">
-								<a href="modifyMeeting.do?meetingId=${meetingDetail.meetingId }"><img
-									src="resources/img/modify.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt=""></a>
-								<a href="removeMeeting.do?meetingId=${meetingDetail.meetingId }"><img
-									src="resources/img/delete.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt=""></a>
-							</c:when>
-
-
-							<c:when test="${loginUser.userId ne meetingDetail.hostId }">
-								<form action="registReport.do">
-									<input type="hidden" value="meeting" name="reportType">
-									<input type="hidden" value="${meetingDetail.meetingId}"
-										name="reportTargetId"> <input type="image"
-										src="resources/img/alarm.png" name="Submit"
-										src="resources/img/alarm.png" alt="Submit">
-								</form>
-							</c:when>
-						</c:choose>
-					</div>
->>>>>>> refs/remotes/origin/report
 					<br>
 				</header>
 
@@ -457,25 +416,74 @@
 
 
 			<section>
+				<div
+					style="border: 2px solid; padding: 10px; background-color: #43C0CE">
 
-				<div style="border: 2px solid; padding: 10px;">
-					<table class="table table-striped table-bordered table-hover">
+					<hr style="width: 30%; border: solid 2px white">
+					<h1 style="font-size: 40px; margin-top: 10px; margin-bottom: 10px">참여자
+						목록</h1>
+					<hr style="width: 30%; border: solid 2px white">
+					
+					
+					<div class="row">
+							<div class="joinDate">
+								<h3 style="font-size: 30px; margin-left: 10px;">
+									<Button name="spreadBtn" class="btn_comm"
+										onclick="showList()">▼</Button> 
+								</h3>
+							</div>
 
-						<colgroup>
-							<col width="800" />
-							<col width="300" />
-						</colgroup>
-						<thead>
-							<tr>
-								<th class="text-center">참여 목록</th>
-								<th class="text-center">${joinList}</th>
-							</tr>
-						</thead>
+						
+						
+						
+						
+							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="joinMeeting.do?meetingId=${meetingDetail.meetingId }"><strong><font
+											color="#43C0CE">참여하기</font></strong></a>
+								</div>
+							</div>
+						
+						
+						
+						
+						</div>
+						
+						<div id="JoinList" class="joinList" 
+							style="display: none">
+							<div class="row" style="margin-top: 20px">
+						
+						
+						
+								<c:forEach var="guest" items="${joinList }"
+									varStatus="rowCount">
 
-
-					</table>
-				</div>
-			</section>
+									<div class="2u">
+										<div
+											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+											<h2>${guest.userId }</h2>
+											<img
+												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="/images/${guest.petImage}">
+											<h2>${guest.petInfo }</h2>
+											<h2>${guest.contact }</h2>
+										</div>
+									</div>
+									
+									<c:if test="${rowCount.count%6 eq 0 }">
+										</div> <div class="row" style="margin-top: 20px">
+								    </c:if>
+									
+								</c:forEach>
+						
+						
+							</div>
+						</div>	
+						
+					</div>
+	
+	</section>
 
 			<section>
 				<p></p>

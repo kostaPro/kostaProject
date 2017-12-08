@@ -124,7 +124,6 @@ public class MeetingController {
 		User user = (User)session.getAttribute("loginUser");
 		User userId = userService.findUserByUserId(user.getUserId());
 		userId.getPetImage();
-		List<String> joinList = meeting.getMeetingJoinList();
 		List<String> meetingList = meeting.getMeetingImageList();
 //		List<User> userList = userService.findUserList(joinList);
 		List<Comment> comment = meeting.getCommentList(); 
@@ -133,7 +132,7 @@ public class MeetingController {
 		modelAndView.addObject("meetingDetail", meeting);
 		modelAndView.addObject("meetingSpot", meeting.getMeetingSpot());
 		modelAndView.addObject("ImageList", meetingList);
-		modelAndView.addObject("joinList", joinList);
+		modelAndView.addObject("joinList", meeting.getMeetingJoinList());
 //		modelAndView.addObject("userList", userList);
 		modelAndView.addObject("User", user);
 		modelAndView.addObject("user", userId);
@@ -321,5 +320,12 @@ public class MeetingController {
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value="/joinMeeting.do", method = RequestMethod.GET)
+	public String joinMeeting(String meetingId, HttpSession session) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		meetingService.joinMeeting(Integer.parseInt(meetingId), user.getUserId());
+
+		return "redirect:meetingDetail.do?meetingId=" + meetingId;
+	}
 }
