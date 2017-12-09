@@ -100,6 +100,8 @@
 						<input type="text" placeholder="장소명을 입력해주세요" name="spotName"
 							class="form-control" />
 					</div>
+					
+					<input type="hidden" value="spotList.jsp" name="returnUrl" id="returnUrl">
 
 					<div class="3u">
 						<input type="submit" value="search"

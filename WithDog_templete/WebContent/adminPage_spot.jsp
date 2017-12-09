@@ -85,6 +85,7 @@
 	<div id="main">
 
 		<div class="container">
+
 			<div class="row">
 				<%@include file="myPage_admin.jsp"%>
 				<div id="content" class="9u skel-cell-important">
@@ -97,7 +98,53 @@
 
 						</section>
 
+						<form class="property-search-form" action="spotList.do"
+							method="post">
+							<div class="row">
 
+								<div class="3u">
+									<input type="text" placeholder="주소를 입력해주세요" name="spotLocation"
+										id="spotLocation" class="form-control" />
+								</div>
+
+
+								<div class="3u">
+									<select name="spotType" id="spotType" class="form-control">
+										<option value="">분류를 선택해주세요.</option>
+										<option value="동물병원">
+				            동물병원					        </option>
+										<option value="애견샵">
+				            애견 샵				        </option>
+										<option value="애견카페">
+				            애견 카페					        </option>
+										<option value="공원">
+				            공원					        </option>
+										<option value="이벤트">
+				            이벤트					        </option>
+										<option value="숙박시설">
+				            숙박 시설					        </option>
+										<option value="기타">
+				            기타					        </option>
+
+									</select>
+								</div>
+
+								<div class="3u">
+									<input type="text" placeholder="장소명을 입력해주세요" name="spotName"
+										class="form-control" />
+								</div>
+
+								<input type="hidden" value="adminPage_spot.jsp" name="returnUrl"
+									id="returnUrl">
+								<div class="3u">
+									<input type="submit" value="search"
+										class="btn btn-primary btn-block form-control" id="search_btn"
+										style="color: #fff !important; background: #43becc; border: 1px solid #43becc !important;">
+								</div>
+
+							</div>
+
+						</form>
 
 						<table class="table table-striped table-bordered table-hover">
 							<colgroup>

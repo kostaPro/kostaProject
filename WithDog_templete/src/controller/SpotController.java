@@ -162,9 +162,10 @@ public class SpotController {
 	}
 
 	@RequestMapping(value = "/spotList.do", method = RequestMethod.POST)
-	public ModelAndView searchSpotList(String spotLocation, String spotType, String spotName) {
+	public ModelAndView searchSpotList(String spotLocation, String spotType, String spotName, String returnUrl) {
 		List<Spot> spotList = spotService.findSpotsByCondition(spotLocation, spotType, spotName);
-		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
+		
+		ModelAndView modelAndView = new ModelAndView(returnUrl);
 		modelAndView.addObject("spotList", spotList);
 		return modelAndView;
 	}
@@ -202,9 +203,24 @@ public class SpotController {
 
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/removeSpot.do")
+	public String removeSpot(String spotId, String url) {
+		
+		spotService.removeSpot(Integer.parseInt(spotId));
+		return "redirect:"+url;
+	}
+	
+	@RequestMapping(value="/modifySpot", method = RequestMethod.GET)
+	public ModelAndView showModifySpot(String spotId) {
+		
+		Spot spotDetail = spotService.findSpotBySpotId(Integer.parseInt(spotId));
+		ModelAndView modelAndView = new ModelAndView("modifySpot.jsp");
+		modelAndView.addObject("spotDetail",spotDetail);
+		
+		return modelAndView;
+	}
 
-	// +showModifySpot(spotId : String) : ModelAndView
 	// +modifySpot(spot : Spot, file : MultipartHttpServletRequest) : String
-	// +removeSpot(spotId : String) : String
 
 }

@@ -53,7 +53,7 @@
 				<c:choose>
 					<c:when test="${loginUser.userId eq 'admin' }">
 
-						<a href="removeSpot.do?spotId=${spotDetail.spotId }"><img
+						<a href="removeSpot.do?spotId=${spotDetail.spotId }&url=spotList.do"><img
 							src="resources/img/delete.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
 							<h3>삭제하기</h3></a>
