@@ -34,9 +34,6 @@ public class SpotController {
 	@Autowired
 	private SpotService spotService;
 
-	@Autowired
-	private ReportService reportService;
-
 	@RequestMapping("/spotDetail.do")
 	public ModelAndView showSpotDetail(String spotId) {
 		Spot spot = spotService.findSpotBySpotId(Integer.parseInt(spotId));
@@ -157,11 +154,7 @@ public class SpotController {
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
 		modelAndView.addObject("list", list);
-
-		//
-		String spotType = "spot";
-		List<Report> spotReport = reportService.findReportsByReportType(spotType);
-		modelAndView.addObject("spotReport", spotReport);
+		
 		return modelAndView;
 	}
 

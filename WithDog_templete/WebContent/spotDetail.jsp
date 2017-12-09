@@ -40,7 +40,7 @@
 <!--신고 alert 창-->
 <script type="text/javascript">
 	function alertBox() {
-		alert('이미 신고된 모임입니다.');
+		alert('이미 신고된 장소입니다.');
 	}
 </script>
 
@@ -78,47 +78,39 @@
 
 
 					<c:when test="${loginUser.userId ne spotDetail.registerId }">
+						<c:set value="0" var="check" />
+
+
+						<c:forEach var="spotReport" items="${spotReport}">
+							<c:if test="${spotReport.reportTargetId eq spotDetail.spotId }">
+								<c:set value="1" var="check" />
+							</c:if>
+						</c:forEach>
+
 						<c:choose>
 
-							<c:when test="${spotReport.reportTargetId eq spotDetail.spotId }">
-								<c:forEach var="spotReport" items="${spotReport}">
-									<c:if test="${spotReport.reportTargetId eq spotDetail.spotId }">
-										<c:set value="1" var="check" />
-									</c:if>
-								</c:forEach>
+							<c:when test="${check eq 1 }">
+								<a href="#" onclick="alertBox(); return false"><img
+									src="resources/img/alarm.png"
+									style="width: 25px; height: auto; vertical-align: right;"
+									alt="">
+									<h3>신고하기</h3> </a>
 							</c:when>
 
 							<c:otherwise>
-								<c:forEach var="spotReport" items="${spotReport}">
-									<c:if test="${spotReport.reportTargetId eq spotDetail.spotId }">
-										<c:set value="0" var="check" />
-
-									</c:if>
-								</c:forEach>
-
-								<c:choose>
-
-									<c:when test="${check eq 0 }">
-										<a href="#" onclick="alertBox(); return false"><img
-											src="resources/img/alarm.png"
-											style="width: 25px; height: auto; vertical-align: right;"
-											alt="">
-											<h3>신고하기</h3> </a>
-									</c:when>
-
-									<c:otherwise>
-										<a
-											href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
-											src="resources/img/alarm.png"
-											style="width: 25px; height: auto; vertical-align: right;"
-											alt="">
-											<h3>신고하기</h3> </a>
-									</c:otherwise>
-								</c:choose>
+								<a
+									href="registReport.do?reportTargetId=${spotDetail.spotId}&reportType=spot"><img
+									src="resources/img/alarm.png"
+									style="width: 25px; height: auto; vertical-align: right;"
+									alt="">
+									<h3>신고하기</h3> </a>
 							</c:otherwise>
 						</c:choose>
+
+
 					</c:when>
 				</c:choose>
+
 
 				<div class="3u"
 					style="float: right; margin-right: 30px; width: auto">

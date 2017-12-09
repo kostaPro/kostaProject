@@ -58,7 +58,7 @@
 		<div class="container">
 			<form class="property-search-form" action="eventList.do" method="post">
 
-				<div class="row">
+				<div class="row" >
 					<p>
 						<input type="text" id="datepicker" name="date" value="시작일을 선택해주세요.">
 					</p>

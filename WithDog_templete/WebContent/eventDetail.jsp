@@ -51,6 +51,12 @@
 
 <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
 
+<!--신고 alert 창-->
+<script type="text/javascript">
+	function alertBox() {
+		alert('이미 신고된 이벤트댓글입니다.');
+	}
+
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -342,15 +348,29 @@
 	<div id="main">
 
 		<div class="container">
+			<div class="row" style="float: right;">
 
+				<c:choose>
+					<c:when test="${loginUser.userId eq 'admin' }">
 
-			<h2 align="right">
-				<a href="eventList.do" class="btn btn-primary"
-					style="text-align: center;"> <strong style="color: white">이벤트
-						목록으로</strong></a>
-			</h2>
-			<br>
+						<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
+							src="resources/img/modify.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>수정하기</h3></a>
+						<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
+							src="resources/img/delete.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+						<h3>신고하기</h3></a>
+					</c:when>
+				</c:choose>
 
+				<h2 align="right">
+					<a href="eventList.do" class="btn btn-primary"
+						style="text-align: center;"> <strong style="color: white">이벤트
+							목록으로</strong></a>
+				</h2>
+				<br>
+			</div>
 
 			<div class="row">
 				<section>
@@ -375,25 +395,12 @@
 								</h3>
 							</div>
 
-							<h3 align="left">장소 |${eventSpot.spotLocation }</h3>
+							<h3 align="left">장소 | ${eventSpot.spotLocation }</h3>
 
 							<a href="#" class="image full"><img
 								src="/images/${eventDetail.eventImage}" style="width: 370px"></a>
 							<hr>
 
-							<c:choose>
-								<c:when test="${loginUser.userId eq 'admin' }">
-
-									<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
-										src="resources/img/modify.png"
-										style="width: 25px; height: auto; vertical-align: right;"
-										alt=""></a>
-									<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
-										src="resources/img/delete.png"
-										style="width: 25px; height: auto; vertical-align: right;"
-										alt=""></a>
-								</c:when>
-							</c:choose>
 
 
 						</section>
@@ -527,12 +534,38 @@
 												<button class="btn btn-primary" name="reply_del"
 													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
 											</c:when>
-											
+
 											<c:when test="${loginUser.userId != comments.writerId }">
 
-												<button class="btn btn-primary"
+												<c:set value="0" var="check" />
+
+												<c:forEach var="report" items="${eventCommentReport}">
+													<c:if
+														test="${report.reportTargetId eq comments.commentId }">
+														<c:set value="1" var="check" />
+													</c:if>
+												</c:forEach>
+
+												<c:choose>
+
+													<c:when test="${check eq 1 }">
+
+														<button class="btn btn-primary"
+															parentId="${comments.parentId}"
+															id="${comments.commentId}"
+															onclick="alertBox(); return false">신고</button>
+
+													</c:when>
+
+													<c:otherwise>
+														<button class="btn btn-primary"
 													parentId="${comments.parentId}" id="${comments.commentId}"
 													onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
+													</c:otherwise>
+												</c:choose>
+
+
+												
 											</c:when>
 
 										</c:choose>
