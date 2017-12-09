@@ -121,11 +121,36 @@ public class ReviewController {
 	}
 
 	@RequestMapping("/deleteReview.do")
-	public String deleteReview(String reviewId) {
+	public String deleteReview(String reviewId, HttpSession session) {
 
-		reviewService.removeReview(Integer.parseInt(reviewId));
+		ModelAndView modelAndView = new ModelAndView();
 
-		return "spotDetail.do";
+		User user = (User) session.getAttribute("loginUser");
+		if (user.getUserId().equals("admin")) {
+
+			Report report = new Report();
+
+			report.setReportTargetId(Integer.parseInt(reviewId));
+			report.setReportType("reviewId");
+			report.setStatus("O");
+			report.setReportContents("관리자 신고");
+			report.setReporterId("admin");
+
+			reportService.registReport(report);
+
+			commentService.removeMeetingComment(Integer.parseInt(reviewId));
+
+			modelAndView.setViewName("jsonView");
+
+			return "spotDetail.do";
+
+		} else {
+
+			reviewService.removeReview(Integer.parseInt(reviewId));
+
+			return "spotDetail.do";
+		}
+
 	}
 
 	@RequestMapping("/modifyReview.do")
