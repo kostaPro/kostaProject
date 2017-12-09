@@ -12,7 +12,8 @@
 <head>
 <title>WithDog_spotList</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <!--화면 정렬-->
 <link rel='stylesheet' id='bootstrap-css'
 	href='//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'
@@ -31,10 +32,11 @@
 <link rel="stylesheet" href="resources/css/style.css" />
 <link rel="stylesheet" href="resources/css/style-desktop.css" />
 
-<!--showMap-->
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
+<!--showMap--> 
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script> 
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=CWzOw4q7QmEGUpLcMF2H&submodules=geocoder"></script>
 <script type="text/javascript" src="resources/js/markMultipleSpot.js"></script>
+ <script type="text/javascript" src="resources/js/MarkerClustering.js"></script> 
 
 <!--js로 spot객체리스트 넘기기-->
 <script type="text/javascript" >
