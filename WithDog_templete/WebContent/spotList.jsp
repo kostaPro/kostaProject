@@ -102,7 +102,7 @@
 							class="form-control" />
 					</div>
 					
-					<input type="hidden" value="spotList.jsp" name="returnUrl" id="returnUrl">
+					<input type="hidden" value="spotList.jsp" name="backPage" id="backPage">
 
 					<div class="3u">
 						<input type="submit" value="search"

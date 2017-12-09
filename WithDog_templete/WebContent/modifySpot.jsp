@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <!--
 	Elemental by TEMPLATED
@@ -8,7 +9,7 @@
 -->
 <html>
 <head>
-<title>WithDog_RegistSpot</title>
+<title>WithDog_ModifySpot</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <!--화면 정렬-->
@@ -57,10 +58,15 @@
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	var typeVal = $("#setUpType").val();
-	$(input:radio[name=spotType]:input[value=typeVal]).attr("checked",true);
-});
+	$(document)
+			.ready(
+					function() {
+						var typeVal = $("#setUpType").val();
+						console.log(typeVal);
+						$(
+								'input:radio[name="spotType"]:input[value="'
+										+ typeVal + '"]').prop("checked", true);
+					});
 </script>
 </head>
 <body class="homepage">
@@ -84,14 +90,19 @@ $(document).ready(function(){
 						<div class="wrap_listing">
 							<form action="modifySpot.do" method="POST"
 								enctype="multipart/form-data">
+
+								<input type="hidden" id="backPage" name="backPage"
+									value="<%=request.getHeader("referer")%>">
 								<fieldset>
 									<legend class="screen_out">장소 수정하기 폼</legend>
+									<input type="hidden" id="spotId" name="spotId"
+										value="${spotDetail.spotId }">
 									<div class="form_details">
-										<span class="cont_notice"><i class="fa fa-check"></i>\필수항목</span>
+										<span class="cont_notice"><i class="fa fa-check"></i>수정항목</span>
 
 										<label for="inpName" class="lab_comm"><strong
-											class="tit_form"><i class="fa fa-check"></i>장소명</strong></label> <input
-											type="text" readonly="readonly" id="inpName" name="spotName"
+											class="tit_form">장소명</strong></label> <input type="text"
+											readonly="readonly" id="inpName" name="spotName"
 											class="inp_comm" value="${spotDetail.spotName }">
 
 										<section>
@@ -102,8 +113,10 @@ $(document).ready(function(){
 													<span class="thumbnail_name"></span> <span class="btn_file"><label>파일첨부</label>
 														<input type="file" id="input_thumbnail"
 														name="spotThumbnail" class="inp_file file_attach">
-													</span> <br> <br> <img src="#" id="spot_thumb"
+													</span> <br> <br> <img
+														src="/images/${spotDetail.thumbnail }" id="spot_thumb"
 														style="width: 600px; display: absolute; float: center">
+
 
 												</div>
 											</div>
@@ -172,8 +185,9 @@ $(document).ready(function(){
 										<section>
 
 											<input type="text" class="inp_comm" name="spotLocation"
-												id="spotLocation" value="${spotDetail.spotLocation }"> <input type="button"
-												onclick="searchingAddress()" value="검색하기"
+												id="spotLocation" value="${spotDetail.spotLocation }">
+											<input type="button" onclick="searchingAddress()"
+												value="검색하기"
 												class="btn btn-primary btn-block form-control btn_comm">
 										</section>
 
@@ -181,10 +195,23 @@ $(document).ready(function(){
 											<div id="map" style="width: 100%; height: 300px;"></div>
 										</section>
 
-										<label for="inpComp" class="lab_comm"> <strong
-											class="tit_form">소개글<i class="txt_check"> (선택)</i></strong>
-										</label>
-										<textarea class="inp_comm" name="spotInfo" placeholder="" value="${spotDetail.spotInfo }"></textarea>
+										<c:choose>
+											<c:when test="${loginUser.userId eq 'admin' }">
+												<label for="inpComp" class="lab_comm"> <strong
+													class="tit_form">소개글</strong>
+												</label>
+												<textarea class="inp_comm" readonly="readonly"
+													name="spotInfo" placeholder="">${spotDetail.spotInfo }</textarea>
+											</c:when>
+
+											<c:otherwise>
+												<label for="inpComp" class="lab_comm"> <strong
+													class="tit_form"><i class="fa fa-check"></i>소개글</strong>
+												</label>
+												<textarea class="inp_comm" name="spotInfo" placeholder="">${spotDetail.spotInfo }</textarea>
+											</c:otherwise>
+										</c:choose>
+
 
 										<strong class="tit_form">장소의 사진(이미지 파일)을 첨부해주세요.<i
 											class="txt_check"> (선택)</i></strong>
@@ -202,7 +229,7 @@ $(document).ready(function(){
 											<div class="spot_imgs"></div>
 										</section>
 										<input type="submit"
-											class="btn_comm btn_submit send_listing_place" value="등록신청"></input>
+											class="btn_comm btn_submit send_listing_place" value="수정"></input>
 									</div>
 								</fieldset>
 							</form>

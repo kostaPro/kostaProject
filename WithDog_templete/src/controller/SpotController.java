@@ -42,21 +42,9 @@ public class SpotController {
 	public ModelAndView showSpotDetail(String spotId) {
 		Spot spot = spotService.findSpotBySpotId(Integer.parseInt(spotId));
 
-		String location = spot.getSpotLocation();
-		String locArray[] = location.split(" ");
-		String keyArray[] = { "locationDo", "locationGu", "locationDong", "locationBunji" };
-
 		ModelAndView modelAndView = new ModelAndView("spotDetail.jsp");
 		modelAndView.addObject("spotDetail", spot);
 
-		// 주소지 시군구별로 셋팅
-		for (int i = 0; i < keyArray.length; i++) {
-			if (locArray[i] != null) {
-				modelAndView.addObject(keyArray[i], locArray[i]);
-			} else {
-				modelAndView.addObject(keyArray[i], " ");
-			}
-		}
 		return modelAndView;
 	}
 
@@ -156,10 +144,10 @@ public class SpotController {
 	}
 
 	@RequestMapping(value = "/spotList.do", method = RequestMethod.POST)
-	public ModelAndView searchSpotList(String spotLocation, String spotType, String spotName, String returnUrl) {
+	public ModelAndView searchSpotList(String spotLocation, String spotType, String spotName, String backPage) {
 		List<Spot> spotList = spotService.findSpotsByCondition(spotLocation, spotType, spotName);
 		
-		ModelAndView modelAndView = new ModelAndView(returnUrl);
+		ModelAndView modelAndView = new ModelAndView(backPage);
 		modelAndView.addObject("spotList", spotList);
 		return modelAndView;
 	}
@@ -199,10 +187,10 @@ public class SpotController {
 	}
 	
 	@RequestMapping(value="/removeSpot.do")
-	public String removeSpot(String spotId, String url) {
+	public String removeSpot(String spotId, String backPage) {
 		
 		spotService.removeSpot(Integer.parseInt(spotId));
-		return "redirect:"+url;
+		return "redirect:" + backPage;
 	}
 	
 	@RequestMapping(value="/modifySpot", method = RequestMethod.GET)
@@ -214,7 +202,43 @@ public class SpotController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/modifySpot", method = RequestMethod.POST)
+	public String ModifySpot(Spot spot, MultipartHttpServletRequest file, String backPage) throws IOException {
+		
+		String realFolder = "c:\\" + File.separator + "tempFiles";
+		File dir = new File(realFolder);
+		if (!dir.isDirectory()) {
+			dir.mkdirs();
+		}
 
-	// +modifySpot(spot : Spot, file : MultipartHttpServletRequest) : String
+		// 썸네일 저장
+		MultipartFile thumbnail = file.getFile("spotThumbnail");
+		if (thumbnail == null && thumbnail.getOriginalFilename().equals("")) {
+
+		} else {
+			// 파일 중복명 처리
+			String genId = UUID.randomUUID().toString();
+			// 본래 파일명
+			String originalfileName = thumbnail.getOriginalFilename();
+			// 저장되는 파일 이름
+			String saveFileName = genId + "." + originalfileName;
+
+			File saveFile = new File(dir.getAbsolutePath() + File.separator + saveFileName);
+
+			byte[] bytes = thumbnail.getBytes();
+
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
+			out.write(bytes);
+			out.close();
+
+			spot.setThumbnail(saveFileName);
+		}
+
+		spotService.modifySpot(spot);
+		
+		String[] url = backPage.split("/");
+		return url[4];
+	}
 
 }

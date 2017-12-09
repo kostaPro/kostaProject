@@ -134,8 +134,8 @@
 										class="form-control" />
 								</div>
 
-								<input type="hidden" value="adminPage_spot.jsp" name="returnUrl"
-									id="returnUrl">
+								<input type="hidden" value="adminPage_spot.jsp" name="backPage"
+									id="backPage">
 								<div class="3u">
 									<input type="submit" value="search"
 										class="btn btn-primary btn-block form-control" id="search_btn"
@@ -187,7 +187,7 @@
 														src="resources/img/modify.png"
 														style="width: 25px; height: auto; vertical-align: right;"
 														alt=""></a></td>
-												<td><a href="removeSpot.do?spotId=${spotList.spotId }"><img
+												<td><a href="removeSpot.do?spotId=${spotList.spotId }&backPage=adminPage_spot.do"><img
 														src="resources/img/delete.png"
 														style="width: 25px; height: auto; vertical-align: right;"
 														alt=""></a></td>

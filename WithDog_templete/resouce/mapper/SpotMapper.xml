@@ -87,7 +87,7 @@
 
 	<update id="updateSpot" parameterType="Spot">
 		update spot_tb set
-		spotInfo = #{spotInfo} and spotType = #{spotType}
+		spotInfo = #{spotInfo} , spotType = #{spotType}
 		where spotId =
 		#{spotId}
 	</update>

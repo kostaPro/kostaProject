@@ -50,32 +50,27 @@
 		<div class="container">
 
 			<div class="row" style="float: right;">
+			<c:set value="spotList.do" var="backPage"></c:set>
 				<c:choose>
-					<c:when test="${loginUser.userId eq 'admin' }">
 
-						<a href="removeSpot.do?spotId=${spotDetail.spotId }&url=spotList.do"><img
-							src="resources/img/delete.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-							<h3>삭제하기</h3></a>
-					</c:when>
-
-					<c:when test="${loginUser.userId eq spotDetail.registerId }">
+					<c:when test="${loginUser.userId eq spotDetail.registerId || loginUser.userId eq 'admin'}">
 						<a href="modifySpot.do?spotId=${spotDetail.spotId }"><img
 							src="resources/img/modify.png" style="width: 25px; height: auto;">
 						<h3>수정하기</h3></a>
-						<a href="removeSpot.do?spotId=${spotDetail.spotId }"><img
+						
+						<a href="removeSpot.do?spotId=${spotDetail.spotId }&backPage=${backPage}"><img
 							src="resources/img/delete.png" style="width: 25px; height: auto;">
 						<h3>삭제하기</h3></a>
 					</c:when>
 
 
-					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+					<c:otherwise >
 						<a
 							href="registReport.do?reportTargetId=${spotDetail.spotId}&reportType=spot"><img
 							src="resources/img/alarm.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
 						<h3>신고하기</h3></a>
-					</c:when>
+					</c:otherwise>
 				</c:choose>
 
 				<div class="3u"
