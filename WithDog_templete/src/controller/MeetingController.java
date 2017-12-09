@@ -142,11 +142,10 @@ public class MeetingController {
 		modelAndView.addObject("user", userId);
 		modelAndView.addObject("comment", comment);
 
-		// 기존 신고
-		// String meetingType = "meeting";
-		// List<Report> meetingReport =
-		// reportService.findReportsByReportType(meetingType);
-		// modelAndView.addObject("meetingReport", meetingReport);
+		 // 기존 신고
+		 String meetingType = "meeting";
+		 List<Report> meetingReport = reportService.findReportsByReportType(meetingType);
+		 modelAndView.addObject("meetingReport", meetingReport);
 
 		return modelAndView;
 	}

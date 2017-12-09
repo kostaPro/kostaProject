@@ -36,6 +36,14 @@
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/showMap.js"></script>
+
+<!--신고 alert 창-->
+<script type="text/javascript">
+	function alertBox() {
+		alert('이미 신고된 모임입니다.');
+	}
+</script>
+
 </head>
 <body class="homepage">
 
@@ -62,19 +70,53 @@
 					<c:when test="${loginUser.userId eq spotDetail.registerId }">
 						<a href="modifySpot.do?spotId=${spotDetail.spotId }"><img
 							src="resources/img/modify.png" style="width: 25px; height: auto;">
-						<h3>수정하기</h3></a>
+							<h3>수정하기</h3></a>
 						<a href="removeSpot.do?spotId=${spotDetail.spotId }"><img
 							src="resources/img/delete.png" style="width: 25px; height: auto;">
-						<h3>삭제하기</h3></a>
+							<h3>삭제하기</h3></a>
 					</c:when>
 
 
-					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
-						<a
-							href="registReport.do?reportTargetId=${spotDetail.spotId}&reportType=spot"><img
-							src="resources/img/alarm.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-						<h3>신고하기</h3></a>
+					<c:when test="${loginUser.userId ne spotDetail.registerId }">
+						<c:choose>
+
+							<c:when test="${spotReport.reportTargetId eq spotDetail.spotId }">
+								<c:forEach var="spotReport" items="${spotReport}">
+									<c:if test="${spotReport.reportTargetId eq spotDetail.spotId }">
+										<c:set value="1" var="check" />
+									</c:if>
+								</c:forEach>
+							</c:when>
+
+							<c:otherwise>
+								<c:forEach var="spotReport" items="${spotReport}">
+									<c:if test="${spotReport.reportTargetId eq spotDetail.spotId }">
+										<c:set value="0" var="check" />
+
+									</c:if>
+								</c:forEach>
+
+								<c:choose>
+
+									<c:when test="${check eq 0 }">
+										<a href="#" onclick="alertBox(); return false"><img
+											src="resources/img/alarm.png"
+											style="width: 25px; height: auto; vertical-align: right;"
+											alt="">
+											<h3>신고하기</h3> </a>
+									</c:when>
+
+									<c:otherwise>
+										<a
+											href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
+											src="resources/img/alarm.png"
+											style="width: 25px; height: auto; vertical-align: right;"
+											alt="">
+											<h3>신고하기</h3> </a>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 				</c:choose>
 

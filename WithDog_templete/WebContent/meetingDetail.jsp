@@ -398,14 +398,52 @@
 							<h3>삭제하기</h3></a>
 					</c:when>
 
+
 					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
 
-						<a
-							href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
-							src="resources/img/alarm.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-							<h3>신고하기</h3></a>
 
+						<c:choose>
+
+							<c:when
+								test="${report.reportTargetId eq meetingDetail.meetingId }">
+								<c:forEach var="report" items="${meetingReport}">
+									<c:if
+										test="${report.reportTargetId eq meetingDetail.meetingId }">
+										<c:set value="1" var="check" />
+									</c:if>
+								</c:forEach>
+							</c:when>
+
+							<c:otherwise>
+								<c:forEach var="report" items="${meetingReport}">
+									<c:if
+										test="${report.reportTargetId eq meetingDetail.meetingId }">
+										<c:set value="0" var="check" />
+
+									</c:if>
+								</c:forEach>
+
+								<c:choose>
+
+									<c:when test="${check eq 0 }">
+										<a href="#" onclick="alertBox(); return false"><img
+											src="resources/img/alarm.png"
+											style="width: 25px; height: auto; vertical-align: right;"
+											alt="">
+											<h3>신고하기</h3> </a>
+									</c:when>
+
+									<c:otherwise>
+										<a
+											href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
+											src="resources/img/alarm.png"
+											style="width: 25px; height: auto; vertical-align: right;"
+											alt="">
+											<h3>신고하기</h3> </a>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 				</c:choose>
 

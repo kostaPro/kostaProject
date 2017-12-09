@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Report;
 import domain.Review;
 import domain.Spot;
 import domain.Spots;
@@ -66,7 +67,7 @@ public class SpotController {
 	@RequestMapping(value = "/registSpot.do", method = RequestMethod.POST)
 	public String registSpot(Spot spot, HttpSession session, MultipartHttpServletRequest file) throws IOException {
 
-		User user = (User)session.getAttribute("loginUser");
+		User user = (User) session.getAttribute("loginUser");
 		spot.setRegisterId(user.getUserId());
 
 		String realFolder = "c:\\" + File.separator + "tempFiles";
@@ -156,6 +157,11 @@ public class SpotController {
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
 		modelAndView.addObject("list", list);
+
+		//
+		String spotType = "spot";
+		List<Report> spotReport = reportService.findReportsByReportType(spotType);
+		modelAndView.addObject("spotReport", spotReport);
 		return modelAndView;
 	}
 
