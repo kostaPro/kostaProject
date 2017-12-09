@@ -432,6 +432,21 @@
 						목록</h1>
 					<hr style="width: 30%; border: solid 2px white">
 
+					
+					
+					<c:set value="0" var="contactCheck"/>
+							
+							<c:forEach var="fullList" items="${fullJoinList }">
+								<c:forEach var="guest" items="${fullList.value }">
+								<c:if test="${loginUser.userId eq guest.userId}">
+									<c:set value="1" var="contactCheck"/>		
+								</c:if>
+								</c:forEach>
+							</c:forEach>
+					
+					
+					
+					
 					<c:forEach var="fullList" items="${fullJoinList }"
 						varStatus="status">
 
@@ -443,13 +458,6 @@
 										onclick="showList(${status.count})">▼</Button>
 								</h3>
 							</div>
-
-
-
-
-
-
-
 
 
 						<c:set value="0" var="check"/>
@@ -491,12 +499,6 @@
 							
 							
 							
-							
-							
-							
-							
-							
-							
 						</div>
 
 						<div id="dailyJoinList${status.count }" class="joinList"
@@ -509,11 +511,33 @@
 										<div
 											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
 											<h2>${guest.userId }</h2>
-											<img
+											
+										<c:choose>
+											<c:when test="${guest.petImage == null }">
+												<img
+												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="resources/img/default_puppy.jpg">
+											</c:when>
+											<c:otherwise>
+												<img
 												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
 												src="/images/${guest.petImage}">
+											</c:otherwise>
+										</c:choose>
 											<h2>${guest.petInfo }</h2>
-											<h2>${guest.contact }</h2>
+											
+										<c:choose>
+										    <c:when test="${check eq 1}">
+												<h2>${guest.contact }</h2>
+											</c:when>
+										    <c:otherwise>
+										   		<p></p>
+										    </c:otherwise>
+										</c:choose>
+										
+										
+										
+										
 										</div>
 									</div>
 
