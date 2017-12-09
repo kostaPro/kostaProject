@@ -57,14 +57,9 @@
 
 <!--신고 alert 창-->
 <script type="text/javascript">
-<script type="text/javascript">
-function alertBox() {
-	alert('이미 신고된 모임입니다.');
-}
-
-function alertBox2() {
-	alert('이미 신고된 모임 댓글입니다.');
-}
+	function alertBox() {
+		alert('이미 신고된 모임입니다.');
+	}
 </script>
 
 <script type="text/javascript">
@@ -391,8 +386,8 @@ function alertBox2() {
 			<div class="row" style="float: right;">
 
 				<c:choose>
-					<c:when test="${loginUser.userId eq 'admin' }">
 
+					<c:when test="${loginUser.userId eq 'admin' }">
 
 						<a href="myRemoveMeeting.do?meetingId=${meetingDetail.meetingId }"><img
 							src="resources/img/delete.png"
@@ -414,33 +409,11 @@ function alertBox2() {
 
 					<c:otherwise>
 
-						<c:set value="0" var="check" />
-
-						<c:forEach var="report" items="${meetingReport}">
-							<c:if test="${report.reportTargetId eq meetingDetail.meetingId }">
-								<c:set value="1" var="check" />
-							</c:if>
-						</c:forEach>
-
-						<c:choose>
-
-							<c:when test="${check eq 1 }">
-								<a href="#" onclick="alertBox(); return false"><img
-									src="resources/img/alarm.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt="">
-									<h3>신고하기</h3> </a>
-							</c:when>
-
-							<c:otherwise>
-								<a
-									href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
-									src="resources/img/alarm.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt="">
-									<h3>신고하기</h3> </a>
-							</c:otherwise>
-						</c:choose>
+						<a
+							href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
+							src="resources/img/alarm.png"
+							style="width: 25px; height: auto; vertical-align: right;" alt="">
+							<h3>신고하기</h3></a>
 
 					</c:otherwise>
 				</c:choose>
@@ -584,19 +557,8 @@ function alertBox2() {
 							style="display: none">
 							<div class="row" style="margin-top: 20px">
 						
-							
-							
-							<c:set value="0" var="contactCheck"/>
-							
-							<c:forEach var="guest" items="${joinList }">
-							
-								<c:if test="${loginUser.userId eq guest.userId}">
-									<c:set value="1" var="contactCheck"/>		
-								</c:if>
-							</c:forEach>
-
-
-
+						
+						
 								<c:forEach var="guest" items="${joinList }"
 									varStatus="rowCount">
 
@@ -604,32 +566,11 @@ function alertBox2() {
 										<div
 											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
 											<h2>${guest.userId }</h2>
-											
-										<c:choose>
-											<c:when test="${guest.petImage == null }">
-											<img
-											style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
-											src="resources/img/default_puppy.jpg">
-											</c:when>
-											<c:otherwise>	
 											<img
 												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
 												src="/images/${guest.petImage}">
-											</c:otherwise>
-										</c:choose>
-											
-											
 											<h2>${guest.petInfo }</h2>
-											
-										<c:choose>
-										   <c:when test="${check eq 1}">
 											<h2>${guest.contact }</h2>
-										   </c:when>
-										   <c:otherwise>
-										   <p></p>
-										   </c:otherwise>
-											
-										</c:choose>
 										</div>
 									</div>
 									
@@ -681,62 +622,21 @@ function alertBox2() {
 												id="${comments.commentId}">답글 달기</button>
 										</c:if>
 
-										<c:choose>
 
-											<c:when test="${loginUser.userId eq 'admin'}">
+										<c:if test="${loginUser.userId == comments.writerId}">
+											<button class="btn btn-outline-primary" name="reply_update"
+												reply_comment="${comments.content}"
+												id="${comments.commentId}">수정</button>
+											<button class="btn btn-primary" name="reply_del"
+												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+										</c:if>
+										<!-- 신고버튼 -->
+										<c:if test="${loginUser.userId != comments.writerId }">
 
-												<button class="btn btn-primary"
-													parentId="${comments.parentId}" id="${comments.commentId}"
-													onclick="location.href='removeMeetingComment.do?reportTargetId=${comments.commentId}&reportType=meetingComment'">삭제</button>
-
-											</c:when>
-
-
-											<c:when test="${loginUser.userId == comments.writerId}">
-												<button class="btn btn-outline-primary" name="reply_update"
-													reply_comment="${comments.content}"
-													id="${comments.commentId}">수정</button>
-												<button class="btn btn-primary" name="reply_del"
-													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
-											</c:when>
-
-											<c:when test="${loginUser.userId != comments.writerId }">
-
-												<c:set value="0" var="check" />
-
-												<c:forEach var="report" items="${meetingCommentReport}">
-													<c:if
-														test="${report.reportTargetId eq comments.commentId }">
-														<c:set value="1" var="check" />
-													</c:if>
-												</c:forEach>
-
-												<c:choose>
-
-													<c:when test="${check eq 1 }">
-													
-													<button class="btn btn-primary"
-													parentId="${comments.parentId}" id="${comments.commentId}"
-													onclick="alertBox2(); return false">신고</button>
-														
-													</c:when>
-
-													<c:otherwise>
-														<button class="btn btn-primary"
-													parentId="${comments.parentId}" id="${comments.commentId}"
-													onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=meetingComment'">신고</button>
-													</c:otherwise>
-												</c:choose>
-
-
-
-												
-											</c:when>
-
-
-										</c:choose>
-
-
+											<button class="btn btn-primary"
+												parentId="${comments.parentId}" id="${comments.commentId}"
+												onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=meetingComment'">신고</button>
+										</c:if>
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>

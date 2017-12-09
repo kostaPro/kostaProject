@@ -146,16 +146,11 @@ public class MeetingController {
 		modelAndView.addObject("hostUser", hostUser);
 		modelAndView.addObject("comment", comment);
 
-		 // 기존  모임 신고들
-		 String meetingType = "meeting";
-		 List<Report> meetingReport = reportService.findReportsByReportType(meetingType);
-		 modelAndView.addObject("meetingReport", meetingReport);
-		 
-		 //기존 모임 댓글 신고들
-		 String meetingCommentType = "meetingComment";
-		 List<Report> meetingCommentReport = reportService.findReportsByReportType(meetingCommentType);
-		 modelAndView.addObject("meetingCommentReport", meetingCommentReport);
-		 
+		// 기존 신고
+		// String meetingType = "meeting";
+		// List<Report> meetingReport =
+		// reportService.findReportsByReportType(meetingType);
+		// modelAndView.addObject("meetingReport", meetingReport);
 
 		return modelAndView;
 	}
@@ -398,50 +393,4 @@ public class MeetingController {
 		meetingService.cancelMeeting(Integer.parseInt(meetingId), user.getUserId());
 		return "redirect:meetingDetail.do?meetingId=" + meetingId;
 	}
-	
-	@RequestMapping("/meetingDetailReport.do")
-	public ModelAndView showMeetingDetailReport(String meetingId, String reporterId) {
-		
-		System.out.println(reporterId);
-		
-		Meeting meeting = meetingService.findMeetingByMeetingId(Integer.parseInt(meetingId));
-		
-		User user = new User();
-		user.setUserId(reporterId);
-		
-		System.out.println(user.getUserId());
-		
-		User userId = userService.findUserByUserId(user.getUserId());
-		userId.getPetImage();
-//		List<String> joinList = meeting.getMeetingJoinList();
-		List<String> meetingList = meeting.getMeetingImageList();
-		// List<User> userList = userService.findUserList(joinList);
-		List<Comment> comment = meeting.getCommentList();
-
-		ModelAndView modelAndView = new ModelAndView("meetingDetail.jsp");
-
-		modelAndView.addObject("meetingDetail", meeting);
-		modelAndView.addObject("meetingSpot", meeting.getMeetingSpot());
-		modelAndView.addObject("ImageList", meetingList);
-//		modelAndView.addObject("joinList", joinList);
-		// modelAndView.addObject("userList", userList);
-		modelAndView.addObject("User", user);
-		modelAndView.addObject("user", userId);
-		modelAndView.addObject("comment", comment);
-
-		 // 기존  모임 신고들
-		 String meetingType = "meeting";
-		 List<Report> meetingReport = reportService.findReportsByReportType(meetingType);
-		 modelAndView.addObject("meetingReport", meetingReport);
-		 
-		 //기존 모임 댓글 신고들
-		 String meetingCommentType = "meetingComment";
-		 List<Report> meetingCommentReport = reportService.findReportsByReportType(meetingCommentType);
-		 modelAndView.addObject("meetingCommentReport", meetingCommentReport);
-		 
-
-		return modelAndView;
-	}
-	
-
 }

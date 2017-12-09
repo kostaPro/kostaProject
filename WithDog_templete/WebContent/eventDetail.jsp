@@ -55,12 +55,6 @@
 <script type="text/javascript" src="resources/js/showMap.js"></script>
 
 
-<!--신고 alert 창-->
-<script type="text/javascript">
-	function alertBox() {
-		alert('이미 신고된 이벤트댓글입니다.');
-	}
-
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -359,11 +353,11 @@
 						<a href="modifyEvent.do?eventId=${eventDetail.eventId }"><img
 							src="resources/img/modify.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
-							<h3>수정하기</h3></a>
+						<h3>수정하기</h3></a>
 						<a href="removeEvent.do?eventId=${eventDetail.eventId }"><img
 							src="resources/img/delete.png"
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
-							<h3>삭제하기</h3></a>
+						<h3>삭제하기</h3></a>
 					</c:when>
 
 				</c:choose>
@@ -376,11 +370,12 @@
 				</div>
 			</div>
 
-		</div>
 
 
-		<div class="row" style="margin-bottom: 15px;">
-			<div style="width: 30%; height: 470px; margin-right: 15px;">
+
+
+			<div class="row" style="margin-bottom:15px;">
+				<div style="width: 30%; height: 470px;margin-right:15px;">
 				<section>
 
 					<header>
@@ -413,9 +408,13 @@
 					</div>
 
 				</section>
+				</div>
+
+				<div id="map" style="width: 65%; height: 470px;margin-left:15px;"></div>
+
+
 			</div>
 
-			<div id="map" style="width: 65%; height: 470px; margin-left: 15px;"></div>
 			<section>
 				<div style="border: 2px solid; padding: 10px;">
 
@@ -433,21 +432,6 @@
 						목록</h1>
 					<hr style="width: 30%; border: solid 2px white">
 
-
-
-					<c:set value="0" var="contactCheck" />
-
-					<c:forEach var="fullList" items="${fullJoinList }">
-						<c:forEach var="guest" items="${fullList.value }">
-							<c:if test="${loginUser.userId eq guest.userId}">
-								<c:set value="1" var="contactCheck" />
-							</c:if>
-						</c:forEach>
-					</c:forEach>
-
-
-
-
 					<c:forEach var="fullList" items="${fullJoinList }"
 						varStatus="status">
 
@@ -460,92 +444,89 @@
 								</h3>
 							</div>
 
-							<c:set value="0" var="check" />
 
-							<c:forEach var="guest" items="${fullList.value }">
+
+
+
+
+
+
+
+						<c:set value="0" var="check"/>
+
+						<c:forEach var="guest" items="${fullList.value }">
 								<c:if test="${loginUser.userId eq guest.userId}">
-									<c:set value="1" var="check" />
+									<c:set value="1" var="check"/>
 								</c:if>
-							</c:forEach>
+						</c:forEach>
+						
+						
+						<c:choose>
+							<c:when test="${check eq 1}">
+							
+							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="cancelEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
+											color="#43C0CE">참여취소</font></strong></a>
+								</div>
+							</div>
+												
+							</c:when>
+							<c:otherwise>
+							
+								<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="joinEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
+											color="#43C0CE">참여하기</font></strong></a>
+								</div>
+							</div>
+							
+							</c:otherwise>
+						</c:choose>
 
 
-							<c:choose>
-								<c:when test="${check eq 1}">
 
-									<div class="1u" style="padding: 5px;">
-										<div style="background-color: #FFF;">
-											<a
-												href="cancelEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
-													color="#43C0CE">참여취소</font></strong></a>
-										</div>
-									</div>
-
-								</c:when>
-								<c:otherwise>
-
-									<div class="1u" style="padding: 5px">
-										<div style="background-color: #FFF;">
-											<a
-												href="joinEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
-													color="#43C0CE">참여하기</font></strong></a>
-										</div>
-									</div>
-
-								</c:otherwise>
-							</c:choose>
+							
+							
+							
+							
+							
+							
+							
+							
+							
 						</div>
-					</c:forEach>
 
-				</div>
+						<div id="dailyJoinList${status.count }" class="joinList"
+							style="display: none">
+							<div class="row" style="margin-top: 20px">
+								<c:forEach var="guest" items="${fullList.value }"
+									varStatus="rowCount">
 
-				<div id="dailyJoinList${status.count }" class="joinList"
-					style="display: none">
-					<div class="row" style="margin-top: 20px">
-						<c:forEach var="guest" items="${fullList.value }"
-							varStatus="rowCount">
-
-
-							<div class="2u">
-								<div
-									style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
-									<h2>${guest.userId }</h2>
-
-									<c:choose>
-										<c:when test="${guest.petImage == null }">
-											<img
-												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
-												src="resources/img/default_puppy.jpg">
-										</c:when>
-										<c:otherwise>
+									<div class="2u">
+										<div
+											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
+											<h2>${guest.userId }</h2>
 											<img
 												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
 												src="/images/${guest.petImage}">
-										</c:otherwise>
-									</c:choose>
-									<h2>${guest.petInfo }</h2>
-
-									<c:choose>
-										<c:when test="${check eq 1}">
+											<h2>${guest.petInfo }</h2>
 											<h2>${guest.contact }</h2>
-										</c:when>
-										<c:otherwise>
-											<p></p>
-										</c:otherwise>
-									</c:choose>
+										</div>
+									</div>
 
-
-
-
-								</div>
+									<c:if test="${rowCount.count%6 eq 0 }">
 							</div>
-					<c:if test="${rowCount.count%6 eq 0 }">
+							<div class="row" style="margin-top: 20px">
+								</c:if>
+					</c:forEach>
 				</div>
-				<div class="row" style="margin-top: 20px">
-					</c:if>
-				</c:forEach>
 		</div>
-	</div>
+		</c:forEach>
 
+	</div>
 	</section>
 
 	</div>
@@ -593,42 +574,6 @@
 												onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
 										</c:if>
 
-
-										<c:if test="${loginUser.userId == comments.writerId}">
-											<button class="btn btn-outline-primary" name="reply_update"
-												reply_comment="${comments.content}"
-												id="${comments.commentId}">수정</button>
-											<button class="btn btn-primary" name="reply_del"
-												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
-										</c:if>
-
-										<c:if test="${loginUser.userId != comments.writerId }">
-
-											<c:set value="0" var="check" />
-
-											<c:forEach var="report" items="${eventCommentReport}">
-												<c:if test="${report.reportTargetId eq comments.commentId }">
-													<c:set value="1" var="check" />
-												</c:if>
-											</c:forEach>
-
-											<c:choose>
-
-												<c:if test="${check eq 1 }">
-
-													<button class="btn btn-primary"
-														parentId="${comments.parentId}" id="${comments.commentId}"
-														onclick="alertBox(); return false">신고</button>
-
-												</c:if>
-
-												<c:otherwise>
-													<button class="btn btn-primary"
-														parentId="${comments.parentId}" id="${comments.commentId}"
-														onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=eventComment'">신고</button>
-												</c:otherwise>
-											</c:choose>
-										</c:if>
 
 
 									</header>

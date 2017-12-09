@@ -20,17 +20,6 @@
 <link rel="stylesheet" href="resources/css/commentCSS/commentStyle.css">
 <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
 
-<!--신고 alert 창-->
-<script type="text/javascript">
-	function alertBox() {
-		alert('이미 신고된 평가글입니다.');
-	}
-
-	function alertBox2() {
-		alert('이미 신고된 댓글입니다.');
-	}
-</script>
-
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -362,7 +351,7 @@
 							<c:when test="${loginUser.userId eq 'admin' }">
 
 								<a
-									href="deleteReview.do.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
+									href="removeReviewComment.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
 									<button class="btn btn-primary" type="button">평가글 삭제</button>
 								</a>
 							</c:when>
@@ -372,39 +361,18 @@
 									href="modifyReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
 									<button class="btn btn-primary" type="button">평가글 수정</button>
 								</a>
-								
-								<a href="deleteReview.do?reviewId=${review.reviewId }&url=spotDetail.do?spotId=${spot.spotId}"> 
+								<a
+									href="deleteReview.do?reviewId=${review.reviewId }&url=spotDetail.do?spotId=${spot.spotId}"> 
 									<button class="btn btn-primary" type="button">평가글 삭제</button>
 								</a>
 							</c:when>
+							
 							<c:otherwise>
 
-								<c:forEach var="report" items="${meetingReport}">
-									<c:if
-										test="${report.reportTargetId eq meetingDetail.meetingId }">
-										<c:set value="1" var="check" />
-									</c:if>
-								</c:forEach>
-
-								<c:choose>
-
-									<c:when test="${check eq 1 }">
-
-										<a href="#" onclick="alertBox(); return false">
-											<button class="btn btn-primary" type="button">평가글 신고</button>
-										</a>
-									</c:when>
-
-									<c:otherwise>
-										<a
-											href="registReport.do?reportTargetId=${review.reviewId}&reportType=review">
-											<button class="btn btn-primary" type="button">평가글 신고</button>
-										</a>
-									</c:otherwise>
-								</c:choose>
-
-
-
+								<a
+									href="registReport.do?reportTargetId=${review.reviewId}&reportType=review">
+									<button class="btn btn-primary" type="button">평가글 신고</button>
+								</a>
 
 							</c:otherwise>
 
@@ -454,13 +422,11 @@
 											<button class="btn btn-outline-primary" name="reply_reply"
 												id="${comments.commentId}">답글 달기</button>
 										</c:if>
-
 										<c:choose>
 											<c:when test="${loginUser.userId eq 'admin' }">
 
-												<button class="btn btn-primary"
-													parentId="${comments.parentId}" id="${comments.commentId}"
-													onclick="location.href='removeReviewComment.do?reportTargetId=${comments.commentId}&reportType=reviewComment'">삭제</button>
+												<button class="btn btn-primary" name="reply_del"
+													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
 
 											</c:when>
 
@@ -476,35 +442,12 @@
 
 											<c:when test="${loginUser.userId != comments.writerId }">
 
-												<c:set value="0" var="check" />
-
-												<c:forEach var="report" items="${reviewCommentReport}">
-													<c:if
-														test="${report.reportTargetId eq comments.commentId }">
-														<c:set value="1" var="check" />
-													</c:if>
-												</c:forEach>
-
-												<c:choose>
-
-													<c:when test="${check eq 1 }">
-														<button class="btn btn-primary"
-															parentId="${comments.parentId}"
-															id="${comments.commentId}"
-															onclick="alertBox2(); return false">신고</button>
-													</c:when>
-
-													<c:otherwise>
-														<button class="btn btn-primary"
-															parentId="${comments.parentId}"
-															id="${comments.commentId}"
-															onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=reviewComment'">신고</button>
-													</c:otherwise>
-												</c:choose>
-
+												<button class="btn btn-primary"
+													parentId="${comments.parentId}" id="${comments.commentId}"
+													onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=reviewComment'">신고</button>
 											</c:when>
-										</c:choose>
 
+										</c:choose>
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>

@@ -60,12 +60,15 @@ public class EventController {
 
 	@Autowired
 	private CommentService commentService;
-
+	
 	@Autowired
 	private UserService userService;
-
+	
 	@Autowired
 	private ReportService reportService;
+
+	
+	
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
@@ -79,6 +82,7 @@ public class EventController {
 		Spot eventSpot = new Spot();
 		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
+		
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
@@ -116,18 +120,6 @@ public class EventController {
 	public ModelAndView showAdminEventList() {
 
 		List<Event> eventList = eventService.findAllEvents();
-
-		ModelAndView modelAndView = new ModelAndView("adminPage_event.jsp");
-		modelAndView.addObject("eventList", eventList);
-
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/adminPage_event.do", method = RequestMethod.POST)
-	public ModelAndView showAdminEventListByDate(
-			@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
-
-		List<Event> eventList = eventService.findEventsByDate(date);
 
 		ModelAndView modelAndView = new ModelAndView("adminPage_event.jsp");
 		modelAndView.addObject("eventList", eventList);
@@ -203,31 +195,20 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventDetail.do")
-	public ModelAndView showEventDetail(String eventId) throws ParseException {
+	public ModelAndView showEventDetail(String eventId, HttpSession session) throws ParseException {
 
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 
 		List<Comment> comment = event.getCommentList();
+		User user = (User)session.getAttribute("loginUser");
+
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
-
-		modelAndView.addObject("eventSpot", event.getEventSpot());
+		modelAndView.addObject("loginUser", user);
+		modelAndView.addObject("eventSpot",event.getEventSpot());
 
 		modelAndView.addObject("comment", comment);
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/eventDetailPopup.do")
-	public ModelAndView showEventDetailPopup(String eventId) throws ParseException {
-
-		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
-
-		ModelAndView modelAndView = new ModelAndView("eventDetailPopup.jsp");
-		modelAndView.addObject("eventDetail", event);
-
-		modelAndView.addObject("eventSpot", event.getEventSpot());
-
 		return modelAndView;
 	}
 

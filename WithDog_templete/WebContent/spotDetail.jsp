@@ -36,14 +36,6 @@
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
 <script type="text/javascript" src="resources/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="resources/js/showMap.js"></script>
-
-<!--신고 alert 창-->
-<script type="text/javascript">
-	function alertBox() {
-		alert('이미 신고된 장소입니다.');
-	}
-</script>
-
 </head>
 <body class="homepage">
 
@@ -68,7 +60,7 @@
 						
 						<a href="removeSpot.do?spotId=${spotDetail.spotId }&backPage=${backPage}"><img
 							src="resources/img/delete.png" style="width: 25px; height: auto;">
-							<h3>삭제하기</h3></a>
+						<h3>삭제하기</h3></a>
 					</c:when>
 
 
@@ -80,7 +72,6 @@
 						<h3>신고하기</h3></a>
 					</c:otherwise>
 				</c:choose>
-
 
 				<div class="3u"
 					style="float: right; margin-right: 30px; width: auto">

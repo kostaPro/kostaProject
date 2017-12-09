@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Report;
 import domain.User;
 import domain.BlackList;
-import service.MeetingService;
 import service.ReportService;
 import service.UserService;
 
@@ -26,9 +25,6 @@ public class ReportController {
 
 	@Autowired
 	private ReportService reportService;
-	
-	@Autowired
-	private MeetingService meetingService;
 	
 	
 
@@ -105,9 +101,6 @@ public class ReportController {
 		modelAndView.addObject("eventCommentReport", eventCommentReport);
 		modelAndView.addObject("reviewCommentReport", reviewCommentReport);
 		modelAndView.addObject("meetingCommentReport", meetingCommentReport);
-		
-		
-		
 
 		return modelAndView;
 	}

@@ -117,10 +117,10 @@ public class ReviewController {
 	}
 
 	@RequestMapping("/deleteReview.do")
-
 	public String deleteReview(String reviewId, String url) {
-		
+
 		reviewService.removeReview(Integer.parseInt(reviewId));
+
 		return "redirect:"+url;
 	}
 

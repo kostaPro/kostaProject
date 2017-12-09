@@ -83,7 +83,7 @@ $(document).ready(function(){
 			<form class="property-search-form" action="eventList.do"
 				method="post">
 
-				<div class="row" >
+				<div class="row">
 					<p>
 						<input type="text" id="datepicker" name="date"
 							placeholder="날짜를 선택해주세요.">
