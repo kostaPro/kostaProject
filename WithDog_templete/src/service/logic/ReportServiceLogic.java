@@ -23,11 +23,8 @@ public class ReportServiceLogic implements ReportService {
 	@Override
 	public boolean registReport(Report report) {
 
-		String reportType = "meeting";
-//		String reportType = report.getReportType();
-		
-		System.out.println(reportType);
-		
+		String reportType = report.getReportType();
+
 		if (reportType == "spot") {
 			return reportStore.createSpotReport(report);
 		} else if (reportType == "meeting") {

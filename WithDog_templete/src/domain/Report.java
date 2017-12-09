@@ -11,7 +11,7 @@ public class Report {
 	public String getReportContent() {
 		return reportContent;
 	}
-	public void setReportContents(String reportContent) {
+	public void setReportContent(String reportContent) {
 		this.reportContent = reportContent;
 	}
 	public String getReportType() {

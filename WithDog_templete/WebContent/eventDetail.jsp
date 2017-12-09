@@ -505,7 +505,7 @@
 											<li>
 								</c:if>
 								<div class="user-comment">
-									<img src="/images/${user.petImage }"
+									<img src="/images/${loginUser.petImage }"
 										onclick="OnloadImg(this.src)">
 									<header>
 										<a class="name">${comments.writerId }</a> <span>${comments.registDate }</span>

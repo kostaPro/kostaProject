@@ -53,7 +53,7 @@ public class ReportController {
 		}
 
 		report.setReporterId(userId);
-		report.setReportContents(reportContent);
+		report.setReportContent(reportContent);
 
 		reportService.registReport(report);
 

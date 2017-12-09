@@ -242,11 +242,7 @@ public class EventController {
 
 	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.POST)
 	public String modifyEvent(Event event, MultipartHttpServletRequest file) {
-
-		Spot eventSpot = new Spot();
-		eventSpot.setSpotId(17);
-		event.setEventSpot(eventSpot);
-
+		
 		eventService.modifyEvent(event);
 
 		return "redirect:eventDetail.do?eventId=" + event.getEventId();
@@ -260,31 +256,13 @@ public class EventController {
 		return "redirect:eventList.do";
 	}
 
-	// @RequestMapping("")
-	public String registEventComment(String content, HttpSession session, String eventId, String parentId) {
-		return null;
-	}
-
-	// @RequestMapping("")
-	public String modifyEventComment(Comment comment) {
-
-		commentService.modifyEventComment(comment);
-		return null;
-
-	}
-
-	// @RequestMapping("")
-	public String deleteEventComment(String commentId) {
-		return null;
-	}
-
 	@RequestMapping(value = "/registEventComment.do", method = RequestMethod.POST)
 	public ModelAndView registEventComment(Comment comment, String eventId, HttpSession session) {
 		User user = (User) session.getAttribute("loginUser");
 
 		comment.setWriterId(user.getUserId());
 		comment.setTargetId(Integer.parseInt(eventId));
-		commentService.registEventComment(comment);
+		commentService.registEventComment(comment); 
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("jsonView");
@@ -315,20 +293,18 @@ public class EventController {
 			report.setReportTargetId(Integer.parseInt(eventId));
 			report.setReportType("eventComment");
 			report.setStatus("O");
-			report.setReportContents("관리자 신고");
+			report.setReportContent("관리자 신고");
 			report.setReporterId("admin");
 
 			reportService.registReport(report);
 
-			commentService.removeReviewComment(Integer.parseInt(commentId));
-
+			commentService.removeEventComment(Integer.parseInt(commentId));
 			modelAndView.setViewName("jsonView");
 			return modelAndView;
 
 		} else {
 
-			commentService.removeReviewComment(Integer.parseInt(commentId));
-
+			commentService.removeEventComment(Integer.parseInt(commentId));
 			modelAndView = new ModelAndView();
 			modelAndView.setViewName("jsonView");
 			return modelAndView;

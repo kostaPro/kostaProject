@@ -304,7 +304,7 @@ public class MeetingController {
 			report.setReportTargetId(Integer.parseInt(meetingId));
 			report.setReportType("meeting");
 			report.setStatus("O");
-			report.setReportContents("관리자 신고");
+			report.setReportContent("관리자 신고");
 			report.setReporterId("admin");
 
 			reportService.registReport(report);
@@ -358,7 +358,7 @@ public class MeetingController {
 			report.setReportTargetId(Integer.parseInt(commentId));
 			report.setReportType("meetingComment");
 			report.setStatus("O");
-			report.setReportContents("관리자 신고");
+			report.setReportContent("관리자 신고");
 			report.setReporterId("admin");
 
 			reportService.registReport(report);

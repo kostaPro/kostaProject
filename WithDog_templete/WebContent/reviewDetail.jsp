@@ -356,28 +356,27 @@
 								</a>
 							</c:when>
 
-							<c:when test="${loginUser.userId eq reveiw.writerId }">
+							<c:when test="${loginUser.userId eq review.writerId }">
 								<a
 									href="modifyReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
 									<button class="btn btn-primary" type="button">평가글 수정</button>
 								</a>
 								<a
-									href="removeReviewComment.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
+									href="deleteReview.do?reviewId=${review.reviewId }&url=spotDetail.do?spotId=${spot.spotId}"> 
 									<button class="btn btn-primary" type="button">평가글 삭제</button>
 								</a>
 							</c:when>
-
-							<c:when test="${loginUser.userId ne review.writerId }">
+							
+							<c:otherwise>
 
 								<a
 									href="registReport.do?reportTargetId=${review.reviewId}&reportType=review">
 									<button class="btn btn-primary" type="button">평가글 신고</button>
 								</a>
 
-							</c:when>
+							</c:otherwise>
 
 						</c:choose>
-
 					</h2>
 				</header>
 				<br> <br>
@@ -414,7 +413,7 @@
 											<li>
 								</c:if>
 								<div class="user-comment">
-									<img src="/images/${user.petImage }"
+									<img src="/images/${loginUser.petImage }"
 										onclick="OnloadImg(this.src)">
 									<header>
 										<a class="name">${comments.writerId }</a> <span>${comments.registDate }</span>

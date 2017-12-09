@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Comment;
 import domain.Report;
 import domain.Review;
+import domain.Spot;
 import domain.User;
 import service.CommentService;
 import service.ReportService;
@@ -103,11 +105,6 @@ public class ReviewController {
 	public ModelAndView showReviewDetail(String reviewId, String spotId, HttpSession session) {
 
 		Review review = reviewService.findReviewByReviewId(Integer.parseInt(reviewId));
-
-		User userId = (User) session.getAttribute("loginUser");
-		User user = userService.findUserByUserId(userId.getUserId());
-		user.getPetImage();
-
 		List<String> list = review.getReviewImageList();
 		List<Comment> comment = review.getCommentList();
 
@@ -116,16 +113,15 @@ public class ReviewController {
 		modelAndView.addObject("spot", spotService.findSpotBySpotId(Integer.parseInt(spotId)));
 		modelAndView.addObject("comment", comment);
 		modelAndView.addObject("uploadFileList", list);
-		modelAndView.addObject("user", user);
 		return modelAndView;
 	}
 
 	@RequestMapping("/deleteReview.do")
-	public String deleteReview(String reviewId) {
+	public String deleteReview(String reviewId, String url) {
 
 		reviewService.removeReview(Integer.parseInt(reviewId));
 
-		return "spotDetail.do";
+		return "redirect:"+url;
 	}
 
 	@RequestMapping("/modifyReview.do")
@@ -147,14 +143,23 @@ public class ReviewController {
 		ModelAndView modelAndView = new ModelAndView("reviewDetail.do");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/myModifyReview.do", method = RequestMethod.POST)
+	public ModelAndView myModifyReview(Review review, String spotId) {
+
+		reviewService.modifyReview(review);
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("jsonView");
+		return modelAndView;
+	}
 
 	@RequestMapping("/userPage_review.do")
-	public ModelAndView showMyReview(String writerId, HttpServletRequest req) {
+	public ModelAndView showMyReview(String writerId, String spotId, HttpSession session) {
 
-		HttpSession session = req.getSession();
-
+		User user = (User) session.getAttribute("loginUser"); 
 		ModelAndView modelAndView = new ModelAndView("userPage_review.jsp");
-		modelAndView.addObject("myReview", reviewService.findReviewsByWriterId(session.getId()));
+		modelAndView.addObject("myReview", reviewService.findReviewsByWriterId(user.getUserId()));
 		return modelAndView;
 	}
 
@@ -196,7 +201,7 @@ public class ReviewController {
 			report.setReportTargetId(Integer.parseInt(commentId));
 			report.setReportType("reviewComment");
 			report.setStatus("O");
-			report.setReportContents("관리자 신고");
+			report.setReportContent("관리자 신고");
 			report.setReporterId("admin");
 
 			reportService.registReport(report);
