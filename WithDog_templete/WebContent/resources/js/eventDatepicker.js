@@ -1,14 +1,14 @@
 $(document).ready(function() {
-    $( "#eventOpenDate" ).datepicker({
+    $( "#openDate" ).datepicker({
     	minDate : 0,
-    	dateFormat: 'yy-mm-dd'
+    	dateFormat: 'MM/dd/yy'
     });
-    $( "#eventCloseDate" ).datepicker({
+    $( "#closeDate" ).datepicker({
     	minDate : 0,
-    	dateFormat: 'yy-mm-dd'
+    	dateFormat: 'MM/dd/yy'
     });
     $("#datepicker").datepicker({ 
     	minDate : 0,
-    	dateFormat: 'mm/dd/yy'
+    	dateFormat: 'MM/dd/yy'
     });
 });

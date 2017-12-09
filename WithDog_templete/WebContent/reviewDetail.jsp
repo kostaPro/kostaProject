@@ -347,24 +347,35 @@
 
 					<h2 align="right">
 						<c:choose>
+
+							<c:when test="${loginUser.userId eq 'admin' }">
+
+								<a
+									href="removeReviewComment.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
+									<button class="btn btn-primary" type="button">평가글 삭제</button>
+								</a>
+							</c:when>
+
 							<c:when test="${loginUser.userId eq reveiw.writerId }">
 								<a
 									href="modifyReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
 									<button class="btn btn-primary" type="button">평가글 수정</button>
 								</a>
 								<a
-									href="deleteReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
+									href="removeReviewComment.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
 									<button class="btn btn-primary" type="button">평가글 삭제</button>
 								</a>
 							</c:when>
 
 							<c:when test="${loginUser.userId ne review.writerId }">
+
 								<a
-									href="registReport.do?reportTargetId=${review.reviewId}&reportType=review"><img
-									src="resources/img/alarm.png"
-									style="width: 25px; height: auto; vertical-align: right;"
-									alt="">평가글 신고</a>
+									href="registReport.do?reportTargetId=${review.reviewId}&reportType=review">
+									<button class="btn btn-primary" type="button">평가글 신고</button>
+								</a>
+
 							</c:when>
+
 						</c:choose>
 
 					</h2>
@@ -412,21 +423,32 @@
 											<button class="btn btn-outline-primary" name="reply_reply"
 												id="${comments.commentId}">답글 달기</button>
 										</c:if>
-										<c:if test="${loginUser.userId == comments.writerId}">
-											<button class="btn btn-outline-primary" name="reply_update"
-												reply_comment="${comments.content}"
-												id="${comments.commentId}">수정</button>
-											<button class="btn btn-primary" name="reply_del"
-												parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
-										</c:if>
+										<c:choose>
+											<c:when test="${loginUser.userId eq 'admin' }">
 
-										<!-- 신고버튼 -->
-										<c:if test="${loginUser.userId != comments.writerId }">
-										
-										<button class="btn btn-primary" parentId="${comments.parentId}" id="${comments.commentId}"
-										onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=reviewComment'">신고</button></c:if>
+												<button class="btn btn-primary" name="reply_del"
+													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+
+											</c:when>
 
 
+											<c:when test="${loginUser.userId == comments.writerId}">
+												<button class="btn btn-outline-primary" name="reply_update"
+													reply_comment="${comments.content}"
+													id="${comments.commentId}">수정</button>
+												<button class="btn btn-primary" name="reply_del"
+													parentId="${comments.parentId}" id="${comments.commentId}">삭제</button>
+											</c:when>
+
+
+											<c:when test="${loginUser.userId != comments.writerId }">
+
+												<button class="btn btn-primary"
+													parentId="${comments.parentId}" id="${comments.commentId}"
+													onclick="location.href='registReport.do?reportTargetId=${comments.commentId}&reportType=reviewComment'">신고</button>
+											</c:when>
+
+										</c:choose>
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>

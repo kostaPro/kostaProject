@@ -361,14 +361,6 @@
 						<h3>삭제하기</h3></a>
 					</c:when>
 
-
-					<c:when test="${loginUser.userId ne 'admin' }">
-						<a
-							href="registReport.do?reportTargetId=${eventDetail.eventId}&reportType=event"><img
-							src="resources/img/alarm.png"
-							style="width: 25px; height: auto; vertical-align: right;" alt="">
-							<h3>신고하기</h3></a>
-					</c:when>
 				</c:choose>
 
 				<div class="3u"

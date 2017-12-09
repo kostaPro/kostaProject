@@ -77,7 +77,6 @@ $(document).ready(function(){
 	      var infowindow = new naver.maps.InfoWindow({  
 	          content: '<h4>'+item.spotName+'</h4><h4>'+item.spotLocation+'</h4><a href="spotDetail.do?spotId='+item.spotId+'"><button class="btn btn-primary">상세 보기</button></a>'
 	      		});
-	    
 	 });
   });
 })

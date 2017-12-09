@@ -113,6 +113,7 @@ public class MeetingStoreLogic implements MeetingStore{
 
 		try {
 			MeetingMapper mapper = session.getMapper(MeetingMapper.class);
+			location = "%" + location + "%";
 			map.put("location", location);
 			map.put("meetingDate", date);
 			

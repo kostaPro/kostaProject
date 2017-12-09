@@ -26,10 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Comment;
 import domain.Event;
+import domain.Report;
 import domain.Spot;
 import domain.User;
 import service.CommentService;
 import service.EventService;
+import service.ReportService;
 import service.SpotService;
 import service.UserService;
 
@@ -61,6 +63,12 @@ public class EventController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ReportService reportService;
+
+	
+	
 
 	@RequestMapping(value = "/registEvent.do", method = RequestMethod.GET)
 	public String showRegistEvent() {
@@ -75,9 +83,6 @@ public class EventController {
 		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
 		
-		event.setCloseDate(new Date());
-		event.setOpenDate(new Date());
-
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
@@ -135,37 +140,51 @@ public class EventController {
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.POST)
 	public ModelAndView searchEvent(@RequestParam("spotLocation") String location,
-			@RequestParam("date") @DateTimeFormat(pattern = "yy-MM-dd") Date date) {
+			@RequestParam("date") String inputDate) {
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+		Date date = null;
+		try {
+			if(!inputDate.equals("")) {
+				date = dateFormatter.parse(inputDate);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		List<Event> eventList = new ArrayList<>();
+		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 
 		if (location == "" && date != null) {
 
 			eventList = eventService.findEventsByDate(date);
 
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
 
-		} else if (location != null && date == null) {
+		} else if (location != "" && date == null) {
 
 			eventList = eventService.findEventsByLocation(location);
 
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
 
-		} else if (location != null && date != null) {
+		} else if (location != "" && date != null) {
 
 			eventList = eventService.findEventsByDateLocation(date, location);
 
-			ModelAndView modelAndView = new ModelAndView("eventList.jsp");
 			modelAndView.addObject("eventList", eventList);
 
 			return modelAndView;
 
+		} else if (location == "" && date == null) {
+			eventList = eventService.findAllEvents();
+
+			modelAndView.addObject("eventList", eventList);
+
+			return modelAndView;
 		} else {
 			return null;
 		}
@@ -284,13 +303,36 @@ public class EventController {
 	}
 
 	@RequestMapping("/removeEventComment.do")
-	public ModelAndView removeEventComment(String commentId, String parentId, String eventId) {
-
-		commentService.removeEventComment(Integer.parseInt(commentId));
+	public ModelAndView removeEventComment(String commentId, String parentId, String eventId, HttpSession session) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("jsonView");
-		return modelAndView;
+
+		User user = (User) session.getAttribute("loginUser");
+		if (user.getUserId().equals("admin")) {
+
+			Report report = new Report();
+
+			report.setReportTargetId(Integer.parseInt(eventId));
+			report.setReportType("eventComment");
+			report.setStatus("O");
+			report.setReportContents("관리자 신고");
+			report.setReporterId("admin");
+
+			reportService.registReport(report);
+
+			commentService.removeReviewComment(Integer.parseInt(commentId));
+
+			modelAndView.setViewName("jsonView");
+			return modelAndView;
+
+		} else {
+
+			commentService.removeReviewComment(Integer.parseInt(commentId));
+
+			modelAndView = new ModelAndView();
+			modelAndView.setViewName("jsonView");
+			return modelAndView;
+		}
 	}
 
 }

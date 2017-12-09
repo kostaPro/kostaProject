@@ -25,6 +25,8 @@ public class ReportController {
 
 	@Autowired
 	private ReportService reportService;
+	
+	
 
 	@RequestMapping(value = "/registReport.do", method = RequestMethod.GET)
 	public ModelAndView showRegistReport(String reportType, String reportTargetId) {
@@ -40,10 +42,10 @@ public class ReportController {
 	@RequestMapping(value = "/registReport.do", method = RequestMethod.POST)
 	public String registReport(Report report, HttpSession session,
 			@RequestParam("reportContent") String reportContent) {
-		
-		User user = (User)session.getAttribute("loginUser");
+
+		User user = (User) session.getAttribute("loginUser");
 		String userId = user.getUserId();
-		
+
 		if (userId.equals("admin")) {
 			report.setStatus("O");
 		} else {
@@ -61,7 +63,7 @@ public class ReportController {
 	@RequestMapping(value = "/userPage_report.do")
 	public ModelAndView showUserReport(HttpSession session) {
 
-		User user = (User)session.getAttribute("loginUser");
+		User user = (User) session.getAttribute("loginUser");
 		String reporterId = user.getUserId();
 
 		List<Report> userReportList = reportService.findReportsByReporterId(reporterId);
@@ -85,7 +87,7 @@ public class ReportController {
 		List<Report> meetingReport = reportService.findReportsByReportType(meeting);
 		List<Report> spotReport = reportService.findReportsByReportType(spot);
 		List<Report> reviewReport = reportService.findReportsByReportType(review);
-		
+
 		List<Report> eventCommentReport = reportService.findReportsByReportType(eventComment);
 		List<Report> reviewCommentReport = reportService.findReportsByReportType(reviewComment);
 		List<Report> meetingCommentReport = reportService.findReportsByReportType(meetingComment);
@@ -95,7 +97,7 @@ public class ReportController {
 		modelAndView.addObject("meetingReport", meetingReport);
 		modelAndView.addObject("spotReport", spotReport);
 		modelAndView.addObject("reviewReport", reviewReport);
-		
+
 		modelAndView.addObject("eventCommentReport", eventCommentReport);
 		modelAndView.addObject("reviewCommentReport", reviewCommentReport);
 		modelAndView.addObject("meetingCommentReport", meetingCommentReport);
@@ -150,4 +152,7 @@ public class ReportController {
 		return "userReport.do";
 
 	}
+	
+	
+	
 }
