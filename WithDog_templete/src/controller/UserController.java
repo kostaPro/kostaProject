@@ -11,8 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,11 +47,9 @@ public class UserController {
 		if (!dir.isDirectory()) {
 			dir.mkdirs();
 		}
-		
 		MultipartFile petImage = file.getFile("pImage");
-		System.out.println(petImage.getOriginalFilename());
-		if (petImage == null && petImage.getOriginalFilename().equals("")) {
-			
+		if (user.getPetImage() == null) {
+			user.setPetImage("");
 		} else {
 			// 파일 중복명 처리
 			String genId = UUID.randomUUID().toString();
@@ -148,5 +148,19 @@ public class UserController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/checkId.do")
+	public @ResponseBody String idCheck(String userId, Model model) {
+		
+		User user = userService.findUserByUserId(userId);
+		
+		if(user == null) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
 	
 }

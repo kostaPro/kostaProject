@@ -391,7 +391,6 @@ public class MeetingController {
 		return "redirect:meetingDetail.do?meetingId=" + meetingId;
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value="/cancelMeeting.do", method = RequestMethod.GET)
 	public String cancelMeeting(String meetingId, HttpSession session) {
 		
@@ -399,7 +398,6 @@ public class MeetingController {
 		meetingService.cancelMeeting(Integer.parseInt(meetingId), user.getUserId());
 		return "redirect:meetingDetail.do?meetingId=" + meetingId;
 	}
-=======
 	
 	@RequestMapping("/meetingDetailReport.do")
 	public ModelAndView showMeetingDetailReport(String meetingId, String reporterId) {
@@ -415,7 +413,7 @@ public class MeetingController {
 		
 		User userId = userService.findUserByUserId(user.getUserId());
 		userId.getPetImage();
-		List<String> joinList = meeting.getMeetingJoinList();
+//		List<String> joinList = meeting.getMeetingJoinList();
 		List<String> meetingList = meeting.getMeetingImageList();
 		// List<User> userList = userService.findUserList(joinList);
 		List<Comment> comment = meeting.getCommentList();
@@ -425,7 +423,7 @@ public class MeetingController {
 		modelAndView.addObject("meetingDetail", meeting);
 		modelAndView.addObject("meetingSpot", meeting.getMeetingSpot());
 		modelAndView.addObject("ImageList", meetingList);
-		modelAndView.addObject("joinList", joinList);
+//		modelAndView.addObject("joinList", joinList);
 		// modelAndView.addObject("userList", userList);
 		modelAndView.addObject("User", user);
 		modelAndView.addObject("user", userId);
@@ -446,5 +444,4 @@ public class MeetingController {
 	}
 	
 
->>>>>>> refs/remotes/origin/report
 }

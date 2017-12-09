@@ -79,14 +79,6 @@ public class EventController {
 		Spot eventSpot = new Spot();
 		eventSpot.setSpotId(Integer.parseInt(spotId));
 		event.setEventSpot(eventSpot);
-<<<<<<< HEAD
-		
-=======
-
-		event.setCloseDate(new Date());
-		event.setOpenDate(new Date());
-
->>>>>>> refs/remotes/origin/report
 		String realFolder = "c:\\" + File.separator + "tempFiles";
 		File dir = new File(realFolder);
 		if (!dir.isDirectory()) {
@@ -210,37 +202,18 @@ public class EventController {
 
 	}
 
-<<<<<<< HEAD
-	@RequestMapping(value = "/eventDetail.do")
-	public ModelAndView showEventDetail(String eventId, HttpSession session) throws ParseException {
-
-		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
-=======
 	@RequestMapping(value = "/eventDetail.do")
 	public ModelAndView showEventDetail(String eventId) throws ParseException {
 
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
->>>>>>> refs/remotes/origin/report
 
 		List<Comment> comment = event.getCommentList();
-<<<<<<< HEAD
-		User user = (User)session.getAttribute("loginUser");
-
-=======
-
->>>>>>> refs/remotes/origin/report
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
-<<<<<<< HEAD
-		modelAndView.addObject("loginUser", user);
-		modelAndView.addObject("eventSpot",event.getEventSpot());
-
-=======
 
 		modelAndView.addObject("eventSpot", event.getEventSpot());
 
->>>>>>> refs/remotes/origin/report
 		modelAndView.addObject("comment", comment);
 		return modelAndView;
 	}

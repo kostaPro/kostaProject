@@ -138,11 +138,7 @@ public class SpotController {
 
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
-<<<<<<< HEAD
-=======
-		modelAndView.addObject("list", list);
-		
->>>>>>> refs/remotes/origin/report
+
 		return modelAndView;
 	}
 
