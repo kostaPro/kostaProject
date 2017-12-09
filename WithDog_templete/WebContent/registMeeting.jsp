@@ -206,9 +206,9 @@ a.btn-popup:hover {
 													type="text" id="datepicker" name="meetingDate"></strong></label> <label
 												for="inpName" class="lab_comm" style="padding-left: 20px"><strong
 												class="tit_form"><i class="fa fa-check"></i>모임시간 <select
-													form="time" name="meetingTime">
+													name="meetingTime">
 														<option value="">시간</option>
-														<option value=0>0시</option>
+														<option value=0 selected="selected">0시</option>
 														<option value=1>1시</option>
 														<option value=2>2시</option>
 														<option value=3>3시</option>
@@ -234,9 +234,9 @@ a.btn-popup:hover {
 														<option value=23>23시</option>
 												</select></strong></label> <label for="inpName" class="lab_comm"
 												style="padding-left: 20px"><strong class="tit_form">최소인원<select
-													form="time" name="minPerson">
+													name="minPerson">
 														<option value="">인원</option>
-														<option value=1>1명</option>
+														<option value=1 selected="selected">1명</option>
 														<option value=2>2명</option>
 														<option value=3>3명</option>
 														<option value=4>4명</option>

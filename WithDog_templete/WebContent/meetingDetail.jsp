@@ -671,9 +671,8 @@ function alertBox2() {
 											<li>
 								</c:if>
 								<div class="user-comment">
-									<img
-										src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png"
-										alt="">
+										<img src="/images/${loginUser.petImage }"
+										onclick="OnloadImg(this.src)">
 									<header>
 										<a href="javascript:void(0)" class="name">${comments.writerId }</a>
 										<span>${comments.registDate }</span> &nbsp;&nbsp;&nbsp;
@@ -741,7 +740,6 @@ function alertBox2() {
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>
-										<hr>
 									</div>
 								</div> <c:if test="${comments.depth == '1'}"></li>
 						</ul>

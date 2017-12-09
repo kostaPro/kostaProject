@@ -43,7 +43,7 @@ function add_popup(el) {
 
 function addSpot(){
 	var spotName = $("input[name='spotName']").val();
-	var spotType = $("input[name='spotType']").val();
+	var spotType = $("input:radio[name=spotType]:checked").val();
 	var spotLocation = $("input[name='spotLocation']").val();
 	
 	var spotData = {
@@ -65,9 +65,6 @@ function addSpot(){
 			$('#resultLocation').val(spot.spotLocation);
 			$('#spotId').val(spot.spotId);
 			
-			console.log(spot);
-			console.log(spot.spotLocation);
-			console.log(spot.spotId);
 		},
 		error : function(error){
 			console.log(error);

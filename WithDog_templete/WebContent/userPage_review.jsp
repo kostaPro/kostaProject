@@ -53,6 +53,126 @@
 .text-ss{ width:10%; text-align: center;}
 </style>
 
+
+<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+$(document)
+								.on(
+										"click",
+										"button[name='modify']",
+										function() {
+
+											var review_id = $(this).attr("id");
+											var review_title = $(this).attr(
+													"review_title");
+											var review_content = $(this).attr(
+											"review_content");
+											var last_check = false;
+
+											$("#reply_add").remove();
+
+											var replyEditor = 
+													'<tr id="reply_add">'
+													+ '<td colspan="4">'
+													+ '<h3 align="left">제목</h3>'
+													+ '<textarea class="form-control" style="resize: none;" name="title">'
+													+ review_title
+													+ '</textarea>'
+													+ '<br>'
+													+ '<h3 align="left">내용</h3>'
+													+ '<textarea class="form-control" style="resize: none;" name="content">'
+													+ review_content
+													+ '</textarea>'
+													+ '<br>'
+													+ '<button class="btn btn-outline-primary" name="review_update" review_id="'+review_id+'">수정</button>'
+													+ '&nbsp;&nbsp;'
+													+ '<button class="btn btn-outline-primary" name="review_cancel">취소</button>'
+													+ '</td>' + '</tr>';
+
+											var prevTr = $(this).parent()
+													.parent().next();
+
+											if (prevTr.attr("reply_type") == undefined) {
+												prevTr = $(this).parent()
+														.parent();
+											} else {
+												while (prevTr
+														.attr("reply_type") == "sub") {
+													prevTr = prevTr.next();
+												}
+
+												if (prevTr.attr("reply_type") == undefined) {
+													last_check = true;
+												} else {
+													prevTr = prevTr.prev();
+												}
+
+											}
+											prevTr.after(replyEditor);
+
+										});
+										
+						$(document).on("click",
+							"button[name='review_cancel']",
+							function() {
+								$("#reply_add").remove();
+								});
+
+			
+						$(document).on(
+								"click",
+								"button[name='review_update']",
+								function() {
+
+									var title = $("textarea[name='title']");
+									var content = $("textarea[name='content']");
+
+									if (content.val().trim() == "" && title.val().trim()) {
+										alert("내용을 입력하세요.");
+										content.focus();
+										return false;
+									}
+
+								
+									var objParams = {
+										reviewId : $(this).attr("review_id"),
+										content : content.val(),
+										title : title.val()
+									};
+
+									var review_id;
+
+								
+									$
+											.ajax({
+												url : "myModifyReview.do",
+												dataType : "json",
+												type : "Post",
+												data : objParams,
+												success : function(retVal) {
+
+													location.hash
+													window.location
+															.reload(true);
+
+												},
+												error : function(request,
+														status, error) {
+													console.log("AJAX_ERROR");
+												}
+											});
+
+								});
+					});
+			</script>
+
+
+
+
 </head>
 <body class="homepage">
 
@@ -89,7 +209,7 @@
 							<thead>
 								<tr>
 									<th class="text-center">작성일</th>
-									<th class="text-center">작성 제목</th>
+									<th class="text-center">제목</th>
 									<th class="text-ss">수정</th>
 									<th class="text-ss">삭제</th>
 								</tr>
@@ -106,11 +226,11 @@
 											<tr>
 												
 												<td class="text-center"><fmt:formatDate value="${myReview.registDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center"><a
-													href="reviewDetail.do?reviewId=${myReview.reviewId }">${myReview.title }</a></td>
+												<td class="text-center"><a href="reviewDetail.do?reviewId=${myReview.reviewId }&spotId=${myReview.spotId}">${myReview.title }</a></td>
 												
-												<td><a href="modifyReview.do?reveiwId=${myReview.reviewId }"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
-												<td><a href="removeReveiw.do?reviewId=${myReview.reviewId }"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
+												<td><button name="modify" style="border: none; background-color: transparent;" review_title="${myReview.title}" review_content="${myReview.content }"
+													id="${myReview.reviewId}"><img src="resources/img/modify.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></button></td>
+												<td><a href="deleteReview.do?reviewId=${myReview.reviewId }&url=userPage_review.do"><img src="resources/img/delete.png" style="width: 25px; height: auto; vertical-align:right;" alt=""></a></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
