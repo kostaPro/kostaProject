@@ -150,14 +150,8 @@ public class SpotController {
 	public ModelAndView showSpotList() {
 		List<Spot> spotList = spotService.findAllSpots();
 
-		List<String> list = new ArrayList<>();
-		for (Spot spot : spotList) {
-			list.add(spot.getSpotLocation());
-		}
-
 		ModelAndView modelAndView = new ModelAndView("spotList.jsp");
 		modelAndView.addObject("spotList", spotList);
-		modelAndView.addObject("list", list);
 		return modelAndView;
 	}
 
