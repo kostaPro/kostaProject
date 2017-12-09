@@ -173,12 +173,13 @@ $(document).ready(function(){
 
 				</div>
 			</div>
+			<c:if test="${loginUser.userId == 'admin' }">
 			<div class="3u" style="float: right">
 				<a href="registEvent.do" class="btn_comm btn_submit form-control"
 					style="text-align: center"><strong style="color: white">이벤트
 						등록</strong></a>
 			</div>
-
+			</c:if>
 		</div>
 	</div>
 	<!-- /Footer -->

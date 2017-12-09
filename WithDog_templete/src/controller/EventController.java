@@ -128,11 +128,14 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventList.do", method = RequestMethod.GET)
-	public ModelAndView showEventList() {
+	public ModelAndView showEventList(HttpSession session) {
 
+		
+		User user = (User) session.getAttribute("loginUser");
 		List<Event> eventList = eventService.findAllEvents();
 
 		ModelAndView modelAndView = new ModelAndView("eventList.jsp");
+		modelAndView.addObject("loginUser", user);
 		modelAndView.addObject("eventList", eventList);
 
 		return modelAndView;
@@ -192,17 +195,17 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/eventDetail.do")
-	public ModelAndView showEventDetail(String eventId) throws ParseException {
+	public ModelAndView showEventDetail(String eventId, HttpSession session) throws ParseException {
 
 		Event event = eventService.findEventByEventId(Integer.parseInt(eventId));
 
 		List<Comment> comment = event.getCommentList();
-
+		User user = (User)session.getAttribute("loginUser");
 
 		ModelAndView modelAndView = new ModelAndView("eventDetail.jsp");
 		modelAndView.addObject("eventDetail", event);
 		modelAndView.addObject("fullJoinList", event.getEventJoinLists());
-
+		modelAndView.addObject("loginUser", user);
 		modelAndView.addObject("eventSpot",event.getEventSpot());
 
 		modelAndView.addObject("comment", comment);
@@ -220,13 +223,15 @@ public class EventController {
 		return "redirect:eventDetail.do?eventId=" + eventId;
 	}
 
-	// @RequestMapping("")
-	public String cancelEventMeeting(String eventId, Date date, HttpSession session) {
+	@RequestMapping(value = "/cancelEvent.do", method = RequestMethod.GET)
+	public String cancelEventMeeting(String eventId, String date, HttpSession session) throws ParseException {
 
-		String guestId = (String) session.getAttribute("userId");
-		eventService.cancelEventMeeting(Integer.parseInt(eventId), guestId, date);
+		User guest = (User) session.getAttribute("loginUser");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date joinDate = format.parse(date);
+		eventService.cancelEventMeeting(Integer.parseInt(eventId), guest.getUserId(), joinDate);
 
-		return null;
+		return "redirect:eventDetail.do?eventId=" + eventId;
 	}
 
 	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.GET)

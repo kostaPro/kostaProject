@@ -346,7 +346,6 @@
 	<div id="main">
 
 		<div class="container">
-
 			<div class="row" style="float: right;">
 				<c:choose>
 					<c:when test="${loginUser.userId eq 'admin' }">
@@ -445,13 +444,59 @@
 								</h3>
 							</div>
 
+
+
+
+
+
+
+
+
+						<c:set value="0" var="check"/>
+
+						<c:forEach var="guest" items="${fullList.value }">
+								<c:if test="${loginUser.userId eq guest.userId}">
+									<c:set value="1" var="check"/>
+								</c:if>
+						</c:forEach>
+						
+						
+						<c:choose>
+							<c:when test="${check eq 1}">
+							
 							<div class="1u" style="padding: 5px;">
+								<div style="background-color: #FFF;">
+									<a
+										href="cancelEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
+											color="#43C0CE">참여취소</font></strong></a>
+								</div>
+							</div>
+												
+							</c:when>
+							<c:otherwise>
+							
+								<div class="1u" style="padding: 5px;">
 								<div style="background-color: #FFF;">
 									<a
 										href="joinEvent.do?eventId=${eventDetail.eventId }&date=${fullList.key }"><strong><font
 											color="#43C0CE">참여하기</font></strong></a>
 								</div>
 							</div>
+							
+							</c:otherwise>
+						</c:choose>
+
+
+
+							
+							
+							
+							
+							
+							
+							
+							
+							
 						</div>
 
 						<div id="dailyJoinList${status.count }" class="joinList"
