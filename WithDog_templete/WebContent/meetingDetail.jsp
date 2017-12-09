@@ -407,7 +407,7 @@
 							<h3>삭제하기</h3></a>
 					</c:when>
 
-					<c:when test="${loginUser.userId ne meetingDetail.hostId }">
+					<c:otherwise>
 
 						<a
 							href="registReport.do?reportTargetId=${meetingDetail.meetingId}&reportType=meeting"><img
@@ -415,7 +415,7 @@
 							style="width: 25px; height: auto; vertical-align: right;" alt="">
 							<h3>신고하기</h3></a>
 
-					</c:when>
+					</c:otherwise>
 				</c:choose>
 
 
