@@ -22,7 +22,7 @@
 <link rel='stylesheet' id='font-awesome-css'
 	href='//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
 	type='text/css' media='all' />
-	
+
 <!--화면 전체 디자인-->
 <link rel="stylesheet" href="resources/css/skel-noscript.css" />
 <link rel="stylesheet" href="resources/css/style.css" />
@@ -67,7 +67,8 @@
 					<div id="eventSlider" class="slider">
 						<c:forEach var="event" items="${eventList }">
 							<div class="slide">
-								<a href="eventDetail.do?eventId=${event.eventId }"><img src="/images/${event.eventImage}"></a>
+								<a href="eventDetail.do?eventId=${event.eventId }"><img
+									src="/images/${event.eventImage}"></a>
 								<p style="font-size: 35px; padding: 5px">
 									<strong>${event.eventName }</strong>
 								</p>
@@ -94,21 +95,8 @@
 						</header>
 
 						<div class="3u">
-							<select id="spotLocation" name="mLocation">
-								<option value="">지역을 선택해주세요.</option>
-								<option value="서울">서울특별시</option>
-								<option value="경기">경기도</option>
-								<option value="인천">인천광역시</option>
-								<option value="강원">강원도</option>
-								<option value="부산">부산광역시</option>
-								<option value="경남">경상남도</option>
-								<option value="전남">전라남도</option>
-								<option value="전북">전라북도</option>
-								<option value="경북">경상북도</option>
-								<option value="충남">충청남도</option>
-								<option value="충북">충청북도</option>
-								<option value="제주">제주특별시</option>
-							</select>
+							<input type="text" placeholder="주소를 입력해주세요" name="spotLocation"
+								id="spotLocation" class="form-control" />
 						</div>
 
 						<div class="3u">
@@ -167,7 +155,7 @@
 						style="text-align: center"><strong style="color: white">모임
 							등록</strong></a>
 				</div>
-				
+
 				<div class="row">
 					<section>
 						<div class="4u">

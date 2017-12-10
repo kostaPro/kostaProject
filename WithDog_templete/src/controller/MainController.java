@@ -43,9 +43,7 @@ public class MainController {
 		
 		Date today = dateFormatter.parse(dateFormatter.format(date));
 		
-		System.out.println(today);
-
-		List<Meeting> meetingList = meetingService.findMeetingsByDate(today);
+		List<Meeting> meetingList = meetingService.findMeetingsByLocationDate(user.getFavoriteLocation(), today);
 
 		modelAndView.addObject("eventList", eventList);
 		modelAndView.addObject("meetingList", meetingList);
@@ -55,7 +53,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/main.do",method=RequestMethod.POST)
-	public ModelAndView refreshMainPage(HttpSession session) throws ParseException {
+	public ModelAndView refreshMainPage(HttpSession session, String spotLocation) throws ParseException {
 
 		User user = (User) session.getAttribute("loginUser");
 		ModelAndView modelAndView = new ModelAndView("main.jsp");
@@ -66,9 +64,7 @@ public class MainController {
 		
 		Date today = dateFormatter.parse(dateFormatter.format(date));
 		
-		System.out.println(today);
-
-		List<Meeting> meetingList = meetingService.findMeetingsByDate(today);
+		List<Meeting> meetingList = meetingService.findMeetingsByLocationDate(spotLocation, today);
 
 		modelAndView.addObject("eventList", eventList);
 		modelAndView.addObject("meetingList", meetingList);

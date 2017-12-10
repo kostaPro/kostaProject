@@ -351,7 +351,7 @@
 							<c:when test="${loginUser.userId eq 'admin' }">
 
 								<a
-									href="removeReviewComment.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
+									href="deleteReview.do?reviewId=${review.reviewId }&spotId=${spot.spotId}">
 									<button class="btn btn-primary" type="button">평가글 삭제</button>
 								</a>
 							</c:when>

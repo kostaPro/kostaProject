@@ -33,7 +33,7 @@ function markMultipleMeetingSpot(meetings) {
 			});
 			
 			var infowindow = new naver.maps.InfoWindow({  
-		          content: '<h4>'+value.meetingName+'</h4><h4>'+value.meetingSpot+'</h4><a href="meetingDetail.do?meetingId='+value.meetingId+'"><button class="btn btn-primary">상세 보기</button></a>'
+		          content: '<h4>'+value.meetingName+'</h4><h4>'+value.meetingSpot+'</h4><a href="meetingDetail.do?meetingId='+value.meetingId+'" class="btn btn-comm">상세 보기</a>'
 		      		});
 		});
 	});

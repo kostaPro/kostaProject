@@ -31,7 +31,7 @@ function markMultipleEventSpot(events) {
 			});
 			
 			var infowindow = new naver.maps.InfoWindow({  
-		          content: '<h4>'+value.eventName+'</h4><h4>'+value.eventSpot+'</h4><a href="eventDetail.do?eventId='+value.eventId+'"><button class="btn btn-primary">상세 보기</button></a>'
+		          content: '<h4>'+value.eventName+'</h4><h4>'+value.eventSpot+'</h4><a href="eventDetail.do?eventId='+value.eventId+'" class="btn btn-comm">상세 보기</a>'
 		      		});
 		});
 	});
