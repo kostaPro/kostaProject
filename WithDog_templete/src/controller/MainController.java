@@ -1,5 +1,7 @@
 package controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,18 +31,48 @@ public class MainController {
 	@Autowired
 	private MeetingService meetingService;
 
-	@RequestMapping("/main.do")
-	public ModelAndView showMainPage(HttpSession session) {
+	@RequestMapping(value="/main.do",method=RequestMethod.GET)
+	public ModelAndView showMainPage(HttpSession session) throws ParseException {
 
 		User user = (User) session.getAttribute("loginUser");
 		ModelAndView modelAndView = new ModelAndView("main.jsp");
 
 		List<Event> eventList = eventService.findAllEvents();
-		Date today = new Date();
-		List<Meeting> meetingList = meetingService.findMeetingsByLocationDate(user.getFavoriteLocation(), today);
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+		Date date = new Date();
+		
+		Date today = dateFormatter.parse(dateFormatter.format(date));
+		
+		System.out.println(today);
+
+		List<Meeting> meetingList = meetingService.findMeetingsByDate(today);
 
 		modelAndView.addObject("eventList", eventList);
 		modelAndView.addObject("meetingList", meetingList);
+		
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/main.do",method=RequestMethod.POST)
+	public ModelAndView refreshMainPage(HttpSession session) throws ParseException {
+
+		User user = (User) session.getAttribute("loginUser");
+		ModelAndView modelAndView = new ModelAndView("main.jsp");
+
+		List<Event> eventList = eventService.findAllEvents();
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+		Date date = new Date();
+		
+		Date today = dateFormatter.parse(dateFormatter.format(date));
+		
+		System.out.println(today);
+
+		List<Meeting> meetingList = meetingService.findMeetingsByDate(today);
+
+		modelAndView.addObject("eventList", eventList);
+		modelAndView.addObject("meetingList", meetingList);
+		
 
 		return modelAndView;
 	}

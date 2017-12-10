@@ -3,6 +3,8 @@ function markMultipleMeetingSpot(meetings) {
 
 	var map = new naver.maps.Map('map');
 
+	var spotList = new Array();
+	
 	$.each(meetingList, function(index, value) {
 		naver.maps.Service.geocode({
 			address : value.meetingSpot
