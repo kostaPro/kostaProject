@@ -40,6 +40,65 @@ select {
 
 </style>
 
+<script type="text/javascript">
+
+var Check1 = 0;
+var Check2 = 0;
+//아이디 체크하여 가입버튼 비활성화, 중복확인.
+ $(document).ready(function(){
+      $("#inputId").keyup(function () {
+    var inputId = $('#inputId').val();
+    $.ajax({
+    	type : 'POST',
+        data : {
+            userId : inputId
+        },
+        url : 'checkId.do',
+        dataType : 'text',
+        success : function(data) {
+            if(data=="success" && inputId != "") {
+            	Check1 = 1;
+                $("#idCheck").html("사용 가능한 ID입니다.")
+                if(Check1 == 1 && Check2 == 1){
+                $(".fadeIn_fourth").prop("disabled", false);
+                $(".fadeIn_fourth").css("background-color", "#5DB9E2");
+                }
+            }else{
+            	Check1 = 0;
+            	 $("#idCheck").html("사용 불가능한 ID입니다.");
+            	 $(".fadeIn_fourth").prop("disabled", true);
+            	 $(".fadeIn_fourth").css("background-color", "#8C8C8C");
+            	
+            }
+       	 }
+    	});
+	});
+      $("#confirm").keyup(function () {
+    	   var inputed = $('#password').val();
+    	   var reInputed = $('#confirm').val();
+    	   if(inputed == reInputed){
+    		   Check2 = 1;
+    		   $("#pwCheck").html("비밀번호가 일치합니다.")
+    		    if(Check1 == 1 && Check2 == 1){
+    	       $(".fadeIn_fourth").prop("disabled", false);
+    	       $(".fadeIn_fourth").css("background-color", "#5DB9E2");
+    		    }
+    	   }else{
+    		   Check2 = 0;
+    		   $("#pwCheck").html("비밀번호가 불일치합니다.");
+    	  	   $(".fadeIn_fourth").prop("disabled", true);
+    	  	   $(".fadeIn_fourth").css("background-color", "#8C8C8C");
+    	   }
+    		});
+      
+});
+
+
+
+     
+
+
+</script>
 
 
 </head>
@@ -56,9 +115,11 @@ select {
 
     <!-- Login Form -->
     <form action="registUser.do" method="POST" enctype="multipart/form-data">
-      <input type="text" id="userId" class="fadeIn second" name="userId" placeholder="ID" required="required" maxlength="10">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required="required">
-      <input type="password" id="confirm" class="fadeIn third" placeholder="confirm password" required="required">
+      <input type="text" id="inputId" class="fadeIn second" name="userId" placeholder="ID" required="required" maxlength="10">
+      <p id="idCheck"></p>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required="required" required class="pass">
+      <input type="password" id="confirm" class="fadeIn third" placeholder="confirm password" required="required" required class="pass">
+      <p id="pwCheck"></p>
       <input type="text" id="contact" class="fadeIn second" name="contact" placeholder="contact" required="required">
 
                   <select name="favoriteLocation" >
@@ -76,14 +137,14 @@ select {
                      <option value="충북">충북</option>
                      <option value="제주특별자치도">제주</option>
                   </select>
-      <input type="text" id="petInfo" class="fadeIn second" name="petInfo" placeholder="ex) Poodle/3Y/Male dog">
+      <input type="text" id="petInfo" class="fadeIn second" name="petInfo" placeholder="ex) Poodle/3Y/Male dog" maxlength="15">
 
 
 
       <section>
                            <label class="upload-button">애견 이미지 첨부<input
                               style="display: none" type="file" name="pImage" id="pImage"
-                              multiple="multiple" />
+                              multiple="multiple"/>
                            </label>
                            <img src="#" id="pet_image" style="width:300px; display: absolute; float:center">
                         </section>
@@ -96,7 +157,7 @@ select {
 
 
 
-      <input type="submit" class="fadeIn fourth" value="Regist">
+      <input type="submit" class="fadeIn_fourth" value="Regist" disabled="disabled">
     </form>
 
     <!-- Remind Passowrd -->

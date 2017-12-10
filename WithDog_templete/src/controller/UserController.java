@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -147,6 +148,19 @@ public class UserController {
 		modelAndView.addObject("user", user);
 		
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/checkId.do")
+	public @ResponseBody String idCheck(String userId) {
+		
+		User user = userService.findUserByUserId(userId);
+		
+		if(user == null) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
 	}
 	
 }
