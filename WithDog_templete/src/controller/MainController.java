@@ -43,7 +43,12 @@ public class MainController {
 		
 		Date today = dateFormatter.parse(dateFormatter.format(date));
 		
-		List<Meeting> meetingList = meetingService.findMeetingsByLocationDate(user.getFavoriteLocation(), today);
+		List<Meeting> meetingList = null;
+		if(!user.getFavoriteLocation().equals("")) {
+			meetingList = meetingService.findMeetingsByLocationDate(user.getFavoriteLocation(), today);
+		}else {
+			meetingList = meetingService.findMeetingsByDate(today);
+		}
 
 		modelAndView.addObject("eventList", eventList);
 		modelAndView.addObject("meetingList", meetingList);

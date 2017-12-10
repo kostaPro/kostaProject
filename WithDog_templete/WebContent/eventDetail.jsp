@@ -462,7 +462,7 @@
 						
 						
 						<c:choose>
-							<c:when test="${check eq 1}">
+							<c:when test="${check eq 1 && loginUser.userId ne 'admin'}">
 							
 							<div class="1u" style="padding: 5px;">
 								<div style="background-color: #FFF;">
@@ -473,7 +473,7 @@
 							</div>
 												
 							</c:when>
-							<c:otherwise>
+							<c:when test="${check eq 0 && loginUser.userId ne 'admin'}">
 							
 								<div class="1u" style="padding: 5px;">
 								<div style="background-color: #FFF;">
@@ -483,7 +483,7 @@
 								</div>
 							</div>
 							
-							</c:otherwise>
+							</c:when>
 						</c:choose>
 
 

@@ -37,9 +37,124 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
-
 <!--데이트피커-->
 <script type="text/javascript" src="resources/js/eventDatepicker.js"></script>
+
+<!--업로드한 이미지 미리보기-->
+<script type="text/javascript" src="resources/js/spotImage.js"></script>
+
+<!--주소 검색-->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript"
+	src="resources/js/searchingAddress_pop.js"></script>
+
+<!--장소조회 팝업띄우기-->
+<script type="text/javascript" src="resources/js/searchingSpot.js"></script>
+
+<!--장소추가 팝업띄우기-->
+<script type="text/javascript" src="resources/js/addSpot.js"></script>
+
+
+<!--팝업용 css-->
+<style type="text/css">
+.pop-layer .pop-container {
+	padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+	color: #666;
+	line-height: 25px;
+}
+
+.pop-layer .btn-r {
+	width: 100%;
+	margin: 10px 0 20px;
+	padding-top: 10px;
+	border-top: 1px solid #DDD;
+	text-align: right;
+}
+
+.pop-layer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 800px;
+	height: auto;
+	background-color: #fff;
+	border: 5px solid #43C0CE;
+	z-index: 10;
+}
+
+.dim-layer {
+	display: none;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+
+.add-layer {
+	display: none;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+
+.add-layer .addLayerBg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
+
+.dim-layer .dimBg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
+
+.add-layer .pop-layer {
+	display: block;
+}
+
+.dim-layer .pop-layer {
+	display: block;
+}
+
+a.btn-popup {
+	display: inline-block;
+	height: 25px;
+	padding: 0 14px 0;
+	border: 1px solid #43C0CE;
+	background-color: #43C0CE;
+	font-size: 13px;
+	color: #fff;
+	line-height: 25px;
+}
+
+a.btn-popup:hover {
+	border: 1px solid #128FA6;
+	background-color: #128FA6;
+	color: #fff;
+}
+</style>
 
 </head>
 <body class="homepage">
@@ -69,8 +184,9 @@
 								<fieldset>
 									<legend class="screen_out">이벤트 수정하기 폼</legend>
 									<div class="form_details">
-
-										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span><br>
+										<input type="hidden" id="spotId" name="spotId"
+											value="${event.eventSpot.spotId }"> <span
+											class="cont_notice"><i class="fa fa-check"></i>필수항목</span><br>
 										<br>
 
 										<section>
@@ -80,7 +196,7 @@
 														class="tit_form"> <i class="fa fa-check"></i>시작일
 													</strong></label> <input type="text" id="openDate" name="openDate"
 														value="${event.openDate }"
-														style="text-align:center; float: center; width: 295px">
+														style="text-align: center; float: center; width: 295px">
 
 												</p>
 
@@ -90,7 +206,7 @@
 															<i class="fa fa-check"></i>종료일
 													</strong></label> <input type="text" id="closeDate" name="closeDate"
 														value="${event.closeDate }"
-														style="text-align:center; float: center; width: 295px">
+														style="text-align: center; float: center; width: 295px">
 												</p>
 											</div>
 										</section>
@@ -116,19 +232,64 @@
 
 										<section style="display: inline-block; width: 650px">
 
+											<strong class="tit_form"><i class="fa fa-check"></i>이벤트
+												장소를 입력해주세요.</strong> <input type="text" class="inp_comm"
+												id="resultLocation" name="eventLocation"
+												value="${event.eventSpot.spotLocation }"> <a
+												href="#searchSpot" id="searchSpot_btn"
+												class="btn btn-primary btn-block form-control btn_comm"
+												onclick="searchPopBtn_click()">검색하기</a>
+
 										</section>
 
 
-										<strong class="tit_form"><i class="fa fa-check"></i>이벤트의
-											주소를 입력해주세요.</strong>
+										<!-- searchPopup -->
+										<div class="dim-layer">
+											<div class="dimBg"></div>
+											<div id="searchSpot" class="pop-layer">
+												<div class="pop-container">
+													<div class="pop-conts">
+														<!--content //-->
 
-										<section>
+														<input id="locationBox" type="text"
+															placeholder="주소를 입력해 주세요"> <a
+															class="btn-popup btn-popupSearch"
+															onclick="searchBtn_click()">검색하기</a>
 
-											<input type="text" class="inp_comm" name="eventLocation"
-												value="${event.eventSpot}"> <a href="#"
-												class="btn btn-primary btn-block form-control btn_comm"><strong
-												style="color: white">검색하기</strong></a>
-										</section>
+														<table
+															class="table table-striped table-bordered table-hover"
+															id="spotTable" style="margin-top: 20px">
+															<colgroup>
+																<col width="400" />
+																<col width="800" />
+																<col width="300" />
+															</colgroup>
+															<thead>
+																<tr>
+																	<th class="text-center">장소 명</th>
+																	<th class="text-center">장소 위치</th>
+																	<th class="text-center">장소 분류</th>
+																</tr>
+															</thead>
+
+															<tbody id="spotData">
+
+															</tbody>
+														</table>
+
+
+														<div class="btn-r">
+															<a href="#addSpot" id="addSpotPop"
+																class="btn-popup btn-popupSearch"
+																onclick="addSpotPop_click()">장소 추가</a> <a href="#"
+																class="btn-popup btn-popupClose">Close</a>
+														</div>
+														<!--// content-->
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /searchPopup -->
 
 										<label for="inpComp" class="lab_comm"> <strong
 											class="tit_form"><i class="fa fa-check"></i>소개글<i
@@ -154,9 +315,99 @@
 	</div>
 	<!-- /Main -->
 
-	<!-- Footer -->
+	<!-- addPopup -->
+	<div class="add-layer">
+		<div class="addLayerBg"></div>
+		<div id="addSpot" class="pop-layer">
+			<div class="pop-container">
+				<div class="pop-conts">
+					<!--content //-->
 
-	<!-- /Footer -->
+					<div class="registSpot"
+						style="display: table; margin-left: auto; margin-right: auto;">
+
+						<section class="item" style="text-align: center">
+							<label for="inpName" class="lab_comm"><strong
+								class="tit_form"><i class="fa fa-check"></i>장소명</strong></label> <input
+								type="text" id="inpName" name="spotName" class="inp_comm"
+								style="width: 80%">
+						</section>
+
+						<section class="item" style="text-align: center">
+							<strong class="tit_form"><i class="fa fa-check"></i>장소
+								분류를 선택해주세요.</strong>
+							<ul class="list_type2">
+
+								<li><input type="checkbox" id="etc" name="etc"
+									disabled="disabled"> <label for="etc" class="link_cont"></label></li>
+
+								<li><input type="radio" id="inpStore" name="spotType"
+									value="동물병원"> <label for="inpStore" class="link_cont"><span
+										class="ico_comm ico_shop"></span><span class="txt_name">동물
+											병원</span></label></li>
+
+								<li><input type="radio" id="inpEvent" name="spotType"
+									value="애견샵"> <label for="inpEvent" class="link_cont"><span
+										class="ico_comm ico_event"></span><span class="txt_name">애견
+											샵</span></label></li>
+
+								<li><input type="radio" id="inpFnb" name="spotType"
+									value="애견카페"> <label for="inpFnb" class="link_cont"><span
+										class="ico_comm ico_fnb"></span><span class="txt_name">애견
+											카페</span></label></li>
+
+								<li><input type="checkbox" id="etc" name="etc"
+									disabled="disabled"> <label for="etc" class="link_cont"></label></li>
+
+							</ul>
+
+							<ul class="list_type2">
+								<li><input type="checkbox" id="etc" name="etc"
+									disabled="disabled"> <label for="etc" class="link_cont"></label></li>
+
+								<li><input type="radio" id="inpExhibit" name="spotType"
+									value="공원"> <label for="inpExhibit" class="link_cont">
+										<span class="ico_comm ico_exhibit"></span> <span
+										class="txt_name">공원</span>
+								</label></li>
+
+								<li><input type="radio" id="inpUnique" name="spotType"
+									value="숙박시설"> <label for="inpUnique" class="link_cont">
+										<span class="ico_comm ico_unique"></span> <span
+										class="txt_name">숙박 시설</span>
+								</label></li>
+
+								<li><input type="radio" id="inpExtra" name="spotType"
+									value="기타"> <label for="inpExtra" class="link_cont"><span
+										class="ico_comm ico_unique"></span> <span class="txt_name">기타</span></label></li>
+
+								<li><input type="checkbox" id="etc" name="etc"
+									disabled="disabled"> <label for="etc" class="link_cont"></label></li>
+							</ul>
+
+						</section>
+
+						<section style="width: 500px; text-align: center">
+
+							<strong class="tit_form"><i class="fa fa-check"></i>공간의
+								주소를 입력해주세요.</strong> <input type="text" class="inp_comm"
+								name="spotLocation" id="spotLocation" style="width: 100%">
+							<input type="button" onclick="searchingAddress()" value="검색하기"
+								class="btn btn-primary btn-block form-control btn_comm">
+						</section>
+
+						<div class="btn-r">
+							<a href="#" id="addSpot"
+								class="btn-popup btn-addSpot btn-popupClose" onclick="addSpot()">장소
+								등록</a>
+						</div>
+					</div>
+					<!--// content-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /addPopup -->
 
 	<!-- Copyright -->
 	<div id="copyright">

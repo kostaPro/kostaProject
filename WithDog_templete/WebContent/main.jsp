@@ -44,6 +44,33 @@
 <!--이미지슬라이드-->
 <script type="text/javascript" src="resources/js/imageSlider.js"></script>
 
+<!--showMap-->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=RQUNwC26q24ETH0hzeGg&submodules=geocoder"></script>
+<script type="text/javascript"
+	src="resources/js/markMultipleMeetingSpot.js"></script>
+
+<!--js로 meeting객체리스트 넘기기-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		var meetings = new Array();
+
+		<c:forEach var="meeting" items="${meetingList }">
+
+		var meetingObj = new Object();
+
+		meetingObj.meetingName = "${meeting.meetingName}";
+		meetingObj.meetingId = "${meeting.meetingId}";
+		meetingObj.meetingSpot = "${meeting.meetingSpot.spotLocation}";
+
+		meetings.push(meetingObj);
+		</c:forEach>
+
+		markMultipleMeetingSpot(JSON.stringify(meetings));
+
+	})
+</script>
+
 </head>
 <body class="homepage">
 
@@ -111,42 +138,45 @@
 				<div class="row">
 					<div class="15u">
 						<table class="table table-striped table-bordered table-hover">
-							<colgroup>
-								<col width="400" />
-								<col width="800" />
-								<col width="300" />
-								<col width="400" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th class="text-center">모임 명</th>
-									<th class="text-center">모임 일자</th>
-									<th class="text-center">모임 시간</th>
-									<th class="text-center">주최자</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:choose>
-									<c:when test="${empty meetingList }">
+						<colgroup>
+							<col width="400" />
+							<col width="800" />
+							<col width="400" />
+							<col width="150" />
+							<col width="400" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="text-center">모임 명</th>
+								<th class="text-center">모임 장소</th>
+								<th class="text-center">모임 일자</th>
+								<th class="text-center">모임 시간</th>
+								<th class="text-center">주최자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${empty meetingList }">
+									<tr>
+										<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="meetingList" items="${meetingList }">
 										<tr>
-											<th colspan="4 " class="text-center">모임이 존재하지 않습니다.</th>
+											<td class="text-center"><a
+												href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
+											<td class="text-center">${meetingList.meetingSpot.spotLocation }</td>
+											<td class="text-center"><fmt:formatDate
+													value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
+											<td class="text-center">${meetingList.meetingTime }시</td>
+											<td class="text-center">${meetingList.hostId }</td>
 										</tr>
-									</c:when>
-									<c:otherwise>
-										<c:forEach var="meetingList" items="${meetingList }">
-											<tr>
-												<td class="text-center"><a
-													href="meetingDetail.do?meetingId=${meetingList.meetingId }">${meetingList.meetingName }</a></td>
-												<td class="text-center"><fmt:formatDate
-														value="${meetingList.meetingDate}" pattern="yyyy-MM-dd" /></td>
-												<td class="text-center">${meetingList.meetingTime }시</td>
-												<td class="text-center">${meetingList.hostId }</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</tbody>
-						</table>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+					</table>
 					</div>
 				</div>
 
@@ -156,14 +186,7 @@
 							등록</strong></a>
 				</div>
 
-				<div class="row">
-					<section>
-						<div class="4u">
-							<iframe width="1180" height="600"
-								src="http://withdog.dothome.co.kr/"></iframe>
-						</div>
-					</section>
-				</div>
+					<div id="map" style="width: 100%; height: 400px;"></div>
 
 			</section>
 		</div>

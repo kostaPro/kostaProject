@@ -246,7 +246,11 @@ public class EventController {
 	}
 
 	@RequestMapping(value = "/modifyEvent.do", method = RequestMethod.POST)
-	public String modifyEvent(Event event, MultipartHttpServletRequest file) {
+	public String modifyEvent(Event event, String spotId, MultipartHttpServletRequest file) {
+		
+		Spot eventSpot = new Spot();
+		eventSpot.setSpotId(Integer.parseInt(spotId));
+		event.setEventSpot(eventSpot);
 		
 		eventService.modifyEvent(event);
 

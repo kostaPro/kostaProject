@@ -229,10 +229,10 @@ public class MeetingController {
 	}
 
 	@RequestMapping(value = "/modifyMeeting.do", method = RequestMethod.POST)
-	public String modifyMeeting(Meeting meeting) {
+	public String modifyMeeting(Meeting meeting, String spotId) {
 
 		Spot meetingSpot = new Spot();
-		meetingSpot.setSpotId(1);
+		meetingSpot.setSpotId(Integer.parseInt(spotId));
 
 		meeting.setMeetingSpot(meetingSpot);
 
