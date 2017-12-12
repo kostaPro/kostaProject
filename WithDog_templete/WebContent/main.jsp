@@ -95,7 +95,7 @@
 						<c:forEach var="event" items="${eventList }">
 							<div class="slide">
 								<a href="eventDetail.do?eventId=${event.eventId }"><img
-									src="/images/${event.eventImage}"></a>
+									src="/images/${event.eventImage}" style="width: 500px; height:750px"></a>
 								<p style="font-size: 35px; padding: 5px">
 									<strong>${event.eventName }</strong>
 								</p>

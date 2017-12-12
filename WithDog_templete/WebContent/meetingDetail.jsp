@@ -77,7 +77,6 @@
 											}
 											var content = $("#content").val()
 													.replace("\n", "<br>"); //개행처리
-
 											//값 셋팅
 											var objParams = {
 												parentId : "0",
@@ -86,7 +85,6 @@
 														.val(),
 												content : content
 											};
-
 											//ajax 호출
 											$
 													.ajax({
@@ -107,23 +105,18 @@
 																	.log("AJAX_ERROR");
 														}
 													});
-
 											//댓글 초기화
 											$("#content").val("");
 										});
-
 						//대댓글 입력창
 						$(document)
 								.on(
 										"click",
 										"button[name='reply_reply']",
 										function() { //동적 이벤트
-
 											var reply_id = $(this).attr("id");
 											var last_check = false;
-
 											$("#reply_add").remove();
-
 											//입력받는 창 등록
 											var replyEditor = '<div id="reply_add" class="section1">'
 													+ '<div class="reviews">'
@@ -133,10 +126,8 @@
 													+ '&nbsp;&nbsp;'
 													+ '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'
 													+ '</div>' + '</div>';
-
 											var prevTr = $(this).parent()
 													.parent().next();
-
 											//부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
 											//마지막 리플 처리
 											if (prevTr.attr("reply_type") == undefined) {
@@ -147,36 +138,29 @@
 														.attr("reply_type") == "sub") {//댓글의 다음이 sub면 계속 넘어감
 													prevTr = prevTr.next();
 												}
-
 												if (prevTr.attr("reply_type") == undefined) {//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
 													last_check = true;
 												} else {
 													prevTr = prevTr.prev();
 												}
-
 											}
 											prevTr.after(replyEditor);
-
 										});
-
 						//대댓글 등록
 						$(document)
 								.on(
 										"click",
 										"button[name='reply_reply_save']",
 										function() {
-
 											var reContent = $("textarea[name='reContent']");
 											var meetingId = $("input[name='meetingId']");
 											var content = reContent.val()
 													.replace("\n", "<br>"); //개행처리
-
 											if (content.trim() == "") {
 												alert("내용을 입력하세요.");
 												content.focus();
 												return false;
 											}
-
 											//값 셋팅
 											var objParams = {
 												meetingId : meetingId.val(),
@@ -185,9 +169,7 @@
 												depth : "1",
 												content : content
 											};
-
 											var reply_id;
-
 											//ajax 호출
 											$
 													.ajax({
@@ -197,11 +179,9 @@
 														data : objParams,
 														success : function(
 																retVal) {
-
 															location.hash
 															window.location
 																	.reload(true);
-
 														},
 														error : function(
 																request,
@@ -210,21 +190,16 @@
 																	.log("AJAX_ERROR");
 														}
 													});
-
 										});
-
 						//댓글 삭제
 						$("button[name='reply_del']").click(function() {
-
 							var check = false;
 							var meetingId = $("input[name='meetingId']");
-
 							//값 셋팅
 							var objParams = {
 								commentId : $(this).attr("id"),
 								parentId : $(this).attr("parentId")
 							};
-
 							//ajax 호출
 							$.ajax({
 								url : "removeMeetingComment.do",
@@ -239,48 +214,38 @@
 									console.log("AJAX_ERROR");
 								}
 							});
-
 							if (check) {
 								//삭제하면서 하위 댓글도 삭제
 								var prevTr = $(this).parent().parent().next(); //댓글의 다음
-
 								while (prevTr.attr("reply_type") == "sub") {//댓글의 다음이 sub면 계속 넘어감
 									prevTr = prevTr.next();
 									prevTr.prev().remove();
 								}
-
 								//마지막 리플 처리
 								if (prevTr.attr("reply_type") == undefined) {
 									prevTr = $(this).parent().parent();
 									prevTr.remove();
 								}
-
 								$(this).parent().parent().remove();
 							}
-
 						});
-
 						//대댓글 입력창 취소
 						$(document).on("click",
 								"button[name='reply_reply_cancel']",
 								function() {
 									$("#reply_add").remove();
 								});
-
 						//수정
 						$(document)
 								.on(
 										"click",
 										"button[name='reply_update']",
 										function() { //동적 이벤트
-
 											var reply_id = $(this).attr("id");
 											var reply_content = $(this).attr(
 													"reply_comment");
 											var last_check = false;
-
 											$("#reply_add").remove();
-
 											//입력받는 창 등록
 											var replyEditor = '<div id="reply_add" class="section2">'
 													+ '<div class="reviews">'
@@ -292,10 +257,8 @@
 													+ '&nbsp;&nbsp;'
 													+ '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'
 													+ '</div>' + '</div>';
-
 											var prevTr = $(this).parent()
 													.parent().next();
-
 											//부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
 											//마지막 리플 처리
 											if (prevTr.attr("reply_type") == undefined) {
@@ -306,43 +269,34 @@
 														.attr("reply_type") == "sub") {//댓글의 다음이 sub면 계속 넘어감
 													prevTr = prevTr.next();
 												}
-
 												if (prevTr.attr("reply_type") == undefined) {//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
 													last_check = true;
 												} else {
 													prevTr = prevTr.prev();
 												}
-
 											}
 											prevTr.after(replyEditor);
-
 										});
-
 						//댓글 수정
 						$(document)
 								.on(
 										"click",
 										"button[name='reply_reply_update']",
 										function() {
-
 											var meetingId = $("input[name='meetingId']");
 											var content = $("textarea[name='modify']");
-
 											if (content.val().trim() == "") {
 												alert("내용을 입력하세요.");
 												content.focus();
 												return false;
 											}
-
 											//값 셋팅
 											var objParams = {
 												commentId : $(this).attr(
 														"reply_id"),
 												content : content.val()
 											};
-
 											var reply_id;
-
 											//ajax 호출
 											$
 													.ajax({
@@ -352,11 +306,9 @@
 														data : objParams,
 														success : function(
 																retVal) {
-
 															location.hash
 															window.location
 																	.reload(true);
-
 														},
 														error : function(
 																request,
@@ -365,9 +317,7 @@
 																	.log("AJAX_ERROR");
 														}
 													});
-
 										});
-
 					});
 </script>
 </head>
@@ -557,8 +507,19 @@
 							style="display: none">
 							<div class="row" style="margin-top: 20px">
 						
-						
-						
+							
+							
+							<c:set value="0" var="contactCheck"/>
+							
+							<c:forEach var="guest" items="${joinList }">
+							
+								<c:if test="${loginUser.userId eq guest.userId}">
+									<c:set value="1" var="contactCheck"/>		
+								</c:if>
+							</c:forEach>
+
+
+
 								<c:forEach var="guest" items="${joinList }"
 									varStatus="rowCount">
 
@@ -566,11 +527,32 @@
 										<div
 											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
 											<h2>${guest.userId }</h2>
+											
+										<c:choose>
+											<c:when test="${guest.petImage == null }">
 											<img
-												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+											style="margin: 10px; width: 100px; height:100px; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+											src="resources/img/default_puppy.jpg">
+											</c:when>
+											<c:otherwise>	
+											<img
+												style="margin: 10px; width: 100px; height:100px; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
 												src="/images/${guest.petImage}">
+											</c:otherwise>
+										</c:choose>
+											
+											
 											<h2>${guest.petInfo }</h2>
+											
+										<c:choose>
+										   <c:when test="${check eq 1}">
 											<h2>${guest.contact }</h2>
+										   </c:when>
+										   <c:otherwise>
+										   <p></p>
+										   </c:otherwise>
+											
+										</c:choose>
 										</div>
 									</div>
 									
@@ -612,8 +594,9 @@
 											<li>
 								</c:if>
 								<div class="user-comment">
-										<img src="/images/${loginUser.petImage }"
-										onclick="OnloadImg(this.src)">
+									<img
+										src="https://cdn1.iconfinder.com/data/icons/flat-business-icons/128/user-32.png"
+										alt="">
 									<header>
 										<a href="javascript:void(0)" class="name">${comments.writerId }</a>
 										<span>${comments.registDate }</span> &nbsp;&nbsp;&nbsp;
@@ -640,6 +623,7 @@
 									</header>
 									<div class="content">
 										<p>${fn:replace(comments.content, cn, br)}</p>
+										<hr>
 									</div>
 								</div> <c:if test="${comments.depth == '1'}"></li>
 						</ul>
@@ -675,7 +659,6 @@
 				$("label").text("댓글 펼치기");
 				$(".comments").slideUp(300);
 			}
-
 		});
 		function OnloadImg(url) {
 			var img = new Image();

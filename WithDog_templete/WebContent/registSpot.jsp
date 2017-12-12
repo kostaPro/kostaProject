@@ -91,7 +91,7 @@
 								<fieldset>
 									<legend class="screen_out">장소 등록하기 폼</legend>
 									<div class="form_details">
-										<span class="cont_notice"><i class="fa fa-check"></i>\필수항목</span>
+										<span class="cont_notice"><i class="fa fa-check"></i>필수항목</span>
 
 										<label for="inpName" class="lab_comm"><strong
 											class="tit_form"><i class="fa fa-check"></i>장소명</strong></label> <input

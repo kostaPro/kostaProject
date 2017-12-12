@@ -77,8 +77,6 @@
 										eventId : $("#eventId").val(),
 										content : content
 									};
-
-
 									//ajax 호출
 									$
 											.ajax({
@@ -102,7 +100,6 @@
 				            		//댓글 초기화
 				            		 $("#content").val("");
 								});
-
 						
 						 //대댓글 입력창
 		                $(document).on("click","button[name='reply_reply']",function(){ //동적 이벤트
@@ -111,7 +108,6 @@
 		                    var last_check = false;
 		                    
 		                    $("#reply_add").remove();
-
 		                    //입력받는 창 등록
 		                     var replyEditor = 
 		                    	 '<div id="reply_add" class="section1">'+
@@ -123,7 +119,6 @@
 					                        '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'+
 				         			'</div>'+
 				         		'</div>';
-
 		                    var prevTr = $(this).parent().parent().next();
 		                     
 		                    //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
@@ -152,13 +147,11 @@
 		                    var reContent = $("textarea[name='reContent']");
 		                    var eventId = $("input[name='eventId']");
 		                    var content = reContent.val().replace("\n", "<br>"); //개행처리
-
 		                    if(content.trim() == ""){
 		                        alert("내용을 입력하세요.");
 		                        content.focus();
 		                        return false;
 		                    }
-
 		                    //값 셋팅
 		                    var objParams = {	               
 		                            eventId        : eventId.val(),
@@ -190,7 +183,6 @@
 		                     
 		                });
 		              
-
 		              //댓글 삭제
 		                $("button[name='reply_del']").click(function(){
 		                     
@@ -246,7 +238,6 @@
 		            	});
 		            	
 		            	
-
 		            	//수정
 		            	  $(document).on("click","button[name='reply_update']",function(){ //동적 이벤트
 			                     
@@ -255,7 +246,6 @@
 			                    var last_check = false;
 			                    
 			                    $("#reply_add").remove();
-
 			                    //입력받는 창 등록
 			                     var replyEditor = 
 			                    	 '<div id="reply_add" class="section2">'+
@@ -267,7 +257,6 @@
 						                        '<button class="btn btn-outline-primary" name="reply_reply_cancel">취소</button>'+
 					         			'</div>'+
 					         		'</div>';
-
 			                    var prevTr = $(this).parent().parent().next();
 			                     
 			                    //부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
@@ -297,13 +286,11 @@
 			                    var eventId = $("input[name='eventId']");
 			                    var content = $("textarea[name='modify']");
 			           
-
 			                    if(content.val().trim() == ""){
 			                        alert("내용을 입력하세요.");
 			                        content.focus();
 			                        return false;
 			                    }
-
 			                    //값 셋팅
 			                    var objParams = {	               
 			                    		commentId : $(this).attr("reply_id"),
@@ -432,6 +419,21 @@
 						목록</h1>
 					<hr style="width: 30%; border: solid 2px white">
 
+					
+					
+					<c:set value="0" var="contactCheck"/>
+							
+							<c:forEach var="fullList" items="${fullJoinList }">
+								<c:forEach var="guest" items="${fullList.value }">
+								<c:if test="${loginUser.userId eq guest.userId}">
+									<c:set value="1" var="contactCheck"/>		
+								</c:if>
+								</c:forEach>
+							</c:forEach>
+					
+					
+					
+					
 					<c:forEach var="fullList" items="${fullJoinList }"
 						varStatus="status">
 
@@ -445,13 +447,6 @@
 							</div>
 
 
-
-
-
-
-
-
-
 						<c:set value="0" var="check"/>
 
 						<c:forEach var="guest" items="${fullList.value }">
@@ -462,7 +457,7 @@
 						
 						
 						<c:choose>
-							<c:when test="${check eq 1 && loginUser.userId ne 'admin'}">
+							<c:when test="${check eq 1}">
 							
 							<div class="1u" style="padding: 5px;">
 								<div style="background-color: #FFF;">
@@ -473,7 +468,7 @@
 							</div>
 												
 							</c:when>
-							<c:when test="${check eq 0 && loginUser.userId ne 'admin'}">
+							<c:otherwise>
 							
 								<div class="1u" style="padding: 5px;">
 								<div style="background-color: #FFF;">
@@ -483,17 +478,11 @@
 								</div>
 							</div>
 							
-							</c:when>
+							</c:otherwise>
 						</c:choose>
 
 
 
-							
-							
-							
-							
-							
-							
 							
 							
 							
@@ -509,11 +498,33 @@
 										<div
 											style="width: 95%; background-color: #FFF; border-radius: 50px; -moz-border-radius: 50px; -khtml-border-radius: 50px; -webkit-border-radius: 50px;">
 											<h2>${guest.userId }</h2>
-											<img
-												style="margin: 10px; width: 80%; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+											
+										<c:choose>
+											<c:when test="${guest.petImage == null }">
+												<img
+												style="margin: 10px; width: 100px; height:100px; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
+												src="resources/img/default_puppy.jpg">
+											</c:when>
+											<c:otherwise>
+												<img
+												style="margin: 10px; width: 100px; height:100px; border: 3px solid gold; border-radius: 120px; -moz-border-radius: 120px; -khtml-border-radius: 120px; -webkit-border-radius: 120px;"
 												src="/images/${guest.petImage}">
+											</c:otherwise>
+										</c:choose>
 											<h2>${guest.petInfo }</h2>
-											<h2>${guest.contact }</h2>
+											
+										<c:choose>
+										    <c:when test="${check eq 1}">
+												<h2>${guest.contact }</h2>
+											</c:when>
+										    <c:otherwise>
+										   		<p></p>
+										    </c:otherwise>
+										</c:choose>
+										
+										
+										
+										
 										</div>
 									</div>
 
@@ -550,7 +561,7 @@
 											<li>
 								</c:if>
 								<div class="user-comment">
-									<img src="/images/${loginUser.petImage }"
+									<img src="/images/${user.petImage }"
 										onclick="OnloadImg(this.src)">
 									<header>
 										<a class="name">${comments.writerId }</a> <span>${comments.registDate }</span>

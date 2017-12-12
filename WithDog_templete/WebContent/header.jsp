@@ -15,7 +15,7 @@
 			<!-- Logo -->
 			<div id="logo">
 					<div style="width: 100%; height: 100px; line-height: 100px; text-align: center">
-					<a href="main.jsp"><img src="resources/img/main_logo.png" style="width: 270px; height: auto; vertical-align:center;"
+					<a href="main.do"><img src="resources/img/main_logo.png" style="width: 270px; height: auto; vertical-align:center;"
 					alt=""></a></div>
 				
 			</div>

@@ -1,7 +1,15 @@
 function markMultipleMeetingSpot(meetings) {
 	var meetingList = JSON.parse(meetings);
 
-	var map = new naver.maps.Map('map');
+	var map = new naver.maps.Map('map', {
+        zoom: 2,
+        center: new naver.maps.LatLng(36.2253017, 127.6460516),
+        zoomControl: true,
+        zoomControlOptions: {
+            position: naver.maps.Position.TOP_LEFT,
+            style: naver.maps.ZoomControlStyle.SMALL
+        }
+    });
 
 	var spotList = new Array();
 	

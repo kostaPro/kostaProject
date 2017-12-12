@@ -223,7 +223,7 @@ a.btn-popup:hover {
 													type="text" id="datepicker" name="meetingDate"
 													value="${date }" /></strong></label> <label for="inpName" class="lab_comm"
 												style="padding-left: 20px"><strong class="tit_form"><i
-													class="fa fa-check"></i>모임시간 <select form="time"
+													class="fa fa-check"></i>모임시간 <select
 													name="meetingTime">
 														<option value=${meetingDetail.meetingTime }>${meetingDetail.meetingTime }시</option>
 														<option value=0>0시</option>

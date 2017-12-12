@@ -1,7 +1,15 @@
 function markMultipleEventSpot(events) {
 	var eventList = JSON.parse(events);
 
-	var map = new naver.maps.Map('map');
+	var map = new naver.maps.Map('map', {
+        zoom: 2,
+        center: new naver.maps.LatLng(36.2253017, 127.6460516),
+        zoomControl: true,
+        zoomControlOptions: {
+            position: naver.maps.Position.TOP_LEFT,
+            style: naver.maps.ZoomControlStyle.SMALL
+        }
+    });
 
 	$.each(eventList, function(index, value) {
 		naver.maps.Service.geocode({
